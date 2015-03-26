@@ -22,15 +22,7 @@ $(document).ready(function() {
 	setBtRemover();
 	setBtAdd();
 	setSelectTipoContaPagar();
-	setMesCompetencia();
 });
-function setMesCompetencia(){
-	$("input#campoMesCompetencia").change(function(){
-		if($("input#campoDataVencimento").val().length != 10){
-			$("input#campoDataVencimento").val($(this).val());
-		}
-	});
-}
 function setSelectTipoContaPagar(){
 	$("select#selectTipoContaPagar").change(function(){
 		if($(this).val() == "Outro"){
@@ -89,14 +81,14 @@ function setSelectTipoContaPagar(){
 							<div class="required field">
 								<label>Mês competência: <i class="help circle icon hint" data-content="Escolha uma data e o sistema usará o mês como o mês de competência para esta despesa em seus relatórios" data-variation="inverted" ></i></label>
 								<div class="ui icon input">
-									<s:textfield name="contaPagar.mesCompetenciaStr" id="campoMesCompetencia" cssClass="data" />
+									<s:textfield name="contaPagar.mesCompetenciaStr" cssClass="data" />
 									<i class="calendar icon"></i>
 								</div>
 							</div>
 							<div class="field">
-								<label>Data de Pagamento:</label>
+								<label>Data de Vencimento:</label>
 								<div class="ui icon input">
-									<s:textfield name="contaPagar.dataPagamentoStr" id="campoDataVencimento" cssClass="data" />
+									<s:textfield name="contaPagar.dataVencimentoStr" cssClass="data" />
 									<i class="calendar icon"></i>
 								</div>
 							</div>
@@ -174,7 +166,7 @@ function setSelectTipoContaPagar(){
 						</div>
 						<div class="field">
 							<label>Centro de Custo:</label>
-							<s:select id="centroCusto" name="contaPagar.centroCusto.id" headerKey="-1" headerValue="TODOS" cssClass="ui dropdown" list="allCentrosCusto" listKey="id" listValue="nome" />
+							<s:select id="centroCusto" name="centroCusto.id" headerKey="-1" headerValue="TODOS" cssClass="ui dropdown" list="allCentrosCusto" listKey="id" listValue="nome" />
 						</div>
 					</div>
 					<div class="three fields">
@@ -221,7 +213,7 @@ function setSelectTipoContaPagar(){
 					<th>Centro Custo</th>
 					<th>Tipo despesa</th>
 					<th>Mês compet.</th>
-					<th>Data Pag.</th>
+					<th>Data Venc.</th>
 					<th>Obs.:</th>
 					<th>Pago</th>
 					<th>#</th>
@@ -230,7 +222,7 @@ function setSelectTipoContaPagar(){
 			</thead>
 			<tbody>
 				<s:if test="contasPagarColaboradores.size > 0">
-					<s:iterator value="contasPagarColaboradores" >
+					<s:iterator value="contasPagarColaboradores">
 						<tr>
 							<td><s:property value="id" /></td>
 							<td><s:property value="valorStr" /></td>
@@ -238,7 +230,7 @@ function setSelectTipoContaPagar(){
 							<td><s:property value="centroCusto.nome" /></td>
 							<td><s:property value="tipo.nome" /></td>
 							<td><s:property value="mesCompetenciaNome" /></td>
-							<td><s:property value="dataPagamentoStr" /></td>
+							<td><s:property value="dataVencimentoStr" /></td>
 							<td><s:property value="observacao" /></td>
 							<td>
 							    <div class="ui checkbox read-only">
@@ -289,7 +281,7 @@ function setSelectTipoContaPagar(){
 					<th>Centro Custo</th>
 					<th>Tipo despesa</th>
 					<th>Mês compet.</th>
-					<th>Data Pag.</th>
+					<th>Data Venc.</th>
 					<th>Obs.:</th>
 					<th>Pago</th>
 					<th>#</th>
@@ -306,7 +298,7 @@ function setSelectTipoContaPagar(){
 							<td><s:property value="centroCusto.nome" /></td>
 							<td><s:property value="tipo.nome" /></td>
 							<td><s:property value="mesCompetenciaNome" /></td>
-							<td><s:property value="dataPagamentoStr" /></td>
+							<td><s:property value="dataVencimentoStr" /></td>
 							<td><s:property value="observacao" /></td>
 							<td>
 							    <div class="ui checkbox read-only">
@@ -318,7 +310,7 @@ function setSelectTipoContaPagar(){
 								</div>
 							</td>
 							<td><a class="editar ui blue mini button" href="contaPagar?dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&contaPagar.tipoCustoStr=<s:property value="contaPagar.tipoCustoStr" />&centroCusto.id=<s:property value="centroCusto.id" />&contaPagar.id=<s:property value="id" />" >EDITAR</a></td>
-							<td class="remover"><a class="remover" href="removerContaPagar?dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&contaPagar.tipoCustoStr=<s:property value="contaPagar.tipoCustoStr" />&contaPagar.centroCusto.id=<s:property value="contaPagar.centroCusto.id" />&contaPagar.id=<s:property value="id" />"><i class="remove circle red icon"></i></a></td>
+							<td class="remover"><a class="remover" href="removerContaPagar?dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&contaPagar.tipoCustoStr=<s:property value="contaPagar.tipoCustoStr" />&centroCusto.id=<s:property value="centroCusto.id" />&contaPagar.id=<s:property value="id" />"><i class="remove circle red icon"></i></a></td>
 						</tr>
 					</s:iterator>
 				</s:if>

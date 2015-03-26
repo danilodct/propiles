@@ -9,7 +9,6 @@ import br.com.profisio.basics.Contrato;
 import br.com.profisio.basics.Servico;
 import br.com.profisio.basics.Usuario;
 import br.com.profisio.util.DAOBase;
-import br.com.profisio.util.Tenant;
 
 public class ColaboradorDAO extends DAOBase {
 
@@ -21,18 +20,16 @@ public class ColaboradorDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Colaborador> getProximosAniversariantes(Tenant tenant, String mesAtual, String mesProximo) {
+	public Collection<Colaborador> getProximosAniversariantes(String mesAtual, String mesProximo) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("mesAtual", mesAtual + "/%");
 		params.put("mesProximo", mesProximo + "/%");
 		return imp.createNamedQuery("getProximosAniversariantesColaboradores", params).list();
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Colaborador> getColaboradores(Tenant tenant, String nomeColaborador) {
+	public Collection<Colaborador> getColaboradores(String nomeColaborador) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		if (nomeColaborador != null)
 			params.put("nomeColaborador", nomeColaborador + "%");
 		else

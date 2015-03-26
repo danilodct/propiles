@@ -7,8 +7,6 @@ import br.com.profisio.basics.Servico;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.ProfisioException;
-import br.com.profisio.util.ProfisioSessionUtil;
-import br.com.profisio.util.Tenant;
 
 public class ServicoView extends ProfisioActionSupport {
 
@@ -27,8 +25,7 @@ public class ServicoView extends ProfisioActionSupport {
 
 	public String actionEditarCentroCusto() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.editarCentroCusto(tenant, this.centroCusto);
+			this.controller.editarCentroCusto(this.centroCusto);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -48,8 +45,7 @@ public class ServicoView extends ProfisioActionSupport {
 
 	public String actionCadastrarCentroCusto() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.cadastrarCentroCusto(tenant, this.centroCusto);
+			this.controller.cadastrarCentroCusto(this.centroCusto);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -59,8 +55,7 @@ public class ServicoView extends ProfisioActionSupport {
 
 	public String actionCentrosCusto() {
 		try {
-			// não precisa fazer nada pq no get ele ja vai chamar o metodo q
-			// chama a funcao
+			//não precisa fazer nada pq no get ele ja vai chamar o metodo q chama a funcao
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -69,8 +64,7 @@ public class ServicoView extends ProfisioActionSupport {
 
 	public String actionEditarServico() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.editarServico(tenant, this.servico);
+			this.controller.editarServico(this.servico);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -99,8 +93,7 @@ public class ServicoView extends ProfisioActionSupport {
 
 	public String actionCadastrarServico() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.cadastrarServico(tenant, this.servico);
+			this.controller.cadastrarServico(this.servico);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -110,8 +103,7 @@ public class ServicoView extends ProfisioActionSupport {
 
 	public String actionServicos() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.servicos = this.controller.getServicos(tenant, null);
+			this.servicos = this.controller.getServicos(null);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -120,16 +112,13 @@ public class ServicoView extends ProfisioActionSupport {
 
 	public Collection<CentroCusto> getCentrosCusto() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.centrosCusto = this.controller.getCentrosCusto(tenant);
+			this.centrosCusto = this.controller.getCentrosCusto();
 		} catch (Exception e) {
 			if (!(e instanceof ProfisioException))
 				e.printStackTrace();
 		}
 		return this.centrosCusto;
 	}
-
-	// 888888888888888888888888888888888888888888888888888888888
 
 	public Collection<Servico> getServicos() {
 		return servicos;

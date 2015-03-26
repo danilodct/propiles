@@ -6,8 +6,6 @@
 			<generator class="increment" />
 		</id>
 		
-		<many-to-one name="tenant" column="tenant_id" lazy="false" />
-		
 		<property name="valor" />
 		<property name="dataVencimento" />
 		<property name="dataPagamento" />
@@ -27,8 +25,6 @@
 			<![CDATA[
 			from ContaPagar
 			where 
-			tenant = :tenant
-			and
 			(:tipoCusto is null or tipoCusto = :tipoCusto)
 			and 
 			(:tipoContaPagar is null or tipo = :tipoContaPagar)
@@ -54,8 +50,6 @@
 			<![CDATA[
 			from ContaPagar
 			where 
-			tenant = :tenant
-			and
 			(:dataInicial is null or mesCompetencia >= :dataInicial)
 			and 
 			(:dataFinal is null or mesCompetencia <= :dataFinal)
@@ -74,8 +68,7 @@
 			select sum(valor)
 			from ContaPagar
 			where 
-			tenant = :tenant
-			and (:tipoCusto is null or tipoCusto = :tipoCusto)
+			(:tipoCusto is null or tipoCusto = :tipoCusto)
 			and (:dataInicial is null or mesCompetencia >= :dataInicial)
 			and (:dataFinal is null or mesCompetencia <= :dataFinal)
 			]]>
@@ -93,11 +86,11 @@
 	
 	<query name="getSomaCustosByTipo">
 			<![CDATA[
-			select sum(cnta.valor)
-			from ContaPagar cnta
-			where ((:tipo is null and cnta.tenant = :tenant) or (cnta.tipo.tenant = :tenant and cnta.tipo = :tipo)) 
-			and (:dataInicial is null or cnta.mesCompetencia >= :dataInicial)
-			and (:dataFinal is null or cnta.mesCompetencia <= :dataFinal)
+			select sum(valor)
+			from ContaPagar
+			where (:tipo is null or tipo = :tipo) 
+			and (:dataInicial is null or mesCompetencia >= :dataInicial)
+			and (:dataFinal is null or mesCompetencia <= :dataFinal)
 			]]>
 	</query>
 	

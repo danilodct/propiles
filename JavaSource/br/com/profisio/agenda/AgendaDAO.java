@@ -7,7 +7,6 @@ import java.util.Map;
 
 import br.com.profisio.basics.Agendamento;
 import br.com.profisio.util.DAOBase;
-import br.com.profisio.util.Tenant;
 
 public class AgendaDAO extends DAOBase {
 
@@ -24,9 +23,8 @@ public class AgendaDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Agendamento> getAgendamentosByMes(Tenant tenant, Date dataInicial, Date dataFim) {
+	public Collection<Agendamento> getAgendamentosByMes(Date dataInicial, Date dataFim) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFim);
 		return imp.createNamedQuery("getAgendamentosByMes", params).list();

@@ -6,8 +6,6 @@
 			<generator class="increment" />
 		</id>
 		
-		<many-to-one name="tenant" column="tenant_id" lazy="false" />
-		
 		<property name="valor" />
 		<property name="data" />
 		<property name="status" type="br.com.profisio.basics.enums.StatusEstoqueEnumType" />
@@ -22,8 +20,6 @@
 			<![CDATA[
 			from Estoque as est
 			where 
-			est.tenant = :tenant
-			and 
 			(:dataInicial is null or est.data >= :dataInicial)
 			and
 			(:dataFinal is null or est.data <= :dataFinal)
@@ -38,8 +34,7 @@
 			<![CDATA[
 			from Estoque as est
 			where 
-			est.tenant = :tenant
-			and (:dataInicial is null or est.data >= :dataInicial)
+				(:dataInicial is null or est.data >= :dataInicial)
 			and (:dataFinal is null or est.data <= :dataFinal)
 			and (:colaborador is null or est.vendedor = :colaborador)
 			order by est.data desc, est.produto.nome
@@ -50,8 +45,8 @@
 			<![CDATA[
 			select sum(est.valor)
 			from Estoque as est
-			where est.tenant = :tenant 
-			and (:dataInicial is not null or :dataFinal is not null)
+			where 
+				(:dataInicial is not null or :dataFinal is not null)
 			and (:dataInicial is null or est.data >= :dataInicial)
 			and (:dataFinal is null or est.data <= :dataFinal)
 			]]>

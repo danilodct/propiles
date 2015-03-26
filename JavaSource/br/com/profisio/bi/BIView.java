@@ -8,9 +8,7 @@ import br.com.profisio.basics.Servico;
 import br.com.profisio.basics.enums.TipoCusto;
 import br.com.profisio.cadastro.CadastroControl;
 import br.com.profisio.util.ProfisioActionSupport;
-import br.com.profisio.util.ProfisioSessionUtil;
 import br.com.profisio.util.SystemUtils;
-import br.com.profisio.util.Tenant;
 
 public class BIView extends ProfisioActionSupport {
 
@@ -28,8 +26,7 @@ public class BIView extends ProfisioActionSupport {
 
 	public String actionEntradas() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.dados1 = this.controller.getBIEvolutivoEntradas(tenant, dataInicial, dataFinal);
+			this.dados1 = this.controller.getBIEvolutivoEntradas(dataInicial, dataFinal);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -38,8 +35,7 @@ public class BIView extends ProfisioActionSupport {
 
 	public String actionEvolutivoDespesas() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.dados1 = this.controller.getBIEvolutivoDespesas(tenant, dataInicial, dataFinal);
+			this.dados1 = this.controller.getBIEvolutivoDespesas(dataInicial, dataFinal);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -48,8 +44,7 @@ public class BIView extends ProfisioActionSupport {
 
 	public String actionCrescimentoServicos() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.dados1 = this.controller.getBICrescimentoServico(tenant, dataInicial, dataFinal, servico);
+			this.dados1 = this.controller.getBICrescimentoServico(dataInicial, dataFinal, servico);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -58,10 +53,9 @@ public class BIView extends ProfisioActionSupport {
 
 	public String actionDespesas() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.dados1 = this.controller.getBITiposCustoCustosos(tenant, dataInicial, dataFinal, TipoCusto.FIXO);
-			this.dados2 = this.controller.getBITiposCustoCustosos(tenant, dataInicial, dataFinal, TipoCusto.VARIAVEL);
-			this.dados3 = this.controller.getBICentrosCustoCustosos(tenant, dataInicial, dataFinal);
+			this.dados1 = this.controller.getBITiposCustoCustosos(dataInicial, dataFinal, TipoCusto.FIXO);
+			this.dados2 = this.controller.getBITiposCustoCustosos(dataInicial, dataFinal, TipoCusto.VARIAVEL);
+			this.dados3 = this.controller.getBICentrosCustoCustosos(dataInicial, dataFinal);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -70,9 +64,8 @@ public class BIView extends ProfisioActionSupport {
 
 	public String actionVisaoGeralServicos() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.dados1 = this.controller.getBIServicosRequisitados(tenant, dataInicial, dataFinal);
-			this.dados2 = this.controller.getBIServicosFaturamento(tenant, dataInicial, dataFinal);
+			this.dados1 = this.controller.getBIServicosRequisitados(dataInicial, dataFinal);
+			this.dados2 = this.controller.getBIServicosFaturamento(dataInicial, dataFinal);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -81,9 +74,8 @@ public class BIView extends ProfisioActionSupport {
 
 	public String actionEfetividade() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.dados1 = this.controller.getBITaxaEfetividade(tenant, dataInicial, dataFinal);
-			this.dados2 = this.controller.getBIAtivos(tenant, dataInicial, dataFinal);
+			this.dados1 = this.controller.getBITaxaEfetividade(dataInicial, dataFinal);
+			this.dados2 = this.controller.getBIAtivos(dataInicial, dataFinal);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -92,11 +84,10 @@ public class BIView extends ProfisioActionSupport {
 
 	public String actionPerfilClientes() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.dados1 = this.controller.getBICadastrosByBairro(tenant, dataInicial, dataFinal);
-			this.dados2 = this.controller.getBICadastrosBySexo(tenant, dataInicial, dataFinal);
-			this.dados3 = this.controller.getBICadastrosByEstadoCivil(tenant, dataInicial, dataFinal);
-			this.dados4 = this.controller.getBICadastrosByFaixaEtaria(tenant, dataInicial, dataFinal);
+			this.dados1 = this.controller.getBICadastrosByBairro(dataInicial, dataFinal);
+			this.dados2 = this.controller.getBICadastrosBySexo(dataInicial, dataFinal);
+			this.dados3 = this.controller.getBICadastrosByEstadoCivil(dataInicial, dataFinal);
+			this.dados4 = this.controller.getBICadastrosByFaixaEtaria(dataInicial, dataFinal);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -105,11 +96,10 @@ public class BIView extends ProfisioActionSupport {
 
 	public String actionCaptacao() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
 			if (this.midia == null || this.midia != null && (this.midia.equals("") || this.midia.equals("-1")))
-				this.dados1 = this.controller.getBIUsoMidias(tenant, dataInicial, dataFinal);
+				this.dados1 = this.controller.getBIUsoMidias(dataInicial, dataFinal);
 			else
-				this.dados2 = this.controller.getBIEvolucaoMidiaCadastros(tenant, dataInicial, dataFinal, midia);
+				this.dados2 = this.controller.getBIEvolucaoMidiaCadastros(dataInicial, dataFinal, midia);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -119,8 +109,7 @@ public class BIView extends ProfisioActionSupport {
 	// 8888888888888888888888888888888888888888888888888888888888
 
 	public Collection<FormaConhecimento> getAllMidias() {
-		Tenant tenant = ProfisioSessionUtil.getTenantSession();
-		Collection<FormaConhecimento> formas = CadastroControl.getInstance().getAllFormasConhecimento(tenant);
+		Collection<FormaConhecimento> formas = CadastroControl.getInstance().getAllFormasConhecimento();
 		return formas;
 	}
 

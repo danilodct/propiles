@@ -7,9 +7,7 @@ import br.com.profisio.basics.Cadastro;
 import br.com.profisio.basics.Frequencia;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
-import br.com.profisio.util.ProfisioSessionUtil;
 import br.com.profisio.util.SystemUtils;
-import br.com.profisio.util.Tenant;
 
 public class FrequenciaView extends ProfisioActionSupport {
 
@@ -28,8 +26,7 @@ public class FrequenciaView extends ProfisioActionSupport {
 
 	public String actionCadastrarFrequencia() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			controller.cadastrarFrequencia(tenant, frequencia);
+			controller.cadastrarFrequencia(frequencia);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -52,8 +49,7 @@ public class FrequenciaView extends ProfisioActionSupport {
 
 	public String actionFrequencia() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.frequencias = controller.getFrequencias(tenant, dataInicial, dataFinal);
+			this.frequencias = controller.getFrequencias(dataInicial, dataFinal);
 		} catch (Exception e) {
 			this.dealException(e);
 		}

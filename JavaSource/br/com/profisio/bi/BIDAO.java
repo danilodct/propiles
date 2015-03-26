@@ -19,7 +19,6 @@ import br.com.profisio.basics.enums.EstadoCivil;
 import br.com.profisio.basics.enums.Sexo;
 import br.com.profisio.basics.enums.TipoCusto;
 import br.com.profisio.util.DAOBase;
-import br.com.profisio.util.Tenant;
 
 public class BIDAO extends DAOBase {
 
@@ -31,9 +30,8 @@ public class BIDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Integer getQtdNovosCadastros(Tenant tenant, Date dataInicial, Date dataFinal, String nome) {
+	public Integer getQtdNovosCadastros(Date dataInicial, Date dataFinal, String nome) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		params.put("midia", nome);
@@ -41,10 +39,9 @@ public class BIDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<FormaConhecimento> getAllMidiasOrderQtdCadastros(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public Collection<FormaConhecimento> getAllMidiasOrderQtdCadastros(Date dataInicial, Date dataFinal) {
 		Collection<FormaConhecimento> retorno = new ArrayList<FormaConhecimento>();
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		Collection<Cadastro> cadastros = this.imp.createNamedQuery("getAllMidiasOrderQtdCadastros", params).list();
@@ -57,10 +54,9 @@ public class BIDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<String> getBairrosOrderByQtdCadastros(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public Collection<String> getBairrosOrderByQtdCadastros(Date dataInicial, Date dataFinal) {
 		Collection<String> retorno = new ArrayList<String>();
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		List<Endereco> enderecos = this.imp.createNamedQuery("getBairrosOrderByQtdCadastrosAtivos", params).list();
@@ -73,9 +69,8 @@ public class BIDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Integer getQtdCadastrosAtivosByBairro(Tenant tenant, Date dataInicial, Date dataFinal, String bairro) {
+	public Integer getQtdCadastrosAtivosByBairro(Date dataInicial, Date dataFinal, String bairro) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		params.put("bairro", bairro);
@@ -83,9 +78,8 @@ public class BIDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Integer getQtdCadastrosAtivosBySexo(Tenant tenant, Date dataInicial, Date dataFinal, Sexo sexo) {
+	public Integer getQtdCadastrosAtivosBySexo(Date dataInicial, Date dataFinal, Sexo sexo) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		params.put("sexo", sexo.getValue());
@@ -93,9 +87,8 @@ public class BIDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Integer getQtdCadastrosAtivosByEstadoCivil(Tenant tenant, Date dataInicial, Date dataFinal, EstadoCivil estado) {
+	public Integer getQtdCadastrosAtivosByEstadoCivil(Date dataInicial, Date dataFinal, EstadoCivil estado) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		params.put("estadoCivil", estado.getValue());
@@ -103,9 +96,8 @@ public class BIDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Integer getQtdCadastrosAtivosByFaixaEtaria(Tenant tenant, Date dataInicial, Date dataFinal, Date dataMin, Date dataMax) {
+	public Integer getQtdCadastrosAtivosByFaixaEtaria(Date dataInicial, Date dataFinal, Date dataMin, Date dataMax) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		params.put("dataMin", dataMax);
@@ -123,9 +115,8 @@ public class BIDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Integer getQtdCadastrosByServico(Tenant tenant, Date dataInicial, Date dataFinal, Servico servico) {
+	public Integer getQtdCadastrosByServico(Date dataInicial, Date dataFinal, Servico servico) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		params.put("servico", servico);
@@ -136,9 +127,8 @@ public class BIDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Double getSomaFaturamentoByServico(Tenant tenant, Date dataInicial, Date dataFinal, Servico servico) {
+	public Double getSomaFaturamentoByServico(Date dataInicial, Date dataFinal, Servico servico) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		params.put("servico", servico);
@@ -149,7 +139,7 @@ public class BIDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Double getSomaCustoByCentroCusto(Tenant tenant, Date dataInicial, Date dataFinal, CentroCusto centro) {
+	public Double getSomaCustoByCentroCusto(Date dataInicial, Date dataFinal, CentroCusto centro) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
@@ -161,9 +151,8 @@ public class BIDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Integer getQtdAtendimentosServico(Tenant tenant, Date dataInicial, Date dataFinal, Servico servico) {
+	public Integer getQtdAtendimentosServico(Date dataInicial, Date dataFinal, Servico servico) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		params.put("servico", servico);
@@ -174,9 +163,8 @@ public class BIDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Double getSomaCustosByTipo(Tenant tenant, Date dataInicial, Date dataFinal, TipoContaPagar tipo) {
+	public Double getSomaCustosByTipo(Date dataInicial, Date dataFinal, TipoContaPagar tipo) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		params.put("tipo", tipo);
@@ -187,17 +175,15 @@ public class BIDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<TipoContaPagar> getAllTiposContaPagarByTipoCusto(Tenant tenant, TipoCusto tipoCusto) {
+	public Collection<TipoContaPagar> getAllTiposContaPagarByTipoCusto(TipoCusto tipoCusto) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("tipoCusto", tipoCusto);
 		return this.imp.createNamedQuery("getAllTiposContaPagarByTipoCusto", params).list();
 	}
 
 	@SuppressWarnings("unchecked")
-	public Double getSomaFaturamentoVendas(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public Double getSomaFaturamentoVendas(Date dataInicial, Date dataFinal) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		Object resultado = this.imp.queryObject("getSomaVendas", params);
@@ -207,9 +193,8 @@ public class BIDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Double getSomaFaturamentoAvulso(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public Double getSomaFaturamentoAvulso(Date dataInicial, Date dataFinal) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		Object resultado = this.imp.queryObject("getSomaFaturamentoAvulso", params);
@@ -219,9 +204,8 @@ public class BIDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Integer getQtdFrequenciasByServico(Tenant tenant, Date dataInicial, Date dataFinal, Servico servico) {
+	public Integer getQtdFrequenciasByServico(Date dataInicial, Date dataFinal, Servico servico) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		params.put("servico", servico);

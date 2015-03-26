@@ -5,7 +5,6 @@ import java.util.Map;
 
 import br.com.profisio.basics.Usuario;
 import br.com.profisio.util.DAOBase;
-import br.com.profisio.util.Tenant;
 
 public class UsuarioDAO extends DAOBase {
 
@@ -29,13 +28,6 @@ public class UsuarioDAO extends DAOBase {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("login", login);
 		return (Usuario) imp.queryObject("getUsuarioByLogin", params);
-	}
-
-	@SuppressWarnings("unchecked")
-	public Tenant getTenantByUsuario(Usuario usuario) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("usuario", usuario);
-		return (Tenant) imp.queryObject("getTenantByUsuario", params);
 	}
 
 }

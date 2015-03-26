@@ -6,8 +6,6 @@
 			<generator class="increment" />
 		</id>
 		
-		<many-to-one name="tenant" column="tenant_id" lazy="false" />
-		
 		<property name="statusObjeto" type="br.com.profisio.basics.enums.StatusObjetoEnumType" />
 		
 		<property name="percentual" />

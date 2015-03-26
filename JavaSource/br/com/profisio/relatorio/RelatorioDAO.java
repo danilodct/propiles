@@ -13,7 +13,6 @@ import br.com.profisio.basics.Frequencia;
 import br.com.profisio.basics.Servico;
 import br.com.profisio.basics.enums.TipoCusto;
 import br.com.profisio.util.DAOBase;
-import br.com.profisio.util.Tenant;
 
 public class RelatorioDAO extends DAOBase {
 
@@ -25,9 +24,8 @@ public class RelatorioDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Cadastro> getClientesFrequentes(Tenant tenant, Date dataInicial, Date dataFinal, Colaborador colaborador, Servico servico) {
+	public Collection<Cadastro> getClientesFrequentes(Date dataInicial, Date dataFinal, Colaborador colaborador, Servico servico) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		params.put("colaborador", colaborador);
@@ -40,9 +38,8 @@ public class RelatorioDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Cadastro> getNovosCadastros(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public Collection<Cadastro> getNovosCadastros(Date dataInicial, Date dataFinal) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		return imp.createNamedQuery("getNovosCadastros", params).list();
@@ -58,9 +55,8 @@ public class RelatorioDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public double getSomaContasReceberBruto(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public double getSomaContasReceberBruto(Date dataInicial, Date dataFinal) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		Object soma = this.imp.queryObject("getSomaContasReceberBruto", params);
@@ -73,9 +69,8 @@ public class RelatorioDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Double getSomaContasPagar(Tenant tenant, Date dataInicial, Date dataFinal, TipoCusto tipoCusto) {
+	public Double getSomaContasPagar(Date dataInicial, Date dataFinal, TipoCusto tipoCusto) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		if (tipoCusto != null)
@@ -89,9 +84,8 @@ public class RelatorioDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Cadastro> getClientesComAtividade(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public Collection<Cadastro> getClientesComAtividade(Date dataInicial, Date dataFinal) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		return this.imp.createNamedQuery("getClientesComAtividade", params).list();
@@ -108,9 +102,8 @@ public class RelatorioDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Integer getQtdClientesFrequentes(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public Integer getQtdClientesFrequentes(Date dataInicial, Date dataFinal) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		return ((BigInteger) this.imp.queryObject("getQtdClientesFrequentes", params)).intValue();

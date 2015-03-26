@@ -3,15 +3,11 @@
 <hibernate-mapping>
 	<class name="br.com.profisio.basics.TipoContaPagar" table="tipocontapagar">
 		<id name="nome" ></id>
-		
-		<many-to-one name="tenant" column="tenant_id" lazy="false" />
-		
 	</class>
 	
 	<query name="getAllTiposContaPagar">
 			<![CDATA[
 			from TipoContaPagar
-			where tenant = :tenant
 			order by nome
 			]]>
 	</query>
@@ -21,8 +17,7 @@
 			select tipo
 			from ContaPagar conta
 			left join conta.tipo as tipo
-			where conta.tenant = :tenant
-			and conta.tipoCusto = :tipoCusto
+			where conta.tipoCusto = :tipoCusto
 			order by tipo.nome
 			]]>
 	</query>

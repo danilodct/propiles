@@ -13,7 +13,6 @@ import br.com.profisio.util.ControllerBase;
 import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.ProfisioException;
 import br.com.profisio.util.SystemUtils;
-import br.com.profisio.util.Tenant;
 
 public class ColaboradorControl extends ControllerBase {
 
@@ -30,7 +29,7 @@ public class ColaboradorControl extends ControllerBase {
 		return instance;
 	}
 
-	public Collection<Colaborador> getProximosAniversariantes(Tenant tenant) {
+	public Collection<Colaborador> getProximosAniversariantes() {
 		Calendar calendar = Calendar.getInstance();
 		int month = calendar.get(Calendar.MONTH) + 1;
 		String mesAtual = "" + month;
@@ -44,11 +43,11 @@ public class ColaboradorControl extends ControllerBase {
 		if (mesProximo.length() == 1) {
 			mesProximo = "0" + mesProximo;
 		}
-		return this.dao.getProximosAniversariantes(tenant, mesAtual, mesProximo);
+		return this.dao.getProximosAniversariantes(mesAtual, mesProximo);
 	}
 
-	public Collection<Colaborador> getColaboradores(Tenant tenant, String nomeColaborador) {
-		return this.dao.getColaboradores(tenant, nomeColaborador);
+	public Collection<Colaborador> getColaboradores(String nomeColaborador) {
+		return this.dao.getColaboradores(nomeColaborador);
 	}
 
 	public Colaborador getColaboradorById(Integer id) {
@@ -57,7 +56,7 @@ public class ColaboradorControl extends ControllerBase {
 		return this.dao.getColaboradorById(id);
 	}
 
-	public void cadastrarColaborador(Tenant tenant, Colaborador colaborador) {
+	public void cadastrarColaborador(Colaborador colaborador) {
 		if (colaborador == null)
 			throw new ProfisioException(ProfisioBundleUtil.NO_OBJECT_SELECTED);
 		if (colaborador.getNome() == null || colaborador.getNome().equals(""))
@@ -71,7 +70,6 @@ public class ColaboradorControl extends ControllerBase {
 
 		colaborador.setStatusObjeto(StatusObjeto.ATIVO);
 		SystemUtils.gerarNiver(colaborador);
-		colaborador.setTenant(tenant);
 		this.dao.cadastrar(colaborador);
 	}
 
@@ -79,7 +77,7 @@ public class ColaboradorControl extends ControllerBase {
 		return UsuarioControl.getInstance().checkLoginExiste(colaborador.getLogin());
 	}
 
-	public void editarColaborador(Tenant tenant, Colaborador colaborador) {
+	public void editarColaborador(Colaborador colaborador) {
 		SystemUtils.assertObjectIsNotNullHasId(colaborador);
 		if (colaborador == null)
 			throw new ProfisioException(ProfisioBundleUtil.NO_OBJECT_SELECTED);
@@ -88,27 +86,24 @@ public class ColaboradorControl extends ControllerBase {
 
 		colaborador.setStatusObjeto(StatusObjeto.ATIVO);
 		SystemUtils.gerarNiver(colaborador);
-		colaborador.setTenant(tenant);
 		this.dao.editar(colaborador);
 	}
 
-	public void removerColaborador(Tenant tenant, Colaborador colaborador) {
+	public void removerColaborador(Colaborador colaborador) {
 		SystemUtils.assertObjectIsNotNullHasId(colaborador);
 		colaborador = this.dao.getColaboradorById(colaborador.getId());
 		colaborador.setStatusObjeto(StatusObjeto.MORTO);
-		colaborador.setTenant(tenant);
 		this.dao.editar(colaborador);
 	}
 
-	public void removerContrato(Tenant tenant, Contrato contrato) {
+	public void removerContrato(Contrato contrato) {
 		SystemUtils.assertObjectIsNotNullHasId(contrato);
 		contrato = this.dao.getContratoById(contrato.getId());
 		contrato.setStatusObjeto(StatusObjeto.MORTO);
-		contrato.setTenant(tenant);
 		this.dao.editar(contrato);
 	}
 
-	public void cadastrarContrato(Tenant tenant, Contrato contrato) {
+	public void cadastrarContrato(Contrato contrato) {
 		if (contrato == null)
 			throw new ProfisioException(ProfisioBundleUtil.NO_OBJECT_SELECTED);
 		if (contrato.getColaborador() == null || contrato.getColaborador().getId() == null)
@@ -117,16 +112,14 @@ public class ColaboradorControl extends ControllerBase {
 			throw new ProfisioException(ProfisioBundleUtil.INFORME_SERVICO);
 
 		contrato.setStatusObjeto(StatusObjeto.ATIVO);
-		contrato.setTenant(tenant);
 		this.dao.cadastrar(contrato);
 	}
 
-	public void editarContrato(Tenant tenant, Contrato contrato) {
+	public void editarContrato(Contrato contrato) {
 		SystemUtils.assertObjectIsNotNullHasId(contrato);
 		double percentual = contrato.getPercentual();
 		contrato = this.dao.getContratoById(contrato.getId());
 		contrato.setPercentual(percentual);
-		contrato.setTenant(tenant);
 		this.dao.editar(contrato);
 	}
 
@@ -140,14 +133,13 @@ public class ColaboradorControl extends ControllerBase {
 		return this.dao.getContratosByServico(servico);
 	}
 
-	public void alterarSenha(Tenant tenant, Colaborador colaborador) {
+	public void alterarSenha(Colaborador colaborador) {
 		SystemUtils.assertObjectIsNotNullHasId(colaborador);
 		if (colaborador.getSenha() == null || colaborador.getSenha().equals(""))
 			throw new ProfisioException(ProfisioBundleUtil.SENHA_OBRIGATORIA);
 		String senha = colaborador.getSenha();
 		Usuario userBD = this.dao.getUsuarioById(colaborador.getId());
 		userBD.setSenha(senha);
-		userBD.setTenant(tenant);
 		this.dao.editar(userBD);
 	}
 }

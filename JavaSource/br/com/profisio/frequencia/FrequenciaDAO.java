@@ -9,7 +9,6 @@ import br.com.profisio.basics.Colaborador;
 import br.com.profisio.basics.ContaReceber;
 import br.com.profisio.basics.Frequencia;
 import br.com.profisio.util.DAOBase;
-import br.com.profisio.util.Tenant;
 
 public class FrequenciaDAO extends DAOBase {
 
@@ -21,9 +20,8 @@ public class FrequenciaDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Frequencia> getFrequencias(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public Collection<Frequencia> getFrequencias(Date dataInicial, Date dataFinal) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		return imp.createNamedQuery("getFrequenciasByPeriodo", params).list();

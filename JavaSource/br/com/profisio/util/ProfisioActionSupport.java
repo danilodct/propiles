@@ -10,7 +10,6 @@ import java.util.Collection;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.struts2.ServletActionContext;
 
 import br.com.profisio.basics.Servico;
@@ -30,7 +29,7 @@ public class ProfisioActionSupport extends ActionSupport {
 	public static final String SEPARADOR_ESPACO = " ";
 	public static final String OUTRA = "OUTRA";
 
-	// variáveis do getCEP
+	//variáveis do getCEP
 	private String cep;
 	private static final String URL_WEBSERVICE_BUSCAR_CEP = "http://viacep.com.br/ws/";
 
@@ -38,7 +37,7 @@ public class ProfisioActionSupport extends ActionSupport {
 		return REDIRECT;
 	}
 
-	// GET CEP 8888888888888888888888888888888888888888888888888888888888888888
+	// GET CEP  8888888888888888888888888888888888888888888888888888888888888888
 
 	public String actionBuscarCEP() {
 		String retorno = sendGetRequest(URL_WEBSERVICE_BUSCAR_CEP + cep + "/xml/", null);
@@ -122,7 +121,7 @@ public class ProfisioActionSupport extends ActionSupport {
 			e.printStackTrace();
 			message = ProfisioException.EXCEPTION_MSG;
 			Mailer mailer = new Mailer();
-			mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Error", ExceptionUtils.getStackTrace(e));
+			mailer.sendMail("danilo.dct@gmail.com", "Título do email né?!", "Esta é a mensagem do email acra", null);
 			System.out.println("mandou gerar o email...");
 		}
 		addActionError(message);
@@ -131,8 +130,7 @@ public class ProfisioActionSupport extends ActionSupport {
 	// 8888888888888888888888888888888888888888888888888888888888888888888888888
 
 	public Collection<Servico> getAllServicos() {
-		Tenant tenant = ProfisioSessionUtil.getTenantSession();
-		return ServicoControl.getInstance().getServicos(tenant, null);
+		return ServicoControl.getInstance().getServicos(null);
 	}
 
 }

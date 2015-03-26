@@ -4,12 +4,10 @@ import java.util.Collection;
 
 import br.com.profisio.basics.CentroCusto;
 import br.com.profisio.basics.Servico;
-import br.com.profisio.basics.enums.StatusObjeto;
 import br.com.profisio.util.ControllerBase;
 import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.ProfisioException;
 import br.com.profisio.util.SystemUtils;
-import br.com.profisio.util.Tenant;
 
 public class ServicoControl extends ControllerBase {
 
@@ -26,18 +24,17 @@ public class ServicoControl extends ControllerBase {
 		return instance;
 	}
 
-	public Collection<Servico> getServicos(Tenant tenant, CentroCusto centroCusto) {
-		return this.dao.getServicos(tenant, centroCusto);
+	public Collection<Servico> getServicos(CentroCusto centroCusto) {
+		return this.dao.getServicos(centroCusto);
 	}
 
-	public void cadastrarServico(Tenant tenant, Servico servico) {
+	public void cadastrarServico(Servico servico) {
 		SystemUtils.assertObjectIsNotNull(servico);
 		if (servico.getNome() == null || servico.getNome().equalsIgnoreCase(""))
 			throw new ProfisioException(ProfisioBundleUtil.NOME_OBRIGATORIO);
 		if (servico.getCentroCusto() == null || servico.getCentroCusto().getId() == null || servico.getCentroCusto().getId().intValue() == -1)
 			throw new ProfisioException(ProfisioBundleUtil.CENTRO_CUSTO_OBRIGATORIO);
 
-		servico.setTenant(tenant);
 		this.dao.cadastrar(servico);
 	}
 
@@ -51,41 +48,34 @@ public class ServicoControl extends ControllerBase {
 		return this.dao.getServicoById(servico.getId());
 	}
 
-	public void editarServico(Tenant tenant, Servico servico) {
+	public void editarServico(Servico servico) {
 		SystemUtils.assertObjectIsNotNullHasId(servico);
 		if (servico.getCentroCusto() != null && (servico.getCentroCusto().getId() == null || servico.getCentroCusto().getId().intValue() == -1))
 			servico.setCentroCusto(null);
-		servico.setTenant(tenant);
 		this.dao.editar(servico);
 	}
 
-	public Collection<CentroCusto> getCentrosCusto(Tenant tenant) {
-		return this.dao.getCentrosCusto(tenant);
+	public Collection<CentroCusto> getCentrosCusto() {
+		return this.dao.getCentrosCusto();
 	}
 
-	public void editarCentroCusto(Tenant tenant, CentroCusto centroCusto) {
+	public void editarCentroCusto(CentroCusto centroCusto) {
 		SystemUtils.assertObjectIsNotNullHasId(centroCusto);
 		String nome = centroCusto.getNome();
 		centroCusto = this.dao.getCentroCustoById(centroCusto.getId());
 		centroCusto.setNome(nome);
-		centroCusto.setStatusObjeto(StatusObjeto.ATIVO);
-		centroCusto.setTenant(tenant);
 		this.dao.editar(centroCusto);
 	}
 
 	public void removerCentroCusto(CentroCusto centroCusto) {
 		SystemUtils.assertObjectIsNotNullHasId(centroCusto);
-		centroCusto = this.dao.getCentroCustoById(centroCusto.getId());
-		centroCusto.setStatusObjeto(StatusObjeto.MORTO);
-		this.dao.editar(centroCusto);
+		this.dao.remover(centroCusto);
 	}
 
-	public void cadastrarCentroCusto(Tenant tenant, CentroCusto centroCusto) {
+	public void cadastrarCentroCusto(CentroCusto centroCusto) {
 		SystemUtils.assertObjectIsNotNull(centroCusto);
 		if (centroCusto.getNome() == null || centroCusto.getNome().equalsIgnoreCase(""))
 			throw new ProfisioException(ProfisioBundleUtil.NOME_OBRIGATORIO);
-		centroCusto.setTenant(tenant);
-		centroCusto.setStatusObjeto(StatusObjeto.ATIVO);
 		this.dao.cadastrar(centroCusto);
 	}
 

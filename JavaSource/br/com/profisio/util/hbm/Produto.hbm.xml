@@ -6,8 +6,6 @@
 			<generator class="increment" />
 		</id>
 		
-		<many-to-one name="tenant" column="tenant_id" lazy="false" />
-		
 		<property name="valor" />
 		<property name="nome" />
 		<property name="categoria" />
@@ -18,8 +16,7 @@
 	<query name="getProdutos">
 			<![CDATA[
 			from Produto
-			where tenant = :tenant
-			and (:categoria is null or categoria = :categoria)
+			where (:categoria is null or categoria = :categoria)
 			and statusObjeto = 'ATIVO'
 			order by nome, categoria
 			]]>
@@ -29,9 +26,7 @@
 			<![CDATA[
 			select categoria
 			from Produto
-			where 
-			tenant = :tenant
-			and statusObjeto = 'ATIVO'
+			where statusObjeto = 'ATIVO'
 			group by categoria
 			order by categoria
 			]]>
@@ -41,7 +36,7 @@
 			<![CDATA[
 			select count(prod) as qtd
 			from Produto as prod
-			where prod.tenant = :tenant and prod.statusObjeto = 'ATIVO'
+			where prod.statusObjeto = 'ATIVO'
 			]]>
 	</query>
 	

@@ -80,9 +80,9 @@ function setSelectTipoContaPagar(){
 								</div>
 							</div>
 							<div class="field">
-								<label>Data de Pagamento:</label>
+								<label>Data de Vencimento:</label>
 								<div class="ui icon input">
-									<s:textfield name="contaPagar.dataPagamentoStr" cssClass="data" />
+									<s:textfield name="contaPagar.dataVencimentoStr" cssClass="data" />
 									<i class="calendar icon"></i>
 								</div>
 							</div>

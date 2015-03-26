@@ -17,7 +17,6 @@ import br.com.profisio.util.ControllerBase;
 import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.ProfisioException;
 import br.com.profisio.util.SystemUtils;
-import br.com.profisio.util.Tenant;
 
 public class CadastroControl extends ControllerBase {
 
@@ -35,7 +34,7 @@ public class CadastroControl extends ControllerBase {
 		return instance;
 	}
 
-	public Collection<Cadastro> getProximosAniversariantes(Tenant tenant) {
+	public Collection<Cadastro> getProximosAniversariantes() {
 		Calendar calendar = Calendar.getInstance();
 		int month = calendar.get(Calendar.MONTH) + 1;
 		String mesAtual = "" + month;
@@ -49,40 +48,39 @@ public class CadastroControl extends ControllerBase {
 		if (mesProximo.length() == 1) {
 			mesProximo = "0" + mesProximo;
 		}
-		return this.dao.getProximosAniversariantes(tenant, mesAtual, mesProximo);
+		return this.dao.getProximosAniversariantes(mesAtual, mesProximo);
 	}
 
-	public Collection<FormaConhecimento> getAllFormasConhecimento(Tenant tenant) {
-		return this.dao.getAllFormasConhecimento(tenant);
+	public Collection<FormaConhecimento> getAllFormasConhecimento() {
+		return this.dao.getAllFormasConhecimento();
 	}
 
-	public Collection<Cadastro> getCadastros(Tenant tenant, String nomeCliente, Integer pagAtual) {
-		Integer qtdPag = this.getQtdPaginas(tenant, nomeCliente);
+	public Collection<Cadastro> getCadastros(String nomeCliente, Integer pagAtual) {
+		Integer qtdPag = this.getQtdPaginas(nomeCliente);
 		if (qtdPag == null || qtdPag < 2)
 			pagAtual = null;
-		return this.dao.getCadastros(tenant, nomeCliente, TAMANHO_PAGINACAO_CADASTRO, pagAtual);
+		return this.dao.getCadastros(nomeCliente, TAMANHO_PAGINACAO_CADASTRO, pagAtual);
 	}
 
-	public Integer getQtdCadastros(Tenant tenant, String nomeCliente) {
-		return this.dao.getQtdCadastros(tenant, nomeCliente);
+	public Integer getQtdCadastros(String nomeCliente) {
+		return this.dao.getQtdCadastros(nomeCliente);
 	}
 
-	public Integer getQtdPaginas(Tenant tenant, String nomeCliente) {
-		Integer qtdTotal = this.getQtdCadastros(tenant, nomeCliente);
+	public Integer getQtdPaginas(String nomeCliente) {
+		Integer qtdTotal = this.getQtdCadastros(nomeCliente);
 		double ceil = Math.ceil(qtdTotal / TAMANHO_PAGINACAO_CADASTRO);
 		long round = Math.round(ceil);
 		return Long.valueOf(round).intValue();
 	}
 
-	public void removerCadastro(Tenant tenant, Cadastro cadastro) {
+	public void removerCadastro(Cadastro cadastro) {
 		SystemUtils.assertObjectIsNotNullHasId(cadastro);
 		cadastro = this.dao.getCadastroById(cadastro.getId());
 		cadastro.setStatusObjeto(StatusObjeto.MORTO);
-		cadastro.setTenant(tenant);
 		this.dao.editar(cadastro);
 	}
 
-	public void editarCadastro(Tenant tenant, Cadastro cadastro) {
+	public void editarCadastro(Cadastro cadastro) {
 		SystemUtils.assertObjectIsNotNullHasId(cadastro);
 		if (cadastro.getNome() == null || cadastro.getNome().equals("")) {
 			throw new ProfisioException(ProfisioBundleUtil.NOME_CLIENTE_OBRIGATORIO);
@@ -97,11 +95,10 @@ public class CadastroControl extends ControllerBase {
 		SystemUtils.gerarNiver(cadastro);
 		cadastro.setDataCadastro(cadastroBD.getDataCadastro());
 		cadastro.setStatusObjeto(StatusObjeto.ATIVO);
-		cadastro.setTenant(tenant);
 		this.dao.editar(cadastro);
 	}
 
-	public void cadastrarCadastro(Tenant tenant, Cadastro cadastro) {
+	public void cadastrarCadastro(Cadastro cadastro) {
 		SystemUtils.assertObjectIsNotNull(cadastro);
 		if (cadastro.getNome() == null || cadastro.getNome().equals("")) {
 			throw new ProfisioException(ProfisioBundleUtil.NOME_CLIENTE_OBRIGATORIO);
@@ -112,7 +109,6 @@ public class CadastroControl extends ControllerBase {
 		cadastro.setDataCadastro(new Date());
 		cadastro.setStatusObjeto(StatusObjeto.ATIVO);
 		SystemUtils.gerarNiver(cadastro);
-		cadastro.setTenant(tenant);
 		this.dao.cadastrar(cadastro);
 	}
 
@@ -121,7 +117,7 @@ public class CadastroControl extends ControllerBase {
 		return this.dao.getCadastroById(cadastro.getId());
 	}
 
-	public void cadastrarAtividade(Tenant tenant, Atividade atividade) {
+	public void cadastrarAtividade(Atividade atividade) {
 		SystemUtils.assertObjectIsNotNull(atividade);
 		if (atividade.getCadastro() == null || atividade.getCadastro().getId() == null || atividade.getCadastro().getId().intValue() == -1)
 			throw new ProfisioException(ProfisioBundleUtil.CLIENTE_NAO_INFORMADO);
@@ -135,7 +131,6 @@ public class CadastroControl extends ControllerBase {
 		atividade.setDataCriacao(new Date());
 		atividade.setAvaliacao(new Avaliacao());
 		atividade.setStatusObjeto(StatusObjeto.ATIVO);
-		atividade.setTenant(tenant);
 		this.dao.cadatrarAtividade(atividade);
 	}
 
@@ -149,11 +144,10 @@ public class CadastroControl extends ControllerBase {
 		return this.dao.getAtividadesByCadastro(cadastro);
 	}
 
-	public void removerAtividade(Tenant tenant, Atividade atividade) {
+	public void removerAtividade(Atividade atividade) {
 		SystemUtils.assertObjectIsNotNullHasId(atividade);
 		atividade = this.dao.getAtividadeById(atividade.getId());
 		atividade.setStatusObjeto(StatusObjeto.MORTO);
-		atividade.setTenant(tenant);
 		this.dao.editarAtividade(atividade);
 	}
 

@@ -25,7 +25,6 @@ import br.com.profisio.util.OrdenadorMapDouble;
 import br.com.profisio.util.OrdenadorMapInteger;
 import br.com.profisio.util.OrdenadorMapStringDouble;
 import br.com.profisio.util.SystemUtils;
-import br.com.profisio.util.Tenant;
 
 public class BIControl extends ControllerBase {
 
@@ -44,7 +43,7 @@ public class BIControl extends ControllerBase {
 		return instance;
 	}
 
-	public String getBIUsoMidias(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public String getBIUsoMidias(Date dataInicial, Date dataFinal) {
 		String retorno = "[";
 		// se o usuário nao informou data inicio e fim, vai pegar o mes atual
 		if (dataInicial == null && dataFinal == null) {
@@ -54,10 +53,10 @@ public class BIControl extends ControllerBase {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
 			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
 		}
-		Collection<FormaConhecimento> allFormasConhecimento = this.dao.getAllMidiasOrderQtdCadastros(tenant, dataInicial, dataFinal);
+		Collection<FormaConhecimento> allFormasConhecimento = this.dao.getAllMidiasOrderQtdCadastros(dataInicial, dataFinal);
 		if (allFormasConhecimento != null && allFormasConhecimento.size() > 0) {
 			for (FormaConhecimento forma : allFormasConhecimento) {
-				Integer qtd = this.dao.getQtdNovosCadastros(tenant, dataInicial, dataFinal, forma.getNome());
+				Integer qtd = this.dao.getQtdNovosCadastros(dataInicial, dataFinal, forma.getNome());
 				retorno += ",{\"MIDIA\":\"" + forma.getNome() + "\", \"valor\":" + qtd + ", \"cor\":\"" + pickColor() + "\"}";
 			}
 		}
@@ -67,7 +66,7 @@ public class BIControl extends ControllerBase {
 		return retorno;
 	}
 
-	public String getBIEvolucaoMidiaCadastros(Tenant tenant, Date dataInicial, Date dataFinal, String midia) {
+	public String getBIEvolucaoMidiaCadastros(Date dataInicial, Date dataFinal, String midia) {
 		String retorno = "[";
 		// se o usuário nao informou data inicio e fim, vai pegar o mes atual
 		if (dataInicial == null && dataFinal == null) {
@@ -87,8 +86,8 @@ public class BIControl extends ControllerBase {
 			cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
 			cal.setTime(SystemUtils.setHoraData(cal.getTime(), Calendar.PM, 11, 59, 59));
 
-			Integer qtdMidias = this.dao.getQtdNovosCadastros(tenant, dataInicial, cal.getTime(), midia);
-			Integer qtdCadastros = this.dao.getQtdNovosCadastros(tenant, dataInicial, cal.getTime(), null);
+			Integer qtdMidias = this.dao.getQtdNovosCadastros(dataInicial, cal.getTime(), midia);
+			Integer qtdCadastros = this.dao.getQtdNovosCadastros(dataInicial, cal.getTime(), null);
 			retorno += ",{\"AM_REF\":\"" + cal.get(Calendar.YEAR) + "/" + SystemUtils.formatarNumeroQtdAlgarismos(cal.get(Calendar.MONTH) + 1, 2) + "\", \"qtdMidia\":" + qtdMidias + ", \"qtdCadastros\":" + qtdCadastros + ", \"cor\":\"" + pickColor() + "\"}";
 
 			cal.setTime(dataInicial);
@@ -107,7 +106,7 @@ public class BIControl extends ControllerBase {
 		return cor;
 	}
 
-	public String getBICadastrosByBairro(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public String getBICadastrosByBairro(Date dataInicial, Date dataFinal) {
 		String retorno = "[";
 		// se o usuário nao informou data inicio e fim, vai pegar o mes atual
 		if (dataInicial == null && dataFinal == null) {
@@ -120,10 +119,10 @@ public class BIControl extends ControllerBase {
 		if (dataFinal == null)
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 
-		Collection<String> bairros = this.dao.getBairrosOrderByQtdCadastros(tenant, dataInicial, dataFinal);
+		Collection<String> bairros = this.dao.getBairrosOrderByQtdCadastros(dataInicial, dataFinal);
 		if (bairros != null && bairros.size() > 0) {
 			for (String bairro : bairros) {
-				Integer qtdCadastros = this.dao.getQtdCadastrosAtivosByBairro(tenant, dataInicial, dataFinal, bairro);
+				Integer qtdCadastros = this.dao.getQtdCadastrosAtivosByBairro(dataInicial, dataFinal, bairro);
 				retorno += ",{\"BAIRRO\":\"" + bairro + "\", \"qtdCadastros\":" + qtdCadastros + ", \"cor\":\"" + pickColor() + "\"}";
 			}
 		}
@@ -134,7 +133,7 @@ public class BIControl extends ControllerBase {
 		return retorno;
 	}
 
-	public String getBICadastrosBySexo(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public String getBICadastrosBySexo(Date dataInicial, Date dataFinal) {
 		String retorno = "[";
 		// se o usuário nao informou data inicio e fim, vai pegar o mes atual
 		if (dataInicial == null && dataFinal == null) {
@@ -147,10 +146,10 @@ public class BIControl extends ControllerBase {
 		if (dataFinal == null)
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 
-		Integer qtdCadastros = this.dao.getQtdCadastrosAtivosBySexo(tenant, dataInicial, dataFinal, Sexo.MASCULINO);
+		Integer qtdCadastros = this.dao.getQtdCadastrosAtivosBySexo(dataInicial, dataFinal, Sexo.MASCULINO);
 		retorno += ",{\"SEXO\":\"Masculino\", \"qtdCadastros\":" + qtdCadastros + ", \"cor\":\"" + pickColor() + "\"}";
 
-		qtdCadastros = this.dao.getQtdCadastrosAtivosBySexo(tenant, dataInicial, dataFinal, Sexo.FEMININO);
+		qtdCadastros = this.dao.getQtdCadastrosAtivosBySexo(dataInicial, dataFinal, Sexo.FEMININO);
 		retorno += ",{\"SEXO\":\"Feminino\", \"qtdCadastros\":" + qtdCadastros + ", \"cor\":\"" + pickColor() + "\"}";
 
 		if (retorno.length() > 1)
@@ -159,7 +158,7 @@ public class BIControl extends ControllerBase {
 		return retorno;
 	}
 
-	public String getBICadastrosByEstadoCivil(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public String getBICadastrosByEstadoCivil(Date dataInicial, Date dataFinal) {
 		String retorno = "[";
 		// se o usuário nao informou data inicio e fim, vai pegar o mes atual
 		if (dataInicial == null && dataFinal == null) {
@@ -172,13 +171,13 @@ public class BIControl extends ControllerBase {
 		if (dataFinal == null)
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 
-		Integer qtdCadastros = this.dao.getQtdCadastrosAtivosByEstadoCivil(tenant, dataInicial, dataFinal, EstadoCivil.CASADO);
+		Integer qtdCadastros = this.dao.getQtdCadastrosAtivosByEstadoCivil(dataInicial, dataFinal, EstadoCivil.CASADO);
 		retorno += ",{\"ESTADO\":\"Casado\", \"qtdCadastros\":" + qtdCadastros + ", \"cor\":\"" + pickColor() + "\"}";
-		qtdCadastros = this.dao.getQtdCadastrosAtivosByEstadoCivil(tenant, dataInicial, dataFinal, EstadoCivil.DIVORCIADO);
+		qtdCadastros = this.dao.getQtdCadastrosAtivosByEstadoCivil(dataInicial, dataFinal, EstadoCivil.DIVORCIADO);
 		retorno += ",{\"ESTADO\":\"Divorciado\", \"qtdCadastros\":" + qtdCadastros + ", \"cor\":\"" + pickColor() + "\"}";
-		qtdCadastros = this.dao.getQtdCadastrosAtivosByEstadoCivil(tenant, dataInicial, dataFinal, EstadoCivil.SOLTEIRO);
+		qtdCadastros = this.dao.getQtdCadastrosAtivosByEstadoCivil(dataInicial, dataFinal, EstadoCivil.SOLTEIRO);
 		retorno += ",{\"ESTADO\":\"Solteiro\", \"qtdCadastros\":" + qtdCadastros + ", \"cor\":\"" + pickColor() + "\"}";
-		qtdCadastros = this.dao.getQtdCadastrosAtivosByEstadoCivil(tenant, dataInicial, dataFinal, EstadoCivil.VIUVO);
+		qtdCadastros = this.dao.getQtdCadastrosAtivosByEstadoCivil(dataInicial, dataFinal, EstadoCivil.VIUVO);
 		retorno += ",{\"ESTADO\":\"Viúvo\", \"qtdCadastros\":" + qtdCadastros + ", \"cor\":\"" + pickColor() + "\"}";
 
 		if (retorno.length() > 1)
@@ -187,7 +186,7 @@ public class BIControl extends ControllerBase {
 		return retorno;
 	}
 
-	public String getBITaxaEfetividade(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public String getBITaxaEfetividade(Date dataInicial, Date dataFinal) {
 		String retorno = "[";
 		// se o usuário nao informou data inicio e fim, vai pegar o mes atual
 		if (dataInicial == null && dataFinal == null) {
@@ -207,7 +206,7 @@ public class BIControl extends ControllerBase {
 			cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
 			cal.setTime(SystemUtils.setHoraData(cal.getTime(), Calendar.PM, 11, 59, 59));
 
-			Collection<Cadastro> novosCadastros = RelatorioControl.getInstance().getNovosCadastros(tenant, dataInicial, cal.getTime());
+			Collection<Cadastro> novosCadastros = RelatorioControl.getInstance().getNovosCadastros(dataInicial, cal.getTime());
 			int somaEfetividade = 0, somaCadastros = 0;
 			if (novosCadastros != null && novosCadastros.size() > 0) {
 				for (Cadastro cli : novosCadastros) {
@@ -232,7 +231,7 @@ public class BIControl extends ControllerBase {
 		return retorno;
 	}
 
-	public String getBICadastrosByFaixaEtaria(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public String getBICadastrosByFaixaEtaria(Date dataInicial, Date dataFinal) {
 		String retorno = "[";
 		// se o usuário nao informou data inicio e fim, vai pegar o mes atual
 		if (dataInicial == null && dataFinal == null) {
@@ -250,7 +249,7 @@ public class BIControl extends ControllerBase {
 
 		// 0 - 10
 		cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 10);
-		Integer qtdCadastros = this.dao.getQtdCadastrosAtivosByFaixaEtaria(tenant, dataInicial, dataFinal, cal.getTime(), null);
+		Integer qtdCadastros = this.dao.getQtdCadastrosAtivosByFaixaEtaria(dataInicial, dataFinal, cal.getTime(), null);
 		retorno += ",{\"FAIXA\":\"0 - 10\", \"qtdCadastros\":" + qtdCadastros + ", \"cor\":\"" + pickColor() + "\"}";
 		// 11 - 19
 		cal.setTime(hoje);
@@ -258,7 +257,7 @@ public class BIControl extends ControllerBase {
 		Date dataMax = cal.getTime();
 		cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 10);
 		Date dataMin = cal.getTime();
-		qtdCadastros = this.dao.getQtdCadastrosAtivosByFaixaEtaria(tenant, dataInicial, dataFinal, dataMin, dataMax);
+		qtdCadastros = this.dao.getQtdCadastrosAtivosByFaixaEtaria(dataInicial, dataFinal, dataMin, dataMax);
 		retorno += ",{\"FAIXA\":\"11 - 19\", \"qtdCadastros\":" + qtdCadastros + ", \"cor\":\"" + pickColor() + "\"}";
 		// 20 - 39
 		cal.setTime(hoje);
@@ -266,7 +265,7 @@ public class BIControl extends ControllerBase {
 		dataMax = cal.getTime();
 		cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 20);
 		dataMin = cal.getTime();
-		qtdCadastros = this.dao.getQtdCadastrosAtivosByFaixaEtaria(tenant, dataInicial, dataFinal, dataMin, dataMax);
+		qtdCadastros = this.dao.getQtdCadastrosAtivosByFaixaEtaria(dataInicial, dataFinal, dataMin, dataMax);
 		retorno += ",{\"FAIXA\":\"20 - 39\", \"qtdCadastros\":" + qtdCadastros + ", \"cor\":\"" + pickColor() + "\"}";
 		// 40 - 59
 		cal.setTime(hoje);
@@ -274,7 +273,7 @@ public class BIControl extends ControllerBase {
 		dataMax = cal.getTime();
 		cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 20);
 		dataMin = cal.getTime();
-		qtdCadastros = this.dao.getQtdCadastrosAtivosByFaixaEtaria(tenant, dataInicial, dataFinal, dataMin, dataMax);
+		qtdCadastros = this.dao.getQtdCadastrosAtivosByFaixaEtaria(dataInicial, dataFinal, dataMin, dataMax);
 		retorno += ",{\"FAIXA\":\"40 - 59\", \"qtdCadastros\":" + qtdCadastros + ", \"cor\":\"" + pickColor() + "\"}";
 		// 60 - 79
 		cal.setTime(hoje);
@@ -282,13 +281,13 @@ public class BIControl extends ControllerBase {
 		dataMax = cal.getTime();
 		cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 20);
 		dataMin = cal.getTime();
-		qtdCadastros = this.dao.getQtdCadastrosAtivosByFaixaEtaria(tenant, dataInicial, dataFinal, dataMin, dataMax);
+		qtdCadastros = this.dao.getQtdCadastrosAtivosByFaixaEtaria(dataInicial, dataFinal, dataMin, dataMax);
 		retorno += ",{\"FAIXA\":\"60 - 79\", \"qtdCadastros\":" + qtdCadastros + ", \"cor\":\"" + pickColor() + "\"}";
 		// > 80
 		cal.setTime(hoje);
 		cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 80);
 		dataMax = cal.getTime();
-		qtdCadastros = this.dao.getQtdCadastrosAtivosByFaixaEtaria(tenant, dataInicial, dataFinal, null, dataMax);
+		qtdCadastros = this.dao.getQtdCadastrosAtivosByFaixaEtaria(dataInicial, dataFinal, null, dataMax);
 		retorno += ",{\"FAIXA\":\" > 80\", \"qtdCadastros\":" + qtdCadastros + ", \"cor\":\"" + pickColor() + "\"}";
 
 		if (retorno.length() > 1)
@@ -297,7 +296,7 @@ public class BIControl extends ControllerBase {
 		return retorno;
 	}
 
-	public String getBIAtivos(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public String getBIAtivos(Date dataInicial, Date dataFinal) {
 		String retorno = "[";
 		// se o usuário nao informou data inicio e fim, vai pegar o mes atual
 		if (dataInicial == null && dataFinal == null) {
@@ -319,7 +318,7 @@ public class BIControl extends ControllerBase {
 			cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
 			cal.setTime(SystemUtils.setHoraData(cal.getTime(), Calendar.PM, 11, 59, 59));
 
-			Collection<Cadastro> novosCadastros = RelatorioControl.getInstance().getNovosCadastros(tenant, dataInicial, cal.getTime());
+			Collection<Cadastro> novosCadastros = RelatorioControl.getInstance().getNovosCadastros(dataInicial, cal.getTime());
 			int somaEfetividade = 0, somaCadastros = 0;
 			if (novosCadastros != null && novosCadastros.size() > 0) {
 				for (Cadastro cli : novosCadastros) {
@@ -341,7 +340,7 @@ public class BIControl extends ControllerBase {
 		return retorno;
 	}
 
-	public String getBIServicosRequisitados(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public String getBIServicosRequisitados(Date dataInicial, Date dataFinal) {
 		String retorno = "[";
 		// se o usuário nao informou data inicio e fim, vai pegar o mes atual
 		if (dataInicial == null && dataFinal == null) {
@@ -356,11 +355,11 @@ public class BIControl extends ControllerBase {
 
 		dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
 
-		Collection<Servico> servicos = ServicoControl.getInstance().getServicos(tenant, null);
+		Collection<Servico> servicos = ServicoControl.getInstance().getServicos(null);
 		Map<Integer, Integer> ordenador = new HashMap<Integer, Integer>();
 		if (servicos != null && servicos.size() > 0) {
 			for (Servico servico : servicos) {
-				Integer qtd = this.dao.getQtdFrequenciasByServico(tenant, dataInicial, dataFinal, servico);
+				Integer qtd = this.dao.getQtdFrequenciasByServico(dataInicial, dataFinal, servico);
 				if (qtd > 0)
 					ordenador.put(servico.getId().intValue(), qtd);
 			}
@@ -383,7 +382,7 @@ public class BIControl extends ControllerBase {
 		return retorno;
 	}
 
-	public String getBIServicosFaturamento(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public String getBIServicosFaturamento(Date dataInicial, Date dataFinal) {
 		String retorno = "[";
 		// se o usuário nao informou data inicio e fim, vai pegar o mes atual
 		if (dataInicial == null && dataFinal == null) {
@@ -398,11 +397,11 @@ public class BIControl extends ControllerBase {
 
 		dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
 
-		Collection<Servico> servicos = ServicoControl.getInstance().getServicos(tenant, null);
+		Collection<Servico> servicos = ServicoControl.getInstance().getServicos(null);
 		Map<Integer, Double> ordenador = new HashMap<Integer, Double>();
 		if (servicos != null && servicos.size() > 0) {
 			for (Servico servico : servicos) {
-				Double soma = this.dao.getSomaFaturamentoByServico(tenant, dataInicial, dataFinal, servico);
+				Double soma = this.dao.getSomaFaturamentoByServico(dataInicial, dataFinal, servico);
 				if (soma > 0)
 					ordenador.put(servico.getId().intValue(), soma);
 			}
@@ -426,7 +425,7 @@ public class BIControl extends ControllerBase {
 		return retorno;
 	}
 
-	public String getBICentrosCustoCustosos(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public String getBICentrosCustoCustosos(Date dataInicial, Date dataFinal) {
 		String retorno = "[";
 		// se o usuário nao informou data inicio e fim, vai pegar o mes atual
 		if (dataInicial == null && dataFinal == null) {
@@ -439,11 +438,11 @@ public class BIControl extends ControllerBase {
 		if (dataFinal == null)
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 
-		Collection<CentroCusto> centrosCustos = ServicoControl.getInstance().getCentrosCusto(tenant);
+		Collection<CentroCusto> centrosCustos = ServicoControl.getInstance().getCentrosCusto();
 		Map<Integer, Double> ordenador = new HashMap<Integer, Double>();
 		if (centrosCustos != null && centrosCustos.size() > 0) {
 			for (CentroCusto centro : centrosCustos) {
-				Double soma = this.dao.getSomaCustoByCentroCusto(tenant, dataInicial, dataFinal, centro);
+				Double soma = this.dao.getSomaCustoByCentroCusto(dataInicial, dataFinal, centro);
 				if (soma > 0)
 					ordenador.put(centro.getId().intValue(), soma);
 			}
@@ -467,7 +466,7 @@ public class BIControl extends ControllerBase {
 		return retorno;
 	}
 
-	public String getBICrescimentoServico(Tenant tenant, Date dataInicial, Date dataFinal, Servico servico) {
+	public String getBICrescimentoServico(Date dataInicial, Date dataFinal, Servico servico) {
 		String retorno = "[";
 		// se o usuário nao informou data inicio e fim, vai pegar o mes atual
 		if (dataInicial != null || dataFinal != null) {
@@ -489,7 +488,7 @@ public class BIControl extends ControllerBase {
 				cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
 				cal.setTime(SystemUtils.setHoraData(cal.getTime(), Calendar.PM, 11, 59, 59));
 
-				Integer qtdServicos = this.dao.getQtdAtendimentosServico(tenant, dataInicial, cal.getTime(), servico);
+				Integer qtdServicos = this.dao.getQtdAtendimentosServico(dataInicial, cal.getTime(), servico);
 
 				Calendar calAnterior = Calendar.getInstance();
 				calAnterior.setTime(dataInicial);
@@ -497,7 +496,7 @@ public class BIControl extends ControllerBase {
 				Calendar calAnterior2 = Calendar.getInstance();
 				calAnterior2.setTime(cal.getTime());
 				calAnterior2.set(Calendar.YEAR, calAnterior2.get(Calendar.YEAR) - 1);
-				Integer qtdServicosAnoAnterior = this.dao.getQtdAtendimentosServico(tenant, calAnterior.getTime(), calAnterior2.getTime(), servico);
+				Integer qtdServicosAnoAnterior = this.dao.getQtdAtendimentosServico(calAnterior.getTime(), calAnterior2.getTime(), servico);
 
 				acumulado += qtdServicos;
 				acumuladoAnterior += qtdServicosAnoAnterior;
@@ -516,7 +515,7 @@ public class BIControl extends ControllerBase {
 		return retorno;
 	}
 
-	public String getBITiposCustoCustosos(Tenant tenant, Date dataInicial, Date dataFinal, TipoCusto tipoCusto) {
+	public String getBITiposCustoCustosos(Date dataInicial, Date dataFinal, TipoCusto tipoCusto) {
 		String retorno = "[";
 		// se o usuário nao informou data inicio e fim, vai pegar o mes atual
 		if (dataInicial == null && dataFinal == null) {
@@ -529,11 +528,11 @@ public class BIControl extends ControllerBase {
 		if (dataFinal == null)
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 
-		Collection<TipoContaPagar> allTiposContaPagar = this.dao.getAllTiposContaPagarByTipoCusto(tenant, tipoCusto);
+		Collection<TipoContaPagar> allTiposContaPagar = this.dao.getAllTiposContaPagarByTipoCusto(tipoCusto);
 		Map<String, Double> ordenador = new HashMap<String, Double>();
 		if (allTiposContaPagar != null && allTiposContaPagar.size() > 0) {
 			for (TipoContaPagar tipo : allTiposContaPagar) {
-				Double soma = this.dao.getSomaCustosByTipo(tenant, dataInicial, dataFinal, tipo);
+				Double soma = this.dao.getSomaCustosByTipo(dataInicial, dataFinal, tipo);
 				if (soma > 0)
 					ordenador.put(tipo.getNome(), soma);
 			}
@@ -556,7 +555,7 @@ public class BIControl extends ControllerBase {
 		return retorno;
 	}
 
-	public String getBIEvolutivoDespesas(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public String getBIEvolutivoDespesas(Date dataInicial, Date dataFinal) {
 		String retorno = "[";
 		// se o usuário nao informou data inicio e fim, vai pegar o mes atual
 		if (dataInicial != null || dataFinal != null) {
@@ -575,7 +574,7 @@ public class BIControl extends ControllerBase {
 				cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
 				cal.setTime(SystemUtils.setHoraData(cal.getTime(), Calendar.PM, 11, 59, 59));
 
-				Double somaCustos = this.dao.getSomaCustosByTipo(tenant, dataInicial, cal.getTime(), null);
+				Double somaCustos = this.dao.getSomaCustosByTipo(dataInicial, cal.getTime(), null);
 
 				Calendar calAnterior = Calendar.getInstance();
 				calAnterior.setTime(dataInicial);
@@ -583,7 +582,7 @@ public class BIControl extends ControllerBase {
 				Calendar calAnterior2 = Calendar.getInstance();
 				calAnterior2.setTime(cal.getTime());
 				calAnterior2.set(Calendar.YEAR, calAnterior2.get(Calendar.YEAR) - 1);
-				Double somaCustosAnoAnterior = this.dao.getSomaCustosByTipo(tenant, calAnterior.getTime(), calAnterior2.getTime(), null);
+				Double somaCustosAnoAnterior = this.dao.getSomaCustosByTipo(calAnterior.getTime(), calAnterior2.getTime(), null);
 
 				acumulado += somaCustos;
 				acumuladoAnterior += somaCustosAnoAnterior;
@@ -602,12 +601,10 @@ public class BIControl extends ControllerBase {
 		return retorno;
 	}
 
-	public String getBIEvolutivoEntradas(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public String getBIEvolutivoEntradas(Date dataInicial, Date dataFinal) {
 		String retorno = "[";
 		// se o usuário nao informou data inicio e fim, vai pegar o mes atual
 		if (dataInicial != null || dataFinal != null) {
-			if (dataInicial == null)
-				dataInicial = SystemUtils.getPrimeiroDiaMesAtual(null);
 			if (dataFinal == null)
 				dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 
@@ -623,9 +620,9 @@ public class BIControl extends ControllerBase {
 				cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
 				cal.setTime(SystemUtils.setHoraData(cal.getTime(), Calendar.PM, 11, 59, 59));
 
-				Double somaEntradas = this.dao.getSomaFaturamentoByServico(tenant, dataInicial, cal.getTime(), null);
-				Double somaAvulso = this.dao.getSomaFaturamentoAvulso(tenant, dataInicial, cal.getTime());
-				Double somaVendas = this.dao.getSomaFaturamentoVendas(tenant, dataInicial, cal.getTime());
+				Double somaEntradas = this.dao.getSomaFaturamentoByServico(dataInicial, cal.getTime(), null);
+				Double somaAvulso = this.dao.getSomaFaturamentoAvulso(dataInicial, cal.getTime());
+				Double somaVendas = this.dao.getSomaFaturamentoVendas(dataInicial, cal.getTime());
 				somaEntradas += somaAvulso + somaVendas;
 
 				Calendar calAnterior = Calendar.getInstance();
@@ -634,7 +631,7 @@ public class BIControl extends ControllerBase {
 				Calendar calAnterior2 = Calendar.getInstance();
 				calAnterior2.setTime(cal.getTime());
 				calAnterior2.set(Calendar.YEAR, calAnterior2.get(Calendar.YEAR) - 1);
-				Double somaEntradasAnoAnterior = this.dao.getSomaFaturamentoByServico(tenant, calAnterior.getTime(), calAnterior2.getTime(), null);
+				Double somaEntradasAnoAnterior = this.dao.getSomaFaturamentoByServico(calAnterior.getTime(), calAnterior2.getTime(), null);
 
 				acumulado += somaEntradas;
 				acumuladoAnterior += somaEntradasAnoAnterior;

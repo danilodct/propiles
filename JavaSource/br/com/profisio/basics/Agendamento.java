@@ -6,8 +6,6 @@ import br.com.profisio.util.SystemUtils;
 
 public class Agendamento extends ObjetoBasico {
 
-	public static final Integer DURACAO_DEFAULT = 30;
-
 	private String titulo, nota;
 	private Date dataInicio, dataFim;
 	private Cadastro cadastro;
@@ -107,7 +105,7 @@ public class Agendamento extends ObjetoBasico {
 
 	public void setDuracao(Integer duracao) {
 		if (duracao == null)
-			duracao = DURACAO_DEFAULT;
+			duracao = 30;
 		this.duracao = duracao;
 		this.dataFim = SystemUtils.aumentarMinutosData(this.dataInicio, String.valueOf(duracao));
 	}

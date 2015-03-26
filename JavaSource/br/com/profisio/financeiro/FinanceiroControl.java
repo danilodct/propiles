@@ -29,7 +29,6 @@ import br.com.profisio.util.ControllerBase;
 import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.ProfisioException;
 import br.com.profisio.util.SystemUtils;
-import br.com.profisio.util.Tenant;
 
 public class FinanceiroControl extends ControllerBase {
 
@@ -70,7 +69,7 @@ public class FinanceiroControl extends ControllerBase {
 		}
 	}
 
-	public void cadastrarContaReceber(Tenant tenant, ContaReceber contaReceber, Boolean avulso) {
+	public void cadastrarContaReceber(ContaReceber contaReceber, Boolean avulso) {
 		SystemUtils.assertObjectIsNotNull(contaReceber);
 		if ((avulso == null || avulso == false) && contaReceber.getAtividade() == null)
 			throw new ProfisioException(ProfisioBundleUtil.INFORME_ATIVIDADE);
@@ -99,7 +98,6 @@ public class FinanceiroControl extends ControllerBase {
 		contaReceber.setQtdParcelas(contaReceber.getFormaPagamento().getQtdParcelas());
 		contaReceber.setPrimeiraParcela(true);
 		contaReceber.setValorCheio(valorOriginal);
-		contaReceber.setTenant(tenant);
 		this.dao.cadastrar(contaReceber);
 
 		Atividade atividade = null;
@@ -112,28 +110,25 @@ public class FinanceiroControl extends ControllerBase {
 		String compNota = "";
 		if (contaReceber.getFormaPagamento().getQtdParcelas() > 1)
 			compNota = " [" + contaReceber.getOrdemParcelamento() + "/" + contaReceber.getFormaPagamento().getQtdParcelas() + "]";
-		cadastrarMovimentacao(tenant, contaReceber, nota + compNota);
+		cadastrarMovimentacao(contaReceber, nota + compNota);
 
 		Collection<ContaReceber> parcelas = this.gerarParcelas(contaReceber);
 		if (parcelas != null && parcelas.size() > 0) {
 			for (ContaReceber parcela : parcelas) {
-				parcela.setTenant(tenant);
 				this.dao.cadastrar(parcela);
 				compNota = "";
 				if (contaReceber.getFormaPagamento().getQtdParcelas() > 1)
 					compNota = " [" + parcela.getOrdemParcelamento() + "/" + contaReceber.getFormaPagamento().getQtdParcelas() + "]";
-				this.cadastrarMovimentacao(tenant, parcela, nota + compNota);
+				this.cadastrarMovimentacao(parcela, nota + compNota);
 			}
 		}
 
 	}
 
-	private void cadastrarMovimentacao(Tenant tenant, ContaReceber contaReceber, String nota) {
+	private void cadastrarMovimentacao(ContaReceber contaReceber, String nota) {
 		Movimentacao movimentacao = new Movimentacao(contaReceber.getCaixa(), contaReceber.getDataPagamento(), nota, TipoMovimentacao.CONTA_RECEBER);
-		movimentacao.setTenant(tenant);
 		this.dao.cadastrar(movimentacao);
 		contaReceber.setMovimentacao(movimentacao);
-		contaReceber.setTenant(tenant);
 		this.dao.editar(contaReceber);
 	}
 
@@ -184,7 +179,7 @@ public class FinanceiroControl extends ControllerBase {
 		return retorno;
 	}
 
-	public void cadastrarContaPagar(Tenant tenant, ContaPagar contaPagar) {
+	public void cadastrarContaPagar(ContaPagar contaPagar) {
 		SystemUtils.assertObjectIsNotNull(contaPagar);
 		if (contaPagar.getValor() == null)
 			throw new ProfisioException(ProfisioBundleUtil.INFORME_VALOR);
@@ -200,22 +195,17 @@ public class FinanceiroControl extends ControllerBase {
 		if (contaPagar.getCentroCusto() != null && contaPagar.getCentroCusto().getId().intValue() == -1)
 			contaPagar.setCentroCusto(null);
 
-		TipoContaPagar tipo = contaPagar.getTipo();
-		tipo.setTenant(tenant);
-		this.dao.cadastrar(tipo);
+		this.dao.cadastrar(contaPagar.getTipo());
 
-		contaPagar.setTenant(tenant);
 		this.dao.cadastrar(contaPagar);
 
 		Movimentacao movimentacao = new Movimentacao(-contaPagar.getValor(), contaPagar.getDataPagamento(), contaPagar.getTipo().getNome() + " - " + contaPagar.getObservacao(), TipoMovimentacao.CONTA_PAGAR);
-		movimentacao.setTenant(tenant);
 		this.dao.cadastrar(movimentacao);
 		contaPagar.setMovimentacao(movimentacao);
-		contaPagar.setTenant(tenant);
 		this.dao.editar(contaPagar);
 	}
 
-	public Collection<ContaPagar> getContasPagar(Tenant tenant, TipoCusto tipoCusto, Date dataInicial, Date dataFinal, CentroCusto centroCusto, TipoContaPagar tipoContaPagar, StatusConta statusContaPagar, Boolean geral) {
+	public Collection<ContaPagar> getContasPagar(TipoCusto tipoCusto, Date dataInicial, Date dataFinal, CentroCusto centroCusto, TipoContaPagar tipoContaPagar, StatusConta statusContaPagar, Boolean geral) {
 		// se o usuário nao informou data inicio e fim, vai pegar paenas
 		if (dataInicial == null && dataFinal == null) {
 			dataInicial = SystemUtils.getPrimeiroDiaMesAtual(null);
@@ -228,17 +218,16 @@ public class FinanceiroControl extends ControllerBase {
 			tipoContaPagar = null;
 		if (centroCusto != null && (centroCusto.getId() == null || centroCusto.getId().intValue() == -1))
 			centroCusto = null;
-		return this.dao.getContasPagar(tenant, tipoCusto, dataInicial, dataFinal, centroCusto, tipoContaPagar, statusContaPagar, geral);
+		return this.dao.getContasPagar(tipoCusto, dataInicial, dataFinal, centroCusto, tipoContaPagar, statusContaPagar, geral);
 	}
 
 	public void removerContaPagar(ContaPagar contaPagar) {
 		SystemUtils.assertObjectIsNotNullHasId(contaPagar);
-		contaPagar.setCentroCusto(null);
 		this.dao.remover(contaPagar);
 	}
 
-	public Collection<TipoContaPagar> getAllTiposContaPagar(Tenant tenant) {
-		return this.dao.getAllTiposContaPagar(tenant);
+	public Collection<TipoContaPagar> getAllTiposContaPagar() {
+		return this.dao.getAllTiposContaPagar();
 	}
 
 	public ContaPagar getContaPagar(ContaPagar contaPagar) {
@@ -246,7 +235,7 @@ public class FinanceiroControl extends ControllerBase {
 		return this.dao.getContaPagarById(contaPagar.getId());
 	}
 
-	public void editarContaPagar(Tenant tenant, ContaPagar contaPagar) {
+	public void editarContaPagar(ContaPagar contaPagar) {
 		SystemUtils.assertObjectIsNotNullHasId(contaPagar);
 		if (contaPagar.getValor() == null)
 			throw new ProfisioException(ProfisioBundleUtil.INFORME_VALOR);
@@ -258,25 +247,21 @@ public class FinanceiroControl extends ControllerBase {
 		if (contaPagar.getCentroCusto() != null && contaPagar.getCentroCusto().getId().intValue() == -1)
 			contaPagar.setCentroCusto(null);
 
-		TipoContaPagar tipo = contaPagar.getTipo();
-		tipo.setTenant(tenant);
-		this.dao.cadastrar(tipo);
+		this.dao.cadastrar(contaPagar.getTipo());
 
 		ContaPagar contaPagarBD = this.dao.getContaPagarById(contaPagar.getId());
 		contaPagar.setMovimentacao(contaPagarBD.getMovimentacao());
-		contaPagar.setTenant(tenant);
 		this.dao.editar(contaPagar);
 
 		Movimentacao movBd = this.dao.getMovimentacaoByContaPagar(contaPagar);
 		movBd.setValor(contaPagar.getValor());
 		movBd.setData(contaPagar.getDataPagamento());
 		movBd.setDescricao(contaPagar.getObservacao());
-		movBd.setTenant(tenant);
 		this.dao.editar(movBd);
 	}
 
 	// Não trás as parcelas
-	public Collection<ContaReceber> getContasReceber(Tenant tenant, Date dataInicial, Date dataFinal, FormaPagamento formaPagamento, Colaborador colaborador, Servico servico, StatusConta statusContaPagar) {
+	public Collection<ContaReceber> getContasReceber(Date dataInicial, Date dataFinal, FormaPagamento formaPagamento, Colaborador colaborador, Servico servico, StatusConta statusContaPagar) {
 		// se o usuário nao informou data inicio e fim, vai pegar paenas
 		if (dataInicial == null && dataFinal == null) {
 			dataInicial = SystemUtils.getPrimeiroDiaMesAtual(null);
@@ -291,11 +276,11 @@ public class FinanceiroControl extends ControllerBase {
 		if (servico != null && (servico.getId() == null || servico.getId().intValue() == -1))
 			servico = null;
 
-		Collection<ContaReceber> contasReceber = this.dao.getContasReceber(tenant, dataInicial, dataFinal, formaPagamento, colaborador, servico, statusContaPagar);
+		Collection<ContaReceber> contasReceber = this.dao.getContasReceber(dataInicial, dataFinal, formaPagamento, colaborador, servico, statusContaPagar);
 		return contasReceber;
 	}
 
-	public Collection<ContaReceber> getContasReceberAvulso(Tenant tenant, Date dataInicial, Date dataFinal, FormaPagamento formaPagamento, StatusConta statusContaPagar) {
+	public Collection<ContaReceber> getContasReceberAvulso(Date dataInicial, Date dataFinal, FormaPagamento formaPagamento, StatusConta statusContaPagar) {
 		// se o usuário nao informou data inicio e fim, vai pegar paenas
 		if (dataInicial == null && dataFinal == null) {
 			dataInicial = SystemUtils.getPrimeiroDiaMesAtual(null);
@@ -305,10 +290,10 @@ public class FinanceiroControl extends ControllerBase {
 			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
 		}
 
-		return this.dao.getContasReceberAvulso(tenant, dataInicial, dataFinal, formaPagamento, statusContaPagar);
+		return this.dao.getContasReceberAvulso(dataInicial, dataFinal, formaPagamento, statusContaPagar);
 	}
 
-	public Collection<Movimentacao> getMovimentacoes(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public Collection<Movimentacao> getMovimentacoes(Date dataInicial, Date dataFinal) {
 		// se o usuário nao informou data inicio e fim, vai pegar paenas
 		if (dataInicial == null && dataFinal == null) {
 			dataInicial = SystemUtils.getHoje();
@@ -317,10 +302,10 @@ public class FinanceiroControl extends ControllerBase {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
 			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
 		}
-		return this.dao.getMovimentacoes(tenant, dataInicial, dataFinal);
+		return this.dao.getMovimentacoes(dataInicial, dataFinal);
 	}
 
-	public Double getSaldoAnteriorCaixa(Tenant tenant, Date dataInicial) {
+	public Double getSaldoAnteriorCaixa(Date dataInicial) {
 		if (dataInicial == null) {
 			Calendar calendar = Calendar.getInstance();
 			calendar.set(Calendar.AM_PM, Calendar.AM);
@@ -328,7 +313,7 @@ public class FinanceiroControl extends ControllerBase {
 			calendar.set(Calendar.MINUTE, 0);
 			dataInicial = calendar.getTime();
 		}
-		Configuracao configuracao = ConfiguracaoControl.getInstance().getConfiguracao(tenant);
+		Configuracao configuracao = ConfiguracaoControl.getInstance().getConfiguracao();
 		Double caixaValorInicial = configuracao.getCaixaValorInicial();
 		if (caixaValorInicial == null)
 			caixaValorInicial = 0.0;
@@ -340,12 +325,12 @@ public class FinanceiroControl extends ControllerBase {
 		// soma do saldo determiando nas configuracoes do caixa + todas as
 		// entradas, saidas e vendas da data determinada até a data inicial de
 		// pesquisa
-		double saldo = this.getSomaMovimentacoes(tenant, caixaDataInicial, dataInicial);
+		double saldo = this.getSomaMovimentacoes(caixaDataInicial, dataInicial);
 		return saldo + caixaValorInicial;
 	}
 
-	private double getSomaMovimentacoes(Tenant tenant, Date caixaDataInicial, Date dataInicial) {
-		return this.dao.getSomaMovimentacoes(tenant, caixaDataInicial, dataInicial);
+	private double getSomaMovimentacoes(Date caixaDataInicial, Date dataInicial) {
+		return this.dao.getSomaMovimentacoes(caixaDataInicial, dataInicial);
 	}
 
 	public Collection<ContaReceber> getPagamentosCheiosByAtividade(Atividade atividade) {
@@ -358,7 +343,7 @@ public class FinanceiroControl extends ControllerBase {
 		return this.dao.getContaReceberById(contaReceber.getId());
 	}
 
-	public String getContasReceberClientesCSV(Tenant tenant, Date dataInicial, Date dataFinal, FormaPagamento formaPagamento, Colaborador colaborador, Servico servico, StatusConta statusContaPagar) {
+	public String getContasReceberClientesCSV(Date dataInicial, Date dataFinal, FormaPagamento formaPagamento, Colaborador colaborador, Servico servico, StatusConta statusContaPagar) {
 		String csv = "CLIENTE;E-MAIL;DATA NASCIMENTO;BAIRRO;SEXO;SERVIÇO;MES COMPETENCIA;VALOR\n";
 		// se o usuário nao informou data inicio e fim, vai pegar paenas
 		if (dataInicial == null && dataFinal == null) {
@@ -372,7 +357,7 @@ public class FinanceiroControl extends ControllerBase {
 			colaborador = null;
 		if (servico != null && (servico.getId() == null || servico.getId().intValue() == -1))
 			servico = null;
-		Collection<ContaReceber> contasReceber = this.dao.getContasReceber(tenant, dataInicial, dataFinal, formaPagamento, colaborador, servico, statusContaPagar);
+		Collection<ContaReceber> contasReceber = this.dao.getContasReceber(dataInicial, dataFinal, formaPagamento, colaborador, servico, statusContaPagar);
 		if (contasReceber != null && contasReceber.size() > 0) {
 			for (ContaReceber conta : contasReceber) {
 				csv += conta.getAtividade().getCadastro().getNome() + ";" + conta.getAtividade().getCadastro().getEmail() + ";" + conta.getAtividade().getCadastro().getDataNascimentoStr() + ";" + conta.getAtividade().getCadastro().getEndereco().getBairro() + ";" + conta.getAtividade().getCadastro().getSexoStr() + ";" + conta.getAtividade().getContrato().getServico().getNome() + ";" + conta.getDataLancamentoStr() + ";" + conta.getValorCheioComDescontoStr() + "\n";
@@ -381,7 +366,7 @@ public class FinanceiroControl extends ControllerBase {
 		return csv;
 	}
 
-	public void editarContaReceber(Tenant tenant, ContaReceber contaReceber, Boolean avulso) {
+	public void editarContaReceber(ContaReceber contaReceber, Boolean avulso) {
 		SystemUtils.assertObjectIsNotNullHasId(contaReceber);
 		if ((avulso == null || !avulso) && contaReceber.getAtividade() == null)
 			throw new ProfisioException(ProfisioBundleUtil.INFORME_ATIVIDADE);
@@ -412,7 +397,6 @@ public class FinanceiroControl extends ControllerBase {
 		contaReceber.setQtdParcelas(contaReceber.getFormaPagamento().getQtdParcelas());
 		contaReceber.setPrimeiraParcela(true);
 		contaReceber.setValorCheio(valorOriginal);
-		contaReceber.setTenant(tenant);
 		this.dao.editar(contaReceber);
 
 		Atividade atividade = null;
@@ -425,17 +409,16 @@ public class FinanceiroControl extends ControllerBase {
 		String compNota = "";
 		if (contaReceber.getFormaPagamento().getQtdParcelas() > 1)
 			compNota = "[" + contaReceber.getOrdemParcelamento() + "/" + contaReceber.getFormaPagamento().getQtdParcelas() + "]";
-		cadastrarMovimentacao(tenant, contaReceber, nota + compNota);
+		cadastrarMovimentacao(contaReceber, nota + compNota);
 
 		Collection<ContaReceber> parcelas = this.gerarParcelas(contaReceber);
 		if (parcelas != null && parcelas.size() > 0) {
 			for (ContaReceber parcela : parcelas) {
-				parcela.setTenant(tenant);
 				this.dao.cadastrar(parcela);
 				compNota = "";
 				if (contaReceber.getFormaPagamento().getQtdParcelas() > 1)
 					compNota = "[" + parcela.getOrdemParcelamento() + "/" + contaReceber.getFormaPagamento().getQtdParcelas() + "]";
-				this.cadastrarMovimentacao(tenant, parcela, nota + compNota);
+				this.cadastrarMovimentacao(parcela, nota + compNota);
 			}
 		}
 	}
@@ -445,13 +428,13 @@ public class FinanceiroControl extends ControllerBase {
 		this.dao.removerMovimentacao(contaReceber);
 	}
 
-	public Collection<Colaborador> getFolhaPagamento(Tenant tenant, Colaborador colaborador, Date dataInicial) {
+	public Collection<Colaborador> getFolhaPagamento(Colaborador colaborador, Date dataInicial) {
 		Collection<Colaborador> temp = new ArrayList<Colaborador>();
 		if (dataInicial != null) {
 			dataInicial = SystemUtils.getPrimeiroDiaMesAtual(dataInicial);
 			Date dataFinal = SystemUtils.getUltimoDiaMesAtual(dataInicial);
 			if (colaborador == null || colaborador.getId() == null || colaborador.getId().intValue() == -1)
-				temp = ColaboradorControl.getInstance().getColaboradores(tenant, null);
+				temp = ColaboradorControl.getInstance().getColaboradores(null);
 			else {
 				colaborador = ColaboradorControl.getInstance().getColaboradorById(colaborador.getId());
 				temp.add(colaborador);
@@ -474,7 +457,7 @@ public class FinanceiroControl extends ControllerBase {
 						}
 					}
 					col.setFrequencias(frequencias);
-					Collection<ContaPagar> pagamentos = this.getPagamentosColaboradores(tenant, col, dataInicial, dataFinal);
+					Collection<ContaPagar> pagamentos = this.getPagamentosColaboradores(col, dataInicial, dataFinal);
 					if (pagamentos != null && pagamentos.size() > 0)
 						col.setJaTemPagamentos(true);
 					else
@@ -485,7 +468,7 @@ public class FinanceiroControl extends ControllerBase {
 		return temp;
 	}
 
-	public Collection<ContaPagar> getPagamentosColaboradores(Tenant tenant, Colaborador colaborador, Date dataInicial, Date dataFinal) {
+	public Collection<ContaPagar> getPagamentosColaboradores(Colaborador colaborador, Date dataInicial, Date dataFinal) {
 		// se o usuário nao informou data inicio e fim, vai pegar paenas
 		if (dataInicial == null && dataFinal == null) {
 			dataInicial = SystemUtils.getPrimeiroDiaMesAtual(null);
@@ -494,7 +477,7 @@ public class FinanceiroControl extends ControllerBase {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
 			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
 		}
-		return this.dao.getPagamentosColaboradores(tenant, colaborador, dataInicial, dataFinal);
+		return this.dao.getPagamentosColaboradores(colaborador, dataInicial, dataFinal);
 	}
 
 }

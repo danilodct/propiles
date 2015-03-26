@@ -14,7 +14,6 @@ import br.com.profisio.util.ControllerBase;
 import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.ProfisioException;
 import br.com.profisio.util.SystemUtils;
-import br.com.profisio.util.Tenant;
 
 public class FrequenciaControl extends ControllerBase {
 
@@ -31,7 +30,7 @@ public class FrequenciaControl extends ControllerBase {
 		return instance;
 	}
 
-	public Collection<Frequencia> getFrequencias(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public Collection<Frequencia> getFrequencias(Date dataInicial, Date dataFinal) {
 		Calendar calendar = null;
 		if (dataInicial == null && dataFinal == null) {
 			calendar = GregorianCalendar.getInstance();
@@ -56,7 +55,7 @@ public class FrequenciaControl extends ControllerBase {
 			calendar.set(Calendar.AM_PM, Calendar.PM);
 			dataFinal = calendar.getTime();
 		}
-		return this.dao.getFrequencias(tenant, dataInicial, dataFinal);
+		return this.dao.getFrequencias(dataInicial, dataFinal);
 	}
 
 	public void remover(Frequencia frequencia) {
@@ -65,7 +64,7 @@ public class FrequenciaControl extends ControllerBase {
 		this.dao.delete(frequencia);
 	}
 
-	public void cadastrarFrequencia(Tenant tenant, Frequencia frequencia) {
+	public void cadastrarFrequencia(Frequencia frequencia) {
 		SystemUtils.assertObjectIsNotNull(frequencia);
 		if (frequencia.getData() == null)
 			throw new ProfisioException(ProfisioBundleUtil.INFORME_DATA);
@@ -88,7 +87,6 @@ public class FrequenciaControl extends ControllerBase {
 			frequencia.setColaborador(null);
 
 		frequencia.setNovo(true);
-		frequencia.setTenant(tenant);
 		this.dao.cadastar(frequencia);
 	}
 

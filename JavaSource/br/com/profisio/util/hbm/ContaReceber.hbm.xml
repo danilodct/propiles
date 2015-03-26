@@ -5,8 +5,6 @@
 		<id name="id" > 
 			<generator class="increment" />
 		</id>
-
-		<many-to-one name="tenant" column="tenant_id" lazy="false" />
 		
 		<property name="dataPagamento" />
 		<property name="dataLancamento" />
@@ -57,8 +55,6 @@
 			<![CDATA[
 			from ContaReceber
 			where
-			tenant = :tenant
-			and
 			(:dataInicial is null or dataLancamento >= :dataInicial)
 			and
 			(:dataFinal is null or dataLancamento <= :dataFinal)
@@ -80,8 +76,6 @@
 			<![CDATA[
 			from ContaReceber
 			where
-			tenant = :tenant
-			and 
 			atividade is null and
 			(:dataInicial is null or dataLancamento >= :dataInicial)
 			and
@@ -101,8 +95,7 @@
 			SELECT SUM(cr.caixa)
 			FROM contareceber AS cr
 			WHERE
-			cr.tenant = :tenant
-			and cr.dataPagamento >= :dataInicial
+			    cr.dataPagamento >= :dataInicial
 			and cr.dataPagamento <= :dataFinal
 			and cr.pai_id is null
 			]]>
@@ -113,9 +106,7 @@
 			SELECT sum(cnta1.caixa)
 			FROM contareceber cnta1
 			LEFT JOIN contareceber cnta2 ON cnta1.pai_id = cnta2.id
-			WHERE 
-			cnta1.tenant_id = :tenant
-			AND cnta2.dataPagamento >=  :dataInicial
+			WHERE cnta2.dataPagamento >=  :dataInicial
 			AND cnta2.dataPagamento <=  :dataFinal
 			]]>
 	</sql-query>
@@ -142,8 +133,7 @@
 			<![CDATA[
 			SELECT sum(cnta.valorCheio - (GREATEST(cnta.qtdParcelas, 1) * cnta.descontos))
 			FROM ContaReceber cnta
-			where cnta.tenant = :tenant
-			and (:servico is null or cnta.atividade.contrato.servico = :servico)
+			where (:servico is null or cnta.atividade.contrato.servico = :servico)
 			and parcelamentoPai is null
 			and (:dataInicial is null or dataLancamento >= :dataInicial)
 			and (:dataFinal is null or dataLancamento <= :dataFinal)
@@ -154,8 +144,7 @@
 			<![CDATA[
 			SELECT sum(cnta.valorCheio)
 			FROM ContaReceber cnta
-			where cnta.tenant = :tenant
-			and atividade is null
+			where atividade is null
 			and primeiraParcela = true
 			and (:dataInicial is null or dataLancamento >= :dataInicial)
 			and (:dataFinal is null or dataLancamento <= :dataFinal)

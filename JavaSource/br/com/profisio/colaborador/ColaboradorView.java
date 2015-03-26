@@ -9,9 +9,7 @@ import br.com.profisio.basics.enums.Sexo;
 import br.com.profisio.basics.enums.TipoUser;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
-import br.com.profisio.util.ProfisioSessionUtil;
 import br.com.profisio.util.SystemUtils;
-import br.com.profisio.util.Tenant;
 
 public class ColaboradorView extends ProfisioActionSupport {
 
@@ -33,9 +31,8 @@ public class ColaboradorView extends ProfisioActionSupport {
 	public String actionAlterarSenha() {
 		String resposta = REDIRECT;
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
 			if (this.colaborador != null) {
-				this.controller.alterarSenha(tenant, this.colaborador);
+				this.controller.alterarSenha(this.colaborador);
 				addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 				resposta = "redirect_home";
 			}
@@ -70,8 +67,7 @@ public class ColaboradorView extends ProfisioActionSupport {
 
 	public String actionEditarContrato() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.editarContrato(tenant, contrato);
+			this.controller.editarContrato(contrato);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -81,8 +77,7 @@ public class ColaboradorView extends ProfisioActionSupport {
 
 	public String actionCadastrarContrato() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.cadastrarContrato(tenant, contrato);
+			this.controller.cadastrarContrato(contrato);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -92,8 +87,7 @@ public class ColaboradorView extends ProfisioActionSupport {
 
 	public String actionRemoverContrato() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.removerContrato(tenant, contrato);
+			this.controller.removerContrato(contrato);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REMOCAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -103,8 +97,7 @@ public class ColaboradorView extends ProfisioActionSupport {
 
 	public String actionRemoverColaborador() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.removerColaborador(tenant, colaborador);
+			this.controller.removerColaborador(colaborador);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REMOCAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -114,8 +107,7 @@ public class ColaboradorView extends ProfisioActionSupport {
 
 	public String actionEditarColaborador() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.editarColaborador(tenant, colaborador);
+			this.controller.editarColaborador(colaborador);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -126,8 +118,7 @@ public class ColaboradorView extends ProfisioActionSupport {
 	public String actionCadastrarColaborador() {
 		String resposta = null;
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.cadastrarColaborador(tenant, colaborador);
+			this.controller.cadastrarColaborador(colaborador);
 			resposta = SUCCESS;
 		} catch (Exception e) {
 			this.dealException(e);
@@ -154,15 +145,14 @@ public class ColaboradorView extends ProfisioActionSupport {
 
 	public String actionColaboradores() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.colaboradores = this.controller.getColaboradores(tenant, nomeColaborador);
+			this.colaboradores = this.controller.getColaboradores(nomeColaborador);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
 		return REDIRECT;
 	}
 
-	// 888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+	//888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
 
 	public Sexo[] getSexos() {
 		return Sexo.values();
@@ -181,7 +171,7 @@ public class ColaboradorView extends ProfisioActionSupport {
 		return retorno;
 	}
 
-	// 888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+	//888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
 
 	public String getNomeColaborador() {
 		return nomeColaborador;

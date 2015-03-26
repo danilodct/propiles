@@ -6,8 +6,6 @@
 			<generator class="increment" />
 		</id>
 		
-		<many-to-one name="tenant" column="tenant_id" lazy="false" />
-		
 		<property name="nome" />
 		<property name="qtdSessoes" />
 		<property name="duracaoSessao" />
@@ -21,8 +19,7 @@
 			select serv
 			from Servico serv
 			left join serv.centroCusto centro
-			where serv.tenant = :tenant 
-			and (:centroCusto is null or centro = :centroCusto)
+			where (:centroCusto is null or centro = :centroCusto)
 			order by serv.nome
 			]]>
 	</query>

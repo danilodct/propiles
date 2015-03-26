@@ -72,8 +72,8 @@
 	
 		<!-- AREA DAS ABAS 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		<div class="ui top attached tabular menu">
-			<a class="item <s:if test="aba == null || aba == 'infoColaborador'" >active</s:if>" data-tab="infoColaborador">Informações do colaborador</a>
-			<a class="item <s:if test="aba != null && aba == 'servicos'" >active</s:if>" data-tab="servicos">Serviços prestados na clínica</a>
+			<a class="item active" data-tab="infoColaborador">Informações do colaborador</a>
+			<a class="item" data-tab="servicos">Serviços prestados na clínica</a>
 		</div>
 	
 		<!--CONTEUDO ABA 1 88888888888888888888888888888888888888888888888888888888888888888888888 -->
@@ -245,7 +245,7 @@
 		</div>
 		
 		<!--CONTEUDO ABA  88888888888888888888888888888888888888888888888888888888888888888888888 -->
-		<div class="ui bottom attached tab segment <s:if test="aba != null && aba == 'servicos'" >active</s:if>" data-tab="servicos">
+		<div class="ui bottom attached tab segment  <s:if test="aba != null && aba == 'servicos'" >active</s:if>" data-tab="servicos">
 				
 			<div class="ui hidden divider"></div>
 	
@@ -327,7 +327,6 @@
 								<td>
 									<!-- FORM ALTERAR % DO CONTRATO 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 									<s:form cssClass="hide ui form editarContrato" action="editarContrato">
-										<input type="hidden" name="aba" value="servicos" />
 										<input type="hidden" name="contrato.id" value="<s:property value="id" />" />
 										<input type="hidden" name="colaborador.id" value="<s:property value="colaborador.id" />" />
 										<input type="hidden" name="contrato.colaborador.id" value="<s:property value="colaborador.id" />" />
@@ -345,7 +344,7 @@
 									</s:form>
 									<input type="button" value="ALTERAR" class="ui blue mini button alterarContrato" />
 								</td>
-								<td><a class="remover" href="removerContrato?aba=servicos&colaborador.id=<s:property value="colaborador.id" />&contrato.id=<s:property value="id" />"><i class="remove circle red icon"></i></a></td>
+								<td><a class="remover" href="removerContrato?colaborador.id=<s:property value="colaborador.id" />&contrato.id=<s:property value="id" />"><i class="remove circle red icon"></i></a></td>
 							</tr>
 						</s:iterator>
 					</s:if>

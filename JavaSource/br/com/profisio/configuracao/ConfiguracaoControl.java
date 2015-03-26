@@ -3,7 +3,6 @@ package br.com.profisio.configuracao;
 import br.com.profisio.basics.Configuracao;
 import br.com.profisio.util.ControllerBase;
 import br.com.profisio.util.SystemUtils;
-import br.com.profisio.util.Tenant;
 
 public class ConfiguracaoControl extends ControllerBase {
 
@@ -20,16 +19,14 @@ public class ConfiguracaoControl extends ControllerBase {
 		return instance;
 	}
 
-	public Configuracao getConfiguracao(Tenant tenant) {
-		return this.dao.getConfiguracao(tenant);
+	public Configuracao getConfiguracao() {
+		return this.dao.getConfiguracao();
 	}
 
-	public void editarConfiguracao(Tenant tenant, Configuracao configuracao) {
+	public void editarConfiguracao(Configuracao configuracao) {
 		SystemUtils.assertObjectIsNotNull(configuracao);
-		Configuracao confBD = this.dao.getConfiguracaoByTenant(tenant);
-		SystemUtils.assertObjectIsNotNullHasId(confBD);
-		configuracao.setId(confBD.getId());
-		configuracao.setTenant(tenant);
+		if (configuracao.getId() == null)
+			configuracao.setId(1);
 		this.dao.editar(configuracao);
 	}
 

@@ -18,7 +18,6 @@ import br.com.profisio.basics.enums.FormaPagamento;
 import br.com.profisio.basics.enums.StatusConta;
 import br.com.profisio.basics.enums.TipoCusto;
 import br.com.profisio.util.DAOBase;
-import br.com.profisio.util.Tenant;
 
 public class FinanceiroDAO extends DAOBase {
 
@@ -52,9 +51,8 @@ public class FinanceiroDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<ContaPagar> getContasPagar(Tenant tenant, TipoCusto tipoCusto, Date dataInicial, Date dataFinal, CentroCusto centroCusto, TipoContaPagar tipoContaPagar, StatusConta statusContaPagar, Boolean geral) {
+	public Collection<ContaPagar> getContasPagar(TipoCusto tipoCusto, Date dataInicial, Date dataFinal, CentroCusto centroCusto, TipoContaPagar tipoContaPagar, StatusConta statusContaPagar, Boolean geral) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("tipoCusto", tipoCusto);
 		if (tipoCusto != null)
 			params.put("tipoCusto", tipoCusto.getValue());
@@ -75,10 +73,8 @@ public class FinanceiroDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<TipoContaPagar> getAllTiposContaPagar(Tenant tenant) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
-		return this.imp.createNamedQuery("getAllTiposContaPagar", params).list();
+	public Collection<TipoContaPagar> getAllTiposContaPagar() {
+		return this.imp.createNamedQuery("getAllTiposContaPagar").list();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -97,9 +93,8 @@ public class FinanceiroDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<ContaReceber> getContasReceber(Tenant tenant, Date dataInicial, Date dataFinal, FormaPagamento formaPagamento, Colaborador colaborador, Servico servico, StatusConta statusContaPagar) {
+	public Collection<ContaReceber> getContasReceber(Date dataInicial, Date dataFinal, FormaPagamento formaPagamento, Colaborador colaborador, Servico servico, StatusConta statusContaPagar) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		params.put("colaborador", colaborador);
@@ -114,9 +109,8 @@ public class FinanceiroDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<ContaReceber> getContasReceberAvulso(Tenant tenant, Date dataInicial, Date dataFinal, FormaPagamento formaPagamento, StatusConta statusContaPagar) {
+	public Collection<ContaReceber> getContasReceberAvulso(Date dataInicial, Date dataFinal, FormaPagamento formaPagamento, StatusConta statusContaPagar) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		params.put("formaPagamento", formaPagamento);
@@ -136,18 +130,16 @@ public class FinanceiroDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Movimentacao> getMovimentacoes(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public Collection<Movimentacao> getMovimentacoes(Date dataInicial, Date dataFinal) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		return this.imp.createNamedQuery("getMovimentacoes", params).list();
 	}
 
 	@SuppressWarnings("unchecked")
-	public double getSomaMovimentacoes(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public double getSomaMovimentacoes(Date dataInicial, Date dataFinal) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		return ((Double) this.imp.createNamedQuery("getSomaMovimentacoes", params).uniqueResult());
@@ -202,9 +194,8 @@ public class FinanceiroDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<ContaPagar> getPagamentosColaboradores(Tenant tenant, Colaborador colaborador, Date dataInicial, Date dataFinal) {
+	public Collection<ContaPagar> getPagamentosColaboradores(Colaborador colaborador, Date dataInicial, Date dataFinal) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		params.put("colaborador", colaborador);

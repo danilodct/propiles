@@ -7,7 +7,6 @@ import java.util.Map;
 import br.com.profisio.basics.CentroCusto;
 import br.com.profisio.basics.Servico;
 import br.com.profisio.util.DAOBase;
-import br.com.profisio.util.Tenant;
 
 public class ServicoDAO extends DAOBase {
 
@@ -19,9 +18,8 @@ public class ServicoDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Servico> getServicos(Tenant tenant, CentroCusto centroCusto) {
+	public Collection<Servico> getServicos(CentroCusto centroCusto) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("centroCusto", centroCusto);
 		return this.imp.createNamedQuery("getServicos", params).list();
 	}
@@ -47,10 +45,8 @@ public class ServicoDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<CentroCusto> getCentrosCusto(Tenant tenant) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
-		return this.imp.createNamedQuery("getCentrosCusto", params).list();
+	public Collection<CentroCusto> getCentrosCusto() {
+		return this.imp.createNamedQuery("getCentrosCusto").list();
 	}
 
 	@SuppressWarnings("unchecked")

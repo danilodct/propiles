@@ -9,7 +9,6 @@ import br.com.profisio.util.ControllerBase;
 import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.ProfisioException;
 import br.com.profisio.util.SystemUtils;
-import br.com.profisio.util.Tenant;
 
 public class AgendaControl extends ControllerBase {
 
@@ -26,7 +25,7 @@ public class AgendaControl extends ControllerBase {
 		return instance;
 	}
 
-	public void cadastrarAgendamento(Tenant tenant, Agendamento agendamento) {
+	public void cadastrarAgendamento(Agendamento agendamento) {
 		SystemUtils.assertObjectIsNotNull(agendamento);
 		if (agendamento.getDataInicio() == null)
 			throw new ProfisioException(ProfisioBundleUtil.INFORME_DATA);
@@ -34,19 +33,19 @@ public class AgendaControl extends ControllerBase {
 			throw new ProfisioException(ProfisioBundleUtil.INFORME_TITULO);
 
 		if (agendamento.getDataFim() == null)
-			agendamento.setDuracao(Agendamento.DURACAO_DEFAULT);
-		agendamento.setTenant(tenant);
+			agendamento.setDuracao(30);
+
 		this.dao.cadastrar(agendamento);
 	}
 
-	public void cadastrarAgendamentos(Tenant tenant, Collection<Agendamento> agendamentos) {
+	public void cadastrarAgendamentos(Collection<Agendamento> agendamentos) {
 		if (agendamentos != null && agendamentos.size() > 0) {
 			for (Agendamento agendamento : agendamentos)
-				this.cadastrarAgendamento(tenant, agendamento);
+				this.cadastrarAgendamento(agendamento);
 		}
 	}
 
-	public String getAgendamentosByMes(Tenant tenant, Date mes) {
+	public String getAgendamentosByMes(Date mes) {
 		String retorno = "[";
 		if (mes == null)
 			mes = new Date();
@@ -56,7 +55,7 @@ public class AgendaControl extends ControllerBase {
 		Date dataInicial = SystemUtils.getPrimeiroDiaMesAtual(cal.getTime());
 		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH) + 2);
 		Date dataFinal = SystemUtils.getUltimoDiaMesAtual(cal.getTime());
-		Collection<Agendamento> agendamentos = this.dao.getAgendamentosByMes(tenant, dataInicial, dataFinal);
+		Collection<Agendamento> agendamentos = this.dao.getAgendamentosByMes(dataInicial, dataFinal);
 		if (agendamentos != null && agendamentos.size() > 0) {
 			for (Agendamento agendamento : agendamentos) {
 				String nota = agendamento.getNota();
@@ -78,16 +77,15 @@ public class AgendaControl extends ControllerBase {
 		return retorno;
 	}
 
-	public void editarAgendamento(Tenant tenant, Agendamento agendamento) {
+	public void editarAgendamento(Agendamento agendamento) {
 		SystemUtils.assertObjectIsNotNullHasId(agendamento);
 		Agendamento agendamentoBD = this.dao.getAgendamentosById(agendamento.getId());
 		agendamento.setCadastro(agendamentoBD.getCadastro());
 		agendamento.setContaReceber(agendamentoBD.getContaReceber());
-		agendamento.setTenant(tenant);
 		this.dao.editar(agendamento);
 	}
 
-	public void alterarDataAgendamento(Tenant tenant, Agendamento agendamento) {
+	public void alterarDataAgendamento(Agendamento agendamento) {
 		SystemUtils.assertObjectIsNotNullHasId(agendamento);
 		Agendamento agendamentoBD = this.dao.getAgendamentosById(agendamento.getId());
 
@@ -102,7 +100,6 @@ public class AgendaControl extends ControllerBase {
 		cal2.set(Calendar.MINUTE, cal1.get(Calendar.MINUTE));
 
 		agendamentoBD.setDataInicio(cal2.getTime());
-		agendamentoBD.setTenant(tenant);
 		this.dao.editar(agendamentoBD);
 	}
 

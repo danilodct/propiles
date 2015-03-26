@@ -15,7 +15,6 @@ import br.com.profisio.basics.Contrato;
 import br.com.profisio.basics.FormaConhecimento;
 import br.com.profisio.basics.Frequencia;
 import br.com.profisio.util.DAOBase;
-import br.com.profisio.util.Tenant;
 
 public class CadastroDAO extends DAOBase {
 
@@ -27,20 +26,17 @@ public class CadastroDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Cadastro> getProximosAniversariantes(Tenant tenant, String mesAtual, String mesProximo) {
+	public Collection<Cadastro> getProximosAniversariantes(String mesAtual, String mesProximo) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("mesAtual", mesAtual + "/%");
 		params.put("mesProximo", mesProximo + "/%");
 		return imp.createNamedQuery("getProximosAniversariantesClientes", params).list();
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<FormaConhecimento> getAllFormasConhecimento(Tenant tenant) {
+	public Collection<FormaConhecimento> getAllFormasConhecimento() {
 		Collection<FormaConhecimento> formas = new ArrayList<FormaConhecimento>();
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
-		List<Cadastro> list = imp.createNamedQuery("getAllFormasConhecimento", params).list();
+		List<Cadastro> list = imp.createNamedQuery("getAllFormasConhecimento").list();
 		if (list != null && list.size() > 0) {
 			for (Cadastro cli : list) {
 				formas.add(new FormaConhecimento(cli.getConhecimentoStudio()));
@@ -50,9 +46,8 @@ public class CadastroDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Cadastro> getCadastros(Tenant tenant, String nomeCliente, Integer sizePag, Integer pagAtual) {
+	public Collection<Cadastro> getCadastros(String nomeCliente, Integer sizePag, Integer pagAtual) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("nomeCliente", nomeCliente);
 		if (nomeCliente != null)
 			params.put("nomeCliente", nomeCliente + "%");
@@ -66,9 +61,8 @@ public class CadastroDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Integer getQtdCadastros(Tenant tenant, String nomeCliente) {
+	public Integer getQtdCadastros(String nomeCliente) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("nomeCliente", nomeCliente);
 		if (nomeCliente != null)
 			params.put("nomeCliente", nomeCliente + "%");

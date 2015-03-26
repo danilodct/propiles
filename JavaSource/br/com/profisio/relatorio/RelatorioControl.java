@@ -15,7 +15,6 @@ import br.com.profisio.financeiro.FinanceiroControl;
 import br.com.profisio.frequencia.FrequenciaControl;
 import br.com.profisio.util.ControllerBase;
 import br.com.profisio.util.SystemUtils;
-import br.com.profisio.util.Tenant;
 import br.com.profisio.venda.VendaControl;
 
 public class RelatorioControl extends ControllerBase {
@@ -33,7 +32,7 @@ public class RelatorioControl extends ControllerBase {
 		return instance;
 	}
 
-	public Collection<Cadastro> getClientesFrequentes(Tenant tenant, Date dataInicial, Date dataFinal, Colaborador colaborador, Servico servico) {
+	public Collection<Cadastro> getClientesFrequentes(Date dataInicial, Date dataFinal, Colaborador colaborador, Servico servico) {
 		// se o usuário nao informou data inicio e fim, vai pegar paenas
 		if (dataInicial == null && dataFinal == null) {
 			dataInicial = SystemUtils.getPrimeiroDiaMesAtual(null);
@@ -46,10 +45,10 @@ public class RelatorioControl extends ControllerBase {
 			colaborador = null;
 		if (servico != null && (servico.getId() == null || servico.getId().intValue() == -1))
 			servico = null;
-		return this.dao.getClientesFrequentes(tenant, dataInicial, dataFinal, colaborador, servico);
+		return this.dao.getClientesFrequentes(dataInicial, dataFinal, colaborador, servico);
 	}
 
-	public Collection<Cadastro> getNovosCadastros(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public Collection<Cadastro> getNovosCadastros(Date dataInicial, Date dataFinal) {
 		// se o usuário nao informou data inicio e fim, vai pegar paenas
 		if (dataInicial == null && dataFinal == null) {
 			dataInicial = SystemUtils.getPrimeiroDiaMesAtual(null);
@@ -58,7 +57,7 @@ public class RelatorioControl extends ControllerBase {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
 			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
 		}
-		Collection<Cadastro> novosCadastros = this.dao.getNovosCadastros(tenant, dataInicial, dataFinal);
+		Collection<Cadastro> novosCadastros = this.dao.getNovosCadastros(dataInicial, dataFinal);
 		if (novosCadastros != null && novosCadastros.size() > 0) {
 			for (Cadastro cli : novosCadastros) {
 				Collection<Frequencia> frequencias = this.dao.getFrequenciasByCadastro(cli, dataInicial, dataFinal);
@@ -71,7 +70,7 @@ public class RelatorioControl extends ControllerBase {
 		return novosCadastros;
 	}
 
-	public String gerarDemonstrativoResultado(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public String gerarDemonstrativoResultado(Date dataInicial, Date dataFinal) {
 		// esta funcao nao deve considerar o dia e sim o ano/mes
 		String retorno = "";
 		if (dataInicial != null || dataFinal != null) {
@@ -130,12 +129,12 @@ public class RelatorioControl extends ControllerBase {
 				mesIgual = calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR) && calendar1.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH);
 
 				// FATURAMENTO
-				Double receitasBruto = this.getFaturamentoBruto(tenant, calendar1.getTime(), proximoMes);
+				Double receitasBruto = this.getFaturamentoBruto(calendar1.getTime(), proximoMes);
 				retorno += "FAT:" + SystemUtils.parseDoubleToString(receitasBruto) + ";";
 				somaFat += receitasBruto;
 
 				// CONTAS PAGAR VARIAVEIS
-				Double contasPagarVariaveis = this.dao.getSomaContasPagar(tenant, calendar1.getTime(), proximoMes, TipoCusto.VARIAVEL);
+				Double contasPagarVariaveis = this.dao.getSomaContasPagar(calendar1.getTime(), proximoMes, TipoCusto.VARIAVEL);
 				retorno += "VAR:" + SystemUtils.parseDoubleToString(contasPagarVariaveis) + ";";
 				somaContasVar += contasPagarVariaveis;
 
@@ -145,7 +144,7 @@ public class RelatorioControl extends ControllerBase {
 				somaMargem += valorMargemContribuicao;
 
 				// CONTAS FIXAS
-				Double contasPagarFixos = this.dao.getSomaContasPagar(tenant, calendar1.getTime(), proximoMes, TipoCusto.FIXO);
+				Double contasPagarFixos = this.dao.getSomaContasPagar(calendar1.getTime(), proximoMes, TipoCusto.FIXO);
 				retorno += "FIX:" + SystemUtils.parseDoubleToString(contasPagarFixos) + ";";
 				somaContasFixas += contasPagarFixos;
 
@@ -158,45 +157,33 @@ public class RelatorioControl extends ControllerBase {
 					calendar1.set(Calendar.MONTH, calendar1.get(Calendar.MONTH) + 1);
 			}
 
-			Integer qtdClientesAtivos = this.getQtdClientesFrequentes(tenant, dataInicial, dataFinal);
-			Collection<ContaReceber> contasReceberAvulso = FinanceiroControl.getInstance().getContasReceberAvulso(tenant, dataInicial, dataFinal, null, null);
+			Integer qtdClientesAtivos = this.getQtdClientesFrequentes(dataInicial, dataFinal);
+			Collection<ContaReceber> contasReceberAvulso = FinanceiroControl.getInstance().getContasReceberAvulso(dataInicial, dataFinal, null, null);
 			Double somaAvulso = 0.0;
 			if (contasReceberAvulso != null && contasReceberAvulso.size() > 0) {
 				for (ContaReceber conta : contasReceberAvulso) {
 					somaAvulso += conta.getValorCheioComDesconto();
 				}
 			}
-			String ticket = "0,00";
-			if (qtdClientesAtivos > 0)
-				ticket = SystemUtils.parseDoubleToString((somaFat - somaAvulso) / qtdClientesAtivos);
+			String ticket = SystemUtils.parseDoubleToString((somaFat - somaAvulso) / qtdClientesAtivos);
 
 			retorno += "TOTAL_FAT:" + SystemUtils.parseDoubleToString(somaFat) + ";TOTAL_VAR:" + SystemUtils.parseDoubleToString(somaContasVar) + ";TOTAL_MC:" + SystemUtils.parseDoubleToString(somaMargem) + ";TOTAL_FIX:" + SystemUtils.parseDoubleToString(somaContasFixas) + ";TOTAL_RES:" + SystemUtils.parseDoubleToString(somaResultados) + ";";
-			String contasVarSobFat = "0,00";
-			String margemSobFat = "0,00";
-			String contasFixasSobFat = "0,00";
-			String resultadosSobFat = "0,00";
-			if (somaFat > 0) {
-				contasVarSobFat = SystemUtils.parseDoubleToString((somaContasVar / somaFat) * 100);
-				margemSobFat = SystemUtils.parseDoubleToString((somaMargem / somaFat) * 100);
-				contasFixasSobFat = SystemUtils.parseDoubleToString((somaContasFixas / somaFat) * 100);
-				resultadosSobFat = SystemUtils.parseDoubleToString((somaResultados / somaFat) * 100);
-			}
-			retorno += "PER_FAT:100,00%;PER_VAR:" + contasVarSobFat + "%;PER_MC:" + margemSobFat + "%;PER_FIX:" + contasFixasSobFat + "%;PER_RES:" + resultadosSobFat + "%;PER_TICKET:" + ticket;
+			retorno += "PER_FAT:100,00%;PER_VAR:" + SystemUtils.parseDoubleToString((somaContasVar / somaFat) * 100) + "%;PER_MC:" + SystemUtils.parseDoubleToString((somaMargem / somaFat) * 100) + "%;PER_FIX:" + SystemUtils.parseDoubleToString((somaContasFixas / somaFat) * 100) + "%;PER_RES:" + SystemUtils.parseDoubleToString((somaResultados / somaFat) * 100) + "%;PER_TICKET:" + ticket;
 		}
 		return retorno;
 	}
 
-	public Integer getQtdClientesFrequentes(Tenant tenant, Date dataInicial, Date dataFinal) {
-		return this.dao.getQtdClientesFrequentes(tenant, dataInicial, dataFinal);
+	public Integer getQtdClientesFrequentes(Date dataInicial, Date dataFinal) {
+		return this.dao.getQtdClientesFrequentes(dataInicial, dataFinal);
 	}
 
 	// pega todo o faturamento (contaReceber + vendas) e retira os descontos da
 	// formaPagamento
-	private double getFaturamentoBruto(Tenant tenant, Date dataInicial, Date proximoMes) {
+	private double getFaturamentoBruto(Date dataInicial, Date proximoMes) {
 		double soma = 0;
-		Collection<ContaReceber> contas = FinanceiroControl.getInstance().getContasReceber(tenant, dataInicial, proximoMes, null, null, null, null);
-		Collection<ContaReceber> contasAvulso = FinanceiroControl.getInstance().getContasReceberAvulso(tenant, dataInicial, proximoMes, null, null);
-		Collection<Estoque> estoques = VendaControl.getInstance().getEstoquesVendidos(tenant, dataInicial, proximoMes, null);
+		Collection<ContaReceber> contas = FinanceiroControl.getInstance().getContasReceber(dataInicial, proximoMes, null, null, null, null);
+		Collection<ContaReceber> contasAvulso = FinanceiroControl.getInstance().getContasReceberAvulso(dataInicial, proximoMes, null, null);
+		Collection<Estoque> estoques = VendaControl.getInstance().getEstoquesVendidos(dataInicial, proximoMes, null);
 		if (contas != null && contas.size() > 0) {
 			for (ContaReceber conta : contas)
 				soma += conta.getValorCheioComDesconto();
@@ -212,7 +199,7 @@ public class RelatorioControl extends ControllerBase {
 		return soma;
 	}
 
-	public String getAtividadesClientesCSV(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public String getAtividadesClientesCSV(Date dataInicial, Date dataFinal) {
 		String csv = "CLIENTE;E-MAIL;DATA NASCIMENTO;BAIRRO;SEXO;SERVIÇO;DATA FREQUENCIA\n";
 		// se o usuário nao informou data inicio e fim, vai pegar paenas
 		if (dataInicial == null && dataFinal == null) {
@@ -222,7 +209,7 @@ public class RelatorioControl extends ControllerBase {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
 			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
 		}
-		Collection<Frequencia> frequencias = FrequenciaControl.getInstance().getFrequencias(tenant, dataInicial, dataFinal);
+		Collection<Frequencia> frequencias = FrequenciaControl.getInstance().getFrequencias(dataInicial, dataFinal);
 		if (frequencias != null && frequencias.size() > 0) {
 			for (Frequencia frequencia : frequencias) {
 				csv += frequencia.getCadastro().getNome() + ";" + frequencia.getCadastro().getEmail() + ";" + frequencia.getCadastro().getDataNascimentoStr() + ";" + frequencia.getCadastro().getEndereco().getBairro() + ";" + frequencia.getCadastro().getSexoStr() + ";" + frequencia.getServicoCerto().getNome() + ";" + SystemUtils.parseDataToString(frequencia.getData()) + "\n";

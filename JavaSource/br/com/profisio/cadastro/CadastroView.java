@@ -22,9 +22,7 @@ import br.com.profisio.financeiro.FinanceiroControl;
 import br.com.profisio.util.ItemGeralUI;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
-import br.com.profisio.util.ProfisioSessionUtil;
 import br.com.profisio.util.SystemUtils;
-import br.com.profisio.util.Tenant;
 
 public class CadastroView extends ProfisioActionSupport {
 
@@ -65,8 +63,7 @@ public class CadastroView extends ProfisioActionSupport {
 
 	public String actionRemoverAtividade() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.removerAtividade(tenant, atividade);
+			this.controller.removerAtividade(atividade);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REMOCAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -88,8 +85,7 @@ public class CadastroView extends ProfisioActionSupport {
 
 	public String actionCadastrarAtividade() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.cadastrarAtividade(tenant, atividade);
+			this.controller.cadastrarAtividade(atividade);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -105,12 +101,11 @@ public class CadastroView extends ProfisioActionSupport {
 			this.totalValorContasReceber = this.extractTotalValorContasReceber(this.contasReceber);
 			this.frequencias = this.controller.getFrequenciasByCadastro(this.cadastro);
 			this.agendamentos = this.controller.getAgendamentosByCadastro(this.cadastro);
-			// para fazer o filtro das frequencias e de contas a receber por
-			// servico
+			//para fazer o filtro das frequencias e de contas a receber por servico
 			this.servicosFrequencias = this.extractServicosFromFrequencias(this.frequencias);
 			this.servicosContasReceber = this.extractServicosFromContasReceber(this.contasReceber);
-			// --------------------------------------------------------------
-			// setando o valor inicial de alguns campos
+			//--------------------------------------------------------------
+			//setando o valor inicial de alguns campos
 			this.contaReceber = new ContaReceber();
 			contaReceber.setDataLancamento(new Date());
 			contaReceber.setQtdSessoes(1);
@@ -123,75 +118,6 @@ public class CadastroView extends ProfisioActionSupport {
 		}
 		return REDIRECT;
 	}
-
-	public String actionCadastrarCadastro() {
-		String resposta = null;
-		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			if (cadastro != null && cadastro.getConhecimentoStudio() != null && cadastro.getConhecimentoStudio().equals("Outro") && this.outraFormaConhecimento != null && !this.outraFormaConhecimento.equals("")) {
-				cadastro.setConhecimentoStudio(this.outraFormaConhecimento);
-			}
-			this.controller.cadastrarCadastro(tenant, cadastro);
-			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
-			resposta = SUCCESS;
-		} catch (Exception e) {
-			this.dealException(e);
-			resposta = ERROR;
-		}
-		return resposta;
-	}
-
-	public String actionEditarCadastro() {
-		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			if (cadastro != null && cadastro.getConhecimentoStudio() != null && cadastro.getConhecimentoStudio().equals("Outro") && this.outraFormaConhecimento != null && !this.outraFormaConhecimento.equals("")) {
-				cadastro.setConhecimentoStudio(this.outraFormaConhecimento);
-			}
-			this.controller.editarCadastro(tenant, cadastro);
-			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
-		} catch (Exception e) {
-			this.dealException(e);
-		}
-		return REDIRECT;
-	}
-
-	public String actionRemoverCadastro() {
-		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.removerCadastro(tenant, cadastro);
-			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REMOCAO_SUCESSO));
-		} catch (Exception e) {
-			this.dealException(e);
-		}
-		return REDIRECT;
-	}
-
-	public String actionCadastros() {
-		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			if (pagAtual == null)
-				pagAtual = 1;
-			this.qtdCadastros = this.controller.getQtdCadastros(tenant, null);
-			this.qtdPaginas = this.controller.getQtdPaginas(tenant, nomeCliente);
-			this.clientes = this.controller.getCadastros(tenant, nomeCliente, pagAtual);
-		} catch (Exception e) {
-			this.dealException(e);
-		}
-		return REDIRECT;
-	}
-
-	public String actionAniversariantes() {
-		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.clientes = controller.getProximosAniversariantes(tenant);
-			this.colaboradores = ColaboradorControl.getInstance().getProximosAniversariantes(tenant);
-		} catch (Exception e) {
-			this.dealException(e);
-		}
-		return REDIRECT;
-	}
-
-	// 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
 
 	private Collection<Servico> extractServicosFromContasReceber(Collection<ContaReceber> contasReceber) {
 		Map<Integer, Servico> servicos = new HashMap<Integer, Servico>();
@@ -226,7 +152,69 @@ public class CadastroView extends ProfisioActionSupport {
 		return retorno;
 	}
 
-	// 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+	public String actionCadastrarCadastro() {
+		String resposta = null;
+		try {
+			if (cadastro != null && cadastro.getConhecimentoStudio() != null && cadastro.getConhecimentoStudio().equals("Outro") && this.outraFormaConhecimento != null && !this.outraFormaConhecimento.equals("")) {
+				cadastro.setConhecimentoStudio(this.outraFormaConhecimento);
+			}
+			this.controller.cadastrarCadastro(cadastro);
+			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
+			resposta = SUCCESS;
+		} catch (Exception e) {
+			this.dealException(e);
+			resposta = ERROR;
+		}
+		return resposta;
+	}
+
+	public String actionEditarCadastro() {
+		try {
+			if (cadastro != null && cadastro.getConhecimentoStudio() != null && cadastro.getConhecimentoStudio().equals("Outro") && this.outraFormaConhecimento != null && !this.outraFormaConhecimento.equals("")) {
+				cadastro.setConhecimentoStudio(this.outraFormaConhecimento);
+			}
+			this.controller.editarCadastro(cadastro);
+			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		return REDIRECT;
+	}
+
+	public String actionRemoverCadastro() {
+		try {
+			this.controller.removerCadastro(cadastro);
+			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REMOCAO_SUCESSO));
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		return REDIRECT;
+	}
+
+	public String actionCadastros() {
+		try {
+			if (pagAtual == null)
+				pagAtual = 1;
+			this.qtdCadastros = this.controller.getQtdCadastros(null);
+			this.qtdPaginas = this.controller.getQtdPaginas(nomeCliente);
+			this.clientes = this.controller.getCadastros(nomeCliente, pagAtual);
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		return REDIRECT;
+	}
+
+	public String actionAniversariantes() {
+		try {
+			this.clientes = controller.getProximosAniversariantes();
+			this.colaboradores = ColaboradorControl.getInstance().getProximosAniversariantes();
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		return REDIRECT;
+	}
+
+	//8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
 
 	public Sexo[] getAllSexos() {
 		return Sexo.values();
@@ -241,8 +229,7 @@ public class CadastroView extends ProfisioActionSupport {
 	}
 
 	public Collection<FormaConhecimento> getAllFormasConhecimento() {
-		Tenant tenant = ProfisioSessionUtil.getTenantSession();
-		Collection<FormaConhecimento> formas = this.controller.getAllFormasConhecimento(tenant);
+		Collection<FormaConhecimento> formas = this.controller.getAllFormasConhecimento();
 		if (formas != null) {
 			formas.add(new FormaConhecimento("OUTRO", "Outro"));
 		}
@@ -250,12 +237,11 @@ public class CadastroView extends ProfisioActionSupport {
 	}
 
 	public Collection<Colaborador> getAllColaboradores() {
-		Tenant tenant = ProfisioSessionUtil.getTenantSession();
-		Collection<Colaborador> colaboradores = ColaboradorControl.getInstance().getColaboradores(tenant, null);
+		Collection<Colaborador> colaboradores = ColaboradorControl.getInstance().getColaboradores(null);
 		return colaboradores;
 	}
 
-	// 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+	//8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
 
 	public Collection<Cadastro> getClientes() {
 		return clientes;

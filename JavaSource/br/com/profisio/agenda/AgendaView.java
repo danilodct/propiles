@@ -1,13 +1,9 @@
 package br.com.profisio.agenda;
 
-import java.util.Date;
-
 import br.com.profisio.basics.Agendamento;
 import br.com.profisio.basics.Cadastro;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
-import br.com.profisio.util.ProfisioSessionUtil;
-import br.com.profisio.util.Tenant;
 
 public class AgendaView extends ProfisioActionSupport {
 
@@ -38,8 +34,7 @@ public class AgendaView extends ProfisioActionSupport {
 	public String actionAlterarDataAgendamento() {
 		String resposta = REDIRECT;
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			controller.alterarDataAgendamento(tenant, this.agendamento);
+			controller.alterarDataAgendamento(this.agendamento);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -52,8 +47,7 @@ public class AgendaView extends ProfisioActionSupport {
 	public String actionEditarAgendamento() {
 		String resposta = REDIRECT;
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			controller.editarAgendamento(tenant, this.agendamento);
+			controller.editarAgendamento(this.agendamento);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -66,8 +60,7 @@ public class AgendaView extends ProfisioActionSupport {
 	public String actionCadastrarAgendamento() {
 		String resposta = REDIRECT;
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			controller.cadastrarAgendamento(tenant, this.agendamento);
+			controller.cadastrarAgendamento(this.agendamento);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -79,19 +72,12 @@ public class AgendaView extends ProfisioActionSupport {
 
 	public String actionAgenda() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.agendamentos = controller.getAgendamentosByMes(tenant, null);
-			//Setar valores iniciais
-			this.agendamento = new Agendamento();
-			this.agendamento.setDataInicio(new Date());
-			this.agendamento.setDuracao(Agendamento.DURACAO_DEFAULT);
+			this.agendamentos = controller.getAgendamentosByMes(null);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
 		return REDIRECT;
 	}
-
-	// 888888888888888888888888888888888888888888888888888888888888888888888888
 
 	public String getAgendamentos() {
 		return agendamentos;

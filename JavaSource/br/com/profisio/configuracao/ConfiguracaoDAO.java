@@ -1,11 +1,7 @@
 package br.com.profisio.configuracao;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import br.com.profisio.basics.Configuracao;
 import br.com.profisio.util.DAOBase;
-import br.com.profisio.util.Tenant;
 
 public class ConfiguracaoDAO extends DAOBase {
 
@@ -17,22 +13,13 @@ public class ConfiguracaoDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Configuracao getConfiguracao(Tenant tenant) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
-		return (Configuracao) this.imp.queryObject("getConfiguracao", params);
+	public Configuracao getConfiguracao() {
+		return (Configuracao) this.imp.read(Configuracao.class, 1);
 	}
 
 	@SuppressWarnings("unchecked")
 	public void editar(Configuracao configuracao) {
 		this.imp.update(configuracao);
-	}
-
-	@SuppressWarnings("unchecked")
-	public Configuracao getConfiguracaoByTenant(Tenant tenant) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
-		return (Configuracao) this.imp.queryObject("getConfiguracaoByTenant", params);
 	}
 
 }

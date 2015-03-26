@@ -10,7 +10,6 @@ import br.com.profisio.basics.Estoque;
 import br.com.profisio.basics.Movimentacao;
 import br.com.profisio.basics.Produto;
 import br.com.profisio.util.DAOBase;
-import br.com.profisio.util.Tenant;
 
 public class VendaDAO extends DAOBase {
 
@@ -22,18 +21,15 @@ public class VendaDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Produto> getProdutos(Tenant tenant, String categoria) {
+	public Collection<Produto> getProdutos(String categoria) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("categoria", categoria);
 		return this.imp.createNamedQuery("getProdutos", params).list();
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<String> getCategoriasProduto(Tenant tenant) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
-		return this.imp.createNamedQuery("getCategoriasProduto", params).list();
+	public Collection<String> getCategoriasProduto() {
+		return this.imp.createNamedQuery("getCategoriasProduto").list();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -56,17 +52,13 @@ public class VendaDAO extends DAOBase {
 		this.imp.insert(produto);
 	}
 
-	@SuppressWarnings("unchecked")
-	public Integer getQtdTotalProdutos(Tenant tenant) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
-		return ((Long) this.imp.createNamedQuery("getQtdTotalProdutos", params).uniqueResult()).intValue();
+	public Integer getQtdTotalProdutos() {
+		return ((Long) this.imp.createNamedQuery("getQtdTotalProdutos").uniqueResult()).intValue();
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Estoque> getEstoque(Tenant tenant, Produto produto, Colaborador vendedor, Date dataInicial, Date dataFinal, String status) {
+	public Collection<Estoque> getEstoque(Produto produto, Colaborador vendedor, Date dataInicial, Date dataFinal, String status) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		if (status != null && status.equals(""))
@@ -98,9 +90,8 @@ public class VendaDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Estoque> getEstoquesVendidos(Tenant tenant, Date dataInicial, Date dataFinal, Colaborador colaborador) {
+	public Collection<Estoque> getEstoquesVendidos(Date dataInicial, Date dataFinal, Colaborador colaborador) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		params.put("colaborador", colaborador);

@@ -2,10 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<joined-subclass name="br.com.profisio.basics.Colaborador" table="colaborador" extends="br.com.profisio.basics.Usuario">
-		<key column="id" />	
-		<!-- 
-		<many-to-one name="tenant" column="tenant_id" lazy="false" />	
-		 -->
+		<key column="id" />		
 		
 		<property name="nome" />
 		<property name="cpf" />
@@ -32,8 +29,6 @@
 			<![CDATA[
 			from Colaborador
 			where 
-			tenant = :tenant
-			and 
 			(niver like :mesAtual 
 			or 
 			niver like :mesProximo)			
@@ -45,8 +40,7 @@
 	<query name="getColaboradores">
 			<![CDATA[
 			from Colaborador
-			where tenant = :tenant
-			and statusObjeto = 'ATIVO'
+			where statusObjeto = 'ATIVO'
 			and (:nomeColaborador is null or nome like :nomeColaborador)
 			order by nome
 			]]>

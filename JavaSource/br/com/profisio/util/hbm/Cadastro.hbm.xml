@@ -6,8 +6,6 @@
 			<generator class="increment" />
 		</id>
 
-		<many-to-one name="tenant" column="tenant_id" lazy="false" />
-		
 		<property name="nome" />
 		<property name="cpf" />
 		<property name="email" />
@@ -35,9 +33,9 @@
 			<![CDATA[
 			from Cadastro
 			where 
-			tenant = :tenant
-			and 
-			(niver like :mesAtual or niver like :mesProximo) 
+			niver like :mesAtual 
+			or 
+			niver like :mesProximo 
 			order by niver asc
 			]]>
 	</query>
@@ -46,8 +44,7 @@
 			<![CDATA[
 			select cli
 			from Cadastro as cli
-			where cli.tenant = :tenant 
-			and cli.conhecimentoStudio is not null
+			where cli.conhecimentoStudio is not null
 			group by cli.conhecimentoStudio	
 			order by cli.nome	
 			]]>
@@ -57,8 +54,7 @@
 			<![CDATA[
 			select cli
 			from Cadastro as cli
-			where tenant = :tenant
-			and cli.conhecimentoStudio is not null
+			where cli.conhecimentoStudio is not null
 			and (:dataInicial is null or cli.dataCadastro >= :dataInicial)
 			and (:dataFinal is null or cli.dataCadastro <= :dataFinal)
 			group by cli.conhecimentoStudio	
@@ -69,8 +65,7 @@
 	<query name="getCadastros">
 			<![CDATA[
 			from Cadastro as cli
-			where tenant = :tenant 
-			and (:nomeCliente is null or cli.nome like :nomeCliente)
+			where (:nomeCliente is null or cli.nome like :nomeCliente)
 			and cli.statusObjeto = 'ATIVO'
 			order by cli.nome asc
 			]]>
@@ -80,9 +75,7 @@
 			<![CDATA[
 			select count(cli)
 			from Cadastro as cli
-			where 
-			cli.tenant = :tenant
-			and (:nomeCliente is null or cli.nome like :nomeCliente)
+			where (:nomeCliente is null or cli.nome like :nomeCliente)
 			and cli.statusObjeto = 'ATIVO'
 			]]>
 	</query>
@@ -90,8 +83,7 @@
 	<query name="getNovosCadastros">
 			<![CDATA[
 			from Cadastro as cli
-			where cli.tenant = :tenant
-			and (:dataInicial is null or cli.dataCadastro >= :dataInicial)
+			where (:dataInicial is null or cli.dataCadastro >= :dataInicial)
 			and (:dataFinal is null or cli.dataCadastro <= :dataFinal)
 			order by cli.nome asc
 			]]>
@@ -102,12 +94,11 @@
 			<![CDATA[
 			select cad.* 
 			from frequencia 
-			left join atividade on atividade.id = frequencia.atividade_id and atividade.`statusObjeto` = 'ATIVO' and atividade.tenant_id = :tenant 
-			left join contrato on contrato.id = atividade.contrato_id
+			left join atividade on atividade.id = frequencia.atividade_id and atividade.`statusObjeto` = 'ATIVO' 
+			left join contrato on contrato.id = atividade.contrato_id 
 			left join cadastro as cad on cad.id = frequencia.cliente_id 
-			where
-			frequencia.tenant_id = :tenant
-			and (:dataInicial is null or data >= :dataInicial)
+			where  
+				(:dataInicial is null or data >= :dataInicial)
 			and (:dataFinal is null or data <= :dataFinal) 
 			and (:servico is null or contrato.servico_id = :servico or frequencia.servico_id = :servico ) 
 			and (:colaborador is null or contrato.professor_id = :colaborador or frequencia.profissional_id = :colaborador)  
@@ -122,8 +113,7 @@
 			select count(cli)
 			from Cadastro as cli
 			where
-			tenant = :tenant
-			and (:dataInicial is null or dataCadastro >= :dataInicial)
+			(:dataInicial is null or dataCadastro >= :dataInicial)
 			and (:dataFinal is null or dataCadastro <= :dataFinal)
 			and (:midia is null or cli.conhecimentoStudio = :midia)
 			]]>
@@ -134,10 +124,9 @@
 			<![CDATA[
 			SELECT ende.*
 			FROM frequencia AS freq
-			LEFT JOIN cadastro AS cad ON cad.id = freq.cliente_id and cad.tenant_id = :tenant
+			LEFT JOIN cadastro AS cad ON cad.id = freq.cliente_id
 			LEFT JOIN endereco AS ende ON ende.id = cad.endereco_id
-			WHERE freq.tenant_id = :tenant
-			and freq.data >= :dataInicial AND freq.data <= :dataFinal
+			WHERE freq.data >= :dataInicial AND freq.data <= :dataFinal
 			and ende.bairro is not null and ende.bairro != ''
 			GROUP BY ende.bairro asc
 			order by count(distinct cad.id) 	
@@ -148,10 +137,9 @@
 			<![CDATA[
 			SELECT COUNT(DISTINCT cad.id)
 			FROM frequencia AS freq
-			LEFT JOIN cadastro AS cad ON cad.id = freq.cliente_id and cad.tenant_id = :tenant
+			LEFT JOIN cadastro AS cad ON cad.id = freq.cliente_id
 			LEFT JOIN endereco AS ende ON ende.id = cad.endereco_id
-			WHERE freq.tenant_id = :tenant
-			AND freq.data >= :dataInicial AND freq.data <= :dataFinal
+			WHERE freq.data >= :dataInicial AND freq.data <= :dataFinal
 			AND (:bairro is null or ende.bairro = :bairro)
 			]]>
 	</sql-query>
@@ -160,9 +148,8 @@
 			<![CDATA[
 			SELECT COUNT(DISTINCT cad.id)
 			FROM frequencia AS freq
-			LEFT JOIN cadastro AS cad ON cad.id = freq.cliente_id and cad.tenant_id = :tenant
-			WHERE freq.tenant_id = :tenant
-			AND freq.data >= :dataInicial AND freq.data <= :dataFinal
+			LEFT JOIN cadastro AS cad ON cad.id = freq.cliente_id
+			WHERE freq.data >= :dataInicial AND freq.data <= :dataFinal
 			AND (:sexo is null or cad.sexo = :sexo)
 			]]>
 	</sql-query>
@@ -171,9 +158,8 @@
 			<![CDATA[
 			SELECT COUNT(DISTINCT cad.id)
 			FROM frequencia AS freq
-			LEFT JOIN cadastro AS cad ON cad.id = freq.cliente_id and cad.tenant_id = :tenant
-			WHERE freq.tenant_id = :tenant
-			AND freq.data >= :dataInicial AND freq.data <= :dataFinal
+			LEFT JOIN cadastro AS cad ON cad.id = freq.cliente_id
+			WHERE freq.data >= :dataInicial AND freq.data <= :dataFinal
 			AND (:estadoCivil is null or cad.estadoCivil = :estadoCivil)
 			]]>
 	</sql-query>
@@ -182,9 +168,8 @@
 			<![CDATA[
 			SELECT COUNT(DISTINCT cad.id)
 			FROM frequencia AS freq
-			LEFT JOIN cadastro AS cad ON cad.id = freq.cliente_id and cad.tenant_id = :tenant
-			WHERE freq.tenant_id = :tenant
-			AND freq.data >= :dataInicial AND freq.data <= :dataFinal
+			LEFT JOIN cadastro AS cad ON cad.id = freq.cliente_id
+			WHERE freq.data >= :dataInicial AND freq.data <= :dataFinal
 			AND (:dataMin is null or year(cad.dataNascimento) >= :dataMin)
 			AND (:dataMax is null or year(cad.dataNascimento) <= :dataMax)
 			]]>
@@ -195,8 +180,7 @@
 			select cad
 			from Cadastro as cad
 			left join cad.atividades as ati
-			where cad.tenant = :tenant 
-			and ati.statusObjeto = 'ATIVO'
+			where ati.statusObjeto = 'ATIVO'
 			and ati.dataCriacao >= :dataInicial 
 			and ati.dataCriacao <= :dataFinal
 			]]>
@@ -207,8 +191,7 @@
 			select count(distinct cad)
 			from Frequencia as freq
 			left join freq.cadastro as cad
-			where freq.tenant = :tenant
-			and freq.atividade.statusObjeto = 'ATIVO'
+			where freq.atividade.statusObjeto = 'ATIVO'
 			and freq.atividade.contrato.servico = :servico
 			and (:dataInicial is null or data >= :dataInicial)
 			and (:dataFinal is null or data <= :dataFinal)
@@ -219,11 +202,10 @@
 		<![CDATA[
 		SELECT COUNT(DISTINCT cad.id)
 		FROM frequencia freq
-			LEFT JOIN atividade ati ON ati.id = freq.atividade_id and ati.tenant_id = :tenant
+			LEFT JOIN atividade ati ON ati.id = freq.atividade_id
 			LEFT JOIN cadastro cad ON cad.id = freq.cliente_id AND freq.novo = FALSE OR cad.id = ati.cliente_id AND freq.novo = TRUE
 		WHERE 
-			freq.tenant_id = :tenant
-			AND freq.data >= :dataInicial AND freq.data <= :dataFinal
+			freq.data >= :dataInicial AND freq.data <= :dataFinal
 			AND cad.statusObjeto = 'ATIVO'
 		]]>
 	</sql-query>

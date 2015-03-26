@@ -30,9 +30,7 @@ import br.com.profisio.colaborador.ColaboradorControl;
 import br.com.profisio.servico.ServicoControl;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
-import br.com.profisio.util.ProfisioSessionUtil;
 import br.com.profisio.util.SystemUtils;
-import br.com.profisio.util.Tenant;
 import br.com.profisio.venda.VendaControl;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -74,8 +72,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 
 	public String actionFolhaPagamento() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.colaboradores = this.controller.getFolhaPagamento(tenant, this.colaborador, this.dataInicial);
+			this.colaboradores = this.controller.getFolhaPagamento(this.colaborador, this.dataInicial);
 			this.soma = 0.0;
 			if (this.colaboradores != null && this.colaboradores.size() > 0) {
 				for (Colaborador col : this.colaboradores) {
@@ -99,10 +96,9 @@ public class FinanceiroView extends ProfisioActionSupport {
 
 	public String actionExportContasReceber() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
 			String path = SystemUtils.getPath() + "/report_conta_receber.csv";
 			DataOutputStream doStream = new DataOutputStream(new FileOutputStream(path));
-			doStream.writeBytes(this.controller.getContasReceberClientesCSV(tenant, dataInicial, dataFinal, formaPagamento, colaborador, servico, statusContaPagar));
+			doStream.writeBytes(this.controller.getContasReceberClientesCSV(dataInicial, dataFinal, formaPagamento, colaborador, servico, statusContaPagar));
 			doStream.flush();
 			doStream.close();
 			fileInputStream = new FileInputStream(path);
@@ -132,10 +128,9 @@ public class FinanceiroView extends ProfisioActionSupport {
 
 	public String actionCaixa() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.soma = this.controller.getSaldoAnteriorCaixa(tenant, dataInicial);
+			this.soma = this.controller.getSaldoAnteriorCaixa(dataInicial);
 			this.somaTotal += this.soma;
-			this.movimentacoes = this.controller.getMovimentacoes(tenant, dataInicial, dataFinal);
+			this.movimentacoes = this.controller.getMovimentacoes(dataInicial, dataFinal);
 			this.somaEntradas = 0.0;
 			this.somaSaidas = 0.0;
 			for (Movimentacao movimentacao : this.movimentacoes) {
@@ -153,8 +148,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 
 	public String actionContasReceber() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.contasReceber = this.controller.getContasReceber(tenant, dataInicial, dataFinal, formaPagamento, colaborador, servico, statusContaPagar);
+			this.contasReceber = this.controller.getContasReceber(dataInicial, dataFinal, formaPagamento, colaborador, servico, statusContaPagar);
 			for (ContaReceber conta : this.contasReceber) {
 				Double valorTemp = conta.getValor();
 				if (conta.getPrimeiraParcela() && conta.getValorCheio() != null)
@@ -163,7 +157,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 				this.somaTotal += valorTemp;
 			}
 
-			this.contasReceberAvulso = this.controller.getContasReceberAvulso(tenant, dataInicial, dataFinal, formaPagamento, statusContaPagar);
+			this.contasReceberAvulso = this.controller.getContasReceberAvulso(dataInicial, dataFinal, formaPagamento, statusContaPagar);
 			for (ContaReceber conta : this.contasReceberAvulso) {
 				Double valorTemp = conta.getValor();
 				if (conta.getPrimeiraParcela() && conta.getValorCheio() != null)
@@ -172,7 +166,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 				this.somaTotal += valorTemp;
 			}
 
-			this.estoques = VendaControl.getInstance().getEstoquesVendidos(tenant, dataInicial, dataFinal, colaborador);
+			this.estoques = VendaControl.getInstance().getEstoquesVendidos(dataInicial, dataFinal, colaborador);
 			for (Estoque estoque : this.estoques) {
 				this.somaEstoque += estoque.getValor();
 				this.somaTotal += estoque.getValor();
@@ -186,8 +180,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	public String actionEditarContaReceber() {
 		String resposta = REDIRECT;
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			controller.editarContaReceber(tenant, contaReceber, false);
+			controller.editarContaReceber(contaReceber, false);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -200,10 +193,9 @@ public class FinanceiroView extends ProfisioActionSupport {
 	public String actionEditarContaPagar() {
 		String resposta = "";
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
 			if (contaPagar != null && this.novoTipoContaPagar != null && !this.novoTipoContaPagar.equals(""))
 				contaPagar.setTipo(new TipoContaPagar(this.novoTipoContaPagar));
-			this.controller.editarContaPagar(tenant, contaPagar);
+			this.controller.editarContaPagar(contaPagar);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 			resposta = SUCCESS;
 		} catch (Exception e) {
@@ -235,19 +227,15 @@ public class FinanceiroView extends ProfisioActionSupport {
 
 	public String actionContasPagar() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
 			TipoCusto tipo = null;
 			if (contaPagar != null)
 				tipo = contaPagar.getTipoCusto();
-			CentroCusto centro = null;
-			if (contaPagar != null)
-				centro = contaPagar.getCentroCusto();
-			this.contasPagar = this.controller.getContasPagar(tenant, tipo, dataInicial, dataFinal, centro, tipoContaPagar, statusContaPagar, true);
+			this.contasPagar = this.controller.getContasPagar(tipo, dataInicial, dataFinal, centroCusto, tipoContaPagar, statusContaPagar, true);
 			if (this.contasPagar != null && this.contasPagar.size() > 0) {
 				for (ContaPagar conta : this.contasPagar)
 					this.soma += conta.getValor();
 			}
-			this.contasPagarColaboradores = this.controller.getPagamentosColaboradores(tenant, null, dataInicial, dataFinal);
+			this.contasPagarColaboradores = this.controller.getPagamentosColaboradores(null, dataInicial, dataFinal);
 			if (this.contasPagarColaboradores != null && this.contasPagarColaboradores.size() > 0) {
 				for (ContaPagar conta : this.contasPagarColaboradores)
 					this.soma += conta.getValor();
@@ -261,10 +249,9 @@ public class FinanceiroView extends ProfisioActionSupport {
 	public String actionCadastrarContaPagar() {
 		String resposta = REDIRECT;
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
 			if (contaPagar != null && this.novoTipoContaPagar != null && !this.novoTipoContaPagar.equals(""))
 				contaPagar.setTipo(new TipoContaPagar(this.novoTipoContaPagar));
-			controller.cadastrarContaPagar(tenant, contaPagar);
+			controller.cadastrarContaPagar(contaPagar);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
 			this.cadastro = null;
 		} catch (Exception e) {
@@ -288,9 +275,8 @@ public class FinanceiroView extends ProfisioActionSupport {
 	public String actionCadastrarContaReceber() {
 		String resposta = REDIRECT;
 		Boolean sucesso = true;
-		Tenant tenant = ProfisioSessionUtil.getTenantSession();
 		try {
-			controller.cadastrarContaReceber(tenant, contaReceber, avulso);
+			controller.cadastrarContaReceber(contaReceber, avulso);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -299,7 +285,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 		if (sucesso && this.cadastro != null) {
 			try {
 				Collection<Agendamento> agendamentos = this.extractAgendamentos(contaReceber);
-				AgendaControl.getInstance().cadastrarAgendamentos(tenant, agendamentos);
+				AgendaControl.getInstance().cadastrarAgendamentos(agendamentos);
 			} catch (Exception e) {
 				this.dealException(e);
 
@@ -339,8 +325,6 @@ public class FinanceiroView extends ProfisioActionSupport {
 		String resposta = REDIRECT;
 		try {
 			controller.remover(contaReceber);
-			this.formaPagamento = null;
-			this.colaborador = null;
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REMOCAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -357,21 +341,18 @@ public class FinanceiroView extends ProfisioActionSupport {
 	}
 
 	public Collection<CentroCusto> getAllCentrosCusto() {
-		Tenant tenant = ProfisioSessionUtil.getTenantSession();
-		return ServicoControl.getInstance().getCentrosCusto(tenant);
+		return ServicoControl.getInstance().getCentrosCusto();
 	}
 
 	public Collection<TipoContaPagar> getAllTiposContaPagar() {
-		Tenant tenant = ProfisioSessionUtil.getTenantSession();
-		Collection<TipoContaPagar> allTiposContaPagar = this.controller.getAllTiposContaPagar(tenant);
-		if (allTiposContaPagar != null)
+		Collection<TipoContaPagar> allTiposContaPagar = this.controller.getAllTiposContaPagar();
+		if (allTiposContaPagar != null && allTiposContaPagar.size() > 0)
 			allTiposContaPagar.add(new TipoContaPagar(-1, "Outro"));
 		return allTiposContaPagar;
 	}
 
 	public Collection<Colaborador> getAllColaboradores() {
-		Tenant tenant = ProfisioSessionUtil.getTenantSession();
-		return ColaboradorControl.getInstance().getColaboradores(tenant, null);
+		return ColaboradorControl.getInstance().getColaboradores(null);
 	}
 
 	public FormaPagamento[] getAllFormasPagamento() {

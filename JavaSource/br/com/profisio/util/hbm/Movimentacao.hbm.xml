@@ -5,8 +5,6 @@
 		<id name="id">
 			<generator class="increment" />
 		</id>
-		
-		<many-to-one name="tenant" column="tenant_id" lazy="false" />
 
 		<property name="valor" />
 		<property name="data" />
@@ -27,8 +25,6 @@
 			<![CDATA[
 			from Movimentacao
 			where 
-			tenant = :tenant
-			and
 			(:dataInicial is null or data >= :dataInicial)
 			and
 			(:dataFinal is null or data <= :dataFinal)
@@ -41,8 +37,6 @@
 			select sum(valor)
 			from Movimentacao
 			where 
-			tenant = :tenant
-			and
 			(:dataInicial is null or data >= :dataInicial)
 			and
 			(:dataFinal is null or data <= :dataFinal)
