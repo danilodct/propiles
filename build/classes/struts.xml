@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+ <!DOCTYPE struts PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.custom.i18n.resources" value="struts-bundle" />
+	<constant name="struts.devMode" value="false" />
+
+	<package name="default" namespace="/" extends="struts-default">
+
+
+		<!-- =================== INTERCEPTORS ========================= -->
+
+
+		<interceptors>
+			<interceptor name="loginInterceptor" class="br.com.profisio.util.LoginInterceptor" />
+
+			<interceptor-stack name="defaultProfisioStack-SemLogin">
+				<interceptor-ref name="servletConfig" />
+				<interceptor-ref name="params" />
+				<interceptor-ref name="prepare" />
+				<interceptor-ref name="modelDriven" />
+				<interceptor-ref name="fileUpload" />
+				<interceptor-ref name="staticParams" />
+				<interceptor-ref name="params" />
+				<interceptor-ref name="conversionError" />
+				<interceptor-ref name="validation" />
+				<interceptor-ref name="workflow" />
+				<interceptor-ref name="chain" />
+			</interceptor-stack>
+
+			<interceptor-stack name="defaultProfisioStack-ComLogin">
+				<interceptor-ref name="defaultProfisioStack-SemLogin" />
+				<interceptor-ref name="loginInterceptor" />
+			</interceptor-stack>
+
+		</interceptors>
+
+		<default-interceptor-ref name="defaultProfisioStack-ComLogin" />
+
+
+		<!-- ============= GLOBAL RESULTS ================= -->
+
+
+		<global-results>
+			<result name="not_logged">v2.0/pages/login.jsp</result>
+		</global-results>
+
+
+		<!-- ============= GLOBAL ACTIONS ================= -->
+
+
+		<action name="home" class="br.com.profisio.util.ProfisioActionSupport" method="redirect">
+			<result name="redirect">/v2.0/pages/home.jsp</result>
+		</action>
+		
+		<action name="login" class="br.com.profisio.usuario.UsuarioView" method="actionLogin">
+			<interceptor-ref name="defaultProfisioStack-SemLogin"></interceptor-ref>
+			<result name="success" type="chain">home</result>
+			<result name="error">v2.0/pages/login.jsp</result>
+		</action>
+		
+		<action name="logout" class="br.com.profisio.usuario.UsuarioView" method="actionLogout">
+			<result name="redirect">v2.0/pages/login.jsp</result>
+		</action>
+		
+		<action name="getCEP" class="br.com.profisio.util.ProfisioActionSupport" method="actionBuscarCEP">
+			<result />
+		</action>
+ 
+		<!-- ========== ATIVIDADE =================== -->
+		
+		<action name="atividade" class="br.com.profisio.cadastro.CadastroView" method="actionAtividade">
+			<result name="success">v2.0/pages/cadastro/atividade.jsp</result>
+			<result name="error" type="chain">cadastros</result>
+		</action>
+		
+		<action name="cadastrarAtividade" class="br.com.profisio.cadastro.CadastroView" method="actionCadastrarAtividade">
+			<result name="redirect" type="chain">cadastro</result>
+		</action>
+		
+		<action name="removerAtividade" class="br.com.profisio.cadastro.CadastroView" method="actionRemoverAtividade">
+			<result name="redirect" type="chain">cadastro</result>
+		</action>
+		
+		<action name="editarAvaliacao" class="br.com.profisio.cadastro.CadastroView" method="actionEditarAvaliacao">
+			<result name="redirect" type="chain">cadastro</result>
+		</action>
+		
+		<!-- ========== CADASTROS =================== -->
+		
+		<action name="cadastros" class="br.com.profisio.cadastro.CadastroView" method="actionCadastros">
+			<result name="redirect">v2.0/pages/cadastro/cadastros.jsp</result>
+		</action>
+		
+		<action name="cadastro" class="br.com.profisio.cadastro.CadastroView" method="actionCadastro">
+			<result name="redirect">v2.0/pages/cadastro/cadastro.jsp</result>
+		</action>
+		
+		<action name="removerCadastro" class="br.com.profisio.cadastro.CadastroView" method="actionRemoverCadastro">
+			<result name="redirect" type="chain">cadastros</result>
+		</action>
+		
+		<action name="cadastrarCadastro" class="br.com.profisio.cadastro.CadastroView" method="actionCadastrarCadastro">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastros</result>
+		</action>
+		
+		<action name="editarCadastro" class="br.com.profisio.cadastro.CadastroView" method="actionEditarCadastro">
+			<result name="redirect" type="chain">cadastro</result>
+		</action>
+		
+		<action name="aniversariantes" class="br.com.profisio.cadastro.CadastroView" method="actionAniversariantes">
+			<result name="redirect">v2.0/pages/cadastro/aniversariantes.jsp</result>
+		</action>
+ 
+ 
+		<!-- ========== AGENDA =================== -->
+		
+		<action name="agenda" class="br.com.profisio.agenda.AgendaView" method="actionAgenda">
+			<result name="redirect">v2.0/pages/agenda/agenda.jsp</result>
+		</action>
+		
+		<action name="cadastrarAgendamento" class="br.com.profisio.agenda.AgendaView" method="actionCadastrarAgendamento">
+			<result name="redirect" type="chain">agenda</result>
+			<result name="redirect_cadastro" type="chain">cadastro</result>
+		</action>
+		
+		<action name="editarAgendamento" class="br.com.profisio.agenda.AgendaView" method="actionEditarAgendamento">
+			<result name="redirect" type="chain">agenda</result>
+			<result name="redirect_cadastro" type="chain">cadastro</result>
+		</action>
+		
+		<action name="alterarDataAgendamento" class="br.com.profisio.agenda.AgendaView" method="actionAlterarDataAgendamento">
+			<result name="redirect" type="chain">agenda</result>
+			<result name="redirect_cadastro" type="chain">cadastro</result>
+		</action>
+		
+		<action name="removerAgendamento" class="br.com.profisio.agenda.AgendaView" method="actionRemoverAgendamento">
+			<result name="redirect" type="chain">agenda</result>
+			<result name="redirect_cadastro" type="chain">cadastro</result>
+		</action>
+		
+		<!-- ========== COLABORADORES =================== -->
+		
+		<action name="colaboradores" class="br.com.profisio.colaborador.ColaboradorView" method="actionColaboradores">
+			<result name="redirect">v2.0/pages/colaborador/colaboradores.jsp</result>
+		</action>
+		
+		<action name="cadastrarColaborador" class="br.com.profisio.colaborador.ColaboradorView" method="actionCadastrarColaborador">
+			<result name="success" type="chain">colaborador</result>
+			<result name="error" type="chain">colaboradores</result>
+		</action>
+
+		<action name="colaborador" class="br.com.profisio.colaborador.ColaboradorView" method="actionColaborador">
+			<result name="success">v2.0/pages/colaborador/colaborador.jsp</result>
+			<result name="error" type="chain">colaboradores</result>
+		</action>
+
+		<action name="editarColaborador" class="br.com.profisio.colaborador.ColaboradorView" method="actionEditarColaborador">
+			<result name="redirect" type="chain">colaborador</result>
+		</action>
+
+		<action name="removerColaborador" class="br.com.profisio.colaborador.ColaboradorView" method="actionRemoverColaborador">
+			<result name="redirect" type="chain">colaboradores</result>
+		</action>
+
+		<action name="alterarSenha" class="br.com.profisio.colaborador.ColaboradorView" method="actionAlterarSenha">
+			<result name="redirect" >v2.0/pages/colaborador/alterarSenha.jsp</result>
+			<result name="redirect_home" type="chain">home</result>
+		</action>
+		
+		<!-- =========   CONTRATO ================ -->
+
+		<action name="cadastrarContrato" class="br.com.profisio.colaborador.ColaboradorView" method="actionCadastrarContrato">
+			<result name="redirect" type="chain">colaborador</result>
+		</action>
+
+		<action name="editarContrato" class="br.com.profisio.colaborador.ColaboradorView" method="actionEditarContrato">
+			<result name="redirect" type="chain">colaborador</result>
+		</action>
+
+		<action name="removerContrato" class="br.com.profisio.colaborador.ColaboradorView" method="actionRemoverContrato">
+			<result name="redirect" type="chain">colaborador</result>
+		</action>
+
+		<action name="getContratosByServico" class="br.com.profisio.colaborador.ColaboradorView" method="actionGetContratosByServico">
+			<result />
+		</action>
+		
+		<!-- =========   FINANCEIRO ================ -->
+		
+		<action name="contasPagar" class="br.com.profisio.financeiro.FinanceiroView" method="actionContasPagar">
+			<result name="redirect" >v2.0/pages/financeiro/contasPagar.jsp</result>
+		</action>
+		
+		<action name="cadastrarContaPagar" class="br.com.profisio.financeiro.FinanceiroView" method="actionCadastrarContaPagar">
+			<result name="redirect" type="chain">contasPagar</result>
+			<result name="redirect_folha" type="chain">folhaPagamento</result>
+		</action>
+		
+		<action name="removerContaPagar" class="br.com.profisio.financeiro.FinanceiroView" method="actionRemoverContaPagar">
+			<result name="redirect" type="chain">contasPagar</result>
+		</action>
+		
+		<action name="contaPagar" class="br.com.profisio.financeiro.FinanceiroView" method="actionContaPagar">
+			<result name="redirect" >v2.0/pages/financeiro/contaPagar.jsp</result>
+		</action>
+		
+		<action name="editarContaPagar" class="br.com.profisio.financeiro.FinanceiroView" method="actionEditarContaPagar">
+			<result name="success" type="chain" >contasPagar</result>
+			<result name="error" type="chain" >contaPagar</result>
+		</action>
+		
+		<action name="contasReceber" class="br.com.profisio.financeiro.FinanceiroView" method="actionContasReceber">
+			<result name="redirect" >v2.0/pages/financeiro/contasReceber.jsp</result>
+		</action>
+		
+		<action name="removerContaReceber" class="br.com.profisio.financeiro.FinanceiroView" method="actionRemoverContaReceber">
+			<result name="redirect" type="chain">contasReceber</result>
+			<result name="redirect_cadastro" type="chain">cadastro</result>
+		</action>
+		
+		<action name="cadastrarContaReceber" class="br.com.profisio.financeiro.FinanceiroView" method="actionCadastrarContaReceber">
+			<result name="redirect" type="chain">contasReceber</result>
+			<result name="redirect_cadastro" type="chain">cadastro</result>
+		</action>
+		
+		<action name="contaReceber" class="br.com.profisio.financeiro.FinanceiroView" method="actionContaReceber">
+			<result name="redirect" >v2.0/pages/financeiro/contaReceber.jsp</result>
+		</action>
+		
+		<action name="editarContaReceber" class="br.com.profisio.financeiro.FinanceiroView" method="actionEditarContaReceber">
+			<result name="redirect_cadastro" type="chain">cadastro</result>
+		</action>
+		
+		<action name="folhaPagamento" class="br.com.profisio.financeiro.FinanceiroView" method="actionFolhaPagamento">
+			<result name="redirect">v2.0/pages/financeiro/folhaPagamento.jsp</result>
+		</action>
+		
+		<action name="caixa" class="br.com.profisio.financeiro.FinanceiroView" method="actionCaixa">
+			<result name="redirect" >v2.0/pages/financeiro/caixa.jsp</result>
+		</action>
+		
+		<action name="getPagamentosCheiosByAtividade" class="br.com.profisio.financeiro.FinanceiroView" method="actionGetPagamentosCheiosByAtividade">
+			<result />
+		</action>
+		
+		<action name="exportContasReceber" class="br.com.profisio.financeiro.FinanceiroView" method="actionExportContasReceber">
+			<result name="redirect" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="contasReceber.csv"</param>
+				<!-- <param name="bufferSize">1024</param> -->
+			</result>
+		</action>
+		
+		<!-- =========   FREQUENCIA ================ -->
+		
+		<action name="frequencia" class="br.com.profisio.frequencia.FrequenciaView" method="actionFrequencia">
+			<result name="redirect">v2.0/pages/frequencia/frequencia.jsp</result>
+		</action>
+		
+		<action name="cadastrarFrequencia" class="br.com.profisio.frequencia.FrequenciaView" method="actionCadastrarFrequencia">
+			<result name="redirect" type="chain">cadastro</result>
+		</action>
+		
+		<action name="removerFrequencia" class="br.com.profisio.frequencia.FrequenciaView" method="actionRemoverFrequencia">
+			<result name="redirect" type="chain">frequencia</result>
+			<result name="redirect_cadastro" type="chain">cadastro</result>
+		</action>
+		
+		<!-- =========  SERVICO - GERENCIAMENTO ================ -->
+		
+		<action name="servicos" class="br.com.profisio.servico.ServicoView" method="actionServicos">
+			<result name="redirect">v2.0/pages/servico/servicos.jsp</result>
+		</action>
+		
+		<action name="cadastrarServico" class="br.com.profisio.servico.ServicoView" method="actionCadastrarServico">
+			<result name="redirect" type="chain">servicos</result>
+		</action>
+		
+		<action name="removerServico" class="br.com.profisio.servico.ServicoView" method="actionRemoverServico">
+			<result name="redirect" type="chain">servicos</result>
+		</action>
+		
+		<action name="servico" class="br.com.profisio.servico.ServicoView" method="actionServico">
+			<result name="redirect">v2.0/pages/servico/servico.jsp</result>
+		</action>
+		
+		<action name="editarServico" class="br.com.profisio.servico.ServicoView" method="actionEditarServico">
+			<result name="redirect" type="chain">servicos</result>
+		</action>
+		
+		<!-- =========  CENTRO DE CUSTO - GERENCIAMENTO ================ -->
+		
+		<action name="centrosCusto" class="br.com.profisio.servico.ServicoView" method="actionCentrosCusto">
+			<result name="redirect">v2.0/pages/servico/centrosCusto.jsp</result>
+		</action>
+		
+		<action name="cadastrarCentroCusto" class="br.com.profisio.servico.ServicoView" method="actionCadastrarCentroCusto">
+			<result name="redirect" type="chain">centrosCusto</result>
+		</action>
+		
+		<action name="removerCentroCusto" class="br.com.profisio.servico.ServicoView" method="actionRemoverCentroCusto">
+			<result name="redirect" type="chain">centrosCusto</result>
+		</action>
+		
+		<action name="editarCentroCusto" class="br.com.profisio.servico.ServicoView" method="actionEditarCentroCusto">
+			<result name="redirect" type="chain">centrosCusto</result>
+		</action>
+		
+		<!-- =========  CAIXA - GERENCIAMENTO ================ -->
+		
+		<action name="gerenciarCaixa" class="br.com.profisio.configuracao.ConfiguracaoView" method="actionGerenciarCaixa">
+			<result name="redirect">v2.0/pages/configuracao/caixa.jsp</result>
+		</action>
+		
+		<!-- ========= RELATORIOS ============= -->
+		
+		<action name="relatorioFrequentes" class="br.com.profisio.relatorio.RelatorioView" method="actionFrequentes">
+			<result name="redirect">v2.0/pages/relatorio/frequentes.jsp</result>
+		</action>
+		
+		<action name="relatorioEfetividade" class="br.com.profisio.relatorio.RelatorioView" method="actionEfetividade">
+			<result name="redirect">v2.0/pages/relatorio/efetividade.jsp</result>
+		</action>
+		
+		<action name="relatorioMidia" class="br.com.profisio.relatorio.RelatorioView" method="actionMidia">
+			<result name="redirect">v2.0/pages/relatorio/midia.jsp</result>
+		</action>
+		
+		<action name="relatorioDRE" class="br.com.profisio.relatorio.RelatorioView" method="actionDRE">
+			<result name="redirect">v2.0/pages/relatorio/dre.jsp</result>
+		</action>
+		
+		<action name="exportAtividadesClientes" class="br.com.profisio.relatorio.RelatorioView" method="actionExportAtividadesClientes">
+			<result name="redirect" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="atividadesClientes.csv"</param>
+				<!-- <param name="bufferSize">1024</param> -->
+			</result>
+		</action>
+		
+		<!-- ========= BI ============= -->
+		
+		<action name="BICaptacao" class="br.com.profisio.bi.BIView" method="actionCaptacao">
+			<result name="redirect">v2.0/pages/bi/captacao.jsp</result>
+		</action>
+		
+		<action name="BIPerfilClientes" class="br.com.profisio.bi.BIView" method="actionPerfilClientes">
+			<result name="redirect">v2.0/pages/bi/perfilClientes.jsp</result>
+		</action>
+		
+		<action name="BIEfetividade" class="br.com.profisio.bi.BIView" method="actionEfetividade">
+			<result name="redirect">v2.0/pages/bi/efetividade.jsp</result>
+		</action>
+		
+		<action name="BIVisaoGeralServicos" class="br.com.profisio.bi.BIView" method="actionVisaoGeralServicos">
+			<result name="redirect">v2.0/pages/bi/visaoGeralServicos.jsp</result>
+		</action>
+		
+		<action name="BIDespesas" class="br.com.profisio.bi.BIView" method="actionDespesas">
+			<result name="redirect">v2.0/pages/bi/despesas.jsp</result>
+		</action>
+		
+		<action name="BICrescimentoServicos" class="br.com.profisio.bi.BIView" method="actionCrescimentoServicos">
+			<result name="redirect">v2.0/pages/bi/crescimentoServicos.jsp</result>
+		</action>
+		
+		<action name="BIEvolutivoDespesas" class="br.com.profisio.bi.BIView" method="actionEvolutivoDespesas">
+			<result name="redirect">v2.0/pages/bi/evolutivoDespesas.jsp</result>
+		</action>
+		
+		<action name="BIEntradas" class="br.com.profisio.bi.BIView" method="actionEntradas">
+			<result name="redirect">v2.0/pages/bi/entradas.jsp</result>
+		</action>
+		
+		<!-- ========= VENDAS ============= -->
+
+		<action name="produtos" class="br.com.profisio.venda.VendaView" method="actionProdutos">
+			<result name="redirect">v2.0/pages/venda/produtos.jsp</result>
+		</action>
+
+		<action name="produto" class="br.com.profisio.venda.VendaView" method="actionViewProduto">
+			<result name="success" >v2.0/pages/venda/produto.jsp</result>
+			<result name="error" type="chain">produtos</result>
+		</action>
+
+		<action name="cadastrarProduto" class="br.com.profisio.venda.VendaView" method="actionCadastrarProduto">
+			<result name="redirect" type="chain" >produtos</result>
+		</action>
+
+		<action name="editarProduto" class="br.com.profisio.venda.VendaView" method="actionEditarProduto">
+			<result name="success" type="chain" >produtos</result>
+			<result name="error" >v2.0/pages/venda/produto.jsp</result>
+		</action>
+
+		<action name="removerProduto" class="br.com.profisio.venda.VendaView" method="actionRemoverProduto">
+			<result name="redirect" type="chain">produtos</result>
+		</action>
+
+		<action name="estoque" class="br.com.profisio.venda.VendaView" method="actionEstoque">
+			<result name="redirect" >v2.0/pages/venda/estoque.jsp</result>
+		</action>
+		
+		<action name="addEstoque" class="br.com.profisio.venda.VendaView" method="actionAddEstoque">
+			<result name="redirect" type="chain">estoque</result>
+		</action>
+		<action name="removerEstoque" class="br.com.profisio.venda.VendaView" method="actionRemoverEstoque">
+			<result name="redirect" type="chain">estoque</result>
+			<result name="redirect_contasReceber" type="chain">contasReceber</result>
+		</action>
+
+		<action name="venderEstoque" class="br.com.profisio.venda.VendaView" method="actionVenderEstoque">
+			<result name="redirect" type="chain">estoque</result>
+		</action>
+		
+	</package>
+	
+</struts>
