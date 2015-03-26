@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<joined-subclass name="br.com.pilates.base.AvaliacaoAlteracoesCirculatorias" extends="br.com.pilates.base.Avaliacao" table="avaliacaoalteracoescirculatorias">
+		<key column="id" />
+
+		<!-- INFORMACOES GERAIS -->
+		<property name="data" />
+		<property name="peso" />
+		<property name="altura" />
+		<property name="objetivo" />
+		<property name="pa" />
+		<property name="medicacao" />
+		<property name="alergias" />
+		<property name="antecedentes" />
+		<property name="conhecimentoStudio" />
+		<property name="observacoes" />
+		<property name="tabagismo"><column name="tabagismo" sql-type="tinyint(1)" /></property>
+		<property name="etilismo"><column name="etilismo" sql-type="tinyint(1)" /></property>
+		<property name="hipertensao"><column name="hipertensao" sql-type="tinyint(1)" /></property>
+		<property name="dormeBem"><column name="dormeBem" sql-type="tinyint(1)" /></property>
+		<property name="alcolico"><column name="alcolico" sql-type="tinyint(1)" /></property>
+		<property name="marcapasso"><column name="marcapasso" sql-type="tinyint(1)" /></property>
+		<property name="diabetes"><column name="diabetes" sql-type="tinyint(1)" /></property>
+		<property name="queloides"><column name="queloides" sql-type="tinyint(1)" /></property>
+		<property name="atividadeFisica"><column name="atividadeFisica" sql-type="tinyint(1)" /></property>
+		<property name="cuidadosFaciais" />
+		<property name="cuidadosCorporais" />
+		<property name="alteracaoHormonal" />
+		<property name="proteseMetalica" />
+		<property name="intervencoesCirurgicas" />
+		<property name="tensaoPremenstrual" />
+		<property name="quantidadeGPA" />
+		<property name="anticonceptivo" />
+		<property name="tratamento" />
+		<property name="exameFisico" />
+
+		<!-- INFORMACOES ESPECIFICAS -->
+		<property name="direita" />		
+		<property name="esquerda" />		
+		<property name="mamaAvaliacao" />		
+		<property name="mamaPerda" />
+		<property name="esternoAvaliacao" />
+		<property name="esternoPerda" />
+		<property name="cinturaAvaliacao" />
+		<property name="cinturaPerda" />
+		<property name="cicatrizUmbilicalAvaliacao" />		
+		<property name="cicatrizUmbilicalPerda" />
+		<property name="cristaIliacaAvaliacao" />		
+		<property name="cristaIliacaPerda" />
+		<property name="quadrilAvaliacao" />
+		<property name="quadrilPerda" />
+		<property name="pregaGluteaAvaliacao" />
+		<property name="pregaGluteaPerda" />
+		
+		<property name="mamaAvaliacao2" />		
+		<property name="mamaAvaliacao3" />		
+		<property name="mamaAvaliacao4" />		
+		<property name="mamaAvaliacao5" />	
+		<property name="esternoAvaliacao2" />
+		<property name="esternoAvaliacao3" />
+		<property name="esternoAvaliacao4" />
+		<property name="esternoAvaliacao5" />
+		<property name="cinturaAvaliacao2" />
+		<property name="cinturaAvaliacao3" />
+		<property name="cinturaAvaliacao4" />
+		<property name="cinturaAvaliacao5" />
+		<property name="cicatrizUmbilicalAvaliacao2" />		
+		<property name="cicatrizUmbilicalAvaliacao3" />		
+		<property name="cicatrizUmbilicalAvaliacao4" />		
+		<property name="cicatrizUmbilicalAvaliacao5" />		
+		<property name="cristaIliacaAvaliacao2" />		
+		<property name="cristaIliacaAvaliacao3" />		
+		<property name="cristaIliacaAvaliacao4" />		
+		<property name="cristaIliacaAvaliacao5" />		
+		<property name="pregaGluteaAvaliacao2" />
+		<property name="pregaGluteaAvaliacao3" />
+		<property name="pregaGluteaAvaliacao4" />
+		<property name="pregaGluteaAvaliacao5" />
+		<property name="quadrilAvaliacao2" />
+		<property name="quadrilAvaliacao3" />
+		<property name="quadrilAvaliacao4" />
+		<property name="quadrilAvaliacao5" />
+
+	</joined-subclass>
+	
+</hibernate-mapping>

@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="br.com.pilates.base.Cadastro" table="cadastro">
+		<id name="id" >
+			<generator class="increment" />
+		</id>
+		
+		<property name="dataCriacao" />
+		<property name="statusObjeto" type="br.com.pilates.base.enums.StatusObjetoEnumType" />
+		
+		<many-to-one name="tipo" lazy="false" />
+		<many-to-one name="modalidade" column="contrato_id" lazy="false" />
+		<many-to-one name="cliente" column="cliente_id" lazy="false" />
+		<many-to-one name="avaliacao" column="avaliacao_id" lazy="false" cascade="save-update" />
+		
+		<set name="contasReceber" cascade="delete" >
+			<key column="cadastro_id" />
+			<one-to-many class="br.com.pilates.base.ContaReceber" />
+		</set>
+		
+		<set name="horarios" cascade="delete" >
+			<key column="cadastro_id" />
+			<one-to-many class="br.com.pilates.base.Horario" />
+		</set>
+		
+	</class>
+	
+	<query name="getCadastrosAtivosByCliente">
+			<![CDATA[
+			from Cadastro
+			where cliente = :cliente
+			and statusObjeto = 'ATIVO'
+			order by dataCriacao desc, modalidade.servico.nome, modalidade.professor.nome  
+			]]>
+	</query>
+	
+	<query name="getCadastrosAnteriores">
+			<![CDATA[
+			from Cadastro
+			where cliente = :cliente
+			and dataCriacao <= :data
+			and statusObjeto = 'ATIVO'
+			and id != :id
+			order by dataCriacao desc, modalidade.servico.nome, modalidade.professor.nome  
+			]]>
+	</query>
+
+	<!-- ORDER BY nao é para colocar pq será dinâmico -->	
+	<query name="relatorioAlunos">
+			<![CDATA[
+			from Cadastro
+			where 
+			statusObjeto = 'ATIVO'
+			and
+			(:dataInicial is null or :dataInicial <= dataCriacao)
+			and
+			(:dataFinal is null or :dataFinal >= dataCriacao)
+			and
+			(:professor is null or :professor = modalidade.professor)
+			]]>
+	</query>
+
+</hibernate-mapping>

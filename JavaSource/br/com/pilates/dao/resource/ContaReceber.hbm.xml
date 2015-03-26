@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="br.com.pilates.base.ContaReceber" table="contareceber">
+		<id name="id" >
+			<generator class="increment" />
+		</id>
+		
+		<property name="dataVencimento" />
+		<property name="dataPagamento" />
+		<property name="dataLancamento" />
+		<property name="valor" />
+		<property name="descontos" />
+		<property name="caixa" />
+		<property name="ordemParcelamento" />
+		<property name="observacao" />
+		<property name="formaPagamento" type="br.com.pilates.base.enums.FormaPagamentoEnumType"/>
+		<property name="status" type="br.com.pilates.base.enums.StatusContaEnumType"/>
+		
+		<many-to-one name="tipo" lazy="false" />
+		<many-to-one name="cadastro" column="cadastro_id" lazy="false" />
+		<many-to-one name="professor" column="professor_id" lazy="false" />
+		<many-to-one name="parcelamentoPai" column="pai_id" lazy="false" />
+		
+	</class>
+	
+	<query name="getContasReceberByCadastro">
+			<![CDATA[
+			from ContaReceber
+			where cadastro = :cadastro
+			order by dataPagamento desc, id desc, valor  
+			]]>
+	</query>
+	
+	<query name="getContasReceberByClienteModalidade">
+			<![CDATA[
+			from ContaReceber
+			where cadastro.cliente = :cliente
+			and (:servico is null or cadastro.modalidade.servico = :servico)
+			and cadastro.statusObjeto != 'MORTO'
+			order by dataPagamento desc, id desc, valor  
+			]]>
+	</query>
+	
+	<query name="getContasReceberByMes">
+			<![CDATA[
+			from ContaReceber
+			where
+			(:dataInicial is null or dataPagamento >= :dataInicial)
+			and
+			(:dataProxima is null or dataPagamento <= :dataProxima)
+			order by dataPagamento desc, cadastro.cliente.nome, valor
+			]]>
+	</query>
+	
+	<query name="getContasReceberByProfessorData">
+			<![CDATA[
+			from ContaReceber
+			where 
+			(cadastro is not null )
+			and 
+			(:dataInicial is null or dataPagamento >= :dataInicial)
+			and
+			(:dataFinal is null or dataPagamento <= :dataFinal)
+			and (:professor is null or professor = :professor)
+			order by dataPagamento desc, cadastro.cliente.nome, valor    
+			]]>
+	</query>
+	
+	<query name="getContasReceberAvulso">
+			<![CDATA[
+			from ContaReceber
+			where 
+			cadastro is null
+			and
+			(:dataInicial is null or dataPagamento >= :dataInicial)
+			and
+			(:dataFinal is null or dataPagamento <= :dataFinal)
+			order by dataPagamento desc, valor    
+			]]>
+	</query>
+
+	<query name="getSomaEntradasByProfessorData">
+			<![CDATA[
+			select sum(valor)
+			from ContaReceber
+			where 
+			cadastro.statusObjeto != 'MORTO'
+			and
+			(:dataInicial is null or dataPagamento >= :dataInicial)
+			and
+			(:dataFinal is null or dataPagamento <= :dataFinal)
+			and 
+			(:professor is null or professor = :professor)
+			]]>
+	</query>
+
+	<query name="getSomaEntradasAvulso">
+			<![CDATA[
+			select sum(valor)
+			from ContaReceber
+			where 
+			cadastro is null
+			and
+			(:dataInicial is null or dataPagamento >= :dataInicial)
+			and
+			(:dataFinal is null or dataPagamento <= :dataFinal)
+			]]>
+	</query>
+	
+	<query name="getSomaEntradasByContrato">
+			<![CDATA[
+			select sum(valor)
+			from ContaReceber
+			where 
+			cadastro.statusObjeto != 'MORTO'
+			and 
+			(:dataInicial is null or dataPagamento >= :dataInicial)
+			and
+			(:dataFinal is null or dataPagamento <= :dataFinal)
+			and
+			(:professor is null or professor = :professor)
+			and
+			(:contrato is null or cadastro.modalidade = :contrato)
+			]]>
+	</query>
+	
+	<query name="getSomaContaReceberByModalidade">
+			<![CDATA[
+			select sum(valor)
+			from ContaReceber
+			where 
+			cadastro.statusObjeto != 'MORTO'
+			and (:dataInicio is null or dataPagamento >= :dataInicio)
+			and (:dataFinal is null or dataPagamento <= :dataFinal)
+			and cadastro.modalidade.servico = :servico 
+			]]>
+	</query>
+	
+	<sql-query name="getEntradasCaixa">
+			<![CDATA[
+			SELECT SUM(cr.caixa)
+			FROM contareceber AS cr
+			WHERE
+			cr.dataPagamento >= :dataInicial
+			and 
+			cr.dataPagamento <= :dataFinal
+			]]>
+	</sql-query>
+	
+	<sql-query name="getEntradasLiquidasCaixa">
+			<![CDATA[
+			SELECT SUM(cr.caixa)
+			FROM contareceber AS cr
+			WHERE
+			cr.dataPagamento >= :dataInicial
+			and cr.dataPagamento <= :dataFinal
+			and pai_id is null
+			]]>
+	</sql-query>
+	<sql-query name="getEntradasLiquidasCaixaParcelas">
+			<![CDATA[
+			SELECT sum(cnta1.caixa)
+			FROM contareceber cnta1
+			LEFT JOIN contareceber cnta2 ON cnta1.pai_id = cnta2.id
+			WHERE cnta2.dataPagamento >=  :dataInicial
+			AND cnta2.dataPagamento <=  :dataFinal
+			]]>
+	</sql-query>
+	
+	<sql-query name="getSaidasCaixa">
+			<![CDATA[
+			SELECT SUM(cp.valor)
+			FROM contapagar AS cp
+			WHERE
+			cp.dataPagamento >= :dataInicial
+			and 
+			cp.dataPagamento <= :dataFinal
+			]]>
+	</sql-query>
+	
+	<sql-query name="getEntradasVendasCaixa">
+			<![CDATA[
+			SELECT SUM(est.valor)
+			FROM estoque as est
+			WHERE 
+			est.data >= :dataInicial
+			and 
+			est.data <= :dataFinal
+			]]>
+	</sql-query>
+	
+	<sql-query name="getDescontosEntradasCaixa">
+			<![CDATA[
+			SELECT SUM(cr.descontos)
+			FROM contareceber AS cr
+			WHERE
+			cr.dataPagamento >= :dataInicial
+			and 
+			cr.dataPagamento <= :dataFinal
+			]]>
+	</sql-query>
+	
+	
+	
+</hibernate-mapping>

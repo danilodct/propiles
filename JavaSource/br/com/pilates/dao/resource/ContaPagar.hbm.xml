@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="br.com.pilates.base.ContaPagar" table="contapagar">
+		<id name="id" >
+			<generator class="increment" />
+		</id>
+		
+		<property name="valor" />
+		<property name="dataVencimento" />
+		<property name="dataPagamento" />
+		<property name="mesCompetencia" />
+		<property name="status" type="br.com.pilates.base.enums.StatusContaEnumType"/>
+		<property name="tipoCusto" type="br.com.pilates.base.enums.TipoCustoEnumType"/>
+		
+		<many-to-one name="tipo" lazy="false" />
+		<many-to-one name="centroCusto" column="centroCusto_id" lazy="false" />
+		
+	</class>
+	
+	<query name="getContasPagarByMes">
+			<![CDATA[
+			from ContaPagar
+			where 
+			(:tipoCusto is null or tipoCusto = :tipoCusto)
+			and 
+			(:centroCusto is null or centroCusto = :centroCusto)
+			and 
+			(:dataInicial is null or dataPagamento >= :dataInicial)
+			and 
+			(:dataProxima is null or dataPagamento <= :dataProxima)
+			order by dataPagamento desc, valor  
+			]]>
+	</query>
+	
+	<query name="getSomaSaidasByData">
+			<![CDATA[
+			select sum(valor)
+			from ContaPagar
+			where 
+			(:tipoCusto is null or tipoCusto = :tipoCusto)
+			and
+			(:dataInicial is null or dataPagamento >= :dataInicial)
+			and 
+			(:dataProxima is null or dataPagamento <= :dataProxima)
+			]]>
+	</query>
+	
+	<sql-query name="getSomaSaidasLiquidasByData">
+			<![CDATA[
+			SELECT SUM(valor)
+			FROM contapagar
+			WHERE tipocusto = :tipoCusto 
+			AND mesCompetencia >= :dataInicial 
+			AND mesCompetencia <= :dataProxima 
+			OR (
+				tipocusto = :tipoCusto
+				AND mesCompetencia IS NULL 
+				AND dataPagamento >= :dataInicial  
+				AND dataPagamento <= :dataProxima 
+			)
+			]]>
+	</sql-query>
+	
+	<query name="getSomaContaPagarByTipo">
+			<![CDATA[
+			select sum(valor)
+			from ContaPagar
+			where
+			tipo = :tipo
+			and (:dataInicio is null or dataPagamento >= :dataInicio) 
+			and (:dataFinal is null or dataPagamento <= :dataFinal) 
+			]]>
+	</query>
+	
+	
+</hibernate-mapping>

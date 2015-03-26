@@ -1,0 +1,339 @@
+@media print{
+	#cabecalho, #rodape, div.formAdd, a.print, a.btAdd, .remover{
+		display: none;
+	}
+	table.listagem td, table.listagem th{
+		border: 1px solid #9372A5;
+	}
+	.headerImpressao{
+		text-align: center;
+	}
+}
+@media screen{
+	.headerImpressao{
+		display: none;
+	}
+}
+
+html, body{
+	margin: 0px 0px;
+}
+html, body, a, input, select, textarea{
+	font-family: Tahoma, Trebuchet MS, Verdana, Arial, Times;
+	font-size: 11px;
+	letter-spacing: 1px;
+	color: #4f4f4f;
+	text-decoration: none;
+}
+input{
+	padding: 3px;
+}
+select{
+	padding: 2px;
+}
+select, input[type=text], input[type=password], textarea{
+	border: 1px solid #C9C9C9;
+}
+a:hover{
+	text-decoration: none;
+}
+img{
+	border: 0px solid black;
+}
+fieldset{
+	padding: 10px;
+}
+legend{
+	color: #9372A5;
+	font-size: 14px;
+	font-weight: bold;
+}
+label{
+	font-weight: bold;
+	color: #9372A5;
+	font-size: 12px;
+}
+table{
+	border-collapse: collapse;
+}
+table, table tr, table tr td{
+	border-width: 0px;
+	padding: 0px;
+}
+input.submit{
+	border: 1px solid #9372A5;
+	background-color: #9372A5;
+	color: #fff;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+#containerLogin input.submit{
+	border-color:#42A3A5;
+	background-color: #42A3A5;
+}
+td.linhaPequena{
+	height: 5px;
+}
+td.linhaMedia{
+	height: 20px;
+}
+td.linhaGrande{
+	height: 40px;
+}
+input.bordaVermelha, select.bordaVermelha, textarea.bordaVermelha{
+	border: 1px solid #d43131;
+}
+div.error, div.message{
+	margin: 0 auto;
+	display: inline;
+}
+div.error, span.error{
+	padding: 3px 5px;
+	background-color: #d43131;
+	color: #ffffff;
+}
+div.message, span.message{
+	background-color: #308dd5;
+	color: #ffffff;
+	padding: 3px 5px;
+}
+div.centralizador{
+	margin: 0 auto;
+	width: 800px;
+	margin-bottom: 80px;
+}
+div.centralizador.login{
+	width: 170px;
+}
+.hidden{
+	display: none;
+}
+tr.linhaEscura{
+	background-color: #ebebeb;
+}
+tr.linhaHover{
+	background-color: #d2d2d1;
+}
+input.pequeno.left {
+	width: 152px;
+	margin-right: 3px;
+}
+input.pequeno {
+	width: 150px;
+	}
+select.pequeno{
+	width: 158px;
+}
+.sigla{
+	width: 20px;
+}
+select.sigla{
+	width: 50px;
+}
+textarea.sigla{
+	width: 125px;
+}
+.pequeno{
+	width: 164px;
+}
+.pequeno.left{
+	float: left;
+}
+.medio{
+	width: 328px;
+}
+.medio.left{
+	width: 328px;
+	float: left;
+}
+select.medio{
+	width: 320px;
+}
+.grande{
+	width: 648px;
+}
+.grande.left{
+	float:left;
+}
+textarea.pequeno, textarea.sigla{
+	height: 40px;
+}
+textarea.medio{
+	height: 80px;
+}
+textarea.grande{
+	height: 120px;
+}
+/* --------------------------------------------------------------- */
+div#cabecalho{
+	width: 100%;
+	height: 154px;
+	background: url("../../img/cabecalho/bg.png") #ADDFD4 repeat-y;
+	margin-bottom: 30px;
+}
+div#logo{float:left; margin:10px 20px 10px 10px;}
+div#area-menu{float:left;margin-top:122px; }
+div#rodape{
+	width: 800px;
+	margin: 0 auto;
+	margin-top: 60px;
+	margin-bottom: 20px;
+	padding-top: 10px;
+	padding-bottom: 40px;
+	border-top: 1px dotted #9372A5;
+	color: #9372A5;
+	font-size: 10px;
+	text-align: center;
+}
+
+li.headlink ul {
+	display: none;
+}
+
+li.headlink:hover ul {
+	display: block;
+}
+
+li.headlink {
+	float: left;
+}
+li ul{
+	background-color: #B4E1D8;
+	padding-left: 0px;
+	position: absolute;
+	z-index: 1000;
+}
+li.headlink ul li{
+	border-top: 1px solid #ffffff;
+}
+ul, li {
+	list-style: none;
+}
+div#menu{
+	margin-bottom: 5px;
+}
+div#menu li a{
+	padding: 0px 5px;
+	height: 20px;
+	color: #9372A5;
+	font-family: Trebuchet MS, Arial;
+	font-size: 14px;
+	font-weight:bold;
+	display: block;
+	margin: 0px 5px;
+}
+div#menu li ul li a{
+	text-transform: uppercase;
+	margin-top: 5px;
+	font-size: 12px;
+}
+div#containerLogin{
+	padding: 10px 10px 0px 10px;
+	background-color: #ADDFD4;
+	width: 170px;
+	height:97px;
+	color: #ffffff;
+	float:left;
+}
+div#containerLogin input[type=text], div#containerLogin input[type=password]{
+	width: 125px;
+}
+table.mor{
+	width: 100%;
+	margin-top: 60px;
+}
+table.mor tr th{
+	text-align: left;
+	font-family: Trebuchet MS, Tahoma, Verdana, Arial, Times;
+	color: #9372A5;
+	font-size: 22px;
+	font-weight: bold;
+	border-bottom: 2px solid #9372A5;
+}
+table.normal{
+	width: 100%;
+}
+table.normal tr td{
+	padding: 3px;
+}
+table.listagem{
+	width: 100%;
+}
+table.listagem tr th{
+	text-align: left;
+	font-family: Trebuchet MS, Tahoma, Verdana, Arial, Times;
+	color: #9372A5;
+	font-size: 12px;
+	text-transform: uppercase;
+	font-weight: bold;
+	border-bottom: 1px solid #9372A5;
+	border-top: 1px solid #9372A5;
+	padding: 3px;
+}
+table.listagem tr td{
+	padding: 5px;
+}
+table.formAdd{
+	width: 100%;
+}
+table.formAdd tr td.header{
+	color: #9372A5;
+	font-weight: bold;
+	border-bottom: 1px solid #9372A5;
+	font-size: 13px;
+}
+
+input.leitura{
+	border-color: #ffffff;
+}
+
+div.radioIndicacao label, div.radioConhecimento label, div.radioMusculaturaEncurtada label, div.radioForcaMuscular label{
+	font-weight: normal;
+}
+
+div.guia{
+	width: 100%;
+	text-align: left;
+	margin-top: 20px;
+}
+div.guia a{
+	text-decoration: underline;
+}
+
+div.separadorLeft{
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+
+.titulo{
+	text-align: left;
+	font-family: Trebuchet MS;
+	color: #9372A5;
+	font-size: 22px;
+	font-weight: bold;
+	border-bottom: 2px solid #9372A5;
+	margin-bottom: 15px;
+}
+.bt-add.frequencia a{display: block; width:96px; height: 30px; background: url(../../img/add.png) no-repeat; margin-bottom: 10px; }
+.area-add-frequencia{margin-bottom: 50px;}
+input.medio{width: 314px; margin-right: 15px;}
+p.botoes{float:left; width:100%;}
+
+a.submit{border: 1px solid #9372A5; background-color: #9372A5; color: white; padding: 3px;}
+
+.modal{display:none; width:500px; padding:20px; background-color: #fff; border:5px solid #9372A5;}
+.modal h1{text-align: left; font-family: Trebuchet MS; color: #9372A5; font-size: 22px; font-weight: bold; border-bottom: 2px solid #9372A5; margin-bottom: 15px;}
+.modal .grande{width:470px;}
+.modal .medio{width: 228px; float: left;}
+.modal input.medio{width: 204px;}
+.modal .areaBotoes input{float:right;}
+
+
+.subtitulo-avaliacao{width:100%; margin:10px 0 20px; text-align: left; font-size: 20px; float:left; color:#9372A5; border-bottom: 2px solid #9372A5;}
+.area-grande{float:left; width:100%;}
+.area-grande label{float:left; width:100%;}
+.area-grande textarea{float:left; height:110px; width:95%;}
+.area-terco{float:left; width:240px; margin-right:5px;}
+.area-terco input[type=text], .area-grande input[type=text]{float:left; width:94%;}
+.area-terco, .area-grande {margin-top: 5px; margin-bottom: 5px; }

@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="br.com.pilates.base.Frequencia" table="frequencia">
+		<id name="id" >
+			<generator class="increment" />
+		</id>
+		
+		<property name="data" />
+		
+		<many-to-one name="profissional" column="profissional_id" lazy="false" />
+		<many-to-one name="servico" column="servico_id" lazy="false" />
+		<many-to-one name="cliente" column="cliente_id" lazy="false" />
+		
+	</class>
+	
+	
+	<query name="getFrequenciasByDataProfessor">
+			<![CDATA[
+			from Frequencia
+			where 
+			(:dataInicial is null or data >= :dataInicial)
+			and 
+			(:dataFinal is null or data <= :dataFinal)
+			and (:professor is null or profissional = :professor)
+			]]>
+	</query>
+	
+	<query name="getFrequenciasByData">
+			<![CDATA[
+			from Frequencia
+			where 
+			(:dataInicial is null or data >= :dataInicial)
+			and 
+			(:dataFinal is null or data <= :dataFinal)
+			order by data desc, cliente.nome desc, profissional.nome desc, id desc  
+			]]>
+	</query>
+	
+	<query name="getFrequenciasByCliente">
+			<![CDATA[
+			from Frequencia
+			where
+			cliente = :cliente 
+			order by data desc, profissional.nome desc, id desc  
+			]]>
+	</query>
+	
+	<query name="getFrequenciasByClienteData">
+			<![CDATA[
+			select freq
+			from Frequencia as freq
+			left join freq.cliente as cli
+			where
+				cli = :cliente
+				and (:dataInicial is null or cli.dataCadastro >= :dataInicial)
+				and (:dataFinal is null or cli.dataCadastro <= :dataFinal)
+			]]>
+	</query>
+	
+	<!-- 88888888888888888888888888888888888888  NOVA IMPLEMENTACAO  888888888888888888888888888888888888888  -->
+	
+	
+	<query name="getFrequenciasByDataModalidadeSexoBairroEstadocivilFaixaetariaProfessorOrdenacao">
+			<![CDATA[
+			SELECT fre
+			from Frequencia as fre
+			left join fre.cliente as cli
+			where
+				(:servico is null or fre.servico = :servico)
+			and (:profissional is null or fre.profissional = :profissional)
+			and (:estado is null or cli.estadoCivil = :estado)
+			and (:bairro is null or cli.endereco.bairro = :bairro)
+			and (:sexo is null or cli.sexo = :sexo)
+			and (:faixaMinima = -1 or year(cli.dataNascimento) >= :faixaMinima)
+			and (:faixaMaxima = -1 or year(cli.dataNascimento) <= :faixaMaxima)
+			and (:dataInicial is null or fre.data >= :dataInicial)
+			and (:dataFinal is null or fre.data <= :dataFinal)
+			]]>
+	</query>
+
+</hibernate-mapping>

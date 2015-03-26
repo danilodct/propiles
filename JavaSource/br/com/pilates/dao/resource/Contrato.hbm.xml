@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="br.com.pilates.base.Contrato" table="contrato">
+		<id name="id" >
+			<generator class="increment" />
+		</id>
+		
+		<property name="statusObjeto" type="br.com.pilates.base.enums.StatusObjetoEnumType" />
+		
+		<property name="percentual" />
+		
+		<many-to-one name="professor" column="professor_id" lazy="false" />
+		<many-to-one name="servico" column="servico_id" lazy="false" />
+	</class>
+	
+
+	<query name="getContratosByProfessor">
+			<![CDATA[
+			from Contrato as contrato
+			where contrato.professor = :professor
+			and contrato.statusObjeto = 'ATIVO'
+			order by id
+			]]>
+	</query>
+
+	<query name="getContratoByModalidadeProfessor">
+			<![CDATA[
+			from Contrato as contrato
+			where contrato.servico = :servico
+			and contrato.professor = :professor
+			and contrato.statusObjeto = 'ATIVO'
+			]]>
+	</query>
+	
+</hibernate-mapping>

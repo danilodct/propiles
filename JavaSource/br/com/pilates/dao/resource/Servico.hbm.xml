@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="br.com.pilates.base.Servico" table="servico">
+		<id name="id" >
+			<generator class="increment" />
+		</id>
+		
+		<property name="nome" />
+		
+		<many-to-one name="centroCusto" column="centroCusto_id" lazy="false" />
+		
+	</class>
+	
+	<query name="getAllServicos">
+			<![CDATA[
+			from Servico
+			order by nome
+			]]>
+	</query>
+	
+</hibernate-mapping>

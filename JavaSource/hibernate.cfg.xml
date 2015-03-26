@@ -10,13 +10,17 @@
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 
+
+
+
+
 <!-- 	
 		<property name="connection.url">jdbc:mysql://mysql.clinicavanity.com.br/clinicavanity</property>
 		<property name="connection.username">clinicavanity</property>
 		<property name="connection.password">4550PMXD</property>
  -->	 
 
-		<property name="connection.url">jdbc:mysql://localhost/profisio</property>
+		<property name="connection.url">jdbc:mysql://localhost/clinicaadm</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password"></property>
 
@@ -36,30 +40,46 @@
         <!-- Disable the second-level cache  -->
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 
-        <!-- Echo all executed SQL to stdout 
+        <!-- Echo all executed SQL to stdout -->
+<!-- 
         <property name="show_sql">true</property>
 		<property name="hibernate.hbm2ddl.auto">create-drop</property>
-		 -->        
-
-        <mapping resource="br/com/profisio/util/hbm/Agendamento.hbm.xml"/>
-        <mapping resource="br/com/profisio/util/hbm/Atividade.hbm.xml"/>
-        <mapping resource="br/com/profisio/util/hbm/Avaliacao.hbm.xml"/>
-        <mapping resource="br/com/profisio/util/hbm/Cadastro.hbm.xml"/>
-        <mapping resource="br/com/profisio/util/hbm/CentroCusto.hbm.xml"/>
-        <mapping resource="br/com/profisio/util/hbm/Colaborador.hbm.xml"/>
-        <mapping resource="br/com/profisio/util/hbm/Configuracao.hbm.xml"/>
-        <mapping resource="br/com/profisio/util/hbm/ContaPagar.hbm.xml"/>
-        <mapping resource="br/com/profisio/util/hbm/ContaReceber.hbm.xml"/>
-        <mapping resource="br/com/profisio/util/hbm/Contrato.hbm.xml"/>
-        <mapping resource="br/com/profisio/util/hbm/Endereco.hbm.xml"/>
-        <mapping resource="br/com/profisio/util/hbm/Estoque.hbm.xml"/>
-        <mapping resource="br/com/profisio/util/hbm/Frequencia.hbm.xml"/>
-        <mapping resource="br/com/profisio/util/hbm/Movimentacao.hbm.xml"/>
-        <mapping resource="br/com/profisio/util/hbm/Produto.hbm.xml"/>
-        <mapping resource="br/com/profisio/util/hbm/Usuario.hbm.xml"/>
-        <mapping resource="br/com/profisio/util/hbm/Servico.hbm.xml"/>
-        <mapping resource="br/com/profisio/util/hbm/Tenant.hbm.xml"/>
-        <mapping resource="br/com/profisio/util/hbm/TipoContaPagar.hbm.xml"/>
+ -->        
+        
+        <mapping resource="br/com/pilates/dao/resource/Avaliacao.hbm.xml"/>
+        <!-- 
+        <mapping resource="br/com/pilates/dao/resource/AvaliacaoAlteracoesCirculatorias.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/AvaliacaoCirurgiaPlastica.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/AvaliacaoDaySpa.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/AvaliacaoDepilacao.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/AvaliacaoDermatologia.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/AvaliacaoEstria.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/AvaliacaoGestante.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/AvaliacaoGorduraLocalizada.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/AvaliacaoLimpezaPele.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/AvaliacaoNatacaoInfantil.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/AvaliacaoNutricao.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/AvaliacaoPowerShape.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/AvaliacaoTratamentoFacial.hbm.xml"/>
+         -->
+        <mapping resource="br/com/pilates/dao/resource/Cadastro.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/CentroCusto.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/Cliente.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/Configuracao.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/ContaPagar.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/ContaReceber.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/Contrato.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/Endereco.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/Estoque.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/Frequencia.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/Horario.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/Produto.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/Professor.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/Servico.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/TipoCadastro.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/TipoContaPagar.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/TipoContaReceber.hbm.xml"/>
+        <mapping resource="br/com/pilates/dao/resource/Usuario.hbm.xml"/>
         
     </session-factory>
 

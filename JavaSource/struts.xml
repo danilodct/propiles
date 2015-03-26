@@ -6,19 +6,16 @@
 
 <struts>
 	<constant name="struts.ui.theme" value="simple" />
-	<constant name="struts.custom.i18n.resources" value="struts-bundle" />
-	<constant name="struts.devMode" value="false" />
 
-	<package name="default" namespace="/" extends="struts-default">
+	<package name="default" extends="struts-default">
 
 
 		<!-- =================== INTERCEPTORS ========================= -->
 
-
 		<interceptors>
-			<interceptor name="loginInterceptor" class="br.com.profisio.util.LoginInterceptor" />
+			<interceptor name="loginInterceptor" class="br.com.pilates.actions.interceptor.LoginInterceptor" />
 
-			<interceptor-stack name="defaultProfisioStack-SemLogin">
+			<interceptor-stack name="defaultPilatesStack-SemLogin">
 				<interceptor-ref name="servletConfig" />
 				<interceptor-ref name="params" />
 				<interceptor-ref name="prepare" />
@@ -32,394 +29,530 @@
 				<interceptor-ref name="chain" />
 			</interceptor-stack>
 
-			<interceptor-stack name="defaultProfisioStack-ComLogin">
-				<interceptor-ref name="defaultProfisioStack-SemLogin" />
+			<interceptor-stack name="defaultPilatesStack-ComLogin">
+				<interceptor-ref name="defaultPilatesStack-SemLogin" />
 				<interceptor-ref name="loginInterceptor" />
 			</interceptor-stack>
 
 		</interceptors>
 
-		<default-interceptor-ref name="defaultProfisioStack-ComLogin" />
-
+		<default-interceptor-ref name="defaultPilatesStack-ComLogin" />
 
 		<!-- ============= GLOBAL RESULTS ================= -->
 
-
 		<global-results>
-			<result name="not_logged">v2.0/pages/login.jsp</result>
+			<result name="not_logged">pages/login.jsp</result>
 		</global-results>
 
+		<!-- ============= ACTIONS ================= -->
 
-		<!-- ============= GLOBAL ACTIONS ================= -->
-
-
-		<action name="home" class="br.com.profisio.util.ProfisioActionSupport" method="redirect">
-			<result name="redirect">/v2.0/pages/home.jsp</result>
-		</action>
-		
-		<action name="login" class="br.com.profisio.usuario.UsuarioView" method="actionLogin">
-			<interceptor-ref name="defaultProfisioStack-SemLogin"></interceptor-ref>
+		<action name="login" class="br.com.pilates.actions.LoginLogoutAction" method="actionLogin">
+			<interceptor-ref name="defaultPilatesStack-SemLogin"></interceptor-ref>
 			<result name="success" type="chain">home</result>
-			<result name="error">v2.0/pages/login.jsp</result>
+			<result name="error">pages/login.jsp</result>
 		</action>
-		
-		<action name="logout" class="br.com.profisio.usuario.UsuarioView" method="actionLogout">
-			<result name="redirect">v2.0/pages/login.jsp</result>
+		<action name="logout" class="br.com.pilates.actions.LoginLogoutAction" method="actionLogout">
+			<result name="success">pages/login.jsp</result>
+			<result name="error">pages/login.jsp</result>
 		</action>
-		
-		<action name="getCEP" class="br.com.profisio.util.ProfisioActionSupport" method="actionBuscarCEP">
+
+		<action name="home" class="br.com.pilates.actions.PilatesActionSupport" method="redirect">
+			<result name="redirect">pages/home.jsp</result>
+		</action>
+
+		<action name="getCEP" class="br.com.pilates.actions.CEPAction" method="actionBuscarCEP">
 			<result />
 		</action>
- 
-		<!-- ========== ATIVIDADE =================== -->
 		
-		<action name="atividade" class="br.com.profisio.cadastro.CadastroView" method="actionAtividade">
-			<result name="success">v2.0/pages/cadastro/atividade.jsp</result>
-			<result name="error" type="chain">cadastros</result>
+		<action name="teste" class="br.com.pilates.actions.CEPAction" method="actionTeste">
+			<result name="redirect">teste.jsp</result>
 		</action>
 		
-		<action name="cadastrarAtividade" class="br.com.profisio.cadastro.CadastroView" method="actionCadastrarAtividade">
-			<result name="redirect" type="chain">cadastro</result>
+		
+		<action name="getCPF" class="br.com.pilates.actions.PilatesActionSupport" method="actionBuscarCPF">
+			<result />
 		</action>
 		
-		<action name="removerAtividade" class="br.com.profisio.cadastro.CadastroView" method="actionRemoverAtividade">
-			<result name="redirect" type="chain">cadastro</result>
-		</action>
-		
-		<action name="editarAvaliacao" class="br.com.profisio.cadastro.CadastroView" method="actionEditarAvaliacao">
-			<result name="redirect" type="chain">cadastro</result>
-		</action>
-		
-		<!-- ========== CADASTROS =================== -->
-		
-		<action name="cadastros" class="br.com.profisio.cadastro.CadastroView" method="actionCadastros">
-			<result name="redirect">v2.0/pages/cadastro/cadastros.jsp</result>
-		</action>
-		
-		<action name="cadastro" class="br.com.profisio.cadastro.CadastroView" method="actionCadastro">
-			<result name="redirect">v2.0/pages/cadastro/cadastro.jsp</result>
-		</action>
-		
-		<action name="removerCadastro" class="br.com.profisio.cadastro.CadastroView" method="actionRemoverCadastro">
-			<result name="redirect" type="chain">cadastros</result>
-		</action>
-		
-		<action name="cadastrarCadastro" class="br.com.profisio.cadastro.CadastroView" method="actionCadastrarCadastro">
-			<result name="success" type="chain">cadastro</result>
-			<result name="error" type="chain">cadastros</result>
-		</action>
-		
-		<action name="editarCadastro" class="br.com.profisio.cadastro.CadastroView" method="actionEditarCadastro">
-			<result name="redirect" type="chain">cadastro</result>
-		</action>
-		
-		<action name="aniversariantes" class="br.com.profisio.cadastro.CadastroView" method="actionAniversariantes">
-			<result name="redirect">v2.0/pages/cadastro/aniversariantes.jsp</result>
-		</action>
- 
- 
-		<!-- ========== AGENDA =================== -->
-		
-		<action name="agenda" class="br.com.profisio.agenda.AgendaView" method="actionAgenda">
-			<result name="redirect">v2.0/pages/agenda/agenda.jsp</result>
-		</action>
-		
-		<action name="cadastrarAgendamento" class="br.com.profisio.agenda.AgendaView" method="actionCadastrarAgendamento">
-			<result name="redirect" type="chain">agenda</result>
-			<result name="redirect_cadastro" type="chain">cadastro</result>
-		</action>
-		
-		<action name="editarAgendamento" class="br.com.profisio.agenda.AgendaView" method="actionEditarAgendamento">
-			<result name="redirect" type="chain">agenda</result>
-			<result name="redirect_cadastro" type="chain">cadastro</result>
-		</action>
-		
-		<action name="alterarDataAgendamento" class="br.com.profisio.agenda.AgendaView" method="actionAlterarDataAgendamento">
-			<result name="redirect" type="chain">agenda</result>
-			<result name="redirect_cadastro" type="chain">cadastro</result>
-		</action>
-		
-		<action name="removerAgendamento" class="br.com.profisio.agenda.AgendaView" method="actionRemoverAgendamento">
-			<result name="redirect" type="chain">agenda</result>
-			<result name="redirect_cadastro" type="chain">cadastro</result>
-		</action>
-		
-		<!-- ========== COLABORADORES =================== -->
-		
-		<action name="colaboradores" class="br.com.profisio.colaborador.ColaboradorView" method="actionColaboradores">
-			<result name="redirect">v2.0/pages/colaborador/colaboradores.jsp</result>
-		</action>
-		
-		<action name="cadastrarColaborador" class="br.com.profisio.colaborador.ColaboradorView" method="actionCadastrarColaborador">
-			<result name="success" type="chain">colaborador</result>
-			<result name="error" type="chain">colaboradores</result>
+		<!-- ============= CLIENTES ================= -->
+
+		<action name="clientes" class="br.com.pilates.actions.ClienteAction" method="redirect">
+			<result name="redirect">pages/cliente/clientes.jsp</result>
 		</action>
 
-		<action name="colaborador" class="br.com.profisio.colaborador.ColaboradorView" method="actionColaborador">
-			<result name="success">v2.0/pages/colaborador/colaborador.jsp</result>
-			<result name="error" type="chain">colaboradores</result>
+		<action name="inserirCliente" class="br.com.pilates.actions.ClienteAction" method="actionInserirCliente">
+			<result name="success" type="chain">cliente</result>
+			<result name="error_cpf" type="chain">cliente</result>
+			<result name="error" type="chain">clientes</result>
 		</action>
 
-		<action name="editarColaborador" class="br.com.profisio.colaborador.ColaboradorView" method="actionEditarColaborador">
-			<result name="redirect" type="chain">colaborador</result>
+		<action name="cliente" class="br.com.pilates.actions.ClienteAction" method="actionLerCliente">
+			<result name="success">pages/cliente/cliente.jsp</result>
+			<result name="error" type="chain">clientes</result>
 		</action>
 
-		<action name="removerColaborador" class="br.com.profisio.colaborador.ColaboradorView" method="actionRemoverColaborador">
-			<result name="redirect" type="chain">colaboradores</result>
+		<action name="editarClienteRedirect" class="br.com.pilates.actions.ClienteAction" method="actionEditarClienteRedirect">
+			<result name="success">pages/cliente/editarCliente.jsp</result>
+			<result name="error" type="chain">cliente</result>
 		</action>
 
-		<action name="alterarSenha" class="br.com.profisio.colaborador.ColaboradorView" method="actionAlterarSenha">
-			<result name="redirect" >v2.0/pages/colaborador/alterarSenha.jsp</result>
-			<result name="redirect_home" type="chain">home</result>
+		<action name="editarCliente" class="br.com.pilates.actions.ClienteAction" method="actionEditarCliente">
+			<result name="success" type="chain">cliente</result>
+			<result name="error" type="chain">editarClienteRedirect</result>
+		</action>
+
+		<action name="removerCliente" class="br.com.pilates.actions.ClienteAction" method="actionRemoverCliente">
+			<result name="success" type="chain">clientes</result>
+			<result name="error" type="chain">clientes</result>
+		</action>
+
+		<action name="pesquisarClientes" class="br.com.pilates.actions.ClienteAction" method="actionPesquisarCliente">
+			<result />
+		</action>
+		
+		<!-- ============= FUNCIONARIO ================= -->
+
+		<action name="funcionarios" class="br.com.pilates.actions.FuncionarioAction" method="redirect">
+			<result name="redirect">pages/funcionario/funcionarios.jsp</result>
+		</action>
+
+		<action name="inserirFuncionario" class="br.com.pilates.actions.FuncionarioAction" method="actionInserirFuncionario">
+			<result name="success" type="chain">funcionario</result>
+			<result name="error_cpf" type="chain">funcionarios</result>
+			<result name="error" type="chain">funcionarios</result>
+		</action>
+
+		<action name="funcionario" class="br.com.pilates.actions.FuncionarioAction" method="actionLerFuncionario">
+			<result name="success">pages/funcionario/funcionario.jsp</result>
+			<result name="error" type="chain">funcionarios</result>
+		</action>
+
+		<action name="editarFuncionarioRedirect" class="br.com.pilates.actions.FuncionarioAction" method="actionEditarFuncionarioRedirect">
+			<result name="success">pages/funcionario/editarFuncionario.jsp</result>
+			<result name="error" type="chain">funcionario</result>
+		</action>
+
+		<action name="editarFuncionario" class="br.com.pilates.actions.FuncionarioAction" method="actionEditarFuncionario">
+			<result name="success" type="chain">funcionario</result>
+			<result name="error" type="chain">editarFuncionarioRedirect</result>
+		</action>
+
+		<action name="removerFuncionario" class="br.com.pilates.actions.FuncionarioAction" method="actionRemoverFuncionario">
+			<result name="success" type="chain">funcionarios</result>
+			<result name="error" type="chain">funcionarios</result>
+		</action>
+
+		<action name="pesquisarFuncionarios" class="br.com.pilates.actions.FuncionarioAction" method="actionPesquisarFuncionario">
+			<result />
+		</action>
+
+		<action name="getFuncionariosByModalidade" class="br.com.pilates.actions.FuncionarioAction" method="actionGetFuncionariosByModalidade">
+			<result />
 		</action>
 		
 		<!-- =========   CONTRATO ================ -->
 
-		<action name="cadastrarContrato" class="br.com.profisio.colaborador.ColaboradorView" method="actionCadastrarContrato">
-			<result name="redirect" type="chain">colaborador</result>
+		<action name="inserirContrato" class="br.com.pilates.actions.ContratoAction" method="actionInserirContrato">
+			<result name="success" type="chain">funcionario</result>
+			<result name="error" type="chain">funcionario</result>
 		</action>
 
-		<action name="editarContrato" class="br.com.profisio.colaborador.ColaboradorView" method="actionEditarContrato">
-			<result name="redirect" type="chain">colaborador</result>
+		<action name="editarContrato" class="br.com.pilates.actions.ContratoAction" method="actionEditarContrato">
+			<result name="success" type="chain">funcionario</result>
+			<result name="error" type="chain">funcionario</result>
 		</action>
 
-		<action name="removerContrato" class="br.com.profisio.colaborador.ColaboradorView" method="actionRemoverContrato">
-			<result name="redirect" type="chain">colaborador</result>
+		<action name="removerContrato" class="br.com.pilates.actions.ContratoAction" method="actionRemoverContrato">
+			<result name="success" type="chain">funcionario</result>
+			<result name="error" type="chain">funcionario</result>
+		</action>
+		
+		<!-- =========   CADASTRO ================ -->
+
+		<action name="inserirCadastro" class="br.com.pilates.actions.CadastroAction" method="actionInserirCadastro">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cliente</result>
 		</action>
 
-		<action name="getContratosByServico" class="br.com.profisio.colaborador.ColaboradorView" method="actionGetContratosByServico">
+		<action name="editarAvaliacao" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacao">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoDaySpa" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoDaySpa">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoCirurgiaPlastica" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoCirurgiaPlastica">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoDepilacao" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoDepilacao">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoEstria" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoEstria">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoGestante" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoGestante">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoTratamentoFacial" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoTratamentoFacial">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoDermatologia" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoDermatologia">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoOperatorioCirurgia" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoOperatorioCirurgia">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoGorduraLocalizada" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoGorduraLocalizada">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoPilates" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoPilates">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoEstetica" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoEstetica">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoRPG" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoRPG">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoAcupuntura" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoAcupuntura">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoNutricao" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoNutricao">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoPowerShape" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoPowerShape">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoNatacaoInfantil" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoNatacaoInfantil">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoLimpezaPele" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoLimpezaPele">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoPeeling" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoPeeling">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoCripolise" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoCripolise">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="editarAvaliacaoProjeto100Dias" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoProjeto100Dias">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="getLastAvaliacaoByModalidadeCliente" class="br.com.pilates.actions.CadastroAction" method="actionGetLastAvaliacaoByModalidadeCliente">
 			<result />
 		</action>
-		
-		<!-- =========   FINANCEIRO ================ -->
-		
-		<action name="contasPagar" class="br.com.profisio.financeiro.FinanceiroView" method="actionContasPagar">
-			<result name="redirect" >v2.0/pages/financeiro/contasPagar.jsp</result>
+
+		<action name="removerCadastro" class="br.com.pilates.actions.CadastroAction" method="actionRemoverCadastro">
+			<result name="success" type="chain">cliente</result>
+			<result name="error" type="chain">cliente</result>
+		</action>
+
+		<action name="cadastro" class="br.com.pilates.actions.CadastroAction" method="actionLerCadastro">
+			<result name="success">pages/cliente/cadastro.jsp</result>
+			<result name="error" type="chain">cliente</result>
+		</action>
+
+		<action name="inserirContaReceberCadastro" class="br.com.pilates.actions.CadastroAction" method="actionInserirContaReceberCadastro">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="removerContaReceberCadastro" class="br.com.pilates.actions.CadastroAction" method="actionRemoverContaReceberCadastro">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+
+		<action name="mudarProfessor" class="br.com.pilates.actions.CadastroAction" method="actionMudarProfessor">
+			<result name="success" type="chain">cliente</result>
+			<result name="error" type="chain">cliente</result>
+		</action>
+
+		<action name="avaliacao*" class="br.com.pilates.actions.PilatesActionSupport" method="redirect">
+			<result name="redirect" >pages/cliente/avaliacao{1}.jsp</result>
 		</action>
 		
-		<action name="cadastrarContaPagar" class="br.com.profisio.financeiro.FinanceiroView" method="actionCadastrarContaPagar">
-			<result name="redirect" type="chain">contasPagar</result>
-			<result name="redirect_folha" type="chain">folhaPagamento</result>
+		<!-- =========   CONTA PAGAR ================ -->
+
+		<action name="contasPagar" class="br.com.pilates.actions.ContaPagarAction" method="redirect">
+			<result name="redirect">pages/financeiro/contaspagar.jsp</result>
+		</action>
+
+		<action name="inserirContaPagar" class="br.com.pilates.actions.ContaPagarAction" method="actionInserirContaPagar">
+			<result name="success" type="chain">contasPagar</result>
+			<result name="error" type="chain">contasPagar</result>
 		</action>
 		
-		<action name="removerContaPagar" class="br.com.profisio.financeiro.FinanceiroView" method="actionRemoverContaPagar">
-			<result name="redirect" type="chain">contasPagar</result>
+		<action name="removerContaPagar" class="br.com.pilates.actions.ContaPagarAction" method="actionRemoverContaPagar">
+			<result name="success" type="chain">contasPagar</result>
+			<result name="error" type="chain">contasPagar</result>
 		</action>
 		
-		<action name="contaPagar" class="br.com.profisio.financeiro.FinanceiroView" method="actionContaPagar">
-			<result name="redirect" >v2.0/pages/financeiro/contaPagar.jsp</result>
+		<!-- =========   CONTA RECEBER ================ -->
+
+		<action name="contasReceber" class="br.com.pilates.actions.ContaReceberAction" method="redirect">
+			<result name="redirect">pages/financeiro/contasreceber.jsp</result>
+		</action>
+
+		<action name="inserirContaReceber" class="br.com.pilates.actions.ContaReceberAction" method="actionInserirContaReceber">
+			<result name="success" type="chain">contasReceber</result>
+			<result name="error" type="chain">contasReceber</result>
 		</action>
 		
-		<action name="editarContaPagar" class="br.com.profisio.financeiro.FinanceiroView" method="actionEditarContaPagar">
-			<result name="success" type="chain" >contasPagar</result>
-			<result name="error" type="chain" >contaPagar</result>
+		<action name="removerContaReceber" class="br.com.pilates.actions.ContaReceberAction" method="actionRemoverContaReceber">
+			<result name="success" type="chain">contasReceber</result>
+			<result name="error" type="chain">contasReceber</result>
+		</action>
+
+		
+		<!-- =========   CAIXA ================ -->
+
+		<action name="caixa" class="br.com.pilates.actions.ContaReceberAction" method="actionCaixa">
+			<result name="redirect">pages/financeiro/caixa.jsp</result>
 		</action>
 		
-		<action name="contasReceber" class="br.com.profisio.financeiro.FinanceiroView" method="actionContasReceber">
-			<result name="redirect" >v2.0/pages/financeiro/contasReceber.jsp</result>
+		
+		<!-- =========  GERAL ================ -->
+
+		<action name="aniversariantes" class="br.com.pilates.actions.ClienteAction" method="actionAniversariantes">
+			<result name="success">pages/cliente/aniversariantes.jsp</result>
+			<result name="error">pages/relatorio/aniversariantes.jsp</result>
 		</action>
-		
-		<action name="removerContaReceber" class="br.com.profisio.financeiro.FinanceiroView" method="actionRemoverContaReceber">
-			<result name="redirect" type="chain">contasReceber</result>
-			<result name="redirect_cadastro" type="chain">cadastro</result>
+
+		<action name="frequencia" class="br.com.pilates.actions.FrequenciaAction" method="action_frequencia">
+			<result name="redirect">pages/cliente/frequencia.jsp</result>
 		</action>
-		
-		<action name="cadastrarContaReceber" class="br.com.profisio.financeiro.FinanceiroView" method="actionCadastrarContaReceber">
-			<result name="redirect" type="chain">contasReceber</result>
-			<result name="redirect_cadastro" type="chain">cadastro</result>
-		</action>
-		
-		<action name="contaReceber" class="br.com.profisio.financeiro.FinanceiroView" method="actionContaReceber">
-			<result name="redirect" >v2.0/pages/financeiro/contaReceber.jsp</result>
-		</action>
-		
-		<action name="editarContaReceber" class="br.com.profisio.financeiro.FinanceiroView" method="actionEditarContaReceber">
-			<result name="redirect_cadastro" type="chain">cadastro</result>
-		</action>
-		
-		<action name="folhaPagamento" class="br.com.profisio.financeiro.FinanceiroView" method="actionFolhaPagamento">
-			<result name="redirect">v2.0/pages/financeiro/folhaPagamento.jsp</result>
-		</action>
-		
-		<action name="caixa" class="br.com.profisio.financeiro.FinanceiroView" method="actionCaixa">
-			<result name="redirect" >v2.0/pages/financeiro/caixa.jsp</result>
-		</action>
-		
-		<action name="getPagamentosCheiosByAtividade" class="br.com.profisio.financeiro.FinanceiroView" method="actionGetPagamentosCheiosByAtividade">
-			<result />
-		</action>
-		
-		<action name="exportContasReceber" class="br.com.profisio.financeiro.FinanceiroView" method="actionExportContasReceber">
-			<result name="redirect" type="stream">
-				<param name="contentType">application/octet-stream</param>
-				<param name="inputName">fileInputStream</param>
-				<param name="contentDisposition">attachment;filename="contasReceber.csv"</param>
-				<!-- <param name="bufferSize">1024</param> -->
-			</result>
-		</action>
-		
-		<!-- =========   FREQUENCIA ================ -->
-		
-		<action name="frequencia" class="br.com.profisio.frequencia.FrequenciaView" method="actionFrequencia">
-			<result name="redirect">v2.0/pages/frequencia/frequencia.jsp</result>
-		</action>
-		
-		<action name="cadastrarFrequencia" class="br.com.profisio.frequencia.FrequenciaView" method="actionCadastrarFrequencia">
-			<result name="redirect" type="chain">cadastro</result>
-		</action>
-		
-		<action name="removerFrequencia" class="br.com.profisio.frequencia.FrequenciaView" method="actionRemoverFrequencia">
+
+		<action name="removerFrequencia" class="br.com.pilates.actions.FrequenciaAction" method="action_removerFrequencia">
 			<result name="redirect" type="chain">frequencia</result>
-			<result name="redirect_cadastro" type="chain">cadastro</result>
-		</action>
-		
-		<!-- =========  SERVICO - GERENCIAMENTO ================ -->
-		
-		<action name="servicos" class="br.com.profisio.servico.ServicoView" method="actionServicos">
-			<result name="redirect">v2.0/pages/servico/servicos.jsp</result>
-		</action>
-		
-		<action name="cadastrarServico" class="br.com.profisio.servico.ServicoView" method="actionCadastrarServico">
-			<result name="redirect" type="chain">servicos</result>
-		</action>
-		
-		<action name="removerServico" class="br.com.profisio.servico.ServicoView" method="actionRemoverServico">
-			<result name="redirect" type="chain">servicos</result>
-		</action>
-		
-		<action name="servico" class="br.com.profisio.servico.ServicoView" method="actionServico">
-			<result name="redirect">v2.0/pages/servico/servico.jsp</result>
-		</action>
-		
-		<action name="editarServico" class="br.com.profisio.servico.ServicoView" method="actionEditarServico">
-			<result name="redirect" type="chain">servicos</result>
-		</action>
-		
-		<!-- =========  CENTRO DE CUSTO - GERENCIAMENTO ================ -->
-		
-		<action name="centrosCusto" class="br.com.profisio.servico.ServicoView" method="actionCentrosCusto">
-			<result name="redirect">v2.0/pages/servico/centrosCusto.jsp</result>
-		</action>
-		
-		<action name="cadastrarCentroCusto" class="br.com.profisio.servico.ServicoView" method="actionCadastrarCentroCusto">
-			<result name="redirect" type="chain">centrosCusto</result>
-		</action>
-		
-		<action name="removerCentroCusto" class="br.com.profisio.servico.ServicoView" method="actionRemoverCentroCusto">
-			<result name="redirect" type="chain">centrosCusto</result>
-		</action>
-		
-		<action name="editarCentroCusto" class="br.com.profisio.servico.ServicoView" method="actionEditarCentroCusto">
-			<result name="redirect" type="chain">centrosCusto</result>
-		</action>
-		
-		<!-- =========  CAIXA - GERENCIAMENTO ================ -->
-		
-		<action name="gerenciarCaixa" class="br.com.profisio.configuracao.ConfiguracaoView" method="actionGerenciarCaixa">
-			<result name="redirect">v2.0/pages/configuracao/caixa.jsp</result>
-		</action>
-		
-		<!-- ========= RELATORIOS ============= -->
-		
-		<action name="relatorioFrequentes" class="br.com.profisio.relatorio.RelatorioView" method="actionFrequentes">
-			<result name="redirect">v2.0/pages/relatorio/frequentes.jsp</result>
-		</action>
-		
-		<action name="relatorioEfetividade" class="br.com.profisio.relatorio.RelatorioView" method="actionEfetividade">
-			<result name="redirect">v2.0/pages/relatorio/efetividade.jsp</result>
-		</action>
-		
-		<action name="relatorioMidia" class="br.com.profisio.relatorio.RelatorioView" method="actionMidia">
-			<result name="redirect">v2.0/pages/relatorio/midia.jsp</result>
-		</action>
-		
-		<action name="relatorioDRE" class="br.com.profisio.relatorio.RelatorioView" method="actionDRE">
-			<result name="redirect">v2.0/pages/relatorio/dre.jsp</result>
-		</action>
-		
-		<action name="exportAtividadesClientes" class="br.com.profisio.relatorio.RelatorioView" method="actionExportAtividadesClientes">
-			<result name="redirect" type="stream">
-				<param name="contentType">application/octet-stream</param>
-				<param name="inputName">fileInputStream</param>
-				<param name="contentDisposition">attachment;filename="atividadesClientes.csv"</param>
-				<!-- <param name="bufferSize">1024</param> -->
-			</result>
-		</action>
-		
-		<!-- ========= BI ============= -->
-		
-		<action name="BICaptacao" class="br.com.profisio.bi.BIView" method="actionCaptacao">
-			<result name="redirect">v2.0/pages/bi/captacao.jsp</result>
-		</action>
-		
-		<action name="BIPerfilClientes" class="br.com.profisio.bi.BIView" method="actionPerfilClientes">
-			<result name="redirect">v2.0/pages/bi/perfilClientes.jsp</result>
-		</action>
-		
-		<action name="BIEfetividade" class="br.com.profisio.bi.BIView" method="actionEfetividade">
-			<result name="redirect">v2.0/pages/bi/efetividade.jsp</result>
-		</action>
-		
-		<action name="BIVisaoGeralServicos" class="br.com.profisio.bi.BIView" method="actionVisaoGeralServicos">
-			<result name="redirect">v2.0/pages/bi/visaoGeralServicos.jsp</result>
-		</action>
-		
-		<action name="BIDespesas" class="br.com.profisio.bi.BIView" method="actionDespesas">
-			<result name="redirect">v2.0/pages/bi/despesas.jsp</result>
-		</action>
-		
-		<action name="BICrescimentoServicos" class="br.com.profisio.bi.BIView" method="actionCrescimentoServicos">
-			<result name="redirect">v2.0/pages/bi/crescimentoServicos.jsp</result>
-		</action>
-		
-		<action name="BIEvolutivoDespesas" class="br.com.profisio.bi.BIView" method="actionEvolutivoDespesas">
-			<result name="redirect">v2.0/pages/bi/evolutivoDespesas.jsp</result>
-		</action>
-		
-		<action name="BIEntradas" class="br.com.profisio.bi.BIView" method="actionEntradas">
-			<result name="redirect">v2.0/pages/bi/entradas.jsp</result>
-		</action>
-		
-		<!-- ========= VENDAS ============= -->
-
-		<action name="produtos" class="br.com.profisio.venda.VendaView" method="actionProdutos">
-			<result name="redirect">v2.0/pages/venda/produtos.jsp</result>
+			<result name="redirect_cliente" type="chain">cliente</result>
 		</action>
 
-		<action name="produto" class="br.com.profisio.venda.VendaView" method="actionViewProduto">
-			<result name="success" >v2.0/pages/venda/produto.jsp</result>
-			<result name="error" type="chain">produtos</result>
+		<action name="addFrequencia" class="br.com.pilates.actions.FrequenciaAction" method="action_addFrequencia">
+			<result name="redirect" type="chain">cliente</result>
+		</action>
+		
+		<!-- =========   RELATÓRIO ================ -->
+
+		<action name="relatorioAlunosRedirect" class="br.com.pilates.actions.RelatorioAction" method="redirect">
+			<result name="redirect">pages/relatorios/relatorioAlunos.jsp</result>
 		</action>
 
-		<action name="cadastrarProduto" class="br.com.profisio.venda.VendaView" method="actionCadastrarProduto">
-			<result name="redirect" type="chain" >produtos</result>
+		<action name="relatorioAlunos" class="br.com.pilates.actions.RelatorioAction" method="actionRelatorioAlunos">
+			<result name="success">pages/relatorios/relatorioAlunos.jsp</result>
+			<result name="error">pages/relatorios/relatorioAlunos.jsp</result>
 		</action>
 
-		<action name="editarProduto" class="br.com.profisio.venda.VendaView" method="actionEditarProduto">
-			<result name="success" type="chain" >produtos</result>
-			<result name="error" >v2.0/pages/venda/produto.jsp</result>
+		<action name="relatorioAlunosAtivosRedirect" class="br.com.pilates.actions.RelatorioAction" method="redirect">
+			<result name="redirect">pages/relatorios/relatorioAlunosAtivos.jsp</result>
 		</action>
 
-		<action name="removerProduto" class="br.com.profisio.venda.VendaView" method="actionRemoverProduto">
+		<action name="relatorioAlunosAtivos" class="br.com.pilates.actions.RelatorioAction" method="actionRelatorioAlunosAtivos">
+			<result name="success">pages/relatorios/relatorioAlunosAtivos.jsp</result>
+			<result name="error">pages/relatorios/relatorioAlunosAtivos.jsp</result>
+		</action>
+
+		<action name="relatorioEfetividade" class="br.com.pilates.actions.RelatorioAction" method="actionRelatorioEfetividade">
+			<result name="success">pages/relatorios/relatorioEfetividade.jsp</result>
+			<result name="error">pages/relatorios/relatorioEfetividade.jsp</result>
+		</action>
+
+		<action name="relatorioFormaPagamentoRedirect" class="br.com.pilates.actions.RelatorioAction" method="redirect">
+			<result name="redirect">pages/relatorios/relatorioFormaPagamento.jsp</result>
+		</action>
+
+		<action name="relatorioFormaPagamento" class="br.com.pilates.actions.RelatorioAction" method="actionRelatorioFormaPagamento">
+			<result name="success">pages/relatorios/relatorioFormaPagamento.jsp</result>
+			<result name="error">pages/relatorios/relatorioFormaPagamento.jsp</result>
+		</action>
+
+		<action name="relatorioMidiaRedirect" class="br.com.pilates.actions.RelatorioAction" method="redirect">
+			<result name="redirect">pages/relatorios/relatorioMidia.jsp</result>
+		</action>
+
+		<action name="relatorioMidia" class="br.com.pilates.actions.RelatorioAction" method="actionRelatorioMidia">
+			<result name="success">pages/relatorios/relatorioMidia.jsp</result>
+			<result name="error">pages/relatorios/relatorioMidia.jsp</result>
+		</action>
+
+		<action name="relatorioLucroRedirect" class="br.com.pilates.actions.RelatorioAction" method="redirect">
+			<result name="redirect">pages/relatorios/relatorioLucro.jsp</result>
+		</action>
+
+		<action name="relatorioLucros" class="br.com.pilates.actions.RelatorioAction" method="actionRelatorioLucros">
+			<result name="success">pages/relatorios/relatorioLucro.jsp</result>
+			<result name="error">pages/relatorios/relatorioLucro.jsp</result>
+		</action>
+		
+		<action name="relatorioDemonstrativoResultadoRedirect" class="br.com.pilates.actions.RelatorioAction" method="actionDemonstrativoResultadoRedirect">
+			<result name="redirect">pages/relatorios/relatorioDemonstrativo.jsp</result>
+		</action>
+		
+		<!-- ====================================== VENDAS ============================================= -->
+
+		<action name="produtos" class="br.com.pilates.actions.ProdutoAction" method="action_produtos">
+			<result name="redirect">pages/estoque/produtos.jsp</result>
+		</action>
+
+		<action name="addProduto" class="br.com.pilates.actions.ProdutoAction" method="action_addProduto">
+			<result name="success" type="chain">produtos</result>
+			<result name="error" type="chain">addProduto</result>
+		</action>
+
+		<action name="produto" class="br.com.pilates.actions.ProdutoAction" method="action_produto">
+			<result name="redirect">pages/estoque/produto.jsp</result>
+		</action>
+
+		<action name="editarProduto" class="br.com.pilates.actions.ProdutoAction" method="action_editarProduto">
+			<result name="success" type="chain">produtos</result>
+			<result name="error" type="chain">produto</result>
+		</action>
+
+		<action name="removerProduto" class="br.com.pilates.actions.ProdutoAction" method="action_removerProduto">
 			<result name="redirect" type="chain">produtos</result>
 		</action>
 
-		<action name="estoque" class="br.com.profisio.venda.VendaView" method="actionEstoque">
-			<result name="redirect" >v2.0/pages/venda/estoque.jsp</result>
-		</action>
-		
-		<action name="addEstoque" class="br.com.profisio.venda.VendaView" method="actionAddEstoque">
-			<result name="redirect" type="chain">estoque</result>
-		</action>
-		<action name="removerEstoque" class="br.com.profisio.venda.VendaView" method="actionRemoverEstoque">
-			<result name="redirect" type="chain">estoque</result>
-			<result name="redirect_contasReceber" type="chain">contasReceber</result>
+		<action name="estoque" class="br.com.pilates.actions.EstoqueAction" method="action_estoque">
+			<result name="redirect">pages/estoque/estoque.jsp</result>
 		</action>
 
-		<action name="venderEstoque" class="br.com.profisio.venda.VendaView" method="actionVenderEstoque">
+		<action name="addEstoque" class="br.com.pilates.actions.EstoqueAction" method="action_addEstoque">
 			<result name="redirect" type="chain">estoque</result>
 		</action>
+
+		<action name="removerEstoque" class="br.com.pilates.actions.EstoqueAction" method="action_removerEstoque">
+			<result name="redirect" type="chain">estoque</result>
+		</action>
+
+		<action name="venderEstoque" class="br.com.pilates.actions.EstoqueAction" method="action_venderEstoque">
+			<result name="redirect" type="chain">estoque</result>
+		</action>
+
+		<action name="financeiroVendas" class="br.com.pilates.actions.EstoqueAction" method="action_financeiro">
+			<result name="redirect" >pages/estoque/financeiro.jsp</result>
+		</action>
 		
+		<!-- ================ GESTAO ================== -->
+		
+		<action name="gestaoClientesRedirect" class="br.com.pilates.actions.RelatorioAction" method="actionGestaoClientesRedirect">
+			<result name="redirect">pages/gestao/gestaoClientes.jsp</result>
+		</action>
+		
+		<action name="gestaoFinanceiraRedirect" class="br.com.pilates.actions.RelatorioAction" method="actionGestaoFinanceiraRedirect">
+			<result name="redirect">pages/gestao/gestaoFinanceira.jsp</result>
+		</action>
+
+		<!-- ================ GESTAO ================== -->
+		
+		<action name="gerenciarServicosRedirect" class="br.com.pilates.actions.PilatesActionSupport" method="actionGerenciarServicos">
+			<result name="redirect">pages/gerenciamento/gerenciarServicos.jsp</result>
+		</action>
+		
+		<action name="inserirServico" class="br.com.pilates.actions.PilatesActionSupport" method="actionInserirServico">
+			<result name="redirect" type="chain">gerenciarServicosRedirect</result>
+		</action>
+		
+		<action name="removerServico" class="br.com.pilates.actions.PilatesActionSupport" method="actionRemoverServico">
+			<result name="redirect" type="chain">gerenciarServicosRedirect</result>
+		</action>
+		
+		<action name="servico" class="br.com.pilates.actions.PilatesActionSupport" method="actionServico">
+			<result name="redirect">pages/gerenciamento/servico.jsp</result>
+		</action>
+		
+		<action name="editarServico" class="br.com.pilates.actions.PilatesActionSupport" method="actionEditarServico">
+			<result name="redirect" type="chain">gerenciarServicosRedirect</result>
+		</action>
+		
+		<action name="gerenciarCentroCustoRedirect" class="br.com.pilates.actions.PilatesActionSupport" method="actionGerenciarCentroCusto">
+			<result name="redirect">pages/gerenciamento/gerenciarCentroCusto.jsp</result>
+		</action>
+		
+		<action name="inserirCentroCusto" class="br.com.pilates.actions.PilatesActionSupport" method="actionInserirCentroCusto">
+			<result name="redirect" type="chain">gerenciarCentroCustoRedirect</result>
+		</action>
+		
+		<action name="removerCentroCusto" class="br.com.pilates.actions.PilatesActionSupport" method="actionRemoverCentroCusto">
+			<result name="redirect" type="chain">gerenciarCentroCustoRedirect</result>
+		</action>
+		
+		<action name="centroCusto" class="br.com.pilates.actions.PilatesActionSupport" method="actionCentroCusto">
+			<result name="redirect">pages/gerenciamento/centroCusto.jsp</result>
+		</action>
+		
+		<action name="editarCentroCusto" class="br.com.pilates.actions.PilatesActionSupport" method="actionEditarCentroCusto">
+			<result name="redirect" type="chain">gerenciarCentroCustoRedirect</result>
+		</action>
+		
+		<action name="gerenciarCaixaRedirect" class="br.com.pilates.actions.PilatesActionSupport" method="actionGerenciarCaixa">
+			<result name="redirect">pages/gerenciamento/caixa.jsp</result>
+		</action>
+		
+		<action name="editarCaixa" class="br.com.pilates.actions.PilatesActionSupport" method="actionEditarCaixa">
+			<result name="redirect" type="chain">gerenciarCaixaRedirect</result>
+		</action>
+
+		<action name="gerenciarMidiaRedirect" class="br.com.pilates.actions.PilatesActionSupport" method="actionGerenciarMidia">
+			<result name="redirect">pages/gerenciamento/gerenciarMidia.jsp</result>
+		</action>
+		
+		<action name="inserirMidia" class="br.com.pilates.actions.PilatesActionSupport" method="actionInserirMidia">
+			<result name="redirect" type="chain">gerenciarMidiaRedirect</result>
+		</action>
+		
+		<action name="removerMidia" class="br.com.pilates.actions.PilatesActionSupport" method="actionRemoverMidia">
+			<result name="redirect" type="chain">gerenciarMidiaRedirect</result>
+		</action>
+		
+		<action name="midia" class="br.com.pilates.actions.PilatesActionSupport" method="actionMidia">
+			<result name="redirect">pages/gerenciamento/midia.jsp</result>
+		</action>
+		
+		<action name="editarMidia" class="br.com.pilates.actions.PilatesActionSupport" method="actionEditarMidia">
+			<result name="redirect" type="chain">gerenciarMidiaRedirect</result>
+		</action>
+
+				
+		
+				
 	</package>
-	
 </struts>

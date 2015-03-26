@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<joined-subclass name="br.com.pilates.base.Professor" table="professor" extends="br.com.pilates.base.Usuario">
+		<key column="id" />		
+		
+		<property name="nome" />
+		<property name="cpf" />
+		<property name="email" />
+		<property name="niver" />
+		<property name="dataNascimento" />
+		<property name="foneFixo" />
+		<property name="foneCelular" />
+		<property name="salarioBase" />
+		<property name="porcentagemVendas" />
+		<property name="numeroCarteira" />
+		<property name="sexo" type="br.com.pilates.base.enums.SexoEnumType"/>
+		
+		<many-to-one name="endereco" column="endereco_id" lazy="false" cascade="all" />
+		
+		<set name="contratos" cascade="delete" inverse="true">
+			<key column="professor_id" />
+			<one-to-many class="br.com.pilates.base.Contrato" />
+		</set>
+		
+	</joined-subclass>
+	
+	<query name="getProfessores">
+			<![CDATA[
+			from Professor
+			where statusObjeto = 'ATIVO'
+			order by nome
+			]]>
+	</query>
+	
+	<query name="getProfessorByCpf">
+			<![CDATA[
+			from Professor
+			where cpf = :cpf
+			and statusObjeto = 'ATIVO'
+			]]>
+	</query>
+	
+	<query name="pesquisarProfessoresByCpf">
+			<![CDATA[
+			from Professor
+			where cpf like :cpf
+			and statusObjeto = 'ATIVO'
+			order by nome
+			]]>
+	</query>
+	
+	<query name="pesquisarProfessoresByNome">
+			<![CDATA[
+			from Professor
+			where nome like :nome
+			and statusObjeto = 'ATIVO'
+			order by nome
+			]]>
+	</query>
+	
+	<query name="getProfessoresByModalidade">
+			<![CDATA[
+			select prof
+			from Professor as prof
+			left join prof.contratos as contrato
+			where contrato.statusObjeto = 'ATIVO' 
+			and contrato.servico = :servico
+			and prof.statusObjeto = 'ATIVO'
+			order by nome
+			]]>
+	</query>
+	
+	<query name="getProximosAniversariantesFunc">
+			<![CDATA[
+			from Professor
+			where 
+			(niver like :mesAtual 
+			or 
+			niver like :mesProximo)			
+			and statusObjeto = 'ATIVO'
+			order by niver
+			]]>
+	</query>
+</hibernate-mapping>

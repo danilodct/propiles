@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="br.com.pilates.base.Cliente" table="cliente">
+		<id name="id">
+			<generator class="increment" />
+		</id>
+
+		<property name="nome" />
+		<property name="cpf" />
+		<property name="email" />
+		<property name="dataNascimento" />
+		<property name="dataCadastro" />
+		<property name="foneFixo" />
+		<property name="foneCelular" />
+		<property name="profissao" />
+		<property name="niver" />
+		<property name="conhecimentoStudio" />
+		<property name="sexo" type="br.com.pilates.base.enums.SexoEnumType" />
+		<property name="estadoCivil" type="br.com.pilates.base.enums.EstadoCivilEnumType" />
+
+		<many-to-one name="endereco" column="endereco_id" lazy="false" cascade="all" />
+
+		<set name="cadastros"  cascade="delete" inverse="true">
+			<key column="cliente_id" />
+			<one-to-many class="br.com.pilates.base.Cadastro" />
+		</set>
+
+	</class>
+	
+	<query name="getClientesByProfessor">
+			<![CDATA[
+			select cliente
+			from Cliente as cliente
+			left join cliente.cadastros as cadastro
+			where
+			(cadastro.modalidade.professor = :user
+			or
+			cadastro is null)
+			group by cliente
+			order by cliente.nome
+			]]>
+	</query>
+	
+	<query name="getAllClientes">
+			<![CDATA[
+			from Cliente
+			order by nome
+			]]>
+	</query>
+	
+	<query name="getClienteByCpf">
+			<![CDATA[
+			from Cliente
+			where cpf = :cpf
+			]]>
+	</query>
+	
+	<query name="pesquisarClientesByNome">
+			<![CDATA[
+			from Cliente as cliente
+			where nome like :nome
+			group by cliente
+			order by nome
+			]]>
+	</query>
+	
+	<query name="pesquisarClientesByCpf">
+			<![CDATA[
+			from Cliente as cliente
+			where cpf like :cpf
+			group by cliente
+			order by nome
+			]]>
+	</query>
+	
+	<query name="pesquisarClientesByNomeProfessor">
+			<![CDATA[
+			select cliente
+			from Cliente as cliente
+			left join cliente.cadastros as cadastro
+			where cliente.nome like :nome
+			and cadastro.modalidade.professor = :user
+			group by cliente
+			order by cliente.nome
+			]]>
+	</query>
+	
+	<query name="pesquisarClientesByCpfProfessor">
+			<![CDATA[
+			select cliente
+			from Cliente as cliente
+			left join cliente.cadastros as cadastro
+			where cliente.cpf like :cpf
+			and cadastro.modalidade.professor = :user
+			group by cliente
+			order by cliente.nome
+			]]>
+	</query>
+	
+	<query name="getClienteByCPF">
+			<![CDATA[
+			from Cliente
+			where cpf = :cpf
+			]]>
+	</query>
+	
+	<query name="getProximosAniversariantesClientes">
+			<![CDATA[
+			from Cliente
+			where 
+			niver like :mesAtual 
+			or 
+			niver like :mesProximo 
+			order by niver asc
+			]]>
+	</query>
+	
+	<query name="getBairrosClientes">
+			<![CDATA[
+			from Cliente as cliente
+			group by cliente.endereco.bairro
+			order by cliente.endereco.bairro
+			]]>
+	</query>
+	
+	<query name="getQtdClientesAtivosPorBairro">
+			<![CDATA[
+			select count(distinct cli.id)
+			from Frequencia as fre
+			left join fre.cliente as cli
+			where 
+			cli.endereco.bairro = :bairro
+			and (:dataInicial is null or fre.data >= :dataInicial)
+			and (:dataFinal is null or fre.data <= :dataFinal)
+			]]>
+	</query>
+
+	<sql-query name="getQtdClientesPorServicoSexo">
+			<![CDATA[
+			select count(cl.id)
+			from cliente as cl
+			left join cadastro as cad on cad.cliente_id = cl.id
+			left join contrato as con on con.id = cad.contrato_id
+			where cl.sexo = :sexo 
+			and con.servico = :servico
+			and cad.dataCriacao <= :dataFinal
+			]]>
+	</sql-query>
+
+	<sql-query name="getClientesPorServicoSexo">
+			<![CDATA[
+			select cl.*
+			from cliente as cl
+			left join cadastro as cad on cad.cliente_id = cl.id
+			left join contrato as con on con.id = cad.contrato_id
+			where cl.sexo = :sexo 
+			and con.servico = :servico
+			and cad.dataCriacao <= :dataFinal
+			]]>
+	</sql-query>
+	
+	<query name="getQtdClientesAtivosPorEstadoCivil">
+			<![CDATA[
+			select count(distinct cli.id)
+			from Frequencia as fre
+			left join fre.cliente as cli
+			where
+			fre.cliente.estadoCivil = :estadoCivil
+			and (:dataInicial is null or fre.data >= :dataInicial)
+			and (:dataFinal is null or fre.data <= :dataFinal)
+			]]>
+	</query>
+	
+	<query name="getQtdClientesAtivosPorSexo">
+			<![CDATA[
+			select count(distinct cli.id)
+			from Frequencia as fre
+			left join fre.cliente as cli
+			where
+			fre.cliente.sexo = :sexo
+			and (:dataInicial is null or fre.data >= :dataInicial)
+			and (:dataFinal is null or fre.data <= :dataFinal)
+			]]>
+	</query>
+	
+	<query name="getQtdClientesAtivosPorFaixaEtaria">
+			<![CDATA[
+			select count(distinct cli.id)
+			from Frequencia as fre
+			left join fre.cliente as cli
+			where
+			year(fre.cliente.dataNascimento) >= :idadeMenor
+			and year(fre.cliente.dataNascimento) <= :idadeMaior
+			and (:dataInicial is null or fre.data >= :dataInicial)
+			and (:dataFinal is null or fre.data <= :dataFinal)
+			]]>
+	</query>
+	
+	<query name="getQtdClientesAtivosPorServicoSexo">
+			<![CDATA[
+			select count(distinct cli.id)
+			from Frequencia as fre
+			left join fre.cliente as cli
+			where
+			fre.servico = :servico
+			and fre.cliente.sexo = :sexo
+			and (:dataInicial is null or fre.data >= :dataInicial)
+			and (:dataFinal is null or fre.data <= :dataFinal)
+			]]>
+	</query>
+	
+	
+	<query name="getFormasConhecimento">
+			<![CDATA[
+			select cli
+			from Cliente as cli
+			where cli.conhecimentoStudio is not null
+			group by cli.conhecimentoStudio			
+			]]>
+	</query>
+	
+	<query name="getQtdClientesByMidia">
+			<![CDATA[
+			select count(distinct cli.id)
+			from Cliente as cli
+			where cli.conhecimentoStudio = :conhecimentoStudio
+			]]>
+	</query>
+	
+	<query name="getQtdClientesSemMidia">
+			<![CDATA[
+			select count(distinct cli.id)
+			from Cliente as cli
+			where cli.conhecimentoStudio is null
+			]]>
+	</query>
+	
+	<query name="getClientes">
+			<![CDATA[
+			from Cliente as cli
+			where (:dataInicial is null or cli.dataCadastro >= :dataInicial)
+			and (:dataFinal is null or cli.dataCadastro <= :dataFinal)
+			order by cli.nome asc
+			]]>
+	</query>
+	
+	<sql-query name="getQtdClientesQueContrataramServico">
+			<![CDATA[
+			SELECT COUNT(DISTINCT cli.id)
+			FROM contareceber cnta
+			LEFT JOIN cadastro cad ON cad.id = cnta.cadastro_id
+			LEFT JOIN cliente cli ON cli.id = cad.cliente_id
+			WHERE cnta.dataLancamento >= :dataInicial
+			AND cnta.dataLancamento <= :dataFinal
+			]]>
+	</sql-query>
+	
+	
+</hibernate-mapping>

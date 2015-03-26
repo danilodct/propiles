@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<joined-subclass name="br.com.pilates.base.AvaliacaoAcupuntura" extends="br.com.pilates.base.Avaliacao" table="avaliacaoacupuntura">
+		<key column="id" />
+	
+		<property name="data" />
+		<property name="peso" />
+		<property name="altura" />
+		<property name="objetivo" />
+		<property name="medicacao" />
+		<property name="tabagismo"><column name="tabagismo" sql-type="tinyint(1)" /></property>
+		<property name="etilismo"><column name="etilismo" sql-type="tinyint(1)" /></property>
+		<property name="hipertensao"><column name="hipertensao" sql-type="tinyint(1)" /></property>
+		<property name="conhecimentoStudio" />
+
+		<property name="examesComplementares" />
+		<property name="observacoes" />
+		<property name="solicitacaoMedica" />
+		<property name="problema" />
+		<property name="queSente" />
+		<property name="queMelhoraDor" />
+		<property name="quePioraDor" />
+		<property name="incomoda" />
+		<property name="medicamento" />
+		<property name="historicoDoenca" />
+		<property name="antecendentes" />
+		<property name="cirurgia" />
+		<property name="respiracao" />
+		<property name="tosse" />
+		<property name="problemaPele" />
+		<property name="digestao" />
+		<property name="circulatorio" />
+		<property name="incomodoCabeca" />
+		<property name="incomodoPerna" />
+		<property name="qtSessoes" />
+		<property name="sede" />
+		<property name="febre" />
+		<property name="frioCalor" />
+		<property name="transpiracao" />
+		<property name="habitosAlimentares" />
+		<property name="sono" />
+		<property name="menstruacao" />
+		<property name="disposicao" />
+		<property name="psiquico" />
+		<property name="personalidade" />
+		<property name="ofendido" />
+		<property name="dificeis" />
+		<property name="medos" />
+		<property name="contrariado" />
+
+
+	</joined-subclass>
+	
+</hibernate-mapping>

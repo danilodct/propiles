@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="br.com.pilates.base.TipoContaPagar" table="tipocontapagar">
+		<id name="nome" ></id>
+	</class>
+	
+	<query name="getAllTiposContaPagar">
+			<![CDATA[
+			from TipoContaPagar
+			order by nome
+			]]>
+	</query>
+	
+</hibernate-mapping>

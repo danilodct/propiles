@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<joined-subclass name="br.com.pilates.base.AvaliacaoNutricao" extends="br.com.pilates.base.Avaliacao" table="avaliacaonutricao">
+		<key column="id" />
+
+		<!-- INFORMACOES GERAIS -->	
+		<property name="data" />
+		<property name="peso" />
+		<property name="altura" />
+		<property name="objetivo" />
+		<property name="pa" />
+		<property name="medicacao" />
+		<property name="alergias" />
+		<property name="antecedentes" />
+		<property name="conhecimentoStudio" />
+		<property name="observacoes" />
+		<property name="tabagismo"><column name="tabagismo" sql-type="tinyint(1)" /></property>
+		<property name="etilismo"><column name="etilismo" sql-type="tinyint(1)" /></property>
+		<property name="hipertensao"><column name="hipertensao" sql-type="tinyint(1)" /></property>
+		<property name="dormeBem"><column name="dormeBem" sql-type="tinyint(1)" /></property>
+		<property name="alcolico"><column name="alcolico" sql-type="tinyint(1)" /></property>
+		<property name="marcapasso"><column name="marcapasso" sql-type="tinyint(1)" /></property>
+		<property name="diabetes"><column name="diabetes" sql-type="tinyint(1)" /></property>
+		<property name="queloides"><column name="queloides" sql-type="tinyint(1)" /></property>
+		<property name="atividadeFisica"><column name="atividadeFisica" sql-type="tinyint(1)" /></property>
+		<property name="cuidadosFaciais" />
+		<property name="cuidadosCorporais" />
+		<property name="alteracaoHormonal" />
+		<property name="proteseMetalica" />
+		<property name="intervencoesCirurgicas" />
+		<property name="tensaoPremenstrual" />
+		<property name="quantidadeGPA" />
+		<property name="anticonceptivo" />
+		<property name="tratamento" />
+		<property name="exameFisico" />
+
+		<!-- INFORMACOES ESPECIFICAS -->
+		<property name="pesoMax" />
+		<property name="pesoMin" />
+		<property name="pesoDesejado" />
+		<property name="imc" />
+		<property name="cintura" />
+		<property name="quadril" />
+		<property name="branco" />
+		<property name="biceps" />
+		<property name="triceps" />
+		<property name="subescapular" />
+		<property name="suprailiaca" />
+		<property name="antebraco" />
+		<property name="fletido" />
+		<property name="axilar" />
+		<property name="abdominal" />
+		<property name="coxa" />
+		<property name="peitoral" />
+		<property name="gordura" />
+		<property name="exercicio" />
+		<property name="frequenciaExercicio" />
+		<property name="horasSono" />
+		<property name="cansacoMomento" />
+		<property name="suplemento" />
+		<property name="alterouPeso" />
+		<property name="consumoCafe" />
+		<property name="consumoLanche1" />
+		<property name="consumoAlmoco" />
+		<property name="consumoLanche2" />
+		<property name="consumoJantar" />
+		<property name="consumoLanche3" />		
+		<property name="fazTratamento"><column name="fazTratamento" sql-type="tinyint(1)" /></property>
+		<property name="achaCompulsivo"><column name="achaCompulsivo" sql-type="tinyint(1)" /></property>
+		<property name="sonoTranquilo"><column name="sonoTranquilo" sql-type="tinyint(1)" /></property>
+		<property name="vontadeComerDoce"><column name="vontadeComerDoce" sql-type="tinyint(1)" /></property>
+		<property name="cansaco"><column name="cansaco" sql-type="tinyint(1)" /></property>
+		<property name="intestinoPreso"><column name="intestinoPreso" sql-type="tinyint(1)" /></property>
+
+	</joined-subclass>
+	
+</hibernate-mapping>

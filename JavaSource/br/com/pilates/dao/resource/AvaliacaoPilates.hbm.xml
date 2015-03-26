@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<joined-subclass name="br.com.pilates.base.AvaliacaoTratamentoFacial" extends="br.com.pilates.base.Avaliacao" table="avaliacaotratamentofacial">
+		<key column="id" />
+		
+	
+		<property name="data" />
+		<property name="peso" />
+		<property name="altura" />
+		<property name="objetivo" />
+		<property name="medicacao" />
+		<property name="tabagismo"><column name="tabagismo" sql-type="tinyint(1)" /></property>
+		<property name="etilismo"><column name="etilismo" sql-type="tinyint(1)" /></property>
+		<property name="hipertensao"><column name="hipertensao" sql-type="tinyint(1)" /></property>
+		<property name="posterior"><column name="posterior" sql-type="tinyint(1)" /></property>
+		<property name="anterior"><column name="anterior" sql-type="tinyint(1)" /></property>
+		<property name="lateral"><column name="lateral" sql-type="tinyint(1)" /></property>
+		<property name="mmii"><column name="mmii" sql-type="tinyint(1)" /></property>
+		<property name="mmss"><column name="mmss" sql-type="tinyint(1)" /></property>
+		<property name="abdome"><column name="abdome" sql-type="tinyint(1)" /></property>
+		<property name="colunaForcaMuscular"><column name="colunaForcaMuscular" sql-type="tinyint(1)" /></property>
+		
+
+		<property name="indicouPilates" />
+		<property name="observacoes" />
+		<property name="examesComplementares" />
+		<property name="atividadeFisica" />
+		<property name="historicoDoenca" />
+		<property name="doenca" />
+		<property name="regiaoDor" />
+		<property name="cabeca" />
+		<property name="escapulas" />
+		<property name="ombrosClavicula" />
+		<property name="coluna" />
+		<property name="pelve" />
+		<property name="joelhos" />
+		<property name="pes" />
+		<property name="musculaturaEncurtadaObs" />
+		<property name="solicitacaoMedica">
+			<column name="solicitacaoMedica" sql-type="tinyint(1)" />
+		</property>
+
+	</joined-subclass>
+	
+</hibernate-mapping>

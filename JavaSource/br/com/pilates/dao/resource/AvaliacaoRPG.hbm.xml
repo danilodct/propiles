@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<joined-subclass name="br.com.pilates.base.AvaliacaoRPG" extends="br.com.pilates.base.Avaliacao" table="avaliacaorpg">
+		<key column="id" />
+	
+		<property name="data" />
+		<property name="peso" />
+		<property name="altura" />
+		<property name="objetivo" />
+		<property name="medicacao" />
+		<property name="tabagismo"><column name="tabagismo" sql-type="tinyint(1)" /></property>
+		<property name="etilismo"><column name="etilismo" sql-type="tinyint(1)" /></property>
+		<property name="hipertensao"><column name="hipertensao" sql-type="tinyint(1)" /></property>
+		<property name="conhecimentoStudio" />
+
+		<property name="solicitacaoMedica" />
+		<property name="doenca" />
+		<property name="regiaoDor" />
+		<property name="historicoDoenca" />
+		<property name="atividadeFisica" />
+		<property name="examesComplementares" />
+		<property name="observacoes" />
+		<property name="qtSessoes" />
+		<property name="cervical" />
+		<property name="dorso" />
+		<property name="lombar" />
+		<property name="quadril" />
+		<property name="joelhos" />
+		<property name="pes" />
+		<property name="elevados"><column name="elevados" sql-type="tinyint(1)" /></property>
+		<property name="enroladosVerticalmente"><column name="enroladosVerticalmente" sql-type="tinyint(1)" /></property>
+		<property name="enroladosTransversalmente"><column name="enroladosTransversalmente" sql-type="tinyint(1)" /></property>
+		<property name="abduzidos"><column name="abduzidos" sql-type="tinyint(1)" /></property>
+		<property name="flexionados"><column name="flexionados" sql-type="tinyint(1)" /></property>
+		<property name="pronados"><column name="pronados" sql-type="tinyint(1)" /></property>
+		<property name="normal"><column name="normal" sql-type="tinyint(1)" /></property>
+		<property name="horizontal"><column name="horizontal" sql-type="tinyint(1)" /></property>
+		<property name="isquiosTibiais" />
+		<property name="gastrocnemios" />
+		<property name="soleo" />
+		<property name="pelveTrocanterianosGluteos" />
+		<property name="adutores" />
+		<property name="abbfFotoGeral" />
+		<property name="abbaFotoGeral" />
+		<property name="fcbfFotoGeral" />
+		<property name="fcbaFotoGeral" />
+		<property name="abbfInterrogatorio" />
+		<property name="abbaInterrogatorio" />
+		<property name="fcbfInterrogatorio" />
+		<property name="fcbaInterrogatorio" />
+		<property name="abbfExameLocal" />
+		<property name="abbaExameLocal" />
+		<property name="fcbfExameLocal" />
+		<property name="fcbaExameLocal" />
+		<property name="abbfReequilibracao" />
+		<property name="abbaReequilibracao" />
+		<property name="fcbfReequilibracao" />
+		<property name="fcbaReequilibracao" />
+		<property name="abbfResultado" />
+		<property name="abbaResultado" />
+		<property name="fcbfResultado" />
+		<property name="fcbaResultado" />
+
+	</joined-subclass>
+	
+</hibernate-mapping>

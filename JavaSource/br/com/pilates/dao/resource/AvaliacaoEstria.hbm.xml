@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<joined-subclass name="br.com.pilates.base.AvaliacaoEstria" extends="br.com.pilates.base.Avaliacao" table="avaliacaoestria">
+		<key column="id" />
+
+		<!-- INFORMACOES GERAIS -->
+		<property name="data" />
+		<property name="peso" />
+		<property name="altura" />
+		<property name="objetivo" />
+		<property name="pa" />
+		<property name="medicacao" />
+		<property name="alergias" />
+		<property name="antecedentes" />
+		<property name="conhecimentoStudio" />
+		<property name="observacoes" />
+		<property name="tabagismo"><column name="tabagismo" sql-type="tinyint(1)" /></property>
+		<property name="etilismo"><column name="etilismo" sql-type="tinyint(1)" /></property>
+		<property name="hipertensao"><column name="hipertensao" sql-type="tinyint(1)" /></property>
+		<property name="dormeBem"><column name="dormeBem" sql-type="tinyint(1)" /></property>
+		<property name="alcolico"><column name="alcolico" sql-type="tinyint(1)" /></property>
+		<property name="marcapasso"><column name="marcapasso" sql-type="tinyint(1)" /></property>
+		<property name="diabetes"><column name="diabetes" sql-type="tinyint(1)" /></property>
+		<property name="queloides"><column name="queloides" sql-type="tinyint(1)" /></property>
+		<property name="atividadeFisica"><column name="atividadeFisica" sql-type="tinyint(1)" /></property>
+		<property name="cuidadosFaciais" />
+		<property name="cuidadosCorporais" />
+		<property name="alteracaoHormonal" />
+		<property name="proteseMetalica" />
+		<property name="intervencoesCirurgicas" />
+		<property name="tensaoPremenstrual" />
+		<property name="quantidadeGPA" />
+		<property name="anticonceptivo" />
+		<property name="tratamento" />
+		<property name="exameFisico" />
+
+		<!-- INFORMACOES ESPECIFICAS -->
+		
+
+	</joined-subclass>
+	
+</hibernate-mapping>

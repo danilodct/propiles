@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<joined-subclass name="br.com.pilates.base.AvaliacaoDermatologia" extends="br.com.pilates.base.Avaliacao" table="avaliacaodermatologia">
+		<key column="id" />
+
+		<!-- INFORMACOES GERAIS -->
+		<property name="data" />
+		<property name="peso" />
+		<property name="altura" />
+		<property name="objetivo" />
+		<property name="pa" />
+		<property name="medicacao" />
+		<property name="alergias" />
+		<property name="antecedentes" />
+		<property name="conhecimentoStudio" />
+		<property name="observacoes" />
+		<property name="tabagismo"><column name="tabagismo" sql-type="tinyint(1)" /></property>
+		<property name="etilismo"><column name="etilismo" sql-type="tinyint(1)" /></property>
+		<property name="hipertensao"><column name="hipertensao" sql-type="tinyint(1)" /></property>
+		<property name="dormeBem"><column name="dormeBem" sql-type="tinyint(1)" /></property>
+		<property name="alcolico"><column name="alcolico" sql-type="tinyint(1)" /></property>
+		<property name="marcapasso"><column name="marcapasso" sql-type="tinyint(1)" /></property>
+		<property name="diabetes"><column name="diabetes" sql-type="tinyint(1)" /></property>
+		<property name="queloides"><column name="queloides" sql-type="tinyint(1)" /></property>
+		<property name="atividadeFisica"><column name="atividadeFisica" sql-type="tinyint(1)" /></property>
+		<property name="cuidadosFaciais" />
+		<property name="cuidadosCorporais" />
+		<property name="alteracaoHormonal" />
+		<property name="proteseMetalica" />
+		<property name="intervencoesCirurgicas" />
+		<property name="tensaoPremenstrual" />
+		<property name="quantidadeGPA" />
+		<property name="anticonceptivo" />
+		<property name="tratamento" />
+		<property name="exameFisico" />
+
+		<!-- INFORMACOES ESPECIFICAS -->
+		<property name="aspectosPele" />
+		<property name="fototipo" />
+		<property name="numeroNevos" />
+		<property name="numeroNevosAtipicos" />
+		<property name="avaliacao" />
+		<property name="historia"><column name="historia" sql-type="tinyint(1)" /></property>
+		<property name="melanoma"><column name="melanoma" sql-type="tinyint(1)" /></property>
+		<property name="cancerPeleMelanoma"><column name="cancerPeleMelanoma" sql-type="tinyint(1)" /></property>
+		<property name="lesaoBenigna"><column name="lesaoBenigna" sql-type="tinyint(1)" /></property>
+		<property name="historiaFamiliar"><column name="historiaFamiliar" sql-type="tinyint(1)" /></property>
+		<property name="melanoma2"><column name="melanoma2" sql-type="tinyint(1)" /></property>
+		<property name="cancerPeleMelanoma2"><column name="cancerPeleMelanoma2" sql-type="tinyint(1)" /></property>
+		<property name="nevos"><column name="nevos" sql-type="tinyint(1)" /></property>
+		<property name="azul"><column name="azul" sql-type="tinyint(1)" /></property>
+		<property name="verde"><column name="verde" sql-type="tinyint(1)" /></property>
+		<property name="marrom"><column name="marrom" sql-type="tinyint(1)" /></property>
+		<property name="fotodanificada"><column name="fotodanificada" sql-type="tinyint(1)" /></property>
+		<property name="lentigos"><column name="lentigos" sql-type="tinyint(1)" /></property>
+		<property name="nenhuma"><column name="nenhuma" sql-type="tinyint(1)" /></property>
+		<property name="monitoramento"><column name="monitoramento" sql-type="tinyint(1)" /></property>
+		<property name="excisao"><column name="excisao" sql-type="tinyint(1)" /></property>
+		<property name="frontal"><column name="frontal" sql-type="tinyint(1)" /></property>
+		<property name="posterior"><column name="posterior" sql-type="tinyint(1)" /></property>
+		<property name="facePerfil"><column name="facePerfil" sql-type="tinyint(1)" /></property>
+		<property name="face"><column name="face" sql-type="tinyint(1)" /></property>
+		<property name="plantar"><column name="plantar" sql-type="tinyint(1)" /></property>
+		<property name="pes"><column name="pes" sql-type="tinyint(1)" /></property>
+		<property name="maos"><column name="maos" sql-type="tinyint(1)" /></property>
+		<property name="palmar"><column name="palmar" sql-type="tinyint(1)" /></property>
+		
+	</joined-subclass>
+	
+</hibernate-mapping>

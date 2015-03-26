@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<joined-subclass name="br.com.pilates.base.AvaliacaoEstetica" extends="br.com.pilates.base.Avaliacao" table="avaliacaoestetica">
+		<key column="id" />
+	
+		<property name="data" />
+		<property name="peso" />
+		<property name="altura" />
+		<property name="objetivo" />
+		<property name="medicacao" />
+		<property name="tabagismo"><column name="tabagismo" sql-type="tinyint(1)" /></property>
+		<property name="etilismo"><column name="etilismo" sql-type="tinyint(1)" /></property>
+		<property name="hipertensao"><column name="hipertensao" sql-type="tinyint(1)" /></property>
+		
+		<property name="atividadeFisica" />
+		<property name="sono" />
+		<property name="estadoEmocional" />
+		<property name="cuidadosFaciais" />
+		<property name="cuidadosCorporais" />
+		<property name="exposicaoClima" />
+		<property name="alimentacao" />
+		<property name="qtAlimentacaoDiaria" />
+		<property name="dieta" />
+		<property name="diabetes"><column name="diabetes" sql-type="tinyint(1)" /></property>
+		<property name="queloide"><column name="queloide" sql-type="tinyint(1)" /></property>
+		<property name="hemofilia"><column name="hemofilia" sql-type="tinyint(1)" /></property>
+		<property name="proteseMetalica"><column name="proteseMetalica" sql-type="tinyint(1)" /></property>
+		<property name="marcapasso"><column name="marcapasso" sql-type="tinyint(1)" /></property>
+		<property name="alergias"><column name="alergias" sql-type="tinyint(1)" /></property>
+		<property name="lifting"><column name="lifting" sql-type="tinyint(1)" /></property>
+		<property name="blefaropastia"><column name="blefaropastia" sql-type="tinyint(1)" /></property>
+		<property name="rinoplastia"><column name="rinoplastia" sql-type="tinyint(1)" /></property>
+		<property name="lipoaspiracao"><column name="lipoaspiracao" sql-type="tinyint(1)" /></property>
+		<property name="rejuvenescimento"><column name="rejuvenescimento" sql-type="tinyint(1)" /></property>
+		<property name="dermolipectomia"><column name="dermolipectomia" sql-type="tinyint(1)" /></property>
+		<property name="mamoplastiaReducao"><column name="mamoplastiaReducao" sql-type="tinyint(1)" /></property>
+		<property name="mastectomia"><column name="mastectomia" sql-type="tinyint(1)" /></property>
+		<property name="mamoplastiaAumento"><column name="mamoplastiaAumento" sql-type="tinyint(1)" /></property>
+		<property name="mentoplastia"><column name="mentoplastia" sql-type="tinyint(1)" /></property>
+		<property name="microcirurgia"><column name="microcirurgia" sql-type="tinyint(1)" /></property>
+		<property name="lipoescultura"><column name="lipoescultura" sql-type="tinyint(1)" /></property>
+		<property name="otoplastia"><column name="otoplastia" sql-type="tinyint(1)" /></property>
+		<property name="silicone"><column name="silicone" sql-type="tinyint(1)" /></property>
+		<property name="botox"><column name="botox" sql-type="tinyint(1)" /></property>
+		<property name="obesidade"><column name="obesidade" sql-type="tinyint(1)" /></property>
+		<property name="maculas"><column name="maculas" sql-type="tinyint(1)" /></property>
+		<property name="papulas"><column name="papulas" sql-type="tinyint(1)" /></property>
+		<property name="comedao"><column name="comedao" sql-type="tinyint(1)" /></property>
+		<property name="pustula"><column name="pustula" sql-type="tinyint(1)" /></property>
+		<property name="ceratose"><column name="ceratose" sql-type="tinyint(1)" /></property>
+		<property name="nodulo"><column name="nodulo" sql-type="tinyint(1)" /></property>
+		<property name="queloideLesao"><column name="queloideLesao" sql-type="tinyint(1)" /></property>
+		<property name="hematoma"><column name="hematoma" sql-type="tinyint(1)" /></property>
+		<property name="vesicula"><column name="vesicula" sql-type="tinyint(1)" /></property>
+		<property name="bolha"><column name="bolha" sql-type="tinyint(1)" /></property>
+		<property name="abscesso"><column name="abscesso" sql-type="tinyint(1)" /></property>
+		<property name="crosta"><column name="crosta" sql-type="tinyint(1)" /></property>
+		<property name="ulceracao"><column name="ulceracao" sql-type="tinyint(1)" /></property>
+		<property name="fissura"><column name="fissura" sql-type="tinyint(1)" /></property>
+		<property name="cicatriz"><column name="cicatriz" sql-type="tinyint(1)" /></property>
+		<property name="comedonica"><column name="comedonica" sql-type="tinyint(1)" /></property>
+		<property name="papulosa"><column name="papulosa" sql-type="tinyint(1)" /></property>
+		<property name="flemonosa"><column name="flemonosa" sql-type="tinyint(1)" /></property>
+		<property name="pustulosa"><column name="pustulosa" sql-type="tinyint(1)" /></property>
+		<property name="cicatrizposacne"><column name="cicatrizposacne" sql-type="tinyint(1)" /></property>
+		<property name="efelides"><column name="efelides" sql-type="tinyint(1)" /></property>
+		<property name="vitiligo"><column name="vitiligo" sql-type="tinyint(1)" /></property>
+		<property name="manchassenis"><column name="manchassenis" sql-type="tinyint(1)" /></property>
+		<property name="nevospigmentarios"><column name="nevospigmentarios" sql-type="tinyint(1)" /></property>
+		<property name="fotosensibilidade"><column name="fotosensibilidade" sql-type="tinyint(1)" /></property>
+		<property name="melasmas"><column name="melasmas" sql-type="tinyint(1)" /></property>
+		<property name="nasogeniana"><column name="nasogeniana" sql-type="tinyint(1)" /></property>
+		<property name="peribucais"><column name="peribucais" sql-type="tinyint(1)" /></property>
+		<property name="glabelares"><column name="glabelares" sql-type="tinyint(1)" /></property>
+		<property name="periorbiculares"><column name="periorbiculares" sql-type="tinyint(1)" /></property>
+		<property name="palpebrais"><column name="palpebrais" sql-type="tinyint(1)" /></property>
+		<property name="transversais"><column name="transversais" sql-type="tinyint(1)" /></property>
+
+		<property name="coloracaoInicial" />
+		<property name="coloracaoFinal" />
+		<property name="estriaLocalizacao" />
+		<property name="dor" />
+		<property name="localizacao" />
+	
+		<property name="qtAlimentacao" type="br.com.pilates.base.enums.QtAlimentacaoEnumType"/>
+		<property name="corPele" type="br.com.pilates.base.enums.CorPeleEnumType"/>
+		<property name="qualidadePele" type="br.com.pilates.base.enums.QualidadePeleEnumType"/>
+		<property name="tipoRuga" type="br.com.pilates.base.enums.TipoRugaEnumType"/>
+		<property name="categoriaRuga" type="br.com.pilates.base.enums.CategoriaRugaEnumType"/>
+		<property name="estriaAparecimento" type="br.com.pilates.base.enums.EstriaAparecimentoEnumType"/>
+		<property name="grauCelulite" type="br.com.pilates.base.enums.GrauCeluliteEnumType"/>
+		<property name="tipoCelulite" type="br.com.pilates.base.enums.TipoCeluliteEnumType"/>
+		<property name="aspectoPele" type="br.com.pilates.base.enums.AspectoPeleEnumType"/>
+
+	
+	
+	</joined-subclass>
+	
+</hibernate-mapping>
