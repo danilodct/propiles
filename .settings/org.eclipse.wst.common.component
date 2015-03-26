@@ -4,6 +4,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/TesteSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/JavaSource"/>
         <property name="java-output-path" value="/propiles-svn/build/classes"/>
-        <property name="context-root" value="propiles-svn"/>
+        <property name="context-root" value="propiles"/>
     </wb-module>
 </project-modules>
