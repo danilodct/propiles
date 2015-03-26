@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="br.com.profisio.basics.Agendamento" table="agendamento">
+		<id name="id" >
+			<generator class="increment" />
+		</id>
+		
+		<many-to-one name="tenant" column="tenant_id" lazy="false" />
+		
+		<property name="dataInicio" />
+		<property name="dataFim" />
+		<property name="titulo" />
+		<property name="nota" />
+		<property name="duracao" />
+		
+		<many-to-one name="cadastro" column="cadastro_id" lazy="false" />
+		<many-to-one name="contaReceber" column="contaReceber_id" lazy="false" />
+		
+	</class>
+
+	<query name="getAgendamentosByMes">
+			<![CDATA[
+			from Agendamento 
+			where 
+				tenant = :tenant
+				and (:dataInicial is null or dataInicio >= :dataInicial)
+				and (:dataFinal is null or dataInicio <= :dataFinal)
+			order by dataInicio asc, dataFim asc, contaReceber asc
+			]]>
+	</query>
+
+	<query name="getAgendamentosByCadastro">
+			<![CDATA[
+			from Agendamento 
+			where cadastro = :cadastro
+			order by dataInicio asc, dataFim asc, contaReceber asc
+			]]>
+	</query>
+
+</hibernate-mapping>

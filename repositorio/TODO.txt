@@ -1,0 +1,50 @@
+CAIXA:
+3. Na listagem de contas a receber (futuro) colorir a linha
+
+CONTAS A PAGAR:
+2. Opção de repetir X vezes uma conta a pagar (cada conta com seu mes competencia)
+3. Possibilidade de dividir uma conta em X vezes, mas apenas com um mês de competencia
+
+RELATORIOS:
+1. Gráfico com lucro por centro de custo no período
+2. Gráfico com centros de custo que mais gastam
+
+---------------------------------------------------------------------------------------------------------------
+
+GERAIS:
+0 - Revisar os descontos nas parcelas  
+1. Possibilidade de gerenciar os serviços
+2. Possibilidade de gerenciar as formas de mídia
+3. Quantidade de clientes (apenas a quantidade) hoje e meses anteriores (em um mês específico)
+
+FINANCEIRO:
+1. Possibilidade de gerenciar Centros de Custo 
+2. Associar serviços à centros de custo
+
+CAIXA:
+1. No caixa, não mostrar apenas o valor final, mas os itens da movimentação no período selecionado
+2. No final da listagem totalizar as entradas e saídas
+4. Colocar duas datas no caixa
+5. Possibilitar ao administrador informar o valor inicial para o cálculo do caixa em determinada data
+
+CONTAS A PAGAR:
+1. Add coluna Mês Competência à conta a pagar
+4. Poder associar uma conta a pagar a um centro de custo
+
+DEMONSTRATIVO DE RESULTADO:
+1. Faturamento: soma de todas as entradas no mes de competencia (mesmo q nao foi efetivamente pago)
+2. Contas a pagar (variáveis) no mês de competência
+3. Margem de contribuição: o primeiro menos o segundo acima
+4. Soma das contas a pagar (fixas)
+5. Cálculos por mês ou por período (formato planilha mês a mês - por coluna) 
+6. Totalizadores e porcentagens em cima do faturamento
+
+INDICADORES:
+1. MC
+2. LUCRATIVIDADE
+3. CUSTOFIXO/VARIAVEL
+4. TICKET MÉDIO
+5. FATURAMENTO
+6. PONTO DE EQUILÍBRIO
+
+RELATORIOS:

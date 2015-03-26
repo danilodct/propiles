@@ -1,0 +1,26 @@
+- alterar o arquivo hibernate.cfg.xml com as configurações do servidor
+- Gerar via arquivo build.xml o arquivo war (pilates.war)
+- Via WinSCP ou qualquer outro programa de FTP, colocar este último arquivo na pasta webapps de:
+	ftp: ftp.vitacorporepilates.com.br
+	login: vitacorporepilates
+	senha: 4550PMXD
+- Gerar Backup do Banco: no gerenciador de MySQL (no Browser) utilizar a funcao Exportar como zip 
+- Daí entao abre-se o putty e com os mesmos dados acima, efetua-se o login. 
+- Ao terminar o upload do arquivo war, deve-se executar todo o código abaixo, via putty:
+	tomcat stop
+	cd webapps/ROOT/soft
+	rm -r css
+	rm -r img
+	rm -r js
+	rm -r pages
+	rm -r META-INF
+	rm -r WEB-INF
+	rm index.jsp
+	rm teste.html
+	jar xvf pilates.war
+	rm pilates.war
+	tomcat start
+	
+- Caso haja algum código SQL a ser executado, deverá ser feito agora, da seguinte forma:
+	abre no browser a url: https://mysql.kinghost.net/ com o login: vitacorporepil e senha: 4550PMXD
+	clica no link de SQL e cola o código SQL lá e clica no botão executar

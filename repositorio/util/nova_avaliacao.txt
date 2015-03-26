@@ -1,0 +1,73 @@
+1) criar pages/cliente/avaliacaoXXX.jsp
+	- deve importar <jsp:include page="avaliacao.jsp" />
+	- colocar apenas os dados extras
+2) criar AvaliacaoXXX.java
+	- deve extends Avaliacao
+	- colocar apenas os dados extras
+3) criar AvaliacaoXXX.hbm.xml
+	- deve ser joined-subclass e  extends="br.com.pilates.base.Avaliacao"
+	- colocar todos os dados
+4) add a nova modalidade (se for o caso) em Modalidade.java
+5) na pagina cliente.jsp add dois else if:
+	(linha 33 +/-)
+	else if($("select#modalidade").val() == "OPERATORIO_CIRURGIA"){
+		$("div.avaliacao").each(function(){ if($(this).attr("id") != "avaliacaoOperatorioCirurgia") $(this).remove(); });
+	}
+	
+	(linha 180 +/-)
+	else if($("select#modalidade").val() == "OPERATORIO_CIRURGIA"){
+		runAjax("avaliacaoCirurgiaPlastica", "", "html", procPutAvaliacao);
+	}
+
+6) na página cadastro.jsp colocar um elseif:
+	(linha 48 +/-)
+	$("form#formEditarAvaliacaoPeeling").submit(function(){tirarVirgulaPontos("form#formEditarAvaliacaoPeeling");return true;});
+	
+	(linha últimas)
+		<s:elseif test="cadastro.modalidade.modalidade.value == 'OPERATORIO_CIRURGIA'">
+			<s:form id="formEditarAvaliacaoCirurgiaPlastica" action="editarAvaliacaoCirurgiaPlastica" method="post">
+				<s:hidden name="cadastro.id" />
+				<s:hidden name="cadastro.modalidade.modalidadeStr" />
+				<s:hidden name="cadastro.avaliacao.id" />
+				<table>
+					<tr>
+						<td>
+							<jsp:include page="avaliacaoCirurgiaPlastica.jsp" />	
+						</td>
+					</tr>
+					<tr><td class="linhaMedia"></td></tr>
+					<tr>
+						<td align="right">
+							<s:submit cssClass="submit" value="salvar avaliação" />
+						</td>
+					</tr>
+				</table>
+			</s:form>
+		</s:elseif> 
+	
+7) criar action para editar avaliacao:
+		<action name="editarAvaliacaoDaySpa" class="br.com.pilates.actions.CadastroAction" method="actionEditarAvaliacaoDaySpa">
+			<result name="success" type="chain">cadastro</result>
+			<result name="error" type="chain">cadastro</result>
+		</action>
+		
+		
+
+		public String actionEditarAvaliacaoDaySpa() {
+			String resposta = "";
+			try {
+				if (this.cadastro.getModalidade().getModalidade() == Modalidade.DAY_SPA) {
+					this.avaliacaoDaySpa.parseDadosBasicos(this.cadastro.getAvaliacao());
+				}
+				this.avaliacaoDaySpa.setId(this.cadastro.getAvaliacao().getId());
+				proxy.atualizarAvaliacao(this.avaliacaoDaySpa);
+				addActionMessage(PilatesBundleUtil.getMsg(PilatesBundleUtil.ALTERACAO_SUCESSO));
+				resposta = SUCCESS;
+			} catch (Exception e) {
+				e.printStackTrace();
+				addActionError(e.getMessage());
+				resposta = ERROR;
+			}
+			return resposta;
+		}
+8) criar a tablea no updates.sql

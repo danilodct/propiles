@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="br.com.profisio.basics.Configuracao" table="configuracao">
+		<id name="id" >
+			<generator class="increment" />
+		</id>
+		
+		<many-to-one name="tenant" column="tenant_id" lazy="false" />
+		
+		<property name="caixaValorInicial" />
+		<property name="caixaDataInicial" />
+		
+	</class>
+	
+	<query name="getConfiguracao">
+			<![CDATA[
+			from Configuracao
+			where tenant = :tenant
+			]]>
+	</query>
+	
+	<query name="getConfiguracaoByTenant">
+			<![CDATA[
+			from Configuracao
+			where tenant = :tenant
+			]]>
+	</query>
+	
+</hibernate-mapping>
