@@ -25,7 +25,7 @@
 <script type="text/javascript" src="v2.0/js/lib/scripts.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		setMenuAtivo("#menuEfetividade");
+		setMenuAtivo("#menuEfetividadeBI");
 		setSubMenuAtivo("#subMenuAnalises");
 		setMaskDate(".data");
 		setBtPrint();

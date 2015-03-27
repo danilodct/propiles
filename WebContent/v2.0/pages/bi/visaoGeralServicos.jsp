@@ -139,14 +139,14 @@
 		
 		<!-- DASHBOARD 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		<div class="ui two centered column grid">
-			<div class="two column centered row" >
+			<div class="two column row" >
 				<div class="column" >
 					<h2 class="ui centered align header">Mais Requisitados<i class="help circle icon hint" data-content="Quantidade de atendimentos feitos no período especificado, por serviço" data-variation="inverted" ></i></h2>
-					<div id="chart1" class="estatico"></div>
+					<div id="chart1"></div>
 				</div>
 				<div class="column" >
 					<h2 class="ui centered align header">Visão por Faturamento Bruto<i class="help circle icon hint" data-content="Quanto cada serviço gerou no faturamento, no período especificado" data-variation="inverted" ></i></h2>
-					<div id="chart2" class="estatico"></div>
+					<div id="chart2"></div>
 				</div>
 			</div>
 		</div>

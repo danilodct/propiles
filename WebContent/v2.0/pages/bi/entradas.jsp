@@ -108,10 +108,6 @@
 		
 		<div class="ui hidden divider"></div>
 		<div class="ui hidden divider"></div>
-
-		<s:if test="dados1 == null || dados1 == '' || dados1 == '[]' ">
-			<h3 class="ui horizontal header">Selecione um período para análise</h3>
-		</s:if>		
 		
 		<div class="ui hidden divider"></div>
 		
@@ -145,6 +141,10 @@
 		
 		<div class="ui hidden divider"></div>
 		<div class="ui hidden divider"></div>
+
+		<s:if test="dados1 == null || dados1 == '' || dados1 == '[]' ">
+			<h3 class="ui horizontal header">Selecione um período para análise</h3>
+		</s:if>		
 		
 	<s:if test="dados1 != null && dados1 != '' && dados1 != '[]' ">
 		<!-- ICONE DE IMPRIMIR 88888888888888888888888888888888888888888888888888888888888888888888888 -->
@@ -163,14 +163,14 @@
 		
 		<!-- DASHBOARD 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		<div class="ui two centered column grid">
-			<div class="one column centered row" >
+			<div class="two column centered row" >
 				<div class="column" >
 					<h3 class="ui centered align header">Soma das entradas <i class="help circle icon hint" data-content="Soma das entradas no período especificado, comparado ao ano anterior" data-variation="inverted" ></i></h3>
-					<div id="chart1" class="estatico"></div>
+					<div id="chart1"></div>
 				</div>
 				<div class="column" >
 					<h3 class="ui centered align header">Soma das entradas (acumulado)<i class="help circle icon hint" data-content="Soma das entradas acumulado no período especificado, comparado ao ano anterior" data-variation="inverted" ></i></h3>
-					<div id="chart2" class="estatico"></div>
+					<div id="chart2"></div>
 				</div>
 			</div>
 		</div>

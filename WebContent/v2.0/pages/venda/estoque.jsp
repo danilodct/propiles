@@ -51,6 +51,8 @@
 			<a href="#" class="btAdd" title="Inserir novo" >
 				<i class="add circle big teal icon"></i>
 			</a>
+			<div class="ui hidden divider"></div>
+			<div class="ui hidden divider"></div>
 		</div>
 		
 		<div class="ui areaAdd hide centered grid" >

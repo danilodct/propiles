@@ -23,7 +23,7 @@
 		<div class="ui dropdown item" id="subMenuGeral">
 			<i class="dropdown icon"></i> 
 			<span class="text">
-				<i class="star small yellow hint icon right" data-html="Nova Atualização!" data-variation="inverted"></i>
+				<!-- <i class="star small yellow hint icon right" data-html="Nova Atualização!" data-variation="inverted"></i> -->
 				Geral
 			</span>
 			<div class="menu">
@@ -31,7 +31,6 @@
 				<div class="item"><a href="frequencia" id="menuFrequencia">Últimos atendimentos</a></div>
 				<div class="item">
 					<a href="agenda" id="menuAgenda">
-						<i class="star small yellow hint icon right" data-html="Nova Atualização!" data-variation="inverted"></i>
 						Agenda
 					</a>
 				</div>
@@ -52,7 +51,6 @@
 		<div class="ui dropdown item" id="subMenuFluxoCaixa">
 			<i class="dropdown icon"></i> 
 			<span class="text">
-				<i class="star small yellow hint icon right" data-html="Nova Atualização!" data-variation="inverted"></i>
 				Fluxo de Caixa
 			</span>
 			<div class="menu">
@@ -60,7 +58,6 @@
 				<div class="item"><a href="contasReceber" id="menuContasReceber">Contas a Receber</a></div>
 				<div class="item">
 					<a href="folhaPagamento" id="menuFolhaPagamento">
-						<i class="star small yellow hint icon right" data-html="Nova Atualização!" data-variation="inverted"></i>
 						Folha de pagamento
 					</a>
 				</div>
@@ -91,7 +88,7 @@
 					<span class="text">Clientes</span>
 					<div class="vaiLeft menu">
 						<div class="item"><a href="BIPerfilClientes" id="menuPerfil">Perfil Clientes</a></div>
-						<div class="item"><a href="BIEfetividade" id="menuEfetividade">Efetividade</a></div>
+						<div class="item"><a href="BIEfetividade" id="menuEfetividadeBI">Efetividade</a></div>
 						<div class="item"><a href="BICaptacao" id="menuCaptacao">Captação</a></div>
 					</div>
 				</div>

@@ -22,7 +22,7 @@
 <script type="text/javascript" src="v2.0/js/lib/scripts.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		setMenuAtivo("#menuFrequencias");
+		setMenuAtivo("#menuFrequentes");
 		setSubMenuAtivo("#subMenuRelatorios");
 		setMaskDate(".data");
 		setBtPrint();

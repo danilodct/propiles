@@ -108,10 +108,6 @@
 		
 		<div class="ui hidden divider"></div>
 		<div class="ui hidden divider"></div>
-
-		<s:if test="dataInicialStr == null && dataFinalStr == null">
-			<h3 class="ui horizontal header">Selecione um período para análise</h3>
-		</s:if>		
 		
 		<div class="ui hidden divider"></div>
 		
@@ -146,6 +142,10 @@
 		<div class="ui hidden divider"></div>
 		<div class="ui hidden divider"></div>
 		
+		<s:if test="dataInicialStr == null && dataFinalStr == null">
+			<h3 class="ui horizontal header">Selecione um período para análise</h3>
+		</s:if>		
+		
 	<s:if test="dados1 != null && dados1 != '' && dados1 != '[]' ">
 		<!-- ICONE DE IMPRIMIR 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		<a href="#" title="Imprimir relatório" class="btPrint ui"> 
@@ -163,7 +163,7 @@
 		
 		<!-- DASHBOARD 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		<div class="ui two centered column grid">
-			<div class="one column centered row" >
+			<div class="two column centered row" >
 				<div class="column" >
 					<h3 class="ui centered align header">Soma dos custos <i class="help circle icon hint" data-content="Soma dos custos no período especificado, comparado ao ano anterior" data-variation="inverted" ></i></h3>
 					<div id="chart1" class=""></div>

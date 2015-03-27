@@ -164,7 +164,7 @@
 			</div>
 			<div class="column">
 				<div class="ui two column grid">
-					<div class="right aligned column"><strong><i class="help circle icon hint" data-html="<div style='width:190px'>Quanto em média cada cliente gera para o faturamento ($)</div>" data-variation="inverted" ></i> Ticket Médio:</strong></div>
+					<div class="right aligned column"><strong><i class="help circle icon hint" data-html="<div style='width:190px'>Quanto em média cada cliente gera para o faturamento mensal ($)</div>" data-variation="inverted" ></i> Ticket Médio:</strong></div>
 					<div class="column" id="ticket"></div>
 				</div>
 				<div class="ui two column grid">
