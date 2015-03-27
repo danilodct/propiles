@@ -223,6 +223,7 @@ public class FinanceiroControl extends ControllerBase {
 
 	public void removerContaPagar(ContaPagar contaPagar) {
 		SystemUtils.assertObjectIsNotNullHasId(contaPagar);
+		contaPagar.setCentroCusto(null);
 		this.dao.remover(contaPagar);
 	}
 

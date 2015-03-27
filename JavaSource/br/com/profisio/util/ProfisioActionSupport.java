@@ -10,6 +10,7 @@ import java.util.Collection;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.struts2.ServletActionContext;
 
 import br.com.profisio.basics.Servico;
@@ -121,7 +122,7 @@ public class ProfisioActionSupport extends ActionSupport {
 			e.printStackTrace();
 			message = ProfisioException.EXCEPTION_MSG;
 			Mailer mailer = new Mailer();
-			mailer.sendMail("danilo.dct@gmail.com", "Título do email né?!", "Esta é a mensagem do email acra", null);
+			mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs Vanity] Error", ExceptionUtils.getStackTrace(e));
 			System.out.println("mandou gerar o email...");
 		}
 		addActionError(message);

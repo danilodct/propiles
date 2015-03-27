@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import br.com.profisio.basics.CentroCusto;
 import br.com.profisio.basics.Servico;
+import br.com.profisio.basics.enums.StatusObjeto;
 import br.com.profisio.util.ControllerBase;
 import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.ProfisioException;
@@ -64,18 +65,22 @@ public class ServicoControl extends ControllerBase {
 		String nome = centroCusto.getNome();
 		centroCusto = this.dao.getCentroCustoById(centroCusto.getId());
 		centroCusto.setNome(nome);
+		centroCusto.setStatusObjeto(StatusObjeto.ATIVO);
 		this.dao.editar(centroCusto);
 	}
 
 	public void removerCentroCusto(CentroCusto centroCusto) {
 		SystemUtils.assertObjectIsNotNullHasId(centroCusto);
-		this.dao.remover(centroCusto);
+		centroCusto = this.dao.getCentroCustoById(centroCusto.getId());
+		centroCusto.setStatusObjeto(StatusObjeto.MORTO);
+		this.dao.editar(centroCusto);
 	}
 
 	public void cadastrarCentroCusto(CentroCusto centroCusto) {
 		SystemUtils.assertObjectIsNotNull(centroCusto);
 		if (centroCusto.getNome() == null || centroCusto.getNome().equalsIgnoreCase(""))
 			throw new ProfisioException(ProfisioBundleUtil.NOME_OBRIGATORIO);
+		centroCusto.setStatusObjeto(StatusObjeto.ATIVO);
 		this.dao.cadastrar(centroCusto);
 	}
 

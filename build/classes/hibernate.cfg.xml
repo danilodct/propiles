@@ -58,7 +58,6 @@
         <mapping resource="br/com/profisio/util/hbm/Produto.hbm.xml"/>
         <mapping resource="br/com/profisio/util/hbm/Usuario.hbm.xml"/>
         <mapping resource="br/com/profisio/util/hbm/Servico.hbm.xml"/>
-        <mapping resource="br/com/profisio/util/hbm/TipoCadastro.hbm.xml"/>
         <mapping resource="br/com/profisio/util/hbm/TipoContaPagar.hbm.xml"/>
         
     </session-factory>

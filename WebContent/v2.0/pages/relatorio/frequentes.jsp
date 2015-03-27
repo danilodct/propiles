@@ -60,7 +60,7 @@
 						</div>
 						<div class="field">
 							<label>Serviço:</label>
-							<s:select list="allServicos" name="servico.id" cssClass="ui search dropdown" headerKey="-1" headerValue="TODOS" listKey="id" listValue="nome"></s:select>
+							<s:select list="allServicos" name="servico.id" cssClass="ui dropdown" headerKey="-1" headerValue="TODOS" listKey="id" listValue="nome"></s:select>
 						</div>
 					</div>
 					<div class="three fields">

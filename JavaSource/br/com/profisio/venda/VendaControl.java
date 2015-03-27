@@ -55,6 +55,12 @@ public class VendaControl extends ControllerBase {
 
 	public void editarProduto(Produto produto) {
 		SystemUtils.assertObjectIsNotNullHasId(produto);
+		if (produto.getCategoria() == null || produto.getCategoria().equals(""))
+			throw new ProfisioException(ProfisioBundleUtil.INFORME_CATEGORIA);
+		if (produto.getNome() == null || produto.getNome().equals(""))
+			throw new ProfisioException(ProfisioBundleUtil.NOME_OBRIGATORIO);
+		if (produto.getValor() == null || produto.getValor() == 0)
+			throw new ProfisioException(ProfisioBundleUtil.INFORME_VALOR);
 		produto.setStatusObjeto(StatusObjeto.ATIVO);
 		this.dao.editarProduto(produto);
 	}

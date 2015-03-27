@@ -1,11 +1,13 @@
 package br.com.profisio.agenda;
 
+import java.util.Date;
+
 import br.com.profisio.basics.Agendamento;
 import br.com.profisio.basics.Cadastro;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
 
-public class AgendaView extends ProfisioActionSupport {
+public class AgendaView extends ProfisioActionSupport { 
 
 	private static final long serialVersionUID = -735616690640381036L;
 	private final AgendaControl controller;
@@ -73,11 +75,17 @@ public class AgendaView extends ProfisioActionSupport {
 	public String actionAgenda() {
 		try {
 			this.agendamentos = controller.getAgendamentosByMes(null);
+			//Setar valores iniciais
+			this.agendamento = new Agendamento();
+			this.agendamento.setDataInicio(new Date());
+			this.agendamento.setDuracao(Agendamento.DURACAO_DEFAULT);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
 		return REDIRECT;
 	}
+
+	// 888888888888888888888888888888888888888888888888888888888888888888888888
 
 	public String getAgendamentos() {
 		return agendamentos;

@@ -77,7 +77,9 @@
 				//indicadores
 				var perTicket = "R$ "+((variaveis[10]).split(":"))[1];
 				$("#ticket").html(perTicket);
-				var ponto = parseFloat(totalFix.replace(".", "").replace(",", "."))/parseFloat(perMC.replace(".", "").replace(",", ".").replace("%", ""));
+				var ponto = 0;
+				if(parseFloat(perMC.replace(".", "").replace(",", ".").replace("%", "")) > 0)
+					ponto = parseFloat(totalFix.replace(".", "").replace(",", "."))/parseFloat(perMC.replace(".", "").replace(",", ".").replace("%", ""));
 				$("#ponto").html("R$ "+setNumberFormat(ponto*100));
 			}
 		}

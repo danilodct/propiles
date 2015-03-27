@@ -108,6 +108,11 @@
 		
 		<div class="ui hidden divider"></div>
 		<div class="ui hidden divider"></div>
+
+		<s:if test="dataInicialStr == null && dataFinalStr == null">
+			<h3 class="ui horizontal header">Selecione um período para análise</h3>
+		</s:if>		
+		
 		<div class="ui hidden divider"></div>
 		
 		<!-- AREA PESQUISA 88888888888888888888888888888888888888888888888888888888888888888888888 -->

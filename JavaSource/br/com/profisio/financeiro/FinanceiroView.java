@@ -230,7 +230,10 @@ public class FinanceiroView extends ProfisioActionSupport {
 			TipoCusto tipo = null;
 			if (contaPagar != null)
 				tipo = contaPagar.getTipoCusto();
-			this.contasPagar = this.controller.getContasPagar(tipo, dataInicial, dataFinal, centroCusto, tipoContaPagar, statusContaPagar, true);
+			CentroCusto centro = null;
+			if (contaPagar != null)
+				centro = contaPagar.getCentroCusto();
+			this.contasPagar = this.controller.getContasPagar(tipo, dataInicial, dataFinal, centro, tipoContaPagar, statusContaPagar, true);
 			if (this.contasPagar != null && this.contasPagar.size() > 0) {
 				for (ContaPagar conta : this.contasPagar)
 					this.soma += conta.getValor();
@@ -325,6 +328,8 @@ public class FinanceiroView extends ProfisioActionSupport {
 		String resposta = REDIRECT;
 		try {
 			controller.remover(contaReceber);
+			this.formaPagamento = null;
+			this.colaborador = null;
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REMOCAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);

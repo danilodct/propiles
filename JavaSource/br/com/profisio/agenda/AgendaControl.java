@@ -33,7 +33,7 @@ public class AgendaControl extends ControllerBase {
 			throw new ProfisioException(ProfisioBundleUtil.INFORME_TITULO);
 
 		if (agendamento.getDataFim() == null)
-			agendamento.setDuracao(30);
+			agendamento.setDuracao(Agendamento.DURACAO_DEFAULT);
 
 		this.dao.cadastrar(agendamento);
 	}

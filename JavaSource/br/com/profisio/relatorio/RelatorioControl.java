@@ -165,10 +165,22 @@ public class RelatorioControl extends ControllerBase {
 					somaAvulso += conta.getValorCheioComDesconto();
 				}
 			}
-			String ticket = SystemUtils.parseDoubleToString((somaFat - somaAvulso) / qtdClientesAtivos);
+			String ticket = "0,00";
+			if (qtdClientesAtivos > 0)
+				ticket = SystemUtils.parseDoubleToString((somaFat - somaAvulso) / qtdClientesAtivos);
 
 			retorno += "TOTAL_FAT:" + SystemUtils.parseDoubleToString(somaFat) + ";TOTAL_VAR:" + SystemUtils.parseDoubleToString(somaContasVar) + ";TOTAL_MC:" + SystemUtils.parseDoubleToString(somaMargem) + ";TOTAL_FIX:" + SystemUtils.parseDoubleToString(somaContasFixas) + ";TOTAL_RES:" + SystemUtils.parseDoubleToString(somaResultados) + ";";
-			retorno += "PER_FAT:100,00%;PER_VAR:" + SystemUtils.parseDoubleToString((somaContasVar / somaFat) * 100) + "%;PER_MC:" + SystemUtils.parseDoubleToString((somaMargem / somaFat) * 100) + "%;PER_FIX:" + SystemUtils.parseDoubleToString((somaContasFixas / somaFat) * 100) + "%;PER_RES:" + SystemUtils.parseDoubleToString((somaResultados / somaFat) * 100) + "%;PER_TICKET:" + ticket;
+			String contasVarSobFat = "0,00";
+			String margemSobFat = "0,00";
+			String contasFixasSobFat = "0,00";
+			String resultadosSobFat = "0,00";
+			if (somaFat > 0) {
+				contasVarSobFat = SystemUtils.parseDoubleToString((somaContasVar / somaFat) * 100);
+				margemSobFat = SystemUtils.parseDoubleToString((somaMargem / somaFat) * 100);
+				contasFixasSobFat = SystemUtils.parseDoubleToString((somaContasFixas / somaFat) * 100);
+				resultadosSobFat = SystemUtils.parseDoubleToString((somaResultados / somaFat) * 100);
+			}
+			retorno += "PER_FAT:100,00%;PER_VAR:" + contasVarSobFat + "%;PER_MC:" + margemSobFat + "%;PER_FIX:" + contasFixasSobFat + "%;PER_RES:" + resultadosSobFat + "%;PER_TICKET:" + ticket;
 		}
 		return retorno;
 	}

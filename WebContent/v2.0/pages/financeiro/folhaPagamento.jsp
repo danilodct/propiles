@@ -82,7 +82,7 @@ function setBtGerarConta(){
 							<s:select name="colaborador.id" headerKey="-1" headerValue="TODOS" cssClass="ui dropdown" list="allColaboradores" listKey="id" listValue="nome" />
 						</div>
 						<div class="field">
-							<label>Escolha um mês: <i class="help circle icon hint" data-content="Escolha qualquer dia do mês desejado. Caso não selecione nenhum, o mês atual será escolhido." data-variation="inverted" ></i></label>
+							<label>Escolha um mês: <i class="help circle icon hint" data-content="Escolha qualquer dia do mês desejado" data-variation="inverted" ></i></label>
 							<div class="ui icon input">
 								<s:textfield name="dataInicialStr" cssClass="data" />
 								<i class="calendar icon"></i>
@@ -186,9 +186,9 @@ function setBtGerarConta(){
 						</div>
 					</div>
 					<div class="field">
-						<label>Data de Vencimento:</label>
+						<label>Data de Pagamento:</label>
 						<div class="ui icon input">
-							<s:textfield id="cntaDataVencimento" name="contaPagar.dataVencimentoStr" cssClass="data" />
+							<s:textfield id="cntaDataVencimento" name="contaPagar.dataPagamentoStr" cssClass="data" />
 							<i class="calendar icon"></i>
 						</div>
 					</div>

@@ -363,19 +363,27 @@ function setCEP(campo){
 }
 function procBuscaCEP(xml){
 	$(xml).find("uf").each(function(){
-		$("input#uf").val($(this).text());
+		var uf = $(this).text();
+		if(uf != "")
+			$("input#uf").val(uf);
 	});
 	$(xml).find("localidade").each(function(){
-		$("input#cidade").val(decodeURI(escape($(this).text())));
+		var loca = decodeURI(escape($(this).text()));
+		if(loca != "")
+			$("input#cidade").val(loca);
 	});
 	$(xml).find("bairro").each(function(){
-		$("input#bairro").val(decodeURI(escape($(this).text())));
+		var bairro = decodeURI(escape($(this).text()));
+		if(bairro != "")
+			$("input#bairro").val(bairro);
 	});
 	var logradouro = "";
 	$(xml).find("logradouro").each(function(){
 		logradouro = $(this).text();
 	});
-	$("input#logradouro").val(decodeURI(logradouro));
+	logradouro = decodeURI(logradouro);
+	if(logradouro != "")
+		$("input#logradouro").val(logradouro);
 }
 
 //FUNÇÕES GERAIS  8888888888888888888888888888888888888888888888888888888888888
