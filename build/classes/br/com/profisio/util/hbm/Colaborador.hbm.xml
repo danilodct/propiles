@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<joined-subclass name="br.com.profisio.basics.Colaborador" table="colaborador" extends="br.com.profisio.basics.Usuario">
+		<key column="id" />	
+		<!-- 
+		<many-to-one name="tenant" column="tenant_id" lazy="false" />	
+		 -->
+		
+		<property name="nome" />
+		<property name="cpf" />
+		<property name="email" />
+		<property name="niver" />
+		<property name="dataNascimento" />
+		<property name="foneFixo" />
+		<property name="foneCelular" />
+		<property name="salarioBase" />
+		<property name="porcentagemVendas" />
+		<property name="numeroCarteira" />
+		<property name="sexo" type="br.com.profisio.basics.enums.SexoEnumType"/>
+		
+		<many-to-one name="endereco" column="endereco_id" lazy="false" cascade="all" />
+		
+		<set name="contratos" cascade="delete" inverse="true">
+			<key column="professor_id" />
+			<one-to-many class="br.com.profisio.basics.Contrato" />
+		</set>
+	
+	</joined-subclass>
+	
+	<query name="getProximosAniversariantesColaboradores">
+			<![CDATA[
+			from Colaborador
+			where 
+			tenant = :tenant
+			and 
+			(niver like :mesAtual 
+			or 
+			niver like :mesProximo)			
+			and statusObjeto = 'ATIVO'
+			order by niver
+			]]>
+	</query>
+	
+	<query name="getColaboradores">
+			<![CDATA[
+			from Colaborador
+			where tenant = :tenant
+			and statusObjeto = 'ATIVO'
+			and (:nomeColaborador is null or nome like :nomeColaborador)
+			order by nome
+			]]>
+	</query>
+	
+	<query name="getColaboradoresByServico">
+			<![CDATA[
+			select colab
+			from Colaborador as colab
+			left join colab.contratos as cont
+			where colab.statusObjeto = 'ATIVO'
+			and cont.servico = :servico
+			order by colab.nome
+			]]>
+	</query>
+	
+</hibernate-mapping>

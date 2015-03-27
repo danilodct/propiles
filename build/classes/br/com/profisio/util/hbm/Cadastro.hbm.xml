@@ -1,0 +1,231 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="br.com.profisio.basics.Cadastro" table="cadastro">
+		<id name="id">
+			<generator class="increment" />
+		</id>
+
+		<many-to-one name="tenant" column="tenant_id" lazy="false" />
+		
+		<property name="nome" />
+		<property name="cpf" />
+		<property name="email" />
+		<property name="dataNascimento" />
+		<property name="dataCadastro" />
+		<property name="foneFixo" />
+		<property name="foneCelular" />
+		<property name="profissao" />
+		<property name="niver" />
+		<property name="conhecimentoStudio" />
+		<property name="sexo" type="br.com.profisio.basics.enums.SexoEnumType" />
+		<property name="estadoCivil" type="br.com.profisio.basics.enums.EstadoCivilEnumType" />
+		<property name="statusObjeto" type="br.com.profisio.basics.enums.StatusObjetoEnumType" />
+
+		<many-to-one name="endereco" column="endereco_id" lazy="false" cascade="all" />
+
+		<set name="atividades"  cascade="delete" inverse="true">
+			<key column="cliente_id" />
+			<one-to-many class="br.com.profisio.basics.Atividade" />
+		</set>
+
+	</class>
+	
+	<query name="getProximosAniversariantesClientes">
+			<![CDATA[
+			from Cadastro
+			where 
+			tenant = :tenant
+			and 
+			(niver like :mesAtual or niver like :mesProximo) 
+			order by niver asc
+			]]>
+	</query>
+	
+	<query name="getAllFormasConhecimento">
+			<![CDATA[
+			select cli
+			from Cadastro as cli
+			where cli.tenant = :tenant 
+			and cli.conhecimentoStudio is not null
+			group by cli.conhecimentoStudio	
+			order by cli.nome	
+			]]>
+	</query>
+	
+	<query name="getAllMidiasOrderQtdCadastros">
+			<![CDATA[
+			select cli
+			from Cadastro as cli
+			where tenant = :tenant
+			and cli.conhecimentoStudio is not null
+			and (:dataInicial is null or cli.dataCadastro >= :dataInicial)
+			and (:dataFinal is null or cli.dataCadastro <= :dataFinal)
+			group by cli.conhecimentoStudio	
+			order by count(cli) desc	
+			]]>
+	</query>
+	
+	<query name="getCadastros">
+			<![CDATA[
+			from Cadastro as cli
+			where tenant = :tenant 
+			and (:nomeCliente is null or cli.nome like :nomeCliente)
+			and cli.statusObjeto = 'ATIVO'
+			order by cli.nome asc
+			]]>
+	</query>
+	
+	<query name="getQtdCadastros">
+			<![CDATA[
+			select count(cli)
+			from Cadastro as cli
+			where 
+			cli.tenant = :tenant
+			and (:nomeCliente is null or cli.nome like :nomeCliente)
+			and cli.statusObjeto = 'ATIVO'
+			]]>
+	</query>
+	
+	<query name="getNovosCadastros">
+			<![CDATA[
+			from Cadastro as cli
+			where cli.tenant = :tenant
+			and (:dataInicial is null or cli.dataCadastro >= :dataInicial)
+			and (:dataFinal is null or cli.dataCadastro <= :dataFinal)
+			order by cli.nome asc
+			]]>
+	</query>
+	
+	<sql-query name="getClientesFrequentes">
+		<return alias="cad" class="br.com.profisio.basics.Cadastro"/>
+			<![CDATA[
+			select cad.* 
+			from frequencia 
+			left join atividade on atividade.id = frequencia.atividade_id and atividade.`statusObjeto` = 'ATIVO' and atividade.tenant_id = :tenant 
+			left join contrato on contrato.id = atividade.contrato_id
+			left join cadastro as cad on cad.id = frequencia.cliente_id 
+			where
+			frequencia.tenant_id = :tenant
+			and (:dataInicial is null or data >= :dataInicial)
+			and (:dataFinal is null or data <= :dataFinal) 
+			and (:servico is null or contrato.servico_id = :servico or frequencia.servico_id = :servico ) 
+			and (:colaborador is null or contrato.professor_id = :colaborador or frequencia.profissional_id = :colaborador)  
+			and cad.statusObjeto = 'ATIVO'
+			group by cad.id 
+			order by cad.nome
+			]]>
+	</sql-query>
+	
+	<query name="getQtdCadastrosByMidia">
+			<![CDATA[
+			select count(cli)
+			from Cadastro as cli
+			where
+			tenant = :tenant
+			and (:dataInicial is null or dataCadastro >= :dataInicial)
+			and (:dataFinal is null or dataCadastro <= :dataFinal)
+			and (:midia is null or cli.conhecimentoStudio = :midia)
+			]]>
+	</query>
+	
+	<sql-query name="getBairrosOrderByQtdCadastrosAtivos">
+		<return alias="ende" class="br.com.profisio.basics.Endereco"/>
+			<![CDATA[
+			SELECT ende.*
+			FROM frequencia AS freq
+			LEFT JOIN cadastro AS cad ON cad.id = freq.cliente_id and cad.tenant_id = :tenant
+			LEFT JOIN endereco AS ende ON ende.id = cad.endereco_id
+			WHERE freq.tenant_id = :tenant
+			and freq.data >= :dataInicial AND freq.data <= :dataFinal
+			and ende.bairro is not null and ende.bairro != ''
+			GROUP BY ende.bairro asc
+			order by count(distinct cad.id) 	
+			]]>
+	</sql-query>
+	
+	<sql-query name="getQtdCadastrosAtivosByBairro">
+			<![CDATA[
+			SELECT COUNT(DISTINCT cad.id)
+			FROM frequencia AS freq
+			LEFT JOIN cadastro AS cad ON cad.id = freq.cliente_id and cad.tenant_id = :tenant
+			LEFT JOIN endereco AS ende ON ende.id = cad.endereco_id
+			WHERE freq.tenant_id = :tenant
+			AND freq.data >= :dataInicial AND freq.data <= :dataFinal
+			AND (:bairro is null or ende.bairro = :bairro)
+			]]>
+	</sql-query>
+	
+	<sql-query name="getQtdCadastrosAtivosBySexo">
+			<![CDATA[
+			SELECT COUNT(DISTINCT cad.id)
+			FROM frequencia AS freq
+			LEFT JOIN cadastro AS cad ON cad.id = freq.cliente_id and cad.tenant_id = :tenant
+			WHERE freq.tenant_id = :tenant
+			AND freq.data >= :dataInicial AND freq.data <= :dataFinal
+			AND (:sexo is null or cad.sexo = :sexo)
+			]]>
+	</sql-query>
+	
+	<sql-query name="getQtdCadastrosAtivosByEstadoCivil">
+			<![CDATA[
+			SELECT COUNT(DISTINCT cad.id)
+			FROM frequencia AS freq
+			LEFT JOIN cadastro AS cad ON cad.id = freq.cliente_id and cad.tenant_id = :tenant
+			WHERE freq.tenant_id = :tenant
+			AND freq.data >= :dataInicial AND freq.data <= :dataFinal
+			AND (:estadoCivil is null or cad.estadoCivil = :estadoCivil)
+			]]>
+	</sql-query>
+	
+	<sql-query name="getQtdCadastrosAtivosByFaixaEtaria">
+			<![CDATA[
+			SELECT COUNT(DISTINCT cad.id)
+			FROM frequencia AS freq
+			LEFT JOIN cadastro AS cad ON cad.id = freq.cliente_id and cad.tenant_id = :tenant
+			WHERE freq.tenant_id = :tenant
+			AND freq.data >= :dataInicial AND freq.data <= :dataFinal
+			AND (:dataMin is null or year(cad.dataNascimento) >= :dataMin)
+			AND (:dataMax is null or year(cad.dataNascimento) <= :dataMax)
+			]]>
+	</sql-query>
+	
+	<query name="getClientesComAtividade">
+			<![CDATA[
+			select cad
+			from Cadastro as cad
+			left join cad.atividades as ati
+			where cad.tenant = :tenant 
+			and ati.statusObjeto = 'ATIVO'
+			and ati.dataCriacao >= :dataInicial 
+			and ati.dataCriacao <= :dataFinal
+			]]>
+	</query>
+	
+	<query name="getQtdCadastrosByServico">
+			<![CDATA[
+			select count(distinct cad)
+			from Frequencia as freq
+			left join freq.cadastro as cad
+			where freq.tenant = :tenant
+			and freq.atividade.statusObjeto = 'ATIVO'
+			and freq.atividade.contrato.servico = :servico
+			and (:dataInicial is null or data >= :dataInicial)
+			and (:dataFinal is null or data <= :dataFinal)
+			]]>
+	</query>
+	
+	<sql-query name="getQtdClientesFrequentes">
+		<![CDATA[
+		SELECT COUNT(DISTINCT cad.id)
+		FROM frequencia freq
+			LEFT JOIN atividade ati ON ati.id = freq.atividade_id and ati.tenant_id = :tenant
+			LEFT JOIN cadastro cad ON cad.id = freq.cliente_id AND freq.novo = FALSE OR cad.id = ati.cliente_id AND freq.novo = TRUE
+		WHERE 
+			freq.tenant_id = :tenant
+			AND freq.data >= :dataInicial AND freq.data <= :dataFinal
+			AND cad.statusObjeto = 'ATIVO'
+		]]>
+	</sql-query>
+	
+</hibernate-mapping>

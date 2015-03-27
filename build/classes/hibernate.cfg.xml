@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+
+        <!-- Database connection settings -->
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+
+<!-- 	
+		<property name="connection.url">jdbc:mysql://mysql.clinicavanity.com.br/clinicavanity</property>
+		<property name="connection.username">clinicavanity</property>
+		<property name="connection.password">4550PMXD</property>
+ -->	 
+
+		<property name="connection.url">jdbc:mysql://localhost/profisio</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password"></property>
+
+        <!-- JDBC connection pool (use the built-in) -->
+        <property name="connection.pool_size">0</property>
+        
+        <!-- Setando o encoding das tabelas e dos seus campos -->
+        <property name="hibernate.connection.useUnicode">true</property>
+        <property name="hibernate.connection.characterEncoding">UTF-8</property>
+
+        <!-- SQL dialect -->
+		<property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+
+        <!-- Enable Hibernate's automatic session context management -->
+        <property name="current_session_context_class">thread</property>
+
+        <!-- Disable the second-level cache  -->
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+        <!-- Echo all executed SQL to stdout 
+        <property name="show_sql">true</property>
+		<property name="hibernate.hbm2ddl.auto">create-drop</property>
+		 -->        
+
+        <mapping resource="br/com/profisio/util/hbm/Agendamento.hbm.xml"/>
+        <mapping resource="br/com/profisio/util/hbm/Atividade.hbm.xml"/>
+        <mapping resource="br/com/profisio/util/hbm/Avaliacao.hbm.xml"/>
+        <mapping resource="br/com/profisio/util/hbm/Cadastro.hbm.xml"/>
+        <mapping resource="br/com/profisio/util/hbm/CentroCusto.hbm.xml"/>
+        <mapping resource="br/com/profisio/util/hbm/Colaborador.hbm.xml"/>
+        <mapping resource="br/com/profisio/util/hbm/Configuracao.hbm.xml"/>
+        <mapping resource="br/com/profisio/util/hbm/ContaPagar.hbm.xml"/>
+        <mapping resource="br/com/profisio/util/hbm/ContaReceber.hbm.xml"/>
+        <mapping resource="br/com/profisio/util/hbm/Contrato.hbm.xml"/>
+        <mapping resource="br/com/profisio/util/hbm/Endereco.hbm.xml"/>
+        <mapping resource="br/com/profisio/util/hbm/Estoque.hbm.xml"/>
+        <mapping resource="br/com/profisio/util/hbm/Frequencia.hbm.xml"/>
+        <mapping resource="br/com/profisio/util/hbm/Movimentacao.hbm.xml"/>
+        <mapping resource="br/com/profisio/util/hbm/Produto.hbm.xml"/>
+        <mapping resource="br/com/profisio/util/hbm/Usuario.hbm.xml"/>
+        <mapping resource="br/com/profisio/util/hbm/Servico.hbm.xml"/>
+        <mapping resource="br/com/profisio/util/hbm/Tenant.hbm.xml"/>
+        <mapping resource="br/com/profisio/util/hbm/TipoContaPagar.hbm.xml"/>
+        
+    </session-factory>
+
+</hibernate-configuration>

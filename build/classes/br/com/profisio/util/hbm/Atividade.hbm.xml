@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="br.com.profisio.basics.Atividade" table="atividade">
+		<id name="id" >
+			<generator class="increment" />
+		</id>
+		
+		<many-to-one name="tenant" column="tenant_id" lazy="false" />
+		
+		<property name="dataCriacao" />
+		<property name="historico" />
+		<property name="statusObjeto" type="br.com.profisio.basics.enums.StatusObjetoEnumType" />
+		
+		<many-to-one name="contrato" column="contrato_id" lazy="false" />
+		<many-to-one name="cadastro" column="cliente_id" lazy="false" />
+		<many-to-one name="avaliacao" column="avaliacao_id" lazy="false" cascade="save-update" />
+		
+		<set name="contasReceber" cascade="delete" >
+			<key column="cadastro_id" />
+			<one-to-many class="br.com.profisio.basics.ContaReceber" />
+		</set>
+		
+	</class>
+	
+	<query name="getAtividadesByCadastro">
+			<![CDATA[
+			from Atividade 
+			where cadastro = :cadastro
+			and statusObjeto = 'ATIVO'
+			order by contrato.servico.nome
+			]]>
+	</query>
+	
+	<query name="getAtividadeByCadastroContrato">
+		<![CDATA[
+		from Atividade ati
+		where ati.cadastro = :cadastro
+		and ati.contrato = :contrato
+		]]>
+	</query>
+	
+</hibernate-mapping>
