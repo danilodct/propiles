@@ -14,7 +14,6 @@ import org.apache.log4j.Logger;
 import org.hibernate.Query;
 
 import br.com.profisio.basics.ObjetoBasico;
-import br.com.profisio.basics.Usuario;
 
 public class DAOBase implements MethodInterceptor {
 
@@ -44,12 +43,6 @@ public class DAOBase implements MethodInterceptor {
 
 		// Pega usuario da sessao
 		Object retorno = null;
-		Usuario userSession = ProfisioSessionUtil.getUserSession();
-		Integer userId = -1;
-
-		//
-		if (userSession != null)
-			userId = userSession.getId();
 
 		try {
 			// Inicia a transaction
