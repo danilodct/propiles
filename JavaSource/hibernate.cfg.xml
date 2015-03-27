@@ -16,7 +16,7 @@
 		<property name="connection.password">4550PMXD</property>
  -->	 
 
-		<property name="connection.url">jdbc:mysql://localhost/profisio</property>
+		<property name="connection.url">jdbc:mysql://localhost/vanity</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password"></property>
 

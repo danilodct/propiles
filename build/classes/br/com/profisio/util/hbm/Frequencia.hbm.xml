@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="br.com.profisio.basics.Frequencia" table="frequencia">
+		<id name="id" >
+			<generator class="increment" />
+		</id>
+		
+		<property name="data" />
+		<property name="duracao" />
+		<property name="novo"><column name="novo" sql-type="tinyint(1)" /></property>
+		
+		<many-to-one name="atividade" column="atividade_id" lazy="false" />
+		
+		<many-to-one name="colaborador" column="profissional_id" lazy="false" />
+		<many-to-one name="servico" column="servico_id" lazy="false" />
+		<many-to-one name="cadastro" column="cliente_id" lazy="false" />
+		<many-to-one name="contaReceber" column="contaReceber_id" lazy="false" />
+		
+	</class>
+	
+	<query name="getFrequenciasByPeriodo">
+			<![CDATA[
+			from Frequencia
+			where 
+			(:dataInicial is null or data >= :dataInicial)
+			and 
+			(:dataFinal is null or data <= :dataFinal)
+			order by data desc, id desc  
+			]]>
+	</query>
+	
+	<query name="getQtdFrequenciasByPagamento">
+			<![CDATA[
+			select count(freq)
+			from Frequencia freq
+			where freq.contaReceber = :contaReceber  
+			]]>
+	</query>
+	
+	<sql-query name="getQtdFrequenciasByServico">
+			<![CDATA[
+			select count(distinct frequencia.id) 
+			from frequencia 
+			left join atividade on atividade.id = frequencia.atividade_id and atividade.`statusObjeto` = 'ATIVO' 
+			left join contrato on contrato.id = atividade.contrato_id 
+			where  
+				(:dataInicial is null or data >= :dataInicial)
+			and (:dataFinal is null or data <= :dataFinal) 
+			and (:servico is null or contrato.servico_id = :servico or frequencia.servico_id = :servico )  
+			]]>
+	</sql-query>
+	
+	<sql-query name="getFrequenciasByCadastro">
+		<return alias="freq" class="br.com.profisio.basics.Frequencia"/>
+		<![CDATA[
+		SELECT freq.* FROM frequencia as freq 
+		LEFT JOIN atividade as ati ON ati.id=freq.atividade_id
+		WHERE ((novo=0 AND freq.cliente_id=:cadastro) OR (novo=1 AND ati.cliente_id=:cadastro))
+		and (:dataInicial is null or freq.data >= :dataInicial) 
+		and (:dataFinal is null or freq.data <= :dataFinal)
+		order by freq.data desc, freq.id desc
+		]]>
+	</sql-query>
+	
+	<sql-query name="getQtdAtendimentosServico">
+			<![CDATA[
+			select count(freq.id)
+			from frequencia freq
+			left join atividade as ati on ati.id = freq.atividade_id
+			left join contrato as cont on cont.id = ati.contrato_id
+			where (:dataInicial is null or freq.data >= :dataInicial)
+			and (:dataFinal is null or freq.data <= :dataFinal)
+			and (:servico is null or freq.servico_id = :servico or cont.servico_id = :servico)
+			]]>
+	</sql-query>
+	
+	<sql-query name="desassociarFrequenciasContaReceber">
+			<![CDATA[
+			update frequencia
+			set contaReceber_id = null 
+			where contaReceber_id = :contaReceber
+			]]>
+	</sql-query>
+	
+	<query name="getFrequenciasByColaborador">
+			<![CDATA[
+			select freq
+			from Frequencia as freq
+			left join freq.atividade.contrato as cont
+			where (freq.colaborador = :colaborador or cont.colaborador = :colaborador)
+			and (:dataInicial is null or freq.data >= :dataInicial)
+			and (:dataFinal is null or freq.data <= :dataFinal)
+			]]>
+	</query>
+	
+	
+</hibernate-mapping>

@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="br.com.profisio.basics.ContaReceber" table="contareceber">
+		<id name="id" > 
+			<generator class="increment" />
+		</id>
+		
+		<property name="dataPagamento" />
+		<property name="dataLancamento" />
+		<property name="valor" />
+		<property name="valorCheio" />
+		<property name="descontos" />
+		<property name="caixa" />
+		<property name="ordemParcelamento" />
+		<property name="observacao" />
+		<property name="qtdParcelas" />
+		<property name="qtdSessoes" />
+		<property name="primeiraParcela"><column name="primeiraParcela" sql-type="tinyint(1)" /></property>
+		<property name="outroColaborador"><column name="outroColaborador" sql-type="tinyint(1)" /></property>
+		<property name="formaPagamento" type="br.com.profisio.basics.enums.FormaPagamentoEnumType"/>
+		<property name="status" type="br.com.profisio.basics.enums.StatusContaEnumType"/>
+		
+		<many-to-one name="movimentacao" column="movimentacao_id" lazy="false" cascade="delete" />
+		<many-to-one name="atividade" column="cadastro_id" lazy="false" />
+		<many-to-one name="colaborador" column="professor_id" lazy="false" />
+		<many-to-one name="parcelamentoPai" column="pai_id" lazy="false" />
+		
+	</class>
+	
+	<query name="getContasReceberByCadastro">
+			<![CDATA[
+			from ContaReceber
+			where
+			atividade.cadastro = :cadastro 
+			and 
+			parcelamentoPai = null
+			order by dataLancamento desc
+			]]>
+	</query>
+	
+	<query name="getPagamentosCheiosByAtividade">
+			<![CDATA[
+			from ContaReceber
+			where
+			atividade = :atividade
+			and 
+			parcelamentoPai = null
+			order by dataLancamento desc
+			]]>
+	</query>
+	
+	<!-- Não pega as parcelas, apenas a primeira ou a única -->
+	<query name="getContasReceber">
+			<![CDATA[
+			from ContaReceber
+			where
+			(:dataInicial is null or dataLancamento >= :dataInicial)
+			and
+			(:dataFinal is null or dataLancamento <= :dataFinal)
+			and
+			(:colaborador is null or (outroColaborador = 1 and colaborador = :colaborador) or (outroColaborador = 0 and atividade.contrato.colaborador = :colaborador))
+			and
+			(:formaPagamento is null or formaPagamento = :formaPagamento)
+			and
+			(:servico is null or atividade.contrato.servico = :servico)
+			and
+			(:statusContaPagar is null or status = :statusContaPagar)
+			and 
+			parcelamentoPai is null
+			order by dataLancamento desc, atividade.contrato.servico.nome
+			]]>
+	</query>
+	
+	<query name="getContasReceberAvulso">
+			<![CDATA[
+			from ContaReceber
+			where
+			atividade is null and
+			(:dataInicial is null or dataLancamento >= :dataInicial)
+			and
+			(:dataFinal is null or dataLancamento <= :dataFinal)
+			and
+			(:formaPagamento is null or formaPagamento = :formaPagamento)
+			and
+			(:statusContaPagar is null or status = :statusContaPagar)
+			and 
+			parcelamentoPai is null
+			order by dataLancamento desc
+			]]>
+	</query>
+	
+	<sql-query name="getSomaContasReceberBruto">
+			<![CDATA[
+			SELECT SUM(cr.caixa)
+			FROM contareceber AS cr
+			WHERE
+			    cr.dataPagamento >= :dataInicial
+			and cr.dataPagamento <= :dataFinal
+			and cr.pai_id is null
+			]]>
+	</sql-query>
+	
+	<sql-query name="getSomaContasReceberBrutoParcelas">
+			<![CDATA[
+			SELECT sum(cnta1.caixa)
+			FROM contareceber cnta1
+			LEFT JOIN contareceber cnta2 ON cnta1.pai_id = cnta2.id
+			WHERE cnta2.dataPagamento >=  :dataInicial
+			AND cnta2.dataPagamento <=  :dataFinal
+			]]>
+	</sql-query>
+	
+	<query name="getParcelasByContaReceber">
+			<![CDATA[
+			select cnta
+			from ContaReceber cnta
+			left join cnta.parcelamentoPai as pai
+			where :pai is not null and pai = :pai
+			]]>
+	</query>
+	
+	<query name="getSomaContasReceberByAtividade">
+			<![CDATA[
+			SELECT sum(cnta.valor)
+			FROM ContaReceber cnta
+			where cnta.atividade = :atividade
+			and cnta.atividade.statusObjeto = 'ATIVO'
+			]]>
+	</query>
+	
+	<query name="getSomaFaturamentoByServico">
+			<![CDATA[
+			SELECT sum(cnta.valorCheio - (GREATEST(cnta.qtdParcelas, 1) * cnta.descontos))
+			FROM ContaReceber cnta
+			where (:servico is null or cnta.atividade.contrato.servico = :servico)
+			and parcelamentoPai is null
+			and (:dataInicial is null or dataLancamento >= :dataInicial)
+			and (:dataFinal is null or dataLancamento <= :dataFinal)
+			]]>
+	</query>
+	
+	<query name="getSomaFaturamentoAvulso">
+			<![CDATA[
+			SELECT sum(cnta.valorCheio)
+			FROM ContaReceber cnta
+			where atividade is null
+			and primeiraParcela = true
+			and (:dataInicial is null or dataLancamento >= :dataInicial)
+			and (:dataFinal is null or dataLancamento <= :dataFinal)
+			]]>
+	</query>
+	
+</hibernate-mapping>

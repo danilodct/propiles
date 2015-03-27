@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="br.com.profisio.basics.Produto" table="produto">
+		<id name="id" >
+			<generator class="increment" />
+		</id>
+		
+		<property name="valor" />
+		<property name="nome" />
+		<property name="categoria" />
+		<property name="statusObjeto" type="br.com.profisio.basics.enums.StatusObjetoEnumType"/>
+		
+	</class>
+	
+	<query name="getProdutos">
+			<![CDATA[
+			from Produto
+			where (:categoria is null or categoria = :categoria)
+			and statusObjeto = 'ATIVO'
+			order by nome, categoria
+			]]>
+	</query>
+	
+	<query name="getCategoriasProduto">
+			<![CDATA[
+			select categoria
+			from Produto
+			where statusObjeto = 'ATIVO'
+			group by categoria
+			order by categoria
+			]]>
+	</query>
+	
+	<query name="getQtdTotalProdutos">
+			<![CDATA[
+			select count(prod) as qtd
+			from Produto as prod
+			where prod.statusObjeto = 'ATIVO'
+			]]>
+	</query>
+	
+</hibernate-mapping>

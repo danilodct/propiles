@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="br.com.profisio.basics.CentroCusto" table="centrocusto">
+		<id name="id" >
+			<generator class="increment" />
+		</id>
+		
+		<property name="nome" />
+		
+	</class>
+	
+	
+	<query name="getCentrosCusto">
+			<![CDATA[
+			from CentroCusto
+			where statusObjeto = 'ATIVO'
+			order by nome
+			]]>
+	</query>
+	
+</hibernate-mapping>

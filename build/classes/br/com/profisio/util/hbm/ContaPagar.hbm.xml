@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="br.com.profisio.basics.ContaPagar" table="contapagar">
+		<id name="id" >
+			<generator class="increment" />
+		</id>
+		
+		<property name="valor" />
+		<property name="dataVencimento" />
+		<property name="dataPagamento" />
+		<property name="mesCompetencia" />
+		<property name="observacao" />
+		<property name="status" type="br.com.profisio.basics.enums.StatusContaEnumType"/>
+		<property name="tipoCusto" type="br.com.profisio.basics.enums.TipoCustoEnumType"/>
+		
+		<many-to-one name="movimentacao" column="movimentacao_id" lazy="false" cascade="delete" />
+		<many-to-one name="tipo" lazy="false" />
+		<many-to-one name="centroCusto" column="centroCusto_id" lazy="false" />
+		<many-to-one name="colaborador" column="colaborador_id" lazy="false" />
+		
+	</class>
+	
+	<query name="getContasPagar">
+			<![CDATA[
+			from ContaPagar
+			where 
+			(:tipoCusto is null or tipoCusto = :tipoCusto)
+			and 
+			(:tipoContaPagar is null or tipo = :tipoContaPagar)
+			and 
+			(:statusContaPagar is null or status = :statusContaPagar)
+			and 
+			(:centroCusto is null or centroCusto = :centroCusto)
+			and 
+			(:dataInicial is null or mesCompetencia >= :dataInicial)
+			and 
+			(:dataFinal is null or mesCompetencia <= :dataFinal)
+			and
+			(
+				((:geral is null or :geral = false) and colaborador is not null)
+				or
+				(:geral = true and colaborador is null)
+			)
+			order by dataPagamento desc, valor  
+			]]>
+	</query>
+	
+	<query name="getPagamentosColaboradores">
+			<![CDATA[
+			from ContaPagar
+			where 
+			(:dataInicial is null or mesCompetencia >= :dataInicial)
+			and 
+			(:dataFinal is null or mesCompetencia <= :dataFinal)
+			and 
+			(
+				(:colaborador is null and colaborador is not null)
+				or
+				(:colaborador is not null and colaborador = :colaborador)
+			)
+			order by dataPagamento desc, valor  
+			]]>
+	</query>
+	
+	<query name="getSomaContasPagar">
+			<![CDATA[
+			select sum(valor)
+			from ContaPagar
+			where 
+			(:tipoCusto is null or tipoCusto = :tipoCusto)
+			and (:dataInicial is null or mesCompetencia >= :dataInicial)
+			and (:dataFinal is null or mesCompetencia <= :dataFinal)
+			]]>
+	</query>
+	
+	<query name="getSomaCustoByCentroCusto">
+			<![CDATA[
+			select sum(valor)
+			from ContaPagar
+			where centroCusto = :centro 
+			and (:dataInicial is null or mesCompetencia >= :dataInicial)
+			and (:dataFinal is null or mesCompetencia <= :dataFinal)
+			]]>
+	</query>
+	
+	<query name="getSomaCustosByTipo">
+			<![CDATA[
+			select sum(valor)
+			from ContaPagar
+			where (:tipo is null or tipo = :tipo) 
+			and (:dataInicial is null or mesCompetencia >= :dataInicial)
+			and (:dataFinal is null or mesCompetencia <= :dataFinal)
+			]]>
+	</query>
+	
+</hibernate-mapping>

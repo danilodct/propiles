@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="br.com.profisio.basics.Estoque" table="estoque">
+		<id name="id" >
+			<generator class="increment" />
+		</id>
+		
+		<property name="valor" />
+		<property name="data" />
+		<property name="status" type="br.com.profisio.basics.enums.StatusEstoqueEnumType" />
+		
+		<many-to-one name="movimentacao" column="movimentacao_id" lazy="false" cascade="delete" />
+		<many-to-one name="produto" column="produto_id" lazy="false" />
+		<many-to-one name="vendedor" column="vendedor_id" lazy="false" />
+		
+	</class>
+	
+	<query name="getEstoque">
+			<![CDATA[
+			from Estoque as est
+			where 
+			(:dataInicial is null or est.data >= :dataInicial)
+			and
+			(:dataFinal is null or est.data <= :dataFinal)
+			and (:status is null or est.status = :status)
+			and (:produto is null or est.produto = :produto)
+			and (:vendedor is null or est.vendedor = :vendedor)
+			order by est.produto.nome
+			]]>
+	</query>
+	
+	<query name="getEstoquesVendidos">
+			<![CDATA[
+			from Estoque as est
+			where 
+				(:dataInicial is null or est.data >= :dataInicial)
+			and (:dataFinal is null or est.data <= :dataFinal)
+			and (:colaborador is null or est.vendedor = :colaborador)
+			order by est.data desc, est.produto.nome
+			]]>
+	</query>
+	
+	<query name="getSomaVendas">
+			<![CDATA[
+			select sum(est.valor)
+			from Estoque as est
+			where 
+				(:dataInicial is not null or :dataFinal is not null)
+			and (:dataInicial is null or est.data >= :dataInicial)
+			and (:dataFinal is null or est.data <= :dataFinal)
+			]]>
+	</query>
+	
+</hibernate-mapping>
