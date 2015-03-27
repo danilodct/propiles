@@ -7,6 +7,7 @@
 		</id>
 		
 		<property name="nome" />
+		<property name="statusObjeto" type="br.com.profisio.basics.enums.StatusObjetoEnumType" />
 		
 	</class>
 	

@@ -229,17 +229,17 @@
 		<div class="ui two centered column grid">
 			<div class="two column centered row" >
 				<div class="column" >
-					<h2 class="ui centered align header">Tipos de Custos Fixos<i class="help circle icon hint" data-content="Análise dos tipos de custos que mais geram despesas" data-variation="inverted" ></i></h2>
+					<h2 class="ui centered align header">Custos Fixos (pareto)<i class="help circle icon hint" data-content="Análise dos tipos de custos que mais geram despesas" data-variation="inverted" ></i></h2>
 					<div id="chart1" class=""></div>
 				</div>
 				<div class="column" >
-					<h2 class="ui centered align header">Tipos de Custos Variáveis<i class="help circle icon hint" data-content="Análise dos tipos de custos variáveis que mais geram despesas" data-variation="inverted" ></i></h2>
+					<h2 class="ui centered align header">Custos Variáveis (pareto)<i class="help circle icon hint" data-content="Análise dos tipos de custos variáveis que mais geram despesas" data-variation="inverted" ></i></h2>
 					<div id="chart2" class=""></div>
 				</div>
 			</div>
 			<div class="two column centered row" >
 				<div class="column" >
-					<h2 class="ui centered align header">Centros de Custo mais Custosos<i class="help circle icon hint" data-content="Análise dos centros de custo que mais geram despesas" data-variation="inverted" ></i></h2>
+					<h2 class="ui centered align header">Centros de Custo mais custosos (pareto)<i class="help circle icon hint" data-content="Análise dos centros de custo que mais geram despesas" data-variation="inverted" ></i></h2>
 					<div id="chart3" class=""></div>
 				</div>
 				<div class="column" >

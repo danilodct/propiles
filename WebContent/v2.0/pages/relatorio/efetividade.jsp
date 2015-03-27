@@ -135,7 +135,7 @@
 		
 		<!-- TABELA DE CONTAS A RECEBER AVULSO 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		<table class="ui celled teal table">
-			<thead><tr><th>Nome</th><th>E-mail</th><th>Telefone</th><th>Data de cadastro</th><th>Tornou Cliente?</th></tr></thead>
+			<thead><tr><th>Nome</th><th>E-mail</th><th>Telefone</th><th>Data de cadastro</th><th>Tornou-se cliente?</th></tr></thead>
 			<tbody>
 				<s:if test="clientes.size > 0">
 					<s:iterator value="clientes">
