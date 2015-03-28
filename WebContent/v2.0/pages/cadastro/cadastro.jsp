@@ -1,5 +1,3 @@
-<%@page import="com.opensymphony.xwork2.ActionContext"%>
-<%@page import="com.opensymphony.xwork2.util.ValueStack"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -872,12 +870,15 @@
 									<label>Forma de Pagamento:</label>
 									<s:select name="contaReceber.formaPagamentoStr" cssClass="ui dropdown" list="allFormasPagamento" listKey="value" listValue="valor" />
 								</div>
+								<!-- 
 								<div class="field">
 									<div class="two fields">
+								 -->
 										<div class="required field">
 											<label>Valor (R$):</label>
 											<s:textfield cssClass="decimal" name="contaReceber.valorStr" />
 										</div>
+										<!-- 
 										<div class="field">
 											<label>Pago:</label>
 										    <div class="ui checkbox">
@@ -886,6 +887,7 @@
 										</div>
 									</div>
 								</div>
+										 -->
 							</div>
 							<div class="field">
 								<label>Observação:</label>
@@ -946,7 +948,9 @@
 						<th>Atividade</th>
 						<th>Forma de Pag.</th>
 						<th>Obs.</th>
+						<!-- 
 						<th>Pago</th>
+						 -->
 						<th>#</th>
 						<th>#</th>
 					</tr>
@@ -963,6 +967,7 @@
 								<td><s:property value="atividade.contrato.servico.nome" /> - <s:property value="colaboradorCerto.nome" /></td>
 								<td><s:property value="formaPagamento.valor" /></td>
 								<td><s:property value="observacao" /></td>
+								<!-- 
 								<td>
 								    <div class="ui checkbox read-only">
 										<input type="checkbox" value="PAGO" name="statusStr" class="checkPago" data-content="<s:property value="id" />"
@@ -972,6 +977,7 @@
 										 />
 									</div>
 								</td>
+								 -->
 								<td>
 									<a class="ui blue mini button" href="contaReceber?contaReceber.id=<s:property value="id" />&cadastro.id=<s:property value="cadastro.id" />&aba=contasReceber" >EDITAR</a>
 								</td>

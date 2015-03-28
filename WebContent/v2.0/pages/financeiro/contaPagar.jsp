@@ -97,7 +97,7 @@ function setSelectTipoContaPagar(){
 								<s:select name="contaPagar.centroCusto.id" cssClass="ui dropdown"  headerKey="-1" headerValue="NENHUM" list="allCentrosCusto" listKey="id" listValue="nome" />
 							</div>
 						</div>
-						<div class="three fields">
+						<div class="two fields">
 							<div class="field">
 								<label>Tipo de despesa:</label>
 								<s:select name="contaPagar.tipo.nome" id="selectTipoContaPagar" headerValue="ESCOLHA" headerKey="" cssClass="ui search dropdown" list="allTiposContaPagar" listKey="nome" listValue="nome" />
@@ -106,6 +106,7 @@ function setSelectTipoContaPagar(){
 								<label>Novo Tipo:</label> 
 								<s:textfield name="novoTipoContaPagar" />
 							</div>
+							<!-- 
 							<div class="field">
 								<label>Pago:</label>
 							    <div class="ui checkbox">
@@ -116,6 +117,7 @@ function setSelectTipoContaPagar(){
 									 />
 								</div>
 							</div>
+							 -->
 						</div>
 						<div class="field">
 							<label>Observação:</label>

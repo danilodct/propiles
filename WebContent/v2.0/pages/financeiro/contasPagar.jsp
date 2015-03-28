@@ -111,7 +111,7 @@ function setSelectTipoContaPagar(){
 								<s:select name="contaPagar.centroCusto.id" cssClass="ui dropdown"  headerKey="-1" headerValue="NENHUM" list="allCentrosCusto" listKey="id" listValue="nome" />
 							</div>
 						</div>
-						<div class="three fields">
+						<div class="two fields">
 							<div class="field">
 								<label>Tipo de despesa:</label>
 								<s:select name="contaPagar.tipo.nome" id="selectTipoContaPagar" headerValue="ESCOLHA" headerKey="" cssClass="ui dropdown" list="allTiposContaPagar" listKey="nome" listValue="nome" />
@@ -120,12 +120,14 @@ function setSelectTipoContaPagar(){
 								<label>Novo Tipo:</label> 
 								<s:textfield name="novoTipoContaPagar" />
 							</div>
+							<!-- 
 							<div class="field">
 								<label>Pago:</label>
 							    <div class="ui checkbox">
 									<input type="checkbox" value="PAGO" name="contaPagar.statusStr" />
 								</div>
 							</div>
+							 -->
 						</div>
 						<div class="field">
 							<label>Observação:</label>
@@ -177,11 +179,12 @@ function setSelectTipoContaPagar(){
 							<s:select id="centroCusto" name="contaPagar.centroCusto.id" headerKey="-1" headerValue="TODOS" cssClass="ui dropdown" list="allCentrosCusto" listKey="id" listValue="nome" />
 						</div>
 					</div>
-					<div class="three fields">
+					<div class="two fields">
 						<div class="field">
 							<label>Tipo da despesa:</label>
 							<s:select name="tipoContaPagar.nome" headerKey="-1" headerValue="TODOS" cssClass="ui search dropdown" list="allTiposContaPagar" listKey="nome" listValue="nome" />
 						</div>
+						<!-- 
 						<div class="field">
 							<label>Pago:</label>
 							<select name="statusContaPagarStr" class="ui dropdown" >
@@ -190,6 +193,7 @@ function setSelectTipoContaPagar(){
 								<option value="PENDENTE" <s:if test="statusContaPagarStr == 'PENDENTE'">selected="selected"</s:if>>Pendente</option>
 							</select>
 						</div>
+						 -->
 						<div class="field">
 							<label class="visibilityHidden">Botão:</label> 
 							<input type="submit" class="ui teal submit button" value="Pesquisar" />
@@ -223,7 +227,9 @@ function setSelectTipoContaPagar(){
 					<th>Mês compet.</th>
 					<th>Data Pag.</th>
 					<th>Obs.:</th>
+					<!-- 
 					<th>Pago</th>
+					 -->
 					<th>#</th>
 					<th>#</th>
 				</tr>
@@ -240,6 +246,7 @@ function setSelectTipoContaPagar(){
 							<td><s:property value="mesCompetenciaNome" /></td>
 							<td><s:property value="dataPagamentoStr" /></td>
 							<td><s:property value="observacao" /></td>
+							<!-- 
 							<td>
 							    <div class="ui checkbox read-only">
 									<input type="checkbox" value="PAGO" name="statusStr" class="checkPago" data-content="<s:property value="id" />"
@@ -249,6 +256,7 @@ function setSelectTipoContaPagar(){
 									 />
 								</div>
 							</td>
+							 -->
 							<td><a class="editar ui blue mini button" href="contaPagar?dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&contaPagar.tipoCustoStr=<s:property value="contaPagar.tipoCustoStr" />&centroCusto.id=<s:property value="centroCusto.id" />&contaPagar.id=<s:property value="id" />" >EDITAR</a></td>
 							<td class="remover"><a class="remover" href="removerContaPagar?dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&contaPagar.tipoCustoStr=<s:property value="contaPagar.tipoCustoStr" />&centroCusto.id=<s:property value="centroCusto.id" />&contaPagar.id=<s:property value="id" />"><i class="remove circle red icon"></i></a></td>
 						</tr>
@@ -291,7 +299,9 @@ function setSelectTipoContaPagar(){
 					<th>Mês compet.</th>
 					<th>Data Pag.</th>
 					<th>Obs.:</th>
+					<!-- 
 					<th>Pago</th>
+					 -->
 					<th>#</th>
 					<th>#</th>
 				</tr>
@@ -308,6 +318,7 @@ function setSelectTipoContaPagar(){
 							<td><s:property value="mesCompetenciaNome" /></td>
 							<td><s:property value="dataPagamentoStr" /></td>
 							<td><s:property value="observacao" /></td>
+							<!-- 
 							<td>
 							    <div class="ui checkbox read-only">
 									<input type="checkbox" value="PAGO" name="statusStr" class="checkPago" data-content="<s:property value="id" />"
@@ -317,6 +328,7 @@ function setSelectTipoContaPagar(){
 									 />
 								</div>
 							</td>
+							 -->
 							<td><a class="editar ui blue mini button" href="contaPagar?dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&contaPagar.tipoCustoStr=<s:property value="contaPagar.tipoCustoStr" />&centroCusto.id=<s:property value="centroCusto.id" />&contaPagar.id=<s:property value="id" />" >EDITAR</a></td>
 							<td class="remover"><a class="remover" href="removerContaPagar?dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&contaPagar.tipoCustoStr=<s:property value="contaPagar.tipoCustoStr" />&contaPagar.centroCusto.id=<s:property value="contaPagar.centroCusto.id" />&contaPagar.id=<s:property value="id" />"><i class="remove circle red icon"></i></a></td>
 						</tr>
