@@ -142,4 +142,11 @@ public class ColaboradorControl extends ControllerBase {
 		userBD.setSenha(senha);
 		this.dao.editar(userBD);
 	}
+
+	public Contrato getContratoByColaboradorServico(Colaborador colaborador, Servico servico) {
+		SystemUtils.assertObjectIsNotNullHasId(colaborador);
+		SystemUtils.assertObjectIsNotNullHasId(servico);
+		Contrato contrato = this.dao.getContratoByColaboradorServico(colaborador, servico);
+		return contrato;
+	}
 }

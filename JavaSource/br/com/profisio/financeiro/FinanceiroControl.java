@@ -13,6 +13,7 @@ import br.com.profisio.basics.Colaborador;
 import br.com.profisio.basics.Configuracao;
 import br.com.profisio.basics.ContaPagar;
 import br.com.profisio.basics.ContaReceber;
+import br.com.profisio.basics.Contrato;
 import br.com.profisio.basics.Frequencia;
 import br.com.profisio.basics.Movimentacao;
 import br.com.profisio.basics.Servico;
@@ -446,11 +447,16 @@ public class FinanceiroControl extends ControllerBase {
 					if (frequencias != null && frequencias.size() > 0) {
 						for (Frequencia freq : frequencias) {
 							if (freq.getContaReceber() != null) {
-								Double valorCheioComDesconto = freq.getContaReceber().getValorCheioComDesconto();
+								Double valorCheio = freq.getContaReceber().getValorCheio();
 								Integer qtdSessoes = freq.getContaReceber().getQtdSessoes();
 								if (qtdSessoes == 0)
 									qtdSessoes = FrequenciaControl.getInstance().getQtdFrequenciasByPagamento(freq.getContaReceber());
-								Double valorFrequencia = (valorCheioComDesconto / qtdSessoes) * (col.getPorcentagemVendas() / 100);
+								Contrato contrato = ColaboradorControl.getInstance().getContratoByColaboradorServico(col, freq.getServicoCerto());
+								Double valorFrequencia = 0.0;
+								if (contrato != null) {
+									Double porcAtendimentos = contrato.getPercentual();
+									valorFrequencia = (valorCheio / qtdSessoes) * (porcAtendimentos / 100);
+								}
 								freq.setPorcentagemColaborador(valorFrequencia);
 							} else {
 								freq.setPorcentagemColaborador(0.0);

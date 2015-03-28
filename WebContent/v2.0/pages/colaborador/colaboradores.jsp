@@ -2,7 +2,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="s" uri="/struts-tags"%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -109,12 +109,12 @@
 						</div>
 						<div class="four fields">
 							<div class="field">
-								<label>Parte nos atendimentos (%): <i class="help circle icon hint" data-content="Utilize este campo caso seus colaboradores recebam porcentagem em cima de cada atendimento feito" data-variation="inverted" ></i></label>
-								<s:textfield cssClass="decimal" name="colaborador.porcentagemVendasStr" />
-							</div>
-							<div class="field">
 							    <label>Tipo do usuário no sistema <i class="help circle icon hint" data-content="Professor: Tem acesso aos dados dos clientes || Recepcionista: Tem acesso aos dados dos clientes, à área administrativa, à área dos colaboradores || Aux. Administrativo: Tem acesso a tudo que os outros usuários podem ver, além da área financeira e gerencial" data-variation="inverted" ></i></label>
 								<s:select name="colaborador.tipoStr" cssClass="ui dropdown" list="tiposUser" listKey="value" listValue="value" />
+							</div>
+							<div class="field">
+								<label>Parte nas vendas de produtos (%): <i class="help circle icon hint" data-content="Utilize este campo caso seus colaboradores recebam porcentagem em cima de cada produto vendido, vendas estas especificadas no menu VENDAS" data-variation="inverted" ></i></label>
+								<s:textfield cssClass="decimal" name="colaborador.porcentagemVendasStr" />
 							</div>
 						</div>
 							
