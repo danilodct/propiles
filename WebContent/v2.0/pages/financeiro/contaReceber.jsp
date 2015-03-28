@@ -94,12 +94,15 @@ function setSelectAtividadesPagamentos(){
 								<label>Forma de Pagamento:</label>
 								<s:select name="contaReceber.formaPagamentoStr" cssClass="ui dropdown" list="allFormasPagamento" listKey="value" listValue="valor" />
 							</div>
+							<!-- 
 							<div class="field">
 								<div class="two fields">
+							 -->
 									<div class="required field">
 										<label>Valor (R$):</label>
 										<input type="text" class="decimal" name="contaReceber.valorStr" value="<s:property value="contaReceber.valorCheioStr" />" />
 									</div>
+									<!-- 
 									<div class="field">
 										<label>Pago:</label>
 									    <div class="ui checkbox">
@@ -108,6 +111,7 @@ function setSelectAtividadesPagamentos(){
 									</div>
 								</div>
 							</div>
+									 -->
 						</div>
 						<div class="field">
 							<label>Observação:</label>

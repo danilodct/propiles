@@ -76,7 +76,7 @@ function setSelectTipoContaReceber(){
 					<s:form action="cadastrarContaReceber" method="post">
 						<s:hidden name="avulso" value="true" />
 						<h4 class="ui dividing teal header">Dados Principais</h4>
-						<div class="four fields">
+						<div class="three fields">
 							<div class="field">
 								<label>Valor (R$):</label>
 								<s:textfield cssClass="decimal" name="contaReceber.valorStr" />
@@ -92,12 +92,14 @@ function setSelectTipoContaReceber(){
 									<i class="calendar icon"></i>
 								</div>
 							</div>
+							<!-- 
 							<div class="field">
 								<label>Pago:</label>
 							    <div class="ui checkbox">
 									<input type="checkbox" value="PAGO" name="contaReceber.statusStr" />
 								</div>
 							</div>
+							 -->
 						</div>
 						<div class="field">
 							<label>Descrição:</label>
@@ -155,6 +157,7 @@ function setSelectTipoContaReceber(){
 							<s:select name="servico.id" headerKey="-1" headerValue="TODOS" cssClass="ui search dropdown" list="allServicos" listKey="id" listValue="nome" />
 						</div>
 						<div class="field">
+						<!-- 
 							<div class="two fields">
 								<div class="field">
 									<label>Pago:</label>
@@ -165,10 +168,13 @@ function setSelectTipoContaReceber(){
 									</select>
 								</div>
 								<div class="field">
+						 -->
 									<label class="visibilityHidden">Botão:</label> 
 									<input type="submit" class="ui teal submit button" value="Pesquisar" />
+						<!-- 
 								</div>
 							</div>
+						 -->
 						</div>
 					</div>
 				</s:form>			
@@ -217,7 +223,9 @@ function setSelectTipoContaReceber(){
 					<th>Data de lançamento</th>
 					<th>Forma de Pag.</th>
 					<th>Obs.</th>
+					<!-- 
 					<th>Pago</th>
+					 -->
 					<th>#</th>
 				</tr>
 			</thead>
@@ -232,6 +240,7 @@ function setSelectTipoContaReceber(){
 							<td><s:date name="dataLancamento" format="dd/MM/yyyy" /></td>
 							<td><s:property value="formaPagamento.valor" /></td>
 							<td><s:property value="observacao" /></td>
+							<!-- 
 							<td>
 							    <div class="ui checkbox read-only">
 									<input type="checkbox" value="PAGO" name="statusStr" class="checkPago" data-content="<s:property value="id" />"
@@ -241,6 +250,7 @@ function setSelectTipoContaReceber(){
 									 />
 								</div>
 							</td>
+							 -->
 							<td><a class="remover" href="removerContaReceber?contaReceber.id=<s:property value="id" />&dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&formaPagamentoStr=<s:property value="formaPagamentoStr" />&colaborador.id=<s:property value="colaborador.id" />&statusContaPagarStr=<s:property value="statusContaPagarStr" />&servico.id=<s:property value="servico.id" />"><i class="remove circle red icon"></i></a></td>
 						</tr>
 					</s:iterator>
@@ -326,7 +336,9 @@ function setSelectTipoContaReceber(){
 					<th>Serviço - Cliente [Sessões]</th>
 					<th>Forma de Pag.</th>
 					<th>Obs.</th>
+					<!-- 
 					<th>Pago</th>
+					 -->
 					<th>#</th>
 				</tr>
 			</thead>
@@ -342,6 +354,7 @@ function setSelectTipoContaReceber(){
 							<td><s:property value="atividade.contrato.servico.nome" /> - <a href="cadastro?cadastro.id=<s:property value="atividade.cadastro.id" />"><s:property value="atividade.cadastro.nome" /></a> [<s:property value="qtdSessoes" /> <s:if test="qtdSessoes < 2">sessão</s:if><s:else>sessões</s:else>]</td>
 							<td><s:property value="formaPagamento.valor" /></td>
 							<td><s:property value="observacao" /></td>
+							<!-- 
 							<td>
 							    <div class="ui checkbox read-only">
 									<input type="checkbox" value="PAGO" name="statusStr" class="checkPago" data-content="<s:property value="id" />"
@@ -351,6 +364,7 @@ function setSelectTipoContaReceber(){
 									 />
 								</div>
 							</td>
+							 -->
 							<td><a class="remover" href="removerContaReceber?contaReceber.id=<s:property value="id" />&dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&formaPagamentoStr=<s:property value="formaPagamentoStr" />&colaborador.id=<s:property value="colaborador.id" />&statusContaPagarStr=<s:property value="statusContaPagarStr" />"><i class="remove circle red icon"></i></a></td>
 						</tr>
 					</s:iterator>
