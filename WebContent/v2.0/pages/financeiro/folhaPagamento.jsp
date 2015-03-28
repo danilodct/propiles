@@ -136,7 +136,7 @@ function setBtGerarConta(){
 							<th>Frequência</th>
 							<th>Cliente</th>
 							<th>Serviço</th>
-							<th>Valor (R$) <i class="help circle icon hint" data-content="Cálculo baseado na contribuição (%) que o colaborador possui em cima de cada atendimento (item informado nos dados do colaborador). O valor será igual a zero quando a frequência não for associada a um pagamento em seu cadastro. Sendo assim o sistema não tem como inferir o valor do atendimento" data-variation="inverted" ></i></th>
+							<th>Participação (R$) <i class="help circle icon hint" data-content="Cálculo baseado na contribuição (%) que o colaborador possui em cima de cada atendimento (dado informado na tela do colaborador). O valor será igual a zero quando a frequência não for associada a um pagamento em seu cadastro. Sendo assim o sistema não tem como inferir o valor do atendimento" data-variation="inverted" ></i></th>
 						</tr>
 					</thead>
 					<tbody>

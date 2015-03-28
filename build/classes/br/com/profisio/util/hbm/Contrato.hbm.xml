@@ -34,4 +34,13 @@
 			]]>
 	</query>
 	
+	<query name="getContratoByColaboradorServico">
+			<![CDATA[
+			from Contrato as cont
+			where cont.statusObjeto = 'ATIVO'
+			and cont.servico = :servico
+			and cont.colaborador = :colaborador
+			]]>
+	</query>
+	
 </hibernate-mapping>

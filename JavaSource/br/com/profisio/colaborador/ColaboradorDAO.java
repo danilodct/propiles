@@ -101,4 +101,12 @@ public class ColaboradorDAO extends DAOBase {
 		this.imp.update(userBD);
 	}
 
+	@SuppressWarnings("unchecked")
+	public Contrato getContratoByColaboradorServico(Colaborador colaborador, Servico servico) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("colaborador", colaborador);
+		params.put("servico", servico);
+		return (Contrato) this.imp.queryObject("getContratoByColaboradorServico", params);
+	}
+
 }
