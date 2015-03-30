@@ -43,7 +43,7 @@
 		<div class="ui form segment">
 		
 			<s:form id="formEditarProduto" action="editarProduto" method="post">
-				<s:hidden name="produto.id" />
+				<s:hidden name="produto.idCript" />
 				<div class="required field">
 					<label>Nome:</label>
 					<s:textfield id="nome" name="produto.nome" />

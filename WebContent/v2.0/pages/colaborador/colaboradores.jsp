@@ -219,7 +219,7 @@
 					<s:iterator value="colaboradores">
 						<tr>
 							<td><% i += 1; %><%=i %></td>
-							<td><a href="colaborador?colaborador.id=<s:property value="id" />"><s:property value="nome" /></a></td>
+							<td><a href="colaborador?colaborador.idCript=<s:property value="idCript" />"><s:property value="nome" /></a></td>
 							<td>
 								<s:property value="foneFixo" />
 								<s:if test="foneFixo != null && foneFixo != '' && foneCelular != null && foneCelular != ''">
@@ -228,7 +228,7 @@
 								<s:property value="foneCelular" />
 							</td>
 							<td><s:date name="dataNascimento" format="dd/MM" /></td>
-							<td><a class="remover" href="removerColaborador?colaborador.id=<s:property value="id" />"><i class="remove circle red icon"></i></a></td>
+							<td><a class="remover" href="removerColaborador?colaborador.idCript=<s:property value="idCript" />"><i class="remove circle red icon"></i></a></td>
 						</tr>
 					</s:iterator>
 				</s:if>

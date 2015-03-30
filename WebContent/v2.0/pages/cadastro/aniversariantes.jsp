@@ -44,7 +44,7 @@ $(document).ready(function(){
 		<tbody>
 		<s:iterator value="colaboradores">
 			<tr>
-				<td><a href="colaborador?colaborador.id=<s:property value="id" />" ><s:property value="nome" /></a></td>
+				<td><a href="colaborador?colaborador.idCript=<s:property value="idCript" />" ><s:property value="nome" /></a></td>
 				<td><s:property value="email" /></td>
 				<td><s:date name="dataNascimento" format="dd/MM/yyyy" /></td>
 			</tr>
@@ -60,7 +60,7 @@ $(document).ready(function(){
 		<tbody>
 		<s:iterator value="clientes">
 			<tr>
-				<td><a href="cadastro?cadastro.id=<s:property value="id" />"><s:property value="nome" /></a></td>
+				<td><a href="cadastro?cadastro.idCript=<s:property value="idCript" />"><s:property value="nome" /></a></td>
 				<td><s:property value="email" /></td>
 				<td><s:date name="dataNascimento" format="dd/MM/yyyy" /></td>
 			</tr>

@@ -63,7 +63,7 @@
 		<!-- AREA DE EDICAO 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		<div class="ui form segment">
 			<s:form action="editarServico" method="post">
-				<s:hidden name="servico.id" />
+				<s:hidden name="servico.idCript" />
 				<div class="two fields">
 					<div class="required field">
 						<label>Nome do serviço:</label>
@@ -71,7 +71,7 @@
 					</div>
 					<div class="required field">
 						<label>Centro de custo:</label>
-						<s:select name="servico.centroCusto.id" cssClass="ui dropdown" headerKey="-1" headerValue="NENHUM" list="centrosCusto" listKey="id" listValue="nome" />
+						<s:select name="servico.centroCusto.idCript" cssClass="ui dropdown" headerKey="-1" headerValue="NENHUM" list="centrosCusto" listKey="idCript" listValue="nome" />
 					</div>
 				</div>
 				<div class="three fields">

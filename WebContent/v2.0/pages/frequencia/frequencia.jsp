@@ -87,12 +87,12 @@
 						<tr>
 							<td><s:date name="data" format="dd/MM/yyyy" /> às <s:date name="data" format="HH:mm" /></td>
 							<td><a
-								href="cadastro?cadastro.id=<s:property value="cadastro.id" />"><s:property
+								href="cadastro?cadastro.idCript=<s:property value="cadastro.idCript" />"><s:property
 										value="cadastro.nome" /></a></td>
 							<td><s:property value="servicoCerto.nome" /></td>
 							<td><s:property value="colaboradorCerto.nome" /></td>
 							<td><a class="remover"
-								href="removerFrequencia?frequencia.id=<s:property value="id" />"
+								href="removerFrequencia?frequencia.idCript=<s:property value="idCript" />"
 								title="Remover"><i class="remove circle red icon"></i></a></td>
 						</tr>
 					</s:iterator>

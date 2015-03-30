@@ -52,7 +52,7 @@ public class ColaboradorView extends ProfisioActionSupport {
 			xml += "<contratos>";
 			if (this.contratos != null && this.contratos.size() > 0) {
 				for (Contrato contrato : this.contratos) {
-					xml += "<contrato id=\"" + contrato.getId() + "\"  >";
+					xml += "<contrato id=\"" + contrato.getIdCript() + "\"  >";
 					xml += "<colaborador>";
 					xml += contrato.getColaborador().getNome();
 					xml += "</colaborador>";

@@ -140,7 +140,7 @@
 				<s:if test="clientes.size > 0">
 					<s:iterator value="clientes">
 						<tr class="linha <s:if test="virouNovoCliente">linhaTornou</s:if><s:else>linhaNaoTornou</s:else>" >
-							<td><a href="cadastro?cadastro.id=<s:property value="id" />"><s:property value="nome" /></a></td>
+							<td><a href="cadastro?cadastro.idCript=<s:property value="idCript" />"><s:property value="nome" /></a></td>
 							<td><s:property value="email" /></td>
 							<td><s:property value="foneFixo" /> <s:property value="foneCelular" /></td>
 							<td><s:property value="dataCadastroStr" /></td>

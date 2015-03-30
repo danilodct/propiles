@@ -108,7 +108,7 @@ function setSelectTipoContaPagar(){
 							</div>
 							<div class="field">
 								<label>Centro de Custo:</label>
-								<s:select name="contaPagar.centroCusto.id" cssClass="ui dropdown"  headerKey="-1" headerValue="NENHUM" list="allCentrosCusto" listKey="id" listValue="nome" />
+								<s:select name="contaPagar.centroCusto.idCript" cssClass="ui dropdown"  headerKey="-1" headerValue="NENHUM" list="allCentrosCusto" listKey="idCript" listValue="nome" />
 							</div>
 						</div>
 						<div class="two fields">
@@ -176,7 +176,7 @@ function setSelectTipoContaPagar(){
 						</div>
 						<div class="field">
 							<label>Centro de Custo:</label>
-							<s:select id="centroCusto" name="contaPagar.centroCusto.id" headerKey="-1" headerValue="TODOS" cssClass="ui dropdown" list="allCentrosCusto" listKey="id" listValue="nome" />
+							<s:select id="centroCusto" name="contaPagar.centroCusto.idCript" headerKey="-1" headerValue="TODOS" cssClass="ui dropdown" list="allCentrosCusto" listKey="idCript" listValue="nome" />
 						</div>
 					</div>
 					<div class="two fields">
@@ -257,8 +257,8 @@ function setSelectTipoContaPagar(){
 								</div>
 							</td>
 							 -->
-							<td><a class="editar ui blue mini button" href="contaPagar?dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&contaPagar.tipoCustoStr=<s:property value="contaPagar.tipoCustoStr" />&centroCusto.id=<s:property value="centroCusto.id" />&contaPagar.id=<s:property value="id" />" >EDITAR</a></td>
-							<td class="remover"><a class="remover" href="removerContaPagar?dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&contaPagar.tipoCustoStr=<s:property value="contaPagar.tipoCustoStr" />&centroCusto.id=<s:property value="centroCusto.id" />&contaPagar.id=<s:property value="id" />"><i class="remove circle red icon"></i></a></td>
+							<td><a class="editar ui blue mini button" href="contaPagar?dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&contaPagar.tipoCustoStr=<s:property value="contaPagar.tipoCustoStr" />&centroCusto.idCript=<s:property value="centroCusto.idCript" />&contaPagar.idCript=<s:property value="idCript" />" >EDITAR</a></td>
+							<td class="remover"><a class="remover" href="removerContaPagar?dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&contaPagar.tipoCustoStr=<s:property value="contaPagar.tipoCustoStr" />&centroCusto.idCript=<s:property value="centroCusto.idCript" />&contaPagar.idCript=<s:property value="idCript" />"><i class="remove circle red icon"></i></a></td>
 						</tr>
 					</s:iterator>
 				</s:if>

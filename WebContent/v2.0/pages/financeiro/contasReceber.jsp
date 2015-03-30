@@ -150,11 +150,11 @@ function setSelectTipoContaReceber(){
 					<div class="three fields">
 						<div class="field">
 							<label>Colaborador:</label>
-							<s:select name="colaborador.id" headerKey="-1" headerValue="TODOS" cssClass="ui search dropdown" list="allColaboradores" listKey="id" listValue="nome" />
+							<s:select name="colaborador.idCript" headerKey="-1" headerValue="TODOS" cssClass="ui search dropdown" list="allColaboradores" listKey="idCript" listValue="nome" />
 						</div>
 						<div class="field">
 							<label>Serviço:</label>
-							<s:select name="servico.id" headerKey="-1" headerValue="TODOS" cssClass="ui search dropdown" list="allServicos" listKey="id" listValue="nome" />
+							<s:select name="servico.idCript" headerKey="-1" headerValue="TODOS" cssClass="ui search dropdown" list="allServicos" listKey="idCript" listValue="nome" />
 						</div>
 						<div class="field">
 						<!-- 
@@ -192,7 +192,7 @@ function setSelectTipoContaReceber(){
 	
 		<!-- BOTOES PRINT EXCEL 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		<div class="ui column right floated">
-			<a href="exportContasReceber?dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&formaPagamentoStr=<s:property value="formaPagamentoStr" />&colaborador.id=<s:property value="colaborador.id" />&statusContaPagarStr=<s:property value="statusContaPagarStr" />&servico.id=<s:property value="servico.id" />" target="_blank" title="Exportar dados detalhados dos pagamentos feitos por clientes para o Excel" >
+			<a href="exportContasReceber?dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&formaPagamentoStr=<s:property value="formaPagamentoStr" />&colaborador.idCript=<s:property value="colaborador.idCript" />&statusContaPagarStr=<s:property value="statusContaPagarStr" />&servico.id=<s:property value="servico.id" />" target="_blank" title="Exportar dados detalhados dos pagamentos feitos por clientes para o Excel" >
 				<i class="file excel outline large teal icon"></i>
 			</a>
 			<a href="#" title="Imprimir relatório" class="btPrint">
@@ -251,7 +251,7 @@ function setSelectTipoContaReceber(){
 								</div>
 							</td>
 							 -->
-							<td><a class="remover" href="removerContaReceber?contaReceber.id=<s:property value="id" />&dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&formaPagamentoStr=<s:property value="formaPagamentoStr" />&colaborador.id=<s:property value="colaborador.id" />&statusContaPagarStr=<s:property value="statusContaPagarStr" />&servico.id=<s:property value="servico.id" />"><i class="remove circle red icon"></i></a></td>
+							<td><a class="remover" href="removerContaReceber?contaReceber.idCript=<s:property value="idCript" />&dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&formaPagamentoStr=<s:property value="formaPagamentoStr" />&colaborador.id=<s:property value="colaborador.id" />&statusContaPagarStr=<s:property value="statusContaPagarStr" />&servico.id=<s:property value="servico.id" />"><i class="remove circle red icon"></i></a></td>
 						</tr>
 					</s:iterator>
 				</s:if>
@@ -298,7 +298,7 @@ function setSelectTipoContaReceber(){
 							<td><s:property value="produto.nome" /></td>
 							<td><s:property value="status.valor" /></td>
 							<td><s:property value="vendedor.nome" /></td>
-							<td><a class="remover" title="Remover" href="removerEstoque?estoque.id=<s:property value="id" />&page=contasReceber&dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&formaPagamentoStr=<s:property value="formaPagamentoStr" />&colaborador.id=<s:property value="colaborador.id" />&statusContaPagarStr=<s:property value="statusContaPagarStr" />"><i class="remove circle red icon"></i></a></td>
+							<td><a class="remover" title="Remover" href="removerEstoque?estoque.idCript=<s:property value="idCript" />&page=contasReceber&dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&formaPagamentoStr=<s:property value="formaPagamentoStr" />&colaborador.idCript=<s:property value="colaborador.idCript" />&statusContaPagarStr=<s:property value="statusContaPagarStr" />"><i class="remove circle red icon"></i></a></td>
 						</tr>
 					</s:iterator>
 				</s:if>
@@ -351,7 +351,7 @@ function setSelectTipoContaReceber(){
 								<s:property value="valorCheioComDescontoStr" />
 							</td>
 							<td><s:date name="dataLancamento" format="dd/MM/yyyy" /></td>
-							<td><s:property value="atividade.contrato.servico.nome" /> - <a href="cadastro?cadastro.id=<s:property value="atividade.cadastro.id" />"><s:property value="atividade.cadastro.nome" /></a> [<s:property value="qtdSessoes" /> <s:if test="qtdSessoes < 2">sessão</s:if><s:else>sessões</s:else>]</td>
+							<td><s:property value="atividade.contrato.servico.nome" /> - <a href="cadastro?cadastro.idCript=<s:property value="atividade.cadastro.idCript" />"><s:property value="atividade.cadastro.nome" /></a> [<s:property value="qtdSessoes" /> <s:if test="qtdSessoes < 2">sessão</s:if><s:else>sessões</s:else>]</td>
 							<td><s:property value="formaPagamento.valor" /></td>
 							<td><s:property value="observacao" /></td>
 							<!-- 
@@ -365,7 +365,7 @@ function setSelectTipoContaReceber(){
 								</div>
 							</td>
 							 -->
-							<td><a class="remover" href="removerContaReceber?contaReceber.id=<s:property value="id" />&dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&formaPagamentoStr=<s:property value="formaPagamentoStr" />&colaborador.id=<s:property value="colaborador.id" />&statusContaPagarStr=<s:property value="statusContaPagarStr" />"><i class="remove circle red icon"></i></a></td>
+							<td><a class="remover" href="removerContaReceber?contaReceber.idCript=<s:property value="idCript" />&dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&formaPagamentoStr=<s:property value="formaPagamentoStr" />&colaborador.idCript=<s:property value="colaborador.idCript" />&statusContaPagarStr=<s:property value="statusContaPagarStr" />"><i class="remove circle red icon"></i></a></td>
 						</tr>
 					</s:iterator>
 				</s:if>

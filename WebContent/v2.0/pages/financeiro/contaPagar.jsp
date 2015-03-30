@@ -62,9 +62,9 @@ function setSelectTipoContaPagar(){
 						<div class="content"> Editar Conta a Pagar</div>
 					</div>
 					<s:form action="editarContaPagar" method="post">
-						<s:hidden name="contaPagar.id" />
+						<s:hidden name="contaPagar.idCript" />
 						<s:if test="contaPagar.colaborador != null">
-							<s:hidden name="contaPagar.colaborador.id" />
+							<s:hidden name="contaPagar.colaborador.idCript" />
 						</s:if>
 						<h4 class="ui dividing teal header">Dados Principais</h4>
 						<div class="three fields">
@@ -94,7 +94,7 @@ function setSelectTipoContaPagar(){
 							</div>
 							<div class="field">
 								<label>Centro de Custo:</label>
-								<s:select name="contaPagar.centroCusto.id" cssClass="ui dropdown"  headerKey="-1" headerValue="NENHUM" list="allCentrosCusto" listKey="id" listValue="nome" />
+								<s:select name="contaPagar.centroCusto.idCript" cssClass="ui dropdown"  headerKey="-1" headerValue="NENHUM" list="allCentrosCusto" listKey="idCript" listValue="nome" />
 							</div>
 						</div>
 						<div class="two fields">

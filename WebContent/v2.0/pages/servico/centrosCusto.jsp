@@ -119,7 +119,7 @@
 								
 								<!-- FORM ALTERAR NOME DO CENTRO 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 								<s:form cssClass="hide ui form editarCentroCusto" action="editarCentroCusto">
-									<input type="hidden" name="centroCusto.id" value="<s:property value="id" />" />
+									<input type="hidden" name="centroCusto.idCript" value="<s:property value="idCript" />" />
 									<div class="two fields">
 										<div class="field">
 											<input type="text" name="centroCusto.nome" value="<s:property value="nome" />" />
@@ -137,7 +137,7 @@
 									</div>
 								</s:form>
 							</td>
-							<td><a class="remover" href="removerCentroCusto?centroCusto.id=<s:property value="id" />"><i class="remove circle red icon"></i></a></td>
+							<td><a class="remover" href="removerCentroCusto?centroCusto.idCript=<s:property value="idCript" />"><i class="remove circle red icon"></i></a></td>
 						</tr>
 					</s:iterator>
 				</s:if>

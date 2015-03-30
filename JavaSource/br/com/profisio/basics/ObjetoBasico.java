@@ -1,6 +1,7 @@
 package br.com.profisio.basics;
 
 import br.com.profisio.basics.enums.StatusObjeto;
+import br.com.profisio.util.Encriptador;
 import br.com.profisio.util.Tenant;
 
 public class ObjetoBasico {
@@ -11,6 +12,19 @@ public class ObjetoBasico {
 	private Boolean geral;// se precisa ou nao de tenant
 
 	public ObjetoBasico() {
+	}
+
+	public String getIdCript() {
+		return Encriptador.encode(String.valueOf(this.id));
+	}
+
+	public void setIdCript(String id) {
+		if (id != null && !id.equals("")) {
+			String decode = Encriptador.decode(id);
+			if (decode == null || decode.equals(""))
+				decode = id;
+			this.id = Integer.parseInt(decode);
+		}
 	}
 
 	public Integer getId() {

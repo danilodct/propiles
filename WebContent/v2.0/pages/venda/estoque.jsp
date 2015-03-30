@@ -66,7 +66,7 @@
 						<div class="required tow fields">
 							<div class="field">
 								<label>Produto:</label>
-								<s:select id="produto" cssClass="ui dropdown" name="estoque.produto.id" list="allProdutos" listKey="id" listValue="nome" />
+								<s:select id="produto" cssClass="ui dropdown" name="estoque.produto.idCript" list="allProdutos" listKey="idCript" listValue="nome" />
 							</div>
 							<div class="field">
 								<label>Quantidade:</label>
@@ -91,7 +91,7 @@
 					<div class="two fields">
 						<div class="field">
 							<label>Produto:</label> 
-							<s:select name="produto.id" cssClass="ui fonteMenor dropdown" list="allProdutos" headerKey="-1" headerValue="Todos" listKey="id" listValue="nome" />
+							<s:select name="produto.idCript" cssClass="ui fonteMenor dropdown" list="allProdutos" headerKey="-1" headerValue="Todos" listKey="idCript" listValue="nome" />
 						</div>
 						<div class="field">
 							<label class="visibilityHidden">Botão:</label> 
@@ -111,9 +111,6 @@
 				<tr>
 					<th>Produto</th>
 					<th>Status</th>
-					<th>Valor vendido(R$)</th>
-					<th>Data de venda</th>
-					<th>Vendedor</th>
 					<th>Vender</th>
 					<th>#</th>
 				</tr>
@@ -124,13 +121,10 @@
 						<tr>
 							<td><s:property value="produto.nome" /></td>
 							<td><s:property value="status.valor" /></td>
-							<td><s:if test="status.value == 'VENDIDO'"><s:property value="valorStr" /></s:if></td>
-							<td><s:date name="data" format="dd/MM/yyyy" /></td>
-							<td><s:property value="vendedor.nome" /></td>
 							<td><s:if test="status.value != 'VENDIDO'">
-									<a class="vender ui blue mini button" id="<s:property value="id" />" lang="<s:property value="produto.valorStr" />" href="#" >VENDER</a>
+									<a class="vender ui blue mini button" id="<s:property value="idCript" />" lang="<s:property value="produto.valorStr" />" href="#" >VENDER</a>
 								</s:if></td>
-							<td><a class="remover" title="Remover" href="removerEstoque?estoque.id=<s:property value="id" />"><i class="remove circle red icon"></i></a></td>
+							<td><a class="remover" title="Remover" href="removerEstoque?estoque.idCript=<s:property value="idCript" />"><i class="remove circle red icon"></i></a></td>
 						</tr>
 					</s:iterator>
 				</s:if>
@@ -149,10 +143,10 @@
 			<div class="content">
 				<p>Informe os dados da venda:</p>
 				<s:form action="venderEstoque" cssClass="ui form" id="formVenda">
-					<input type="hidden" id="estoqueId" name="estoque.id" />
+					<input type="hidden" id="estoqueId" name="estoque.idCript" />
 					<div class="required field">
 						<label class="grande">Vendedor:</label>
-						<s:select list="allVendedores" cssClass="ui dropdown" listKey="id" listValue="nome" name="estoque.vendedor.id" />
+						<s:select list="allVendedores" cssClass="ui dropdown" listKey="idCript" listValue="nome" name="estoque.vendedor.idCript" />
 					</div>
 					<div class="two fields">
 						<div class="required field">

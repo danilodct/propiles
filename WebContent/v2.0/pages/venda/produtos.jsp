@@ -46,7 +46,7 @@
 		</div>
 		
 		<div class="ui areaAdd hide centered grid" >
-			<div class="nine wide column"> 
+			<div class="eleven wide column"> 
 				<div class="ui form segment">
 					<div class="ui block teal header">
 						<i class="add teal icon"></i>
@@ -117,10 +117,10 @@
 				<s:if test="produtos.size > 0">
 					<s:iterator value="produtos">
 						<tr>
-							<td><a href="produto?produto.id=<s:property value="id" />"><s:property value="nome" /></a></td>
+							<td><a href="produto?produto.idCript=<s:property value="idCript" />"><s:property value="nome" /></a></td>
 							<td>R$ <s:property value="valorStr" /></td>
 							<td><s:property value="categoria" /></td>
-							<td><a class="remover" href="removerProduto?produto.id=<s:property value="id" />"><i class="remove circle red icon"></i></a></td>
+							<td><a class="remover" href="removerProduto?produto.idCript=<s:property value="idCript" />"><i class="remove circle red icon"></i></a></td>
 						</tr>
 					</s:iterator>
 				</s:if>

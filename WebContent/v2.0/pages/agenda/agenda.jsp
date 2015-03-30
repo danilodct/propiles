@@ -37,7 +37,7 @@
 		        	$("#areaNomeCliente").html("Cliente: "+calEvent.cliente).show();
 		        else
 		        	$("#areaNomeCliente").html("").hide();
-		        $("a#btRemoverAgendamento").attr("href", "removerAgendamento?agendamento.id="+calEvent.id);
+		        $("a#btRemoverAgendamento").attr("href", "removerAgendamento?agendamento.idCript="+calEvent.id);
 		        showModal(".modal");
 		    },
 		    function(event, delta, revertFunc){
@@ -47,7 +47,7 @@
 		    		var novaData = event.start;
 		    		var novaHora = novaData.format("HH:MM");
 		    		novaData = novaData.format("DD/MM/YYYY");
-		    		runAjax("alterarDataAgendamento", "agendamento.id="+event.id+"&agendamento.dataInicioStr="+novaData+"&agendamento.horario="+novaHora, "text", doNothing);
+		    		runAjax("alterarDataAgendamento", "agendamento.idCript="+event.id+"&agendamento.dataInicioStr="+novaData+"&agendamento.horario="+novaHora, "text", doNothing);
 		    	}
 		    }
 		);
@@ -138,7 +138,7 @@
 			<div class="content">
 				<s:form action="editarAgendamento" cssClass="ui form" >
 					<h4 id="areaNomeCliente" class="ui header teal hide"></h4>
-					<input type="hidden" id="agId" name="agendamento.id" />
+					<input type="hidden" id="agId" name="agendamento.idCript" />
 					<div class="required field">
 						<label>Título:</label>
 						<s:textfield name="agendamento.titulo" id="agTitulo" />

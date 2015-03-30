@@ -65,7 +65,7 @@
 	<!-- NOME DO COLABORADOR 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		
 	<div class="ui header">
-		<a href="colaborador?colaborador.id=<s:property value="colaborador.id" />" ><s:property value="colaborador.nome" /></a>
+		<a href="colaborador?colaborador.idCript=<s:property value="colaborador.idCript" />" ><s:property value="colaborador.nome" /></a>
 	</div>
 	
 	<div class="ui styled fluid accordion">
@@ -83,9 +83,9 @@
 				<!-- FORM EDITAR COLABORADOR 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 				<s:form id="formEditarProduto" action="editarColaborador" method="post">
 					<input type="hidden" name="aba" value="infoColaborador" />
-					<s:hidden name="colaborador.id" />
+					<s:hidden name="colaborador.idCript" />
 					<s:hidden name="colaborador.login" />
-					<s:hidden name="colaborador.senha" />
+					<s:hidden name="colaborador.senhaCript" />
 					<h4 class="ui dividing teal header">Dados Principais</h4>
 					<div class="required field">
 						<label>Nome:</label>
@@ -270,13 +270,13 @@
 						<div class="ui form">
 							<s:form id="formInserirContrato" action="cadastrarContrato" method="post">
 								<input type="hidden" name="aba" value="servicos" />
-								<input type="hidden" name="contrato.colaborador.id" value="<s:property value="colaborador.id" />" />
-								<input type="hidden" name="colaborador.id" value="<s:property value="colaborador.id" />" />
+								<input type="hidden" name="contrato.colaborador.idCript" value="<s:property value="colaborador.idCript" />" />
+								<input type="hidden" name="colaborador.idCript" value="<s:property value="colaborador.idCript" />" />
 								<div class="tow fields">
 									<div class="required field">
 										<label>Serviço:</label>
 										<div class="ui transparent input">
-											<s:select name="contrato.servico.id" list="allServicos" cssClass="ui dropdown" listKey="id" listValue="nome" />
+											<s:select name="contrato.servico.idCript" list="allServicos" cssClass="ui dropdown" listKey="idCript" listValue="nome" />
 										</div>
 									</div>
 									<div class="required field">
@@ -328,9 +328,9 @@
 									<!-- FORM ALTERAR % DO CONTRATO 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 									<s:form cssClass="hide ui form editarContrato" action="editarContrato">
 										<input type="hidden" name="aba" value="servicos" />
-										<input type="hidden" name="contrato.id" value="<s:property value="id" />" />
-										<input type="hidden" name="colaborador.id" value="<s:property value="colaborador.id" />" />
-										<input type="hidden" name="contrato.colaborador.id" value="<s:property value="colaborador.id" />" />
+										<input type="hidden" name="contrato.idCript" value="<s:property value="idCript" />" />
+										<input type="hidden" name="colaborador.idCript" value="<s:property value="colaborador.idCript" />" />
+										<input type="hidden" name="contrato.colaborador.idCript" value="<s:property value="colaborador.idCript" />" />
 										<div class="three fields">
 											<div class="field">
 												<input type="text" name="contrato.percentualStr" class="decimal" value="<s:property value="percentualStr" />" />
@@ -345,7 +345,7 @@
 									</s:form>
 									<input type="button" value="ALTERAR" class="ui blue mini button alterarContrato" />
 								</td>
-								<td><a class="remover" href="removerContrato?aba=servicos&colaborador.id=<s:property value="colaborador.id" />&contrato.id=<s:property value="id" />"><i class="remove circle red icon"></i></a></td>
+								<td><a class="remover" href="removerContrato?aba=servicos&colaborador.idCript=<s:property value="colaborador.idCript" />&contrato.idCript=<s:property value="idCript" />"><i class="remove circle red icon"></i></a></td>
 							</tr>
 						</s:iterator>
 					</s:if>

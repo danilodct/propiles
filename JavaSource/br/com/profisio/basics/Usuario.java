@@ -1,6 +1,7 @@
 package br.com.profisio.basics;
 
 import br.com.profisio.basics.enums.TipoUser;
+import br.com.profisio.util.Encriptador;
 
 public class Usuario extends Pessoa {
 
@@ -25,6 +26,14 @@ public class Usuario extends Pessoa {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getSenhaCript() {
+		return Encriptador.encode(senha);
+	}
+
+	public void setSenhaCript(String senha) {
+		this.senha = Encriptador.decode(senha);
 	}
 
 	public String getTipoStr() {

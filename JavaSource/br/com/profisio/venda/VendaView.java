@@ -39,7 +39,7 @@ public class VendaView extends ProfisioActionSupport {
 	public String actionVendidos() {
 		try {
 			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.estoques = this.controller.getEstoquesVendidos(tenant, dataInicial, dataFinal, produto, colaborador);
+			this.estoques = this.controller.getEstoquesVendidos(tenant, dataInicial, dataFinal, produto, vendedor);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -56,6 +56,8 @@ public class VendaView extends ProfisioActionSupport {
 		}
 		if (this.page != null && this.page.equals("contasReceber"))
 			resposta = "redirect_contasReceber";
+		if (this.page != null && this.page.equals("vendidos"))
+			resposta = "redirect_vendidos";
 		return resposta;
 	}
 

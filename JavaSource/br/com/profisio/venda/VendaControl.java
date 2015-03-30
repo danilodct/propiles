@@ -163,6 +163,8 @@ public class VendaControl extends ControllerBase {
 			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
 		}
 
+		if (produto != null && (produto.getId() == null || produto.getId().intValue() == -1))
+			produto = null;
 		if (colaborador != null && (colaborador.getId() == null || colaborador.getId().intValue() == -1))
 			colaborador = null;
 

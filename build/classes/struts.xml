@@ -413,6 +413,7 @@
 		</action>
 		<action name="removerEstoque" class="br.com.profisio.venda.VendaView" method="actionRemoverEstoque">
 			<result name="redirect" type="chain">estoque</result>
+			<result name="redirect_vendidos" type="chain">vendidos</result>
 			<result name="redirect_contasReceber" type="chain">contasReceber</result>
 		</action>
 

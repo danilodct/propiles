@@ -37,6 +37,7 @@
 		from Atividade ati
 		where ati.cadastro = :cadastro
 		and ati.contrato = :contrato
+		and ati.statusObjeto = 'ATIVO'
 		]]>
 	</query>
 	

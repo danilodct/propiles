@@ -43,11 +43,11 @@
 					<div class="two fields">
 						<div class="field">
 							<label>Produto:</label> 
-							<s:select name="produto.id" cssClass="ui fonteMenor dropdown" list="allProdutos" headerKey="-1" headerValue="Todos" listKey="id" listValue="nome" />
+							<s:select name="produto.idCript" cssClass="ui fonteMenor dropdown" list="allProdutos" headerKey="-1" headerValue="Todos" listKey="idCript" listValue="nome" />
 						</div>
 						<div class="field">
 							<label>Vendedor:</label> 
-							<s:select name="vendedor.id" cssClass="ui fonteMenor dropdown" list="allVendedores" headerKey="-1" headerValue="Todos" listKey="id" listValue="nome" />
+							<s:select name="vendedor.idCript" cssClass="ui fonteMenor dropdown" list="allVendedores" headerKey="-1" headerValue="Todos" listKey="idCript" listValue="nome" />
 						</div>
 					</div>
 					<div class="three fields">
@@ -100,7 +100,7 @@
 							<td><s:property value="status.valor" /></td>
 							<td><s:date name="data" format="dd/MM/yyyy" /></td>
 							<td><s:property value="vendedor.nome" /></td>
-							<td><a class="remover" title="Remover" href="removerEstoque?page=vendidos&estoque.id=<s:property value="id" />"><i class="remove circle red icon"></i></a></td>
+							<td><a class="remover" title="Remover" href="removerEstoque?page=vendidos&estoque.idCript=<s:property value="idCript" />"><i class="remove circle red icon"></i></a></td>
 						</tr>
 					</s:iterator>
 				</s:if>

@@ -158,7 +158,7 @@
 		$("select#atividadesFrequencia").change(function(){
 			if($(this).val() != -1){
 				$("input#duracaoSessao").val($("select#atividadesFrequenciasSuporte option[value='"+$(this).val()+"']").html());
-				runAjax("getPagamentosCheiosByAtividade", "atividade.id="+$(this).val(), "xml", procGetPagamentosCheiosByAtividade);
+				runAjax("getPagamentosCheiosByAtividade", "atividade.idCript="+$(this).val(), "xml", procGetPagamentosCheiosByAtividade);
 			}else{
 				$("div#areaPagamentos").hide();
 				$("div#areaPagamentos .menu").remove();
@@ -197,7 +197,7 @@
 	}
 	function setSelectServicos(){
 		$("select#servicos").change(function(){
-			runAjax("getContratosByServico", "servico.id="+$(this).val(), "xml", procGetContratosByServico);
+			runAjax("getContratosByServico", "servico.idCript="+$(this).val(), "xml", procGetContratosByServico);
 		});
 	}
 	function procGetContratosByServico(xml){
@@ -208,6 +208,7 @@
 			removeOptions("div#divColaboradores select");
 			$(xml).find("contrato").each(function(){
 				var idCont = $(this).attr("id");
+				console.log(idCont);
 				var nomeCola = $(this).find("colaborador").text();
 				option = $("<option value='"+idCont+"'>"+nomeCola+"</option>");
 				$("div#divColaboradores select").append(option);
@@ -254,7 +255,7 @@
 			    		var novaData = event.start;
 			    		var novaHora = novaData.format("HH:MM");
 			    		novaData = novaData.format("DD/MM/YYYY");
-			    		runAjax("alterarDataAgendamento", "aba=agendamentos&agendamento.id="+event.id+"&cadastro.id="+$("input#cadastroId").val()+"&agendamento.dataInicioStr="+novaData+"&agendamento.horario="+novaHora, "text", doNothing);
+			    		runAjax("alterarDataAgendamento", "aba=agendamentos&agendamento.idCript="+event.id+"&cadastro.idCript="+$("input#cadastroId").val()+"&agendamento.dataInicioStr="+novaData+"&agendamento.horario="+novaHora, "text", doNothing);
 			    	}
 			    }
 			);
@@ -281,7 +282,7 @@
 	<!-- NOME DO CLIENTE 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		
 	<div class="ui header">
-		<a href="cadastro?cadastro.id=<s:property value="cadastro.id" />"><s:property value="cadastro.nome" /></a>
+		<a href="cadastro?cadastro.idCript=<s:property value="cadastro.idCript" />"><s:property value="cadastro.nome" /></a>
 	</div>
 	
 	<div class="ui styled fluid accordion">
@@ -302,7 +303,7 @@
 			
 				<!-- FORM EDITAR CADASTRO 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 				<s:form id="formEditarCadastro" action="editarCadastro" method="post">
-					<s:hidden name="cadastro.id" />
+					<s:hidden name="cadastro.idCript" />
 					<h4 class="ui dividing teal header">Dados Principais</h4>
 						<div class="required field">
 							<label>Nome:</label>
@@ -497,8 +498,8 @@
 							<div class="content">Inserir nova atividade/serviço para este cliente</div>
 						</div>
 						<s:form id="formInserirAtividade" action="cadastrarAtividade" method="post">
-							<input type="hidden" name="atividade.cadastro.id" value="<s:property value="cadastro.id" />" />
-							<s:hidden name="cadastro.id" />
+							<input type="hidden" name="atividade.cadastro.idCript" value="<s:property value="cadastro.idCript" />" />
+							<s:hidden name="cadastro.idCript" />
 							<input type="hidden" name="aba" value="atividades" />
 							<h4 class="ui dividing teal header">Dados da Atividade</h4>
 							<div class="two fields">
@@ -511,13 +512,13 @@
 								</div>
 								<div class="required field">
 									<label>Serviço:</label>
-									<s:select id="servicos" headerValue="ESCOLHA" headerKey="-1" cssClass="ui dropdown" list="allServicos" listKey="id" listValue="nome" />
+									<s:select id="servicos" headerValue="ESCOLHA" headerKey="-1" cssClass="ui dropdown" list="allServicos" listKey="idCript" listValue="nome" />
 								</div>
 							</div>
 
 							<div id="divColaboradores" class="hide field">
 								<label>Colaborador responsável:</label>
-								<select class="ui dropdown" name="atividade.contrato.id" >
+								<select class="ui dropdown" name="atividade.contrato.idCript" >
 									<option value="-1">ESCOLHER</option>
 								</select>
 							</div>
@@ -558,15 +559,15 @@
 								<td><s:property value="contrato.servico.nome" /></td>
 								<td><s:property value="contrato.colaborador.nome" /></td>
 								<td><input type="button" value="FICHA DE AVALIAÇÃO" class="ui teal mini button btFicha" /></td>
-								<td class="colapse"><a class="remover" href="removerAtividade?aba=atividades&cadastro.id=<s:property value="cadastro.id" />&atividade.id=<s:property value="id" />"><i class="remove circle red icon"></i></a></td>
+								<td class="colapse"><a class="remover" href="removerAtividade?aba=atividades&cadastro.idCript=<s:property value="cadastro.idCript" />&atividade.idCript=<s:property value="idCript" />"><i class="remove circle red icon"></i></a></td>
 							</tr>
 							<tr class="linhaFicha <s:if test="avaliacaoId == null || avaliacaoId != avaliacao.id" >hide</s:if>">
 								<td colspan="5" >
 									<s:form action="editarAvaliacao" cssClass="ui form printable" method="post">
-										<s:hidden name="cadastro.id" />
-										<s:hidden name="avaliacao.id" />
+										<s:hidden name="cadastro.idCript" />
+										<s:hidden name="avaliacao.idCript" />
 										<input type="hidden" name="aba" value="atividades" />
-										<input type="hidden" name="avaliacaoId" value="<s:property value="avaliacao.id" />" />
+										<input type="hidden" name="avaliacaoId" value="<s:property value="avaliacao.idCript" />" />
 										
 										<h2 class="ui block teal header">
 											<a href="#" title="Imprimir ficha de avaliação" class="btPrint ui buttons right floated">
@@ -843,15 +844,15 @@
 							<div class="content">Inserir novo pagamento</div>
 						</div>
 						<s:form id="formInserirContaReceber" action="cadastrarContaReceber" method="post">
-							<s:hidden name="cadastro.id" />
+							<s:hidden name="cadastro.idCript" />
 							<input type="hidden" name="aba" value="contasReceber" />
 
 							<h4 class="ui dividing teal header">Dados do Pagamento</h4>
 							<div class="two fields">
 								<div class="required field">
 									<label class="medio final left">Atividade </label>
-									<s:select id="atividadesPagamentos" name="contaReceber.atividade.id" cssClass="ui multiple dropdown" list="atividades" listKey="id" listValue="contrato.servico.nome + ' - ' + contrato.colaborador.nome" />
-									<s:select id="atividadesPagamentosSuporte" cssStyle="display:none !important;" list="atividades" listKey="id" listValue="contrato.servico.qtdSessoes" />
+									<s:select id="atividadesPagamentos" name="contaReceber.atividade.idCript" cssClass="ui multiple dropdown" list="atividades" listKey="idCript" listValue="contrato.servico.nome + ' - ' + contrato.colaborador.nome" />
+									<s:select id="atividadesPagamentosSuporte" cssStyle="display:none !important;" list="atividades" listKey="idCript" listValue="contrato.servico.qtdSessoes" />
 								</div>
 								<div class="required field">
 									<label>Data de Lançamento:</label>
@@ -894,7 +895,7 @@
 								<s:textarea name="contaReceber.observacao" ></s:textarea>
 							</div>
 							
-							<s:select id="atividadesAgendamentoSuporte" cssStyle="display:none !important;" list="atividades" listKey="id" listValue="contrato.servico.duracaoSessao" />
+							<s:select id="atividadesAgendamentoSuporte" cssStyle="display:none !important;" list="atividades" listKey="idCript" listValue="contrato.servico.duracaoSessao" />
 							<div id="areaAgendar">
 								<h4 class="ui dividing teal header">Agende os atendimentos (opcional)</h4>
 								<input type="hidden" name="qtdAgendamentos" id="qtdAgendamentos" />
@@ -927,7 +928,7 @@
 						<div class="ui form fluid" >
 							<div class="field">
 								<label>Mostrar apenas os pagamentos do serviço:</label>
-								<s:select list="servicosContasReceber" id="servicosContasReceber" cssClass="ui dropdown" listKey="id" listValue="nome" headerKey="-1" headerValue="TODOS" /> 	
+								<s:select list="servicosContasReceber" id="servicosContasReceber" cssClass="ui dropdown" listKey="idCript" listValue="nome" headerKey="-1" headerValue="TODOS" /> 	
 							</div>
 						</div>
 					</div>
@@ -979,9 +980,9 @@
 								</td>
 								 -->
 								<td>
-									<a class="ui blue mini button" href="contaReceber?contaReceber.id=<s:property value="id" />&cadastro.id=<s:property value="cadastro.id" />&aba=contasReceber" >EDITAR</a>
+									<a class="ui blue mini button" href="contaReceber?contaReceber.idCript=<s:property value="idCript" />&cadastro.idCript=<s:property value="cadastro.idCript" />&aba=contasReceber" >EDITAR</a>
 								</td>
-								<td><a class="remover" href="removerContaReceber?aba=contasReceber&contaReceber.id=<s:property value="id" />&cadastro.id=<s:property value="cadastro.id" />"><i class="remove circle red icon"></i></a></td>
+								<td><a class="remover" href="removerContaReceber?aba=contasReceber&contaReceber.idCript=<s:property value="idCript" />&cadastro.idCript=<s:property value="cadastro.idCript" />"><i class="remove circle red icon"></i></a></td>
 							</tr>
 						</s:iterator>
 					</s:if>
@@ -1019,25 +1020,25 @@
 							<div class="content">Inserir nova frequência</div>
 						</div>
 						<s:form id="formInserirFrequencia" action="cadastrarFrequencia" method="post">
-							<input type="hidden" name="frequencia.cadastro.id" value="<s:property value="cadastro.id" />" />
+							<input type="hidden" name="frequencia.cadastro.idCript" value="<s:property value="cadastro.idCript" />" />
 							<input type="hidden" name="frequencia.novo" value="true" />
-							<s:hidden name="cadastro.id" />
+							<s:hidden name="cadastro.idCript" />
 							<input type="hidden" name="aba" value="frequencias" />
 							
 							<h4 class="ui dividing teal header">Dados principais</h4>
 							<div class="field">
 								<label class="medio final left">Atividade</label>
-								<s:select id="atividadesFrequencia" name="frequencia.atividade.id" cssClass="ui dropdown" headerKey="-1" headerValue="SELECIONE UMA ATIVIDADE" list="atividades" listKey="id" listValue="contrato.servico.nome + ' - ' + contrato.colaborador.nome" />
-								<s:select id="atividadesFrequenciasSuporte" cssStyle="display:none !important;" list="atividades" listKey="id" listValue="contrato.servico.duracaoSessao" />
+								<s:select id="atividadesFrequencia" name="frequencia.atividade.idCript" cssClass="ui dropdown" headerKey="-1" headerValue="SELECIONE UMA ATIVIDADE" list="atividades" listKey="idCript" listValue="contrato.servico.nome + ' - ' + contrato.colaborador.nome" />
+								<s:select id="atividadesFrequenciasSuporte" cssStyle="display:none !important;" list="atividades" listKey="idCript" listValue="contrato.servico.duracaoSessao" />
 							</div>
 							<div class="two fields">
 								<div class="field">
 									<label class="grande left">Caso outro colaborador, diferente do descrito acima, tenha atendido:</label>
-									<s:select list="allColaboradores" cssClass="ui dropdown" headerKey="-1" headerValue="-- O mesmo descrito na atividade acima --" name="frequencia.colaborador.id" listKey="id" listValue="nome" />
+									<s:select list="allColaboradores" cssClass="ui dropdown" headerKey="-1" headerValue="-- O mesmo descrito na atividade acima --" name="frequencia.colaborador.idCript" listKey="id" listValue="nome" />
 								</div>
 								<div class="field hide" id="areaPagamentos">
 									<label class="medio final left">Referente ao pagamento:</label>
-									<select class="ui dropdown" name="frequencia.contaReceber.id" >
+									<select class="ui dropdown" name="frequencia.contaReceber.idCript" >
 									</select>
 								</div>
 							</div>
@@ -1110,8 +1111,8 @@
 								<td><s:date name="data" format="dd/MM/yyyy" /> às <s:date name="data" format="HH:mm" /> <s:if test="duracao != null && duracao != 0">(<s:property value="duracao" />min)</s:if></td>
 								<td><s:property value="servicoCerto.nome" /></td>
 								<td><s:property value="colaboradorCerto.nome" /></td>
-								<td><s:property value="contaReceber.id" /></td>
-								<td><a class="remover" href="removerFrequencia?aba=frequencias&frequencia.id=<s:property value="id" />&cadastro.id=<s:property value="cadastro.id" />"><i class="remove circle red icon"></i></a></td>
+								<td><s:property value="contaReceber.idCript" /></td>
+								<td><a class="remover" href="removerFrequencia?aba=frequencias&frequencia.idCript=<s:property value="idCript" />&cadastro.idCript=<s:property value="cadastro.idCript" />"><i class="remove circle red icon"></i></a></td>
 							</tr>
 						</s:iterator>
 					</s:if>
@@ -1150,8 +1151,8 @@
 							<div class="content">Inserir Agendamento</div>
 						</div>
 						<s:form id="formInserirAgendamentos" action="cadastrarAgendamento" method="post">
-							<input type="hidden" name="agendamento.cadastro.id" value="<s:property value="cadastro.id" />" />
-							<s:hidden name="cadastro.id" />
+							<input type="hidden" name="agendamento.cadastro.idCript" value="<s:property value="cadastro.idCript" />" />
+							<s:hidden name="cadastro.idCript" />
 							<input type="hidden" name="aba" value="agendamentos" />
 							
 							<h4 class="ui dividing teal header">Dados principais</h4>
@@ -1214,10 +1215,10 @@
 			<div class="header">Editar Agendamento</div>
 			<div class="content">
 				<s:form action="editarAgendamento" cssClass="ui form" >
-					<input type="hidden" name="agendamento.cadastro.id" value="<s:property value="cadastro.id" />" />
-					<s:hidden name="cadastro.id" id="cadastroId" />
+					<input type="hidden" name="agendamento.cadastro.idCript" value="<s:property value="cadastro.idCript" />" />
+					<s:hidden name="cadastro.idCript" id="cadastroId" />
 					<input type="hidden" name="aba" value="agendamentos" />
-					<input type="hidden" id="agId" name="agendamento.id" />
+					<input type="hidden" id="agId" name="agendamento.idCript" />
 					<div class="required field">
 						<label>Título:</label>
 						<s:textfield name="agendamento.titulo" id="agTitulo" />
@@ -1247,7 +1248,7 @@
 					<div class="ui hidden divider"></div>
 					
 					<div class="ui actions buttons left floated">
-						<a href="removerAgendamento?aba=agendamentos&cadastro.id=<s:property value="cadastro.id" />&agendamento.id=" id="btRemoverAgendamento" class="ui left negative button">Excluir</a>
+						<a href="removerAgendamento?aba=agendamentos&cadastro.idCript=<s:property value="cadastro.idCript" />&agendamento.idCript=" id="btRemoverAgendamento" class="ui left negative button">Excluir</a>
 					</div>
 					<div class="ui actions buttons right floated">
 						<div class="ui button">Cancelar</div>

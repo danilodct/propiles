@@ -143,24 +143,28 @@
 								<s:textfield name="cadastro.endereco.complemento" />
 							</div>
 						</div>
-						<div class="field">
-							<label>Logradouro:</label>
-							<s:textfield name="cadastro.endereco.logradouro" id="logradouro" />
-						</div>
-						<div class="three fields">
+						<div class="two fields">
 							<div class="field">
-								<label>Bairro:</label>
-								<s:textfield id="bairro" name="cadastro.endereco.bairro" />
+								<label>Logradouro:</label>
+								<s:textfield name="cadastro.endereco.logradouro" id="logradouro" />
 							</div>
 							<div class="field">
-								<label>Cidade:</label>
-								<s:textfield id="cidade" name="cadastro.endereco.cidade" />
-							</div>
-							<div class="field">
-								<div class="five fields">
+								<div class="three fields">
 									<div class="field">
-										<label>UF:</label>	
-										<s:textfield id="uf" maxlength="2" name="cadastro.endereco.uf" />
+										<label>Bairro:</label>
+										<s:textfield id="bairro" name="cadastro.endereco.bairro" />
+									</div>
+									<div class="field">
+										<label>Cidade:</label>
+										<s:textfield id="cidade" name="cadastro.endereco.cidade" />
+									</div>
+									<div class="field">
+										<div class="five fields">
+											<div class="field">
+												<label>UF:</label>	
+												<s:textfield id="uf" maxlength="2" name="cadastro.endereco.uf" />
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -239,7 +243,7 @@
 				<s:if test="clientes.size > 0">
 					<s:iterator value="clientes">
 						<tr>
-							<td><a href="cadastro?cadastro.id=<s:property value="id" />"><s:property value="nome" /></a></td>
+							<td><a href="cadastro?cadastro.idCript=<s:property value="idCript" />"><s:property value="nome" /></a></td>
 							<td><s:property value="email" /></td>
 							<td class="collapsing">
 								<s:property value="foneFixo" />
@@ -250,7 +254,7 @@
 							</td>
 							<td class="collapsing"><s:date name="dataCadastro" format="dd/MM/yy" /></td>
 							<td class="collapsing"><s:date name="dataNascimento" format="dd/MM" /></td>
-							<td class="collapsing"><a class="remover" href="removerCadastro?cadastro.id=<s:property value="id" />"><i class="remove circle red icon"></i></a></td>
+							<td class="collapsing"><a class="remover" href="removerCadastro?cadastro.idCript=<s:property value="idCript" />"><i class="remove circle red icon"></i></a></td>
 						</tr>
 					</s:iterator>
 				</s:if>

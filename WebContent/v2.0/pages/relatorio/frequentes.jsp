@@ -56,11 +56,11 @@
 					<div class="two fields">
 						<div class="field">
 							<label>Professor:</label>
-							<s:select list="allColaboradores" cssClass="ui dropdown" name="colaborador.id" headerKey="-1" headerValue="TODOS" listKey="id" listValue="nome"></s:select>
+							<s:select list="allColaboradores" cssClass="ui dropdown" name="colaborador.idCript" headerKey="-1" headerValue="TODOS" listKey="idCript" listValue="nome"></s:select>
 						</div>
 						<div class="field">
 							<label>Serviço:</label>
-							<s:select list="allServicos" name="servico.id" cssClass="ui dropdown" headerKey="-1" headerValue="TODOS" listKey="id" listValue="nome"></s:select>
+							<s:select list="allServicos" name="servico.idCript" cssClass="ui dropdown" headerKey="-1" headerValue="TODOS" listKey="idCript" listValue="nome"></s:select>
 						</div>
 					</div>
 					<div class="three fields">
@@ -112,7 +112,7 @@
 				<s:if test="clientes.size > 0">
 					<s:iterator value="clientes">
 						<tr>
-							<td><a href="cadastro?cadastro.id=<s:property value="id" />"><s:property value="nome" /></a></td>
+							<td><a href="cadastro?cadastro.idCript=<s:property value="idCript" />"><s:property value="nome" /></a></td>
 							<td><s:property value="email" /></td>
 							<td class="collapsing">
 								<s:property value="foneFixo" />

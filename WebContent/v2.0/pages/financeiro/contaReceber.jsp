@@ -20,7 +20,7 @@ $(document).ready(function() {
 	setMaskDate(".data");
 	setMaskNumerico(".decimal");
 	if($("input#cadastroId").val() != "")
-		setBtCancelarPage(".cancelar", "cadastro?aba=contasReceber&cadastro.id="+$("input#cadastroId").val());
+		setBtCancelarPage(".cancelar", "cadastro?aba=contasReceber&cadastro.idCript="+$("input#cadastroId").val());
 	else
 		setBtCancelarPage(".cancelar", "contasReceber");
 	setSelectAtividadesPagamentos();
@@ -66,16 +66,16 @@ function setSelectAtividadesPagamentos(){
 						<div class="content"> Editar Conta a Receber</div>
 					</div>
 					<s:form action="editarContaReceber" method="post">
-						<s:hidden name="contaReceber.id" />
-						<s:hidden name="cadastro.id" id="cadastroId" />
+						<s:hidden name="contaReceber.idCript" />
+						<s:hidden name="cadastro.idCript" id="cadastroId" />
 						<s:hidden name="aba" />
 
 						<h4 class="ui dividing teal header">Dados do Pagamento</h4>
 						<div class="two fields">
 							<div class="required field">
 								<label class="medio final left">Atividade </label>
-								<s:select id="atividadesPagamentos" name="contaReceber.atividade.id" cssClass="ui multiple dropdown" list="atividades" listKey="id" listValue="contrato.servico.nome + ' - ' + contrato.colaborador.nome" />
-								<s:select id="atividadesPagamentosSuporte" cssStyle="display:none !important;" list="atividades" listKey="id" listValue="contrato.servico.qtdSessoes" />
+								<s:select id="atividadesPagamentos" name="contaReceber.atividade.idCript" cssClass="ui multiple dropdown" list="atividades" listKey="idCript" listValue="contrato.servico.nome + ' - ' + contrato.colaborador.nome" />
+								<s:select id="atividadesPagamentosSuporte" cssStyle="display:none !important;" list="atividades" listKey="idCript" listValue="contrato.servico.qtdSessoes" />
 							</div>
 							<div class="required field">
 								<label>Data de Lançamento:</label>

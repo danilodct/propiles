@@ -90,7 +90,7 @@ public class CadastroControl extends ControllerBase {
 		if (cadastro.getCpf() == null || cadastro.getCpf().equals("")) {
 			throw new ProfisioException(ProfisioBundleUtil.CPF_CLIENTE_OBRIGATORIO);
 		}
-		if (cadastro.getConhecimentoStudio() != null && (cadastro.getConhecimentoStudio().equals("") || cadastro.getConhecimentoStudio().equals("Outro"))) {
+		if (cadastro.getConhecimentoStudio() != null && (cadastro.getConhecimentoStudio().trim().equals("") || cadastro.getConhecimentoStudio().trim().equalsIgnoreCase("Outro"))) {
 			throw new ProfisioException(ProfisioBundleUtil.FORMA_CONHECIMENTO_INVALIDA);
 		}
 		Cadastro cadastroBD = this.dao.getCadastroById(cadastro.getId());
@@ -106,7 +106,7 @@ public class CadastroControl extends ControllerBase {
 		if (cadastro.getNome() == null || cadastro.getNome().equals("")) {
 			throw new ProfisioException(ProfisioBundleUtil.NOME_CLIENTE_OBRIGATORIO);
 		}
-		if (cadastro.getConhecimentoStudio() == null || cadastro.getConhecimentoStudio() != null && (cadastro.getConhecimentoStudio().equals("") || cadastro.getConhecimentoStudio().equals("Outro"))) {
+		if (cadastro.getConhecimentoStudio() == null || cadastro.getConhecimentoStudio() != null && (cadastro.getConhecimentoStudio().trim().equals("") || cadastro.getConhecimentoStudio().trim().equalsIgnoreCase("Outro"))) {
 			throw new ProfisioException(ProfisioBundleUtil.FORMA_CONHECIMENTO_INVALIDA);
 		}
 		cadastro.setDataCadastro(new Date());
@@ -203,7 +203,7 @@ public class CadastroControl extends ControllerBase {
 				String cliente = "";
 				if (agendamento.getCadastro() != null)
 					cliente = agendamento.getCadastro().getNome();
-				retorno += ",{\"id\":" + agendamento.getId() + ", \"cliente\":\"" + cliente + "\", \"nota\":\"" + nota + "\", \"horario\":\"" + agendamento.getHorario() + "\", \"title\":\"" + agendamento.getTitulo() + "\", \"duracao\":\"" + duracao + "\", \"dataInicial\":\"" + agendamento.getDataInicioStr() + "\",  \"start\":\"" + agendamento.getDataInicioStrEUA() + " " + agendamento.getHorario() + "\", \"dataFinal\":\"" + agendamento.getDataFimStr() + "\", \"end\":\"" + agendamento.getDataFimStrEUA() + " " + agendamento.getHorarioFinal() + "\" }";
+				retorno += ",{\"id\":\"" + agendamento.getIdCript() + "\", \"cliente\":\"" + cliente + "\", \"nota\":\"" + nota + "\", \"horario\":\"" + agendamento.getHorario() + "\", \"title\":\"" + agendamento.getTitulo() + "\", \"duracao\":\"" + duracao + "\", \"dataInicial\":\"" + agendamento.getDataInicioStr() + "\",  \"start\":\"" + agendamento.getDataInicioStrEUA() + " " + agendamento.getHorario() + "\", \"dataFinal\":\"" + agendamento.getDataFimStr() + "\", \"end\":\"" + agendamento.getDataFimStrEUA() + " " + agendamento.getHorarioFinal() + "\" }";
 			}
 		}
 		if (agendamentos != null && agendamentos.size() > 0)

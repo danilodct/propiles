@@ -79,7 +79,7 @@ function setBtGerarConta(){
 					<div class="three fields">
 						<div class="field">
 							<label>Colaborador:</label>
-							<s:select name="colaborador.id" headerKey="-1" headerValue="TODOS" cssClass="ui dropdown" list="allColaboradores" listKey="id" listValue="nome" />
+							<s:select name="colaborador.idCript" headerKey="-1" headerValue="TODOS" cssClass="ui dropdown" list="allColaboradores" listKey="idCript" listValue="nome" />
 						</div>
 						<div class="field">
 							<label>Escolha um mês: <i class="help circle icon hint" data-content="Escolha qualquer dia do mês desejado" data-variation="inverted" ></i></label>
@@ -111,7 +111,7 @@ function setBtGerarConta(){
 
 		<s:if test="colaboradores.size > 0">
 			<s:iterator value="colaboradores" >
-				<h4 class="ui header"><a href="colaborador?colaborador.id=<s:property value="id" />"><s:property value="nome" /></a></h4>
+				<h4 class="ui header"><a href="colaborador?colaborador.idCript=<s:property value="idCript" />"><s:property value="nome" /></a></h4>
 				<table class="ui celled striped teal table">
 					<thead>
 						<tr>
@@ -144,7 +144,7 @@ function setBtGerarConta(){
 							<s:iterator value="frequencias">
 								<tr>
 									<td><s:property value="dataStr" /></td>
-									<td><a href="cadastro?cadastro.id=<s:property value="cadastro.id" />"><s:property value="cadastro.nome" /></a></td>
+									<td><a href="cadastro?cadastro.idCript=<s:property value="cadastro.idCript" />"><s:property value="cadastro.nome" /></a></td>
 									<td><s:property value="servicoCerto.nome" /></td>
 									<td><s:property value="porcentagemColaboradorStr" /></td>
 								</tr>
@@ -168,9 +168,9 @@ function setBtGerarConta(){
 		<div class="header">Gerar Conta a Pagar</div>
 		<div class="content">
 			<s:form action="cadastrarContaPagar" cssClass="ui form" >
-				<s:hidden name="colaborador.id" />
+				<s:hidden name="colaborador.idCript" />
 				<s:hidden name="dataInicialStr" />
-				<input type="hidden" name="contaPagar.colaborador.id" id="cntaColaboradorId" />
+				<input type="hidden" name="contaPagar.colaborador.idCript" id="cntaColaboradorId" />
 				<input type="hidden" name="aba" value="folha" />
 				<h4 id="areaNomeCliente" class="ui header teal hide"></h4>
 				<div class="three fields">
@@ -200,7 +200,7 @@ function setBtGerarConta(){
 					</div>
 					<div class="field">
 						<label>Centro de Custo:</label>
-						<s:select name="contaPagar.centroCusto.id" cssClass="ui dropdown"  headerKey="-1" headerValue="NENHUM" list="allCentrosCusto" listKey="id" listValue="nome" />
+						<s:select name="contaPagar.centroCusto.idCript" cssClass="ui dropdown"  headerKey="-1" headerValue="NENHUM" list="allCentrosCusto" listKey="idCript" listValue="nome" />
 					</div>
 				</div>
 				<div class="three fields">

@@ -80,7 +80,7 @@
 							</div>
 							<div class="required field">
 								<label>Centro de custo:</label>
-								<s:select name="servico.centroCusto.id" cssClass="ui dropdown" list="centrosCusto" listKey="id" listValue="nome" />
+								<s:select name="servico.centroCusto.idCript" cssClass="ui dropdown" list="centrosCusto" listKey="idCript" listValue="nome" />
 							</div>
 						</div>
 						<div class="three fields">
@@ -135,11 +135,11 @@
 					<s:iterator value="servicos">
 						<tr>
 							<td><% i += 1; %><%=i %></td>
-							<td><a href="servico?servico.id=<s:property value="id" />"><s:property value="nome" /></a></td>
+							<td><a href="servico?servico.idCript=<s:property value="idCript" />"><s:property value="nome" /></a></td>
 							<td><s:if test="qtdSessoes > 0"><s:property value="qtdSessoes" /></s:if><s:else>Não se aplica</s:else></td>
 							<td><s:property value="duracaoSessao" /></td>
 							<td><s:property value="centroCusto.nome" /></td>
-							<td><a class="remover" href="removerServico?servico.id=<s:property value="id" />"><i class="remove circle red icon"></i></a></td>
+							<td><a class="remover" href="removerServico?servico.idCript=<s:property value="idCript" />"><i class="remove circle red icon"></i></a></td>
 						</tr>
 					</s:iterator>
 				</s:if>

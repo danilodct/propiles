@@ -61,7 +61,7 @@
 					</div>
 					
 					<s:form action="alterarSenha" method="post" id="formAlterarSenha">
-						<input type="hidden" name="colaborador.id" value="<s:property value="#session.profisio_user.id" />" />
+						<input type="hidden" name="colaborador.idCript" value="<s:property value="#session.profisio_user.idCript" />" />
 						<div class="required field">
 							<label>Digite a nova senha: </label>
 							<s:password name="colaborador.senha" id="novaSenha1" />
