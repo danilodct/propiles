@@ -36,6 +36,7 @@
 			where 
 				(:dataInicial is null or est.data >= :dataInicial)
 			and (:dataFinal is null or est.data <= :dataFinal)
+			and (:produto is null or est.produto = :produto)
 			and (:colaborador is null or est.vendedor = :colaborador)
 			order by est.data desc, est.produto.nome
 			]]>

@@ -413,11 +413,16 @@
 		</action>
 		<action name="removerEstoque" class="br.com.profisio.venda.VendaView" method="actionRemoverEstoque">
 			<result name="redirect" type="chain">estoque</result>
+			<result name="redirect_vendidos" type="chain">vendidos</result>
 			<result name="redirect_contasReceber" type="chain">contasReceber</result>
 		</action>
 
 		<action name="venderEstoque" class="br.com.profisio.venda.VendaView" method="actionVenderEstoque">
 			<result name="redirect" type="chain">estoque</result>
+		</action>
+
+		<action name="vendidos" class="br.com.profisio.venda.VendaView" method="actionVendidos">
+			<result name="redirect" >v2.0/pages/venda/vendidos.jsp</result>
 		</action>
 		
 	</package>

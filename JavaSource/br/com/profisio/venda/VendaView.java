@@ -34,6 +34,15 @@ public class VendaView extends ProfisioActionSupport {
 		controller = VendaControl.getInstance();
 	}
 
+	public String actionVendidos() {
+		try {
+			this.estoques = this.controller.getEstoquesVendidos(dataInicial, dataFinal, produto, colaborador);
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		return REDIRECT;
+	}
+
 	public String actionRemoverEstoque() {
 		String resposta = REDIRECT;
 		try {
@@ -44,6 +53,8 @@ public class VendaView extends ProfisioActionSupport {
 		}
 		if (this.page != null && this.page.equals("contasReceber"))
 			resposta = "redirect_contasReceber";
+		else if (this.page != null && this.page.equals("vendidos"))
+			resposta = "redirect_vendidos";
 		return resposta;
 	}
 
@@ -74,7 +85,7 @@ public class VendaView extends ProfisioActionSupport {
 
 	public String actionEstoque() {
 		try {
-			this.estoques = this.controller.getEstoque(produto, vendedor, dataInicial, dataFinal, status);
+			this.estoques = this.controller.getEstoque(produto, vendedor, dataInicial, dataFinal, StatusEstoque.DISPONIVEL.getValue());
 			this.qtdVendidos = this.getQtdVendidos(this.estoques);
 			if (this.estoques != null && this.estoques.size() > 0)
 				this.qtdEstoque = this.estoques.size();

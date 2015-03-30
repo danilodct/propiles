@@ -44,6 +44,7 @@
 			<div class="menu">
 				<div class="item"><a href="produtos" id="menuProdutos">Produtos</a></div>
 				<div class="item"><a href="estoque" id="menuEstoque">Estoque</a></div>
+				<div class="item"><a href="vendidos" id="menuVendidos">Vendidos</a></div>
 			</div>
 		</div>
 	</s:if>
