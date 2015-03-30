@@ -94,34 +94,6 @@
 							<s:select name="produto.id" cssClass="ui fonteMenor dropdown" list="allProdutos" headerKey="-1" headerValue="Todos" listKey="id" listValue="nome" />
 						</div>
 						<div class="field">
-							<label>Vendedor:</label> 
-							<s:select name="vendedor.id" cssClass="ui fonteMenor dropdown" list="allVendedores" headerKey="-1" headerValue="Todos" listKey="id" listValue="nome" />
-						</div>
-					</div>
-					<div class="four fields">
-						<div class="field">
-							<label>Status:</label> 
-							<select name="status" class="ui dropdown" >
-								<option value="-1">Todos</option>
-								<option value="DISPONIVEL" <s:if test="status == 'DISPONIVEL'">selected="selected"</s:if> >Disponível</option>
-								<option value="VENDIDO" <s:if test="status == 'VENDIDO'">selected="selected"</s:if>>Vendido</option>
-							</select> 
-						</div>
-						<div class="field">
-							<label>Data de venda inicial:</label>
-							<div class="ui icon input">
-								<s:textfield cssClass="data fonteMenor" name="dataInicialStr" />
-								<i class="calendar icon"></i>
-							</div>
-						</div>
-						<div class="field">
-							<label>Data de venda final:</label> 
-							<div class="ui icon input">
-								<s:textfield cssClass="data fonteMenor" name="dataFinalStr" />
-								<i class="calendar icon"></i>
-							</div>
-						</div>
-						<div class="field">
 							<label class="visibilityHidden">Botão:</label> 
 							<input type="submit" class="ui teal submit button" value="Pesquisar" />
 						</div>
@@ -133,12 +105,6 @@
 
 		<div class="ui hidden divider"></div>
 		<div class="ui hidden divider"></div>
-
-		<div class="left floated column">
-			<s:if test="estoques.size > 0">
-				<s:property value="qtdVendidos" /> vendidos de <s:property value="qtdEstoque" /> produtos já inseridos no estoque
-			</s:if>
-		</div>
 
 		<table class="ui celled striped teal table">
 			<thead>

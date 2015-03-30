@@ -141,7 +141,7 @@ public class VendaControl extends ControllerBase {
 		this.dao.removerEstoque(estoque);
 	}
 
-	public Collection<Estoque> getEstoquesVendidos(Tenant tenant, Date dataInicial, Date dataFinal, Colaborador colaborador) {
+	public Collection<Estoque> getEstoquesVendidos(Tenant tenant, Date dataInicial, Date dataFinal, Produto produto, Colaborador colaborador) {
 		// se o usuário nao informou data inicio e fim, vai pegar paenas
 		if (dataInicial == null && dataFinal == null) {
 			Calendar calendar = Calendar.getInstance();
@@ -166,7 +166,7 @@ public class VendaControl extends ControllerBase {
 		if (colaborador != null && (colaborador.getId() == null || colaborador.getId().intValue() == -1))
 			colaborador = null;
 
-		return this.dao.getEstoquesVendidos(tenant, dataInicial, dataFinal, colaborador);
+		return this.dao.getEstoquesVendidos(tenant, dataInicial, dataFinal, produto, colaborador);
 	}
 
 }

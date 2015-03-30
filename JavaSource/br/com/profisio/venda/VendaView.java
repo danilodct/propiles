@@ -36,6 +36,16 @@ public class VendaView extends ProfisioActionSupport {
 		controller = VendaControl.getInstance();
 	}
 
+	public String actionVendidos() {
+		try {
+			Tenant tenant = ProfisioSessionUtil.getTenantSession();
+			this.estoques = this.controller.getEstoquesVendidos(tenant, dataInicial, dataFinal, produto, colaborador);
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		return REDIRECT;
+	}
+
 	public String actionRemoverEstoque() {
 		String resposta = REDIRECT;
 		try {
@@ -79,7 +89,7 @@ public class VendaView extends ProfisioActionSupport {
 	public String actionEstoque() {
 		try {
 			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.estoques = this.controller.getEstoque(tenant, produto, vendedor, dataInicial, dataFinal, status);
+			this.estoques = this.controller.getEstoque(tenant, produto, vendedor, dataInicial, dataFinal, StatusEstoque.DISPONIVEL.getValue());
 			this.qtdVendidos = this.getQtdVendidos(this.estoques);
 			if (this.estoques != null && this.estoques.size() > 0)
 				this.qtdEstoque = this.estoques.size();

@@ -98,11 +98,12 @@ public class VendaDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Estoque> getEstoquesVendidos(Tenant tenant, Date dataInicial, Date dataFinal, Colaborador colaborador) {
+	public Collection<Estoque> getEstoquesVendidos(Tenant tenant, Date dataInicial, Date dataFinal, Produto produto, Colaborador colaborador) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
+		params.put("produto", produto);
 		params.put("colaborador", colaborador);
 		return this.imp.createNamedQuery("getEstoquesVendidos", params).list();
 	}
