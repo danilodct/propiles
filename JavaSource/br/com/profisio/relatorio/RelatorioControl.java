@@ -39,7 +39,7 @@ public class RelatorioControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 		if (colaborador != null && (colaborador.getId() == null || colaborador.getId().intValue() == -1))
 			colaborador = null;
@@ -55,7 +55,7 @@ public class RelatorioControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 		Collection<Cadastro> novosCadastros = this.dao.getNovosCadastros(dataInicial, dataFinal);
 		if (novosCadastros != null && novosCadastros.size() > 0) {
@@ -93,7 +93,7 @@ public class RelatorioControl extends ControllerBase {
 				calendar2.setTime(dataFinal);
 			}
 			calendar2.set(Calendar.DAY_OF_MONTH, calendar2.getActualMaximum(Calendar.DAY_OF_MONTH));
-			calendar2.setTime(SystemUtils.setHoraData(calendar2.getTime(), Calendar.PM, 11, 59, 59));
+			calendar2.setTime(SystemUtils.setHoraData(calendar2.getTime(), Calendar.PM, 23, 59, 59));
 
 			// Se data inicial for maior q final, troca
 			if (calendar1.compareTo(calendar2) > 0) {
@@ -101,7 +101,7 @@ public class RelatorioControl extends ControllerBase {
 				calendar1.setTime(calendar2.getTime());
 				calendar1.setTime(SystemUtils.setHoraData(calendar1.getTime(), Calendar.AM, 0, 0, 0));
 				calendar2.setTime(timeTemp);
-				calendar2.setTime(SystemUtils.setHoraData(calendar2.getTime(), Calendar.PM, 11, 59, 59));
+				calendar2.setTime(SystemUtils.setHoraData(calendar2.getTime(), Calendar.PM, 23, 59, 59));
 			}
 
 			double somaFat = 0;
@@ -117,7 +117,7 @@ public class RelatorioControl extends ControllerBase {
 				Calendar calendarProximoMes = Calendar.getInstance();
 				calendarProximoMes.setTime(calendar1.getTime());
 				calendarProximoMes.set(Calendar.DAY_OF_MONTH, calendarProximoMes.getActualMaximum(Calendar.DAY_OF_MONTH));
-				Date proximoMes = SystemUtils.setHoraData(calendarProximoMes.getTime(), Calendar.PM, 11, 59, 59);
+				Date proximoMes = SystemUtils.setHoraData(calendarProximoMes.getTime(), Calendar.PM, 23, 59, 59);
 
 				// layout da string de retorno:
 				// ano/mes=receitasBrutas=contasPagarVar=MC=contasPagarFixas=(MC-ContasFixas
@@ -219,7 +219,7 @@ public class RelatorioControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 		Collection<Frequencia> frequencias = FrequenciaControl.getInstance().getFrequencias(dataInicial, dataFinal);
 		if (frequencias != null && frequencias.size() > 0) {

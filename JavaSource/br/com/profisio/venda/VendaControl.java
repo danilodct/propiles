@@ -90,7 +90,7 @@ public class VendaControl extends ControllerBase {
 		if (vendedor != null && (vendedor.getId() == null || vendedor.getId().intValue() == -1))
 			vendedor = null;
 		dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-		dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+		dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		return this.dao.getEstoque(produto, vendedor, dataInicial, dataFinal, status);
 	}
 
@@ -153,7 +153,7 @@ public class VendaControl extends ControllerBase {
 			dataFinal = calendar.getTime();
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 
 		if (produto != null && (produto.getId() == null || produto.getId().intValue() == -1))

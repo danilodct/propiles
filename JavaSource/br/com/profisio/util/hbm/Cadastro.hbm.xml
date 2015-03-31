@@ -85,6 +85,7 @@
 			from Cadastro as cli
 			where (:dataInicial is null or cli.dataCadastro >= :dataInicial)
 			and (:dataFinal is null or cli.dataCadastro <= :dataFinal)
+			and cli.statusObjeto = 'ATIVO'
 			order by cli.nome asc
 			]]>
 	</query>

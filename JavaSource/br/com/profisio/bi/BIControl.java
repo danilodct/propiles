@@ -51,7 +51,7 @@ public class BIControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 		Collection<FormaConhecimento> allFormasConhecimento = this.dao.getAllMidiasOrderQtdCadastros(dataInicial, dataFinal);
 		if (allFormasConhecimento != null && allFormasConhecimento.size() > 0) {
@@ -74,7 +74,7 @@ public class BIControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 		if (dataFinal == null)
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
@@ -84,7 +84,7 @@ public class BIControl extends ControllerBase {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(dataInicial);
 			cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-			cal.setTime(SystemUtils.setHoraData(cal.getTime(), Calendar.PM, 11, 59, 59));
+			cal.setTime(SystemUtils.setHoraData(cal.getTime(), Calendar.PM, 23, 59, 59));
 
 			Integer qtdMidias = this.dao.getQtdNovosCadastros(dataInicial, cal.getTime(), midia);
 			Integer qtdCadastros = this.dao.getQtdNovosCadastros(dataInicial, cal.getTime(), null);
@@ -114,7 +114,7 @@ public class BIControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 		if (dataFinal == null)
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
@@ -141,7 +141,7 @@ public class BIControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 		if (dataFinal == null)
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
@@ -166,7 +166,7 @@ public class BIControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 		if (dataFinal == null)
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
@@ -194,7 +194,7 @@ public class BIControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 		if (dataFinal == null)
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
@@ -204,7 +204,7 @@ public class BIControl extends ControllerBase {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(dataInicial);
 			cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-			cal.setTime(SystemUtils.setHoraData(cal.getTime(), Calendar.PM, 11, 59, 59));
+			cal.setTime(SystemUtils.setHoraData(cal.getTime(), Calendar.PM, 23, 59, 59));
 
 			Collection<Cadastro> novosCadastros = RelatorioControl.getInstance().getNovosCadastros(dataInicial, cal.getTime());
 			int somaEfetividade = 0, somaCadastros = 0;
@@ -239,7 +239,7 @@ public class BIControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 		if (dataFinal == null)
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
@@ -304,7 +304,7 @@ public class BIControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 		if (dataFinal == null)
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
@@ -316,7 +316,7 @@ public class BIControl extends ControllerBase {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(dataInicial);
 			cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-			cal.setTime(SystemUtils.setHoraData(cal.getTime(), Calendar.PM, 11, 59, 59));
+			cal.setTime(SystemUtils.setHoraData(cal.getTime(), Calendar.PM, 23, 59, 59));
 
 			Collection<Cadastro> novosCadastros = RelatorioControl.getInstance().getNovosCadastros(dataInicial, cal.getTime());
 			int somaEfetividade = 0, somaCadastros = 0;
@@ -353,7 +353,7 @@ public class BIControl extends ControllerBase {
 		if (dataFinal == null)
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 
-		dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+		dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 
 		Collection<Servico> servicos = ServicoControl.getInstance().getServicos(null);
 		Map<Integer, Integer> ordenador = new HashMap<Integer, Integer>();
@@ -395,7 +395,7 @@ public class BIControl extends ControllerBase {
 		if (dataFinal == null)
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 
-		dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+		dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 
 		Collection<Servico> servicos = ServicoControl.getInstance().getServicos(null);
 		Map<Integer, Double> ordenador = new HashMap<Integer, Double>();
@@ -433,7 +433,7 @@ public class BIControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 		if (dataFinal == null)
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
@@ -474,7 +474,7 @@ public class BIControl extends ControllerBase {
 				dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 
 			if (servico != null && (servico.getId() == null || servico.getId().intValue() == -1))
 				servico = null;
@@ -486,7 +486,7 @@ public class BIControl extends ControllerBase {
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(dataInicial);
 				cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-				cal.setTime(SystemUtils.setHoraData(cal.getTime(), Calendar.PM, 11, 59, 59));
+				cal.setTime(SystemUtils.setHoraData(cal.getTime(), Calendar.PM, 23, 59, 59));
 
 				Integer qtdServicos = this.dao.getQtdAtendimentosServico(dataInicial, cal.getTime(), servico);
 
@@ -523,7 +523,7 @@ public class BIControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 		if (dataFinal == null)
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
@@ -563,7 +563,7 @@ public class BIControl extends ControllerBase {
 				dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 
 			Double acumulado = 0.0, acumuladoAnterior = 0.0;
 
@@ -572,7 +572,7 @@ public class BIControl extends ControllerBase {
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(dataInicial);
 				cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-				cal.setTime(SystemUtils.setHoraData(cal.getTime(), Calendar.PM, 11, 59, 59));
+				cal.setTime(SystemUtils.setHoraData(cal.getTime(), Calendar.PM, 23, 59, 59));
 
 				Double somaCustos = this.dao.getSomaCustosByTipo(dataInicial, cal.getTime(), null);
 
@@ -609,7 +609,7 @@ public class BIControl extends ControllerBase {
 				dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 
 			Double acumulado = 0.0, acumuladoAnterior = 0.0;
 
@@ -618,7 +618,7 @@ public class BIControl extends ControllerBase {
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(dataInicial);
 				cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-				cal.setTime(SystemUtils.setHoraData(cal.getTime(), Calendar.PM, 11, 59, 59));
+				cal.setTime(SystemUtils.setHoraData(cal.getTime(), Calendar.PM, 23, 59, 59));
 
 				Double somaEntradas = this.dao.getSomaFaturamentoByServico(dataInicial, cal.getTime(), null);
 				Double somaAvulso = this.dao.getSomaFaturamentoAvulso(dataInicial, cal.getTime());
