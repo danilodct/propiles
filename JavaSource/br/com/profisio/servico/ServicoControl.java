@@ -34,8 +34,9 @@ public class ServicoControl extends ControllerBase {
 		SystemUtils.assertObjectIsNotNull(servico);
 		if (servico.getNome() == null || servico.getNome().equalsIgnoreCase(""))
 			throw new ProfisioException(ProfisioBundleUtil.NOME_OBRIGATORIO);
-		if (servico.getCentroCusto() == null || servico.getCentroCusto().getId() == null || servico.getCentroCusto().getId().intValue() == -1)
-			throw new ProfisioException(ProfisioBundleUtil.CENTRO_CUSTO_OBRIGATORIO);
+
+		if (servico.getCentroCusto() != null && (servico.getCentroCusto().getId() == null || servico.getCentroCusto().getId().intValue() == -1))
+			servico.setCentroCusto(null);
 
 		servico.setTenant(tenant);
 		this.dao.cadastrar(servico);

@@ -138,7 +138,7 @@
 						</div>
 						<div class="field">
 							<label>Serviço: <i class="help circle icon hint" data-content="Escolha um serviço para analisar a evolução dos atendimentos apenas deste serviço" data-variation="inverted" ></i></label>
-							<s:select name="servico.idCript" id="servico" cssClass="ui search dropdown" list="allServicos" listKey="id" listValue="nome" headerKey="-1" headerValue="TODOS" />
+							<s:select name="servico.idCript" id="servico" cssClass="ui dropdown" list="allServicos" listKey="idCript" listValue="nome" headerKey="-1" headerValue="TODOS" />
 						</div>
 						<div class="field">
 							<label class="visibilityHidden">Botão:</label> 

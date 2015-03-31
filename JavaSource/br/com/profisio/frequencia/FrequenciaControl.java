@@ -84,7 +84,7 @@ public class FrequenciaControl extends ControllerBase {
 			}
 		}
 
-		if (frequencia.getColaborador() != null && frequencia.getColaborador().getId() == -1)
+		if (frequencia.getColaborador() != null && (frequencia.getColaborador().getId() == null || frequencia.getColaborador().getId().intValue() == -1))
 			frequencia.setColaborador(null);
 
 		frequencia.setNovo(true);

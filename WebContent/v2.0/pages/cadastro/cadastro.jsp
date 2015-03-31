@@ -208,7 +208,6 @@
 			removeOptions("div#divColaboradores select");
 			$(xml).find("contrato").each(function(){
 				var idCont = $(this).attr("id");
-				console.log(idCont);
 				var nomeCola = $(this).find("colaborador").text();
 				option = $("<option value='"+idCont+"'>"+nomeCola+"</option>");
 				$("div#divColaboradores select").append(option);
@@ -928,7 +927,7 @@
 						<div class="ui form fluid" >
 							<div class="field">
 								<label>Mostrar apenas os pagamentos do serviço:</label>
-								<s:select list="servicosContasReceber" id="servicosContasReceber" cssClass="ui dropdown" listKey="idCript" listValue="nome" headerKey="-1" headerValue="TODOS" /> 	
+								<s:select list="servicosContasReceber" id="servicosContasReceber" cssClass="ui dropdown" listKey="id" listValue="nome" headerKey="-1" headerValue="TODOS" /> 	
 							</div>
 						</div>
 					</div>
@@ -1111,7 +1110,7 @@
 								<td><s:date name="data" format="dd/MM/yyyy" /> às <s:date name="data" format="HH:mm" /> <s:if test="duracao != null && duracao != 0">(<s:property value="duracao" />min)</s:if></td>
 								<td><s:property value="servicoCerto.nome" /></td>
 								<td><s:property value="colaboradorCerto.nome" /></td>
-								<td><s:property value="contaReceber.idCript" /></td>
+								<td><s:property value="contaReceber.id" /></td>
 								<td><a class="remover" href="removerFrequencia?aba=frequencias&frequencia.idCript=<s:property value="idCript" />&cadastro.idCript=<s:property value="cadastro.idCript" />"><i class="remove circle red icon"></i></a></td>
 							</tr>
 						</s:iterator>

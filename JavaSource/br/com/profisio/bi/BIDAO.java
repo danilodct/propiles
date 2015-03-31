@@ -221,10 +221,10 @@ public class BIDAO extends DAOBase {
 	@SuppressWarnings("unchecked")
 	public Integer getQtdFrequenciasByServico(Tenant tenant, Date dataInicial, Date dataFinal, Servico servico) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tenant", tenant);
+		params.put("tenant", tenant.getId().intValue());
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
-		params.put("servico", servico);
+		params.put("servico", servico.getId().intValue());
 		Object resultado = this.imp.queryObject("getQtdFrequenciasByServico", params);
 		if (resultado == null)
 			resultado = new Long(0);

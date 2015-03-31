@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.hibernate.Query;
+
 import br.com.profisio.basics.Atividade;
 import br.com.profisio.basics.Cadastro;
 import br.com.profisio.basics.CentroCusto;
@@ -145,12 +147,16 @@ public class FinanceiroDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public double getSomaMovimentacoes(Tenant tenant, Date dataInicial, Date dataFinal) {
+	public Double getSomaMovimentacoes(Tenant tenant, Date dataInicial, Date dataFinal) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
-		return ((Double) this.imp.createNamedQuery("getSomaMovimentacoes", params).uniqueResult());
+		Query createNamedQuery = this.imp.createNamedQuery("getSomaMovimentacoes", params);
+		Double double1 = (Double) createNamedQuery.uniqueResult();
+		if (double1 == null)
+			double1 = 0.0;
+		return double1;
 	}
 
 	@SuppressWarnings("unchecked")

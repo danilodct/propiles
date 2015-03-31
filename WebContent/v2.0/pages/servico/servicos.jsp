@@ -80,7 +80,7 @@
 							</div>
 							<div class="required field">
 								<label>Centro de custo:</label>
-								<s:select name="servico.centroCusto.idCript" cssClass="ui dropdown" list="centrosCusto" listKey="idCript" listValue="nome" />
+								<s:select name="servico.centroCusto.idCript" cssClass="ui dropdown" list="centrosCusto" listKey="idCript" listValue="nome" headerKey="-1" headerValue="NENHUM" />
 							</div>
 						</div>
 						<div class="three fields">
@@ -127,6 +127,7 @@
 					<th>Duração (min) <i class="help circle icon hint" data-content="Quanto tempo dura em média a sessão ou o atendimento em minutos" data-variation="inverted" ></i></th>
 					<th>Centro de custo</th>
 					<th>#</th>
+					<th>#</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -135,10 +136,11 @@
 					<s:iterator value="servicos">
 						<tr>
 							<td><% i += 1; %><%=i %></td>
-							<td><a href="servico?servico.idCript=<s:property value="idCript" />"><s:property value="nome" /></a></td>
+							<td><s:property value="nome" /></td>
 							<td><s:if test="qtdSessoes > 0"><s:property value="qtdSessoes" /></s:if><s:else>Não se aplica</s:else></td>
 							<td><s:property value="duracaoSessao" /></td>
 							<td><s:property value="centroCusto.nome" /></td>
+							<td><a class="ui blue mini button" href="servico?servico.idCript=<s:property value="idCript" />">EDITAR</a></td>
 							<td><a class="remover" href="removerServico?servico.idCript=<s:property value="idCript" />"><i class="remove circle red icon"></i></a></td>
 						</tr>
 					</s:iterator>

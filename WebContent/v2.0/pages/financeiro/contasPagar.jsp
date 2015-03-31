@@ -329,8 +329,8 @@ function setSelectTipoContaPagar(){
 								</div>
 							</td>
 							 -->
-							<td><a class="editar ui blue mini button" href="contaPagar?dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&contaPagar.tipoCustoStr=<s:property value="contaPagar.tipoCustoStr" />&centroCusto.id=<s:property value="centroCusto.id" />&contaPagar.id=<s:property value="id" />" >EDITAR</a></td>
-							<td class="remover"><a class="remover" href="removerContaPagar?dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&contaPagar.tipoCustoStr=<s:property value="contaPagar.tipoCustoStr" />&contaPagar.centroCusto.id=<s:property value="contaPagar.centroCusto.id" />&contaPagar.id=<s:property value="id" />"><i class="remove circle red icon"></i></a></td>
+							<td><a class="editar ui blue mini button" href="contaPagar?dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&contaPagar.tipoCustoStr=<s:property value="contaPagar.tipoCustoStr" />&centroCusto.idCript=<s:property value="centroCusto.idCript" />&contaPagar.idCript=<s:property value="idCript" />" >EDITAR</a></td>
+							<td class="remover"><a class="remover" href="removerContaPagar?dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&contaPagar.tipoCustoStr=<s:property value="contaPagar.tipoCustoStr" />&contaPagar.centroCusto.idCript=<s:property value="contaPagar.centroCusto.idCript" />&contaPagar.idCript=<s:property value="idCript" />"><i class="remove circle red icon"></i></a></td>
 						</tr>
 					</s:iterator>
 				</s:if>

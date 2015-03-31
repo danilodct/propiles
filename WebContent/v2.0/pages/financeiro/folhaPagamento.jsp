@@ -122,7 +122,7 @@ function setBtGerarConta(){
 								<input type="hidden" class="cntaValor" value="<s:property value="somaSalarioParteStr" />" />
 								<input type="hidden" class="cntaSalario" value="<s:property value="salarioBaseStr" />" />
 								<input type="hidden" class="cntaColaborador" value="<s:property value="nome" />" />
-								<input type="hidden" class="cntaColaboradorId" value="<s:property value="id" />" />
+								<input type="hidden" class="cntaColaboradorId" value="<s:property value="idCript" />" />
 								<s:if test="!jaTemPagamentos">
 									<a class="ui blue mini button hint btGerar" href="#" data-content="Ao clicar você poderá gerar uma conta a pagar no seu fluxo de caixa referente ao pagamento deste colaborador" >GERAR CONTA A PAGAR</a>
 								</s:if><s:else>

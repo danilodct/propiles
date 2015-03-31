@@ -139,6 +139,11 @@
 		<div class="ui hidden divider"></div>
 		<div class="ui hidden divider"></div>
 		
+	
+	<s:if test="relatorio == '' ">
+		<h3 class="ui horizontal header">Selecione um período para análise</h3>
+	</s:if>				
+		
 	<s:if test="relatorio != '' ">
 		<!-- ICONE DE IMPRIMIR 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		<a href="#" title="Imprimir relatório" class="btPrint ui"> 

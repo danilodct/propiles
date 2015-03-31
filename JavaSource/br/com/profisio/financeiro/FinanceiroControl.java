@@ -198,7 +198,7 @@ public class FinanceiroControl extends ControllerBase {
 
 		if (contaPagar.getStatus() == null)
 			contaPagar.setStatus(StatusConta.PENDENTE);
-		if (contaPagar.getCentroCusto() != null && contaPagar.getCentroCusto().getId().intValue() == -1)
+		if (contaPagar.getCentroCusto() != null && (contaPagar.getCentroCusto().getId() == null || contaPagar.getCentroCusto().getId().intValue() == -1))
 			contaPagar.setCentroCusto(null);
 
 		TipoContaPagar tipo = contaPagar.getTipo();
@@ -223,7 +223,7 @@ public class FinanceiroControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 		if (tipoContaPagar != null && (tipoContaPagar.getNome() == null || tipoContaPagar.getNome().equals("") || tipoContaPagar.getNome().equals("-1")))
 			tipoContaPagar = null;
@@ -256,7 +256,7 @@ public class FinanceiroControl extends ControllerBase {
 
 		if (contaPagar.getStatus() == null)
 			contaPagar.setStatus(StatusConta.PENDENTE);
-		if (contaPagar.getCentroCusto() != null && contaPagar.getCentroCusto().getId().intValue() == -1)
+		if (contaPagar.getCentroCusto() != null && (contaPagar.getCentroCusto().getId() == null || contaPagar.getCentroCusto().getId().intValue() == -1))
 			contaPagar.setCentroCusto(null);
 
 		TipoContaPagar tipo = contaPagar.getTipo();
@@ -284,7 +284,7 @@ public class FinanceiroControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 
 		if (colaborador != null && (colaborador.getId() == null || colaborador.getId().intValue() == -1))
@@ -303,7 +303,7 @@ public class FinanceiroControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 
 		return this.dao.getContasReceberAvulso(tenant, dataInicial, dataFinal, formaPagamento, statusContaPagar);
@@ -316,7 +316,7 @@ public class FinanceiroControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 		return this.dao.getMovimentacoes(tenant, dataInicial, dataFinal);
 	}
@@ -336,12 +336,14 @@ public class FinanceiroControl extends ControllerBase {
 
 		Date caixaDataInicial = configuracao.getCaixaDataInicial();
 		if (caixaDataInicial != null)
-			caixaDataInicial = SystemUtils.setHoraData(caixaDataInicial, Calendar.PM, 11, 59, 59);
+			caixaDataInicial = SystemUtils.setHoraData(caixaDataInicial, Calendar.PM, 23, 59, 59);
 
 		// soma do saldo determiando nas configuracoes do caixa + todas as
 		// entradas, saidas e vendas da data determinada até a data inicial de
 		// pesquisa
-		double saldo = this.getSomaMovimentacoes(tenant, caixaDataInicial, dataInicial);
+		double saldo = 0;
+		if (caixaDataInicial.compareTo(dataInicial) < 0)
+			saldo = this.getSomaMovimentacoes(tenant, caixaDataInicial, dataInicial);
 		return saldo + caixaValorInicial;
 	}
 
@@ -367,7 +369,7 @@ public class FinanceiroControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 		if (colaborador != null && (colaborador.getId() == null || colaborador.getId().intValue() == -1))
 			colaborador = null;
@@ -498,7 +500,7 @@ public class FinanceiroControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
-			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
 		}
 		return this.dao.getPagamentosColaboradores(tenant, colaborador, dataInicial, dataFinal);
 	}

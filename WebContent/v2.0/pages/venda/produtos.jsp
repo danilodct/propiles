@@ -111,15 +111,17 @@
 					<th>Valor</th>
 					<th>Categoria</th>
 					<th>#</th>
+					<th>#</th>
 				</tr>
 			</thead>
 			<tbody>
 				<s:if test="produtos.size > 0">
 					<s:iterator value="produtos">
 						<tr>
-							<td><a href="produto?produto.idCript=<s:property value="idCript" />"><s:property value="nome" /></a></td>
+							<td><s:property value="nome" /></td>
 							<td>R$ <s:property value="valorStr" /></td>
 							<td><s:property value="categoria" /></td>
+							<td><a class="ui blue mini button" href="produto?produto.idCript=<s:property value="idCript" />">EDITAR</a></td>
 							<td><a class="remover" href="removerProduto?produto.idCript=<s:property value="idCript" />"><i class="remove circle red icon"></i></a></td>
 						</tr>
 					</s:iterator>

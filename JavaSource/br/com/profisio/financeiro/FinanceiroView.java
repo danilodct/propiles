@@ -119,7 +119,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 			xml += "<pagamentos>";
 			if (this.contasReceber != null && this.contasReceber.size() > 0) {
 				for (ContaReceber contaReceber : this.contasReceber) {
-					xml += "<pagamento id=\"" + contaReceber.getId() + "\" data=\"" + contaReceber.getDataLancamentoStr() + "\" qtdSessoes=\"" + contaReceber.getQtdSessoes() + "\" valor=\"" + contaReceber.getValorCheioStr() + "\"  />";
+					xml += "<pagamento id=\"" + contaReceber.getIdCript() + "\" data=\"" + contaReceber.getDataLancamentoStr() + "\" qtdSessoes=\"" + contaReceber.getQtdSessoes() + "\" valor=\"" + contaReceber.getValorCheioStr() + "\"  />";
 				}
 			}
 			xml += "</pagamentos>";
