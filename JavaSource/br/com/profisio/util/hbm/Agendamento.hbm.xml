@@ -37,4 +37,14 @@
 			]]>
 	</query>
 
+	<sql-query name="removerAgendamentosContaReceber">
+			<![CDATA[
+			DELETE FROM agendamento  
+			WHERE 
+				:contaReceber IS NOT NULL 
+				AND 
+				contaReceber_id = :contaReceber
+			]]>
+	</sql-query>
+
 </hibernate-mapping>

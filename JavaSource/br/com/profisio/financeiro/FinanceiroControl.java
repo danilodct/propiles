@@ -56,6 +56,7 @@ public class FinanceiroControl extends ControllerBase {
 		SystemUtils.assertObjectIsNotNullHasId(contaReceber);
 		contaReceber = this.dao.getContaReceberById(contaReceber.getId());
 		this.dao.desassociarFrequenciasContaReceber(contaReceber);
+		this.dao.removerAgendamentosContaReceber(contaReceber);
 		this.removerParcelasContaReceber(contaReceber);
 		this.dao.remover(contaReceber);
 	}

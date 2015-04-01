@@ -202,4 +202,11 @@ public class FinanceiroDAO extends DAOBase {
 		return imp.createNamedQuery("getPagamentosColaboradores", params).list();
 	}
 
+	@SuppressWarnings("unchecked")
+	public void removerAgendamentosContaReceber(ContaReceber contaReceber) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("contaReceber", contaReceber);
+		imp.execute("removerAgendamentosContaReceber", params);
+	}
+
 }
