@@ -65,7 +65,10 @@
 	<query name="getCadastros">
 			<![CDATA[
 			from Cadastro as cli
-			where (:nomeCliente is null or cli.nome like :nomeCliente)
+			where 
+			(:nomeCliente is null or cli.nome like :nomeCliente)
+			and
+			(:cpf is null or cli.cpf like :cpf)
 			and cli.statusObjeto = 'ATIVO'
 			order by cli.nome asc
 			]]>
@@ -75,7 +78,10 @@
 			<![CDATA[
 			select count(cli)
 			from Cadastro as cli
-			where (:nomeCliente is null or cli.nome like :nomeCliente)
+			where 
+			(:nomeCliente is null or cli.nome like :nomeCliente)
+			and
+			(:cpf is null or cli.cpf like :cpf)
 			and cli.statusObjeto = 'ATIVO'
 			]]>
 	</query>

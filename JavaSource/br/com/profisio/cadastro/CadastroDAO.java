@@ -46,11 +46,14 @@ public class CadastroDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Cadastro> getCadastros(String nomeCliente, Integer sizePag, Integer pagAtual) {
+	public Collection<Cadastro> getCadastros(String nomeCliente, String cpf, Integer sizePag, Integer pagAtual) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("nomeCliente", nomeCliente);
 		if (nomeCliente != null)
 			params.put("nomeCliente", nomeCliente + "%");
+		params.put("cpf", cpf);
+		if (nomeCliente != null)
+			params.put("cpf", cpf + "%");
 		Collection<Cadastro> retorno = null;
 		if (pagAtual != null) {
 			int start = (pagAtual - 1) * sizePag;
@@ -61,11 +64,14 @@ public class CadastroDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Integer getQtdCadastros(String nomeCliente) {
+	public Integer getQtdCadastros(String nomeCliente, String cpf) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("nomeCliente", nomeCliente);
 		if (nomeCliente != null)
 			params.put("nomeCliente", nomeCliente + "%");
+		params.put("cpf", cpf);
+		if (cpf != null)
+			params.put("cpf", cpf + "%");
 		return ((Long) this.imp.createNamedQuery("getQtdCadastros", params).uniqueResult()).intValue();
 	}
 

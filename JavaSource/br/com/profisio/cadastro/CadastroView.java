@@ -35,7 +35,7 @@ public class CadastroView extends ProfisioActionSupport {
 	private Collection<Atividade> atividades;
 	private Collection<ContaReceber> contasReceber;
 	private Collection<Frequencia> frequencias;
-	private String agendamentos;
+	private String agendamentos, cpf;
 	private Collection<Servico> servicosFrequencias, servicosContasReceber;
 	private ContaReceber contaReceber;
 	private Cadastro cadastro;
@@ -101,11 +101,12 @@ public class CadastroView extends ProfisioActionSupport {
 			this.totalValorContasReceber = this.extractTotalValorContasReceber(this.contasReceber);
 			this.frequencias = this.controller.getFrequenciasByCadastro(this.cadastro);
 			this.agendamentos = this.controller.getAgendamentosByCadastro(this.cadastro);
-			//para fazer o filtro das frequencias e de contas a receber por servico
+			// para fazer o filtro das frequencias e de contas a receber por
+			// servico
 			this.servicosFrequencias = this.extractServicosFromFrequencias(this.frequencias);
 			this.servicosContasReceber = this.extractServicosFromContasReceber(this.contasReceber);
-			//--------------------------------------------------------------
-			//setando o valor inicial de alguns campos
+			// --------------------------------------------------------------
+			// setando o valor inicial de alguns campos
 			this.contaReceber = new ContaReceber();
 			contaReceber.setDataLancamento(new Date());
 			contaReceber.setQtdSessoes(1);
@@ -195,9 +196,9 @@ public class CadastroView extends ProfisioActionSupport {
 		try {
 			if (pagAtual == null)
 				pagAtual = 1;
-			this.qtdCadastros = this.controller.getQtdCadastros(null);
-			this.qtdPaginas = this.controller.getQtdPaginas(nomeCliente);
-			this.clientes = this.controller.getCadastros(nomeCliente, pagAtual);
+			this.qtdCadastros = this.controller.getQtdCadastros(null, null);
+			this.qtdPaginas = this.controller.getQtdPaginas(nomeCliente, cpf);
+			this.clientes = this.controller.getCadastros(nomeCliente, cpf, pagAtual);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -214,7 +215,7 @@ public class CadastroView extends ProfisioActionSupport {
 		return REDIRECT;
 	}
 
-	//8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+	// 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
 
 	public Sexo[] getAllSexos() {
 		return Sexo.values();
@@ -241,7 +242,7 @@ public class CadastroView extends ProfisioActionSupport {
 		return colaboradores;
 	}
 
-	//8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+	// 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
 
 	public Collection<Cadastro> getClientes() {
 		return clientes;
@@ -407,6 +408,14 @@ public class CadastroView extends ProfisioActionSupport {
 
 	public void setAgendamentos(String agendamentos) {
 		this.agendamentos = agendamentos;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 }

@@ -202,12 +202,16 @@
 		<!-- ÁREA PESQUISA 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 	
 		<div class="ui areaSearch centered grid" >
-			<div class="nine wide column">
+			<div class="eleven wide column">
 				<s:form action="cadastros" cssClass="ui form fluid" id="formPesquisa">
-					<div class="two fields">
+					<div class="three fields">
 						<div class="field">
 							<label>Nome do cliente</label>
 							<s:textfield name="nomeCliente" /> 	
+						</div>
+						<div class="field">
+							<label>CPF</label>
+							<s:textfield name="cpf" cssClass="cpf" /> 	
 						</div>
 						<div class="field">
 							<label class="visibilityHidden">Botão</label>
