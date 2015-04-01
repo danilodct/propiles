@@ -5,10 +5,12 @@ import java.util.Collection;
 import br.com.profisio.basics.Colaborador;
 import br.com.profisio.basics.Contrato;
 import br.com.profisio.basics.Servico;
+import br.com.profisio.basics.Usuario;
 import br.com.profisio.basics.enums.Sexo;
 import br.com.profisio.basics.enums.TipoUser;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
+import br.com.profisio.util.ProfisioSessionUtil;
 import br.com.profisio.util.SystemUtils;
 
 public class ColaboradorView extends ProfisioActionSupport {
@@ -32,6 +34,8 @@ public class ColaboradorView extends ProfisioActionSupport {
 		String resposta = REDIRECT;
 		try {
 			if (this.colaborador != null) {
+				Usuario userSession = ProfisioSessionUtil.getUserSession();
+				this.colaborador.setId(userSession.getId());
 				this.controller.alterarSenha(this.colaborador);
 				addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 				resposta = "redirect_home";
@@ -152,7 +156,7 @@ public class ColaboradorView extends ProfisioActionSupport {
 		return REDIRECT;
 	}
 
-	//888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+	// 888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
 
 	public Sexo[] getSexos() {
 		return Sexo.values();
@@ -171,7 +175,7 @@ public class ColaboradorView extends ProfisioActionSupport {
 		return retorno;
 	}
 
-	//888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+	// 888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
 
 	public String getNomeColaborador() {
 		return nomeColaborador;

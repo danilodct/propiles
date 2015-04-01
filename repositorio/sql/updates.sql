@@ -191,3 +191,8 @@ CREATE TABLE IF NOT EXISTS `agendamento` (
 alter table agendamento add column duracao int(11);
 
 alter table contapagar add column colaborador_id int(11);
+
+drop table tipocadastro;
+drop table caixa;
+alter table centrocusto add column statusObjeto varchar(20);
+update centrocusto set statusObjeto = 'ATIVO';
