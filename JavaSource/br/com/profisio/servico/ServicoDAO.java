@@ -64,11 +64,6 @@ public class ServicoDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void remover(CentroCusto centroCusto) {
-		this.imp.delete(centroCusto);
-	}
-
-	@SuppressWarnings("unchecked")
 	public void cadastrar(CentroCusto centroCusto) {
 		this.imp.insert(centroCusto);
 

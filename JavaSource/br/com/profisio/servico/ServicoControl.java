@@ -37,7 +37,7 @@ public class ServicoControl extends ControllerBase {
 
 		if (servico.getCentroCusto() != null && (servico.getCentroCusto().getId() == null || servico.getCentroCusto().getId().intValue() == -1))
 			servico.setCentroCusto(null);
-
+		servico.setStatusObjeto(StatusObjeto.ATIVO);
 		servico.setTenant(tenant);
 		this.dao.cadastrar(servico);
 	}
@@ -46,7 +46,8 @@ public class ServicoControl extends ControllerBase {
 		SystemUtils.assertObjectIsNotNullHasId(servico);
 		servico = this.dao.getServicoById(servico.getId());
 		SystemUtils.assertObjectIsFromTenant(tenant, servico);
-		this.dao.remover(servico);
+		servico.setStatusObjeto(StatusObjeto.MORTO);
+		this.dao.editar(servico);
 	}
 
 	public Servico getServico(Tenant tenant, Servico servico) {
@@ -61,6 +62,7 @@ public class ServicoControl extends ControllerBase {
 		if (servico.getCentroCusto() != null && (servico.getCentroCusto().getId() == null || servico.getCentroCusto().getId().intValue() == -1))
 			servico.setCentroCusto(null);
 		servico.setTenant(tenant);
+		servico.setStatusObjeto(StatusObjeto.ATIVO);
 		this.dao.editar(servico);
 	}
 
