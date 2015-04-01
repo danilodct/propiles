@@ -56,19 +56,19 @@ public class CadastroControl extends ControllerBase {
 		return this.dao.getAllFormasConhecimento(tenant);
 	}
 
-	public Collection<Cadastro> getCadastros(Tenant tenant, String nomeCliente, Integer pagAtual) {
-		Integer qtdPag = this.getQtdPaginas(tenant, nomeCliente);
+	public Collection<Cadastro> getCadastros(Tenant tenant, String nomeCliente, String cpf, Integer pagAtual) {
+		Integer qtdPag = this.getQtdPaginas(tenant, nomeCliente, cpf);
 		if (qtdPag == null || qtdPag < 2)
 			pagAtual = null;
-		return this.dao.getCadastros(tenant, nomeCliente, TAMANHO_PAGINACAO_CADASTRO, pagAtual);
+		return this.dao.getCadastros(tenant, nomeCliente, cpf, TAMANHO_PAGINACAO_CADASTRO, pagAtual);
 	}
 
-	public Integer getQtdCadastros(Tenant tenant, String nomeCliente) {
-		return this.dao.getQtdCadastros(tenant, nomeCliente);
+	public Integer getQtdCadastros(Tenant tenant, String nomeCliente, String cpf) {
+		return this.dao.getQtdCadastros(tenant, nomeCliente, cpf);
 	}
 
-	public Integer getQtdPaginas(Tenant tenant, String nomeCliente) {
-		Integer qtdTotal = this.getQtdCadastros(tenant, nomeCliente);
+	public Integer getQtdPaginas(Tenant tenant, String nomeCliente, String cpf) {
+		Integer qtdTotal = this.getQtdCadastros(tenant, nomeCliente, cpf);
 		double ceil = Math.ceil(qtdTotal / TAMANHO_PAGINACAO_CADASTRO);
 		long round = Math.round(ceil);
 		return Long.valueOf(round).intValue();

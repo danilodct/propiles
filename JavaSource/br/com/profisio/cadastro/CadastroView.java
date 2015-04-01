@@ -37,7 +37,7 @@ public class CadastroView extends ProfisioActionSupport {
 	private Collection<Atividade> atividades;
 	private Collection<ContaReceber> contasReceber;
 	private Collection<Frequencia> frequencias;
-	private String agendamentos;
+	private String agendamentos, cpf;
 	private Collection<Servico> servicosFrequencias, servicosContasReceber;
 	private ContaReceber contaReceber;
 	private Cadastro cadastro;
@@ -171,9 +171,9 @@ public class CadastroView extends ProfisioActionSupport {
 			Tenant tenant = ProfisioSessionUtil.getTenantSession();
 			if (pagAtual == null)
 				pagAtual = 1;
-			this.qtdCadastros = this.controller.getQtdCadastros(tenant, null);
-			this.qtdPaginas = this.controller.getQtdPaginas(tenant, nomeCliente);
-			this.clientes = this.controller.getCadastros(tenant, nomeCliente, pagAtual);
+			this.qtdCadastros = this.controller.getQtdCadastros(tenant, null, null);
+			this.qtdPaginas = this.controller.getQtdPaginas(tenant, nomeCliente, cpf);
+			this.clientes = this.controller.getCadastros(tenant, nomeCliente, cpf, pagAtual);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -421,6 +421,14 @@ public class CadastroView extends ProfisioActionSupport {
 
 	public void setAgendamentos(String agendamentos) {
 		this.agendamentos = agendamentos;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 }
