@@ -5,6 +5,7 @@ import java.util.Collection;
 import br.com.profisio.basics.Colaborador;
 import br.com.profisio.basics.Contrato;
 import br.com.profisio.basics.Servico;
+import br.com.profisio.basics.Usuario;
 import br.com.profisio.basics.enums.Sexo;
 import br.com.profisio.basics.enums.TipoUser;
 import br.com.profisio.util.ProfisioActionSupport;
@@ -35,6 +36,8 @@ public class ColaboradorView extends ProfisioActionSupport {
 		try {
 			Tenant tenant = ProfisioSessionUtil.getTenantSession();
 			if (this.colaborador != null) {
+				Usuario userSession = ProfisioSessionUtil.getUserSession();
+				this.colaborador.setId(userSession.getId());
 				this.controller.alterarSenha(tenant, this.colaborador);
 				addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 				resposta = "redirect_home";
