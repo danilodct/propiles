@@ -6,6 +6,8 @@
 			<generator class="increment" />
 		</id>
 		
+		<property name="statusObjeto" type="br.com.profisio.basics.enums.StatusObjetoEnumType" />
+		
 		<property name="nome" />
 		<property name="qtdSessoes" />
 		<property name="duracaoSessao" />
@@ -20,9 +22,9 @@
 			from Servico serv
 			left join serv.centroCusto centro
 			where (:centroCusto is null or centro = :centroCusto)
+			and serv.statusObjeto = 'ATIVO'
 			order by serv.nome
 			]]>
 	</query>
-	
 	
 </hibernate-mapping>

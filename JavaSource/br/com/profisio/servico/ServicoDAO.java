@@ -30,11 +30,6 @@ public class ServicoDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void remover(Servico servico) {
-		this.imp.delete(servico);
-	}
-
-	@SuppressWarnings("unchecked")
 	public Servico getServicoById(Integer id) {
 		return (Servico) this.imp.read(Servico.class, id);
 	}
@@ -57,11 +52,6 @@ public class ServicoDAO extends DAOBase {
 	@SuppressWarnings("unchecked")
 	public void editar(CentroCusto centroCusto) {
 		this.imp.update(centroCusto);
-	}
-
-	@SuppressWarnings("unchecked")
-	public void remover(CentroCusto centroCusto) {
-		this.imp.delete(centroCusto);
 	}
 
 	@SuppressWarnings("unchecked")

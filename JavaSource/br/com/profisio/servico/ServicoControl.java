@@ -34,14 +34,16 @@ public class ServicoControl extends ControllerBase {
 		if (servico.getNome() == null || servico.getNome().equalsIgnoreCase(""))
 			throw new ProfisioException(ProfisioBundleUtil.NOME_OBRIGATORIO);
 		if (servico.getCentroCusto() == null || servico.getCentroCusto().getId() == null || servico.getCentroCusto().getId().intValue() == -1)
-			throw new ProfisioException(ProfisioBundleUtil.CENTRO_CUSTO_OBRIGATORIO);
-
+			servico.setCentroCusto(null);
+		servico.setStatusObjeto(StatusObjeto.ATIVO);
 		this.dao.cadastrar(servico);
 	}
 
 	public void removerServico(Servico servico) {
 		SystemUtils.assertObjectIsNotNullHasId(servico);
-		this.dao.remover(servico);
+		servico = this.dao.getServicoById(servico.getId());
+		servico.setStatusObjeto(StatusObjeto.MORTO);
+		this.dao.editar(servico);
 	}
 
 	public Servico getServico(Servico servico) {
@@ -53,6 +55,7 @@ public class ServicoControl extends ControllerBase {
 		SystemUtils.assertObjectIsNotNullHasId(servico);
 		if (servico.getCentroCusto() != null && (servico.getCentroCusto().getId() == null || servico.getCentroCusto().getId().intValue() == -1))
 			servico.setCentroCusto(null);
+		servico.setStatusObjeto(StatusObjeto.ATIVO);
 		this.dao.editar(servico);
 	}
 

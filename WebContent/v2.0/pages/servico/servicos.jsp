@@ -80,7 +80,7 @@
 							</div>
 							<div class="required field">
 								<label>Centro de custo:</label>
-								<s:select name="servico.centroCusto.id" cssClass="ui dropdown" list="centrosCusto" listKey="id" listValue="nome" />
+								<s:select name="servico.centroCusto.id" cssClass="ui dropdown" list="centrosCusto" listKey="id" listValue="nome" headerKey="-1" headerValue="NENHUM" />
 							</div>
 						</div>
 						<div class="three fields">
