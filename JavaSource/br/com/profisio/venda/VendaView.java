@@ -13,9 +13,7 @@ import br.com.profisio.util.ItemGeralUI;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.ProfisioException;
-import br.com.profisio.util.ProfisioSessionUtil;
 import br.com.profisio.util.SystemUtils;
-import br.com.profisio.util.Tenant;
 
 public class VendaView extends ProfisioActionSupport {
 
@@ -38,8 +36,8 @@ public class VendaView extends ProfisioActionSupport {
 
 	public String actionVendidos() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.estoques = this.controller.getEstoquesVendidos(tenant, dataInicial, dataFinal, produto, vendedor);
+
+			this.estoques = this.controller.getEstoquesVendidos(getTenant(), dataInicial, dataFinal, produto, vendedor);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -49,7 +47,7 @@ public class VendaView extends ProfisioActionSupport {
 	public String actionRemoverEstoque() {
 		String resposta = REDIRECT;
 		try {
-			this.controller.removerEstoque(this.estoque);
+			this.controller.removerEstoque(getTenant(), this.estoque);
 			this.addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REMOCAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -63,9 +61,9 @@ public class VendaView extends ProfisioActionSupport {
 
 	public String actionVenderEstoque() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
+
 			// informa o item do estoque, vendedor, o valor e a data
-			this.controller.venderEstoque(tenant, this.estoque);
+			this.controller.venderEstoque(getTenant(), this.estoque);
 			this.addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -75,11 +73,11 @@ public class VendaView extends ProfisioActionSupport {
 
 	public String actionAddEstoque() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
+
 			if (qtdProdutos == null)
 				throw new ProfisioException(ProfisioBundleUtil.INFORME_QTD_PRODUTOS);
 			for (int i = 0; i < this.qtdProdutos; i += 1) {
-				this.controller.addEstoque(tenant, this.estoque);
+				this.controller.addEstoque(getTenant(), this.estoque);
 			}
 			this.addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
 		} catch (Exception e) {
@@ -90,8 +88,8 @@ public class VendaView extends ProfisioActionSupport {
 
 	public String actionEstoque() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.estoques = this.controller.getEstoque(tenant, produto, vendedor, dataInicial, dataFinal, StatusEstoque.DISPONIVEL.getValue());
+
+			this.estoques = this.controller.getEstoque(getTenant(), produto, vendedor, dataInicial, dataFinal, StatusEstoque.DISPONIVEL.getValue());
 			this.qtdVendidos = this.getQtdVendidos(this.estoques);
 			if (this.estoques != null && this.estoques.size() > 0)
 				this.qtdEstoque = this.estoques.size();
@@ -114,10 +112,10 @@ public class VendaView extends ProfisioActionSupport {
 
 	public String actionCadastrarProduto() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
+
 			if (produto != null && produto.getCategoria() != null && produto.getCategoria().equals("-1"))
 				produto.setCategoria(novaCategoria);
-			controller.cadastrarProduto(tenant, produto);
+			controller.cadastrarProduto(getTenant(), produto);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
 			produto = null;
 		} catch (Exception e) {
@@ -129,10 +127,10 @@ public class VendaView extends ProfisioActionSupport {
 	public String actionEditarProduto() {
 		String resposta = null;
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
+
 			if (produto != null && produto.getCategoria() != null && produto.getCategoria().equals("-1"))
 				produto.setCategoria(novaCategoria);
-			controller.editarProduto(tenant, produto);
+			controller.editarProduto(getTenant(), produto);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 			resposta = SUCCESS;
 		} catch (Exception e) {
@@ -145,7 +143,7 @@ public class VendaView extends ProfisioActionSupport {
 	public String actionViewProduto() {
 		String resposta = "";
 		try {
-			this.produto = controller.getProduto(produto);
+			this.produto = controller.getProduto(getTenant(), produto);
 			resposta = SUCCESS;
 		} catch (Exception e) {
 			this.dealException(e);
@@ -156,8 +154,8 @@ public class VendaView extends ProfisioActionSupport {
 
 	public String actionRemoverProduto() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			controller.removerProduto(tenant, produto);
+
+			controller.removerProduto(getTenant(), produto);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REMOCAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -167,15 +165,15 @@ public class VendaView extends ProfisioActionSupport {
 
 	public String actionProdutos() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
+
 			String categoria = null;
 			if (produto != null && produto.getCategoria() != null) {
 				categoria = produto.getCategoria();
 				if (categoria.equals("-1"))
 					categoria = null;
 			}
-			this.produtos = controller.getProdutos(tenant, categoria);
-			this.qtdProdutos = controller.getQtdTotalProdutos(tenant);
+			this.produtos = controller.getProdutos(getTenant(), categoria);
+			this.qtdProdutos = controller.getQtdTotalProdutos(getTenant());
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -183,8 +181,8 @@ public class VendaView extends ProfisioActionSupport {
 	}
 
 	public Collection<ItemGeralUI> getCategoriasProduto() {
-		Tenant tenant = ProfisioSessionUtil.getTenantSession();
-		Collection<String> categoriasProduto = VendaControl.getInstance().getCategoriasProduto(tenant);
+
+		Collection<String> categoriasProduto = VendaControl.getInstance().getCategoriasProduto(getTenant());
 		Collection<ItemGeralUI> retorno = new ArrayList<ItemGeralUI>();
 		if (categoriasProduto != null && categoriasProduto.size() > 0) {
 			for (String str : categoriasProduto)
@@ -197,15 +195,15 @@ public class VendaView extends ProfisioActionSupport {
 
 	public Collection<Produto> getAllProdutos() {
 		Collection<Produto> retorno = new ArrayList<Produto>();
-		Tenant tenant = ProfisioSessionUtil.getTenantSession();
-		retorno = this.controller.getProdutos(tenant, null);
+
+		retorno = this.controller.getProdutos(getTenant(), null);
 		return retorno;
 	}
 
 	public Collection<Colaborador> getAllVendedores() {
-		Tenant tenant = ProfisioSessionUtil.getTenantSession();
+
 		Collection<Colaborador> retorno = new ArrayList<Colaborador>();
-		retorno = ColaboradorControl.getInstance().getColaboradores(tenant, null);
+		retorno = ColaboradorControl.getInstance().getColaboradores(getTenant(), null);
 		return retorno;
 	}
 

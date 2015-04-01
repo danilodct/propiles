@@ -20,11 +20,11 @@ public class ConfiguracaoView extends ProfisioActionSupport {
 
 	public String actionGerenciarCaixa() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
+			
 			if (this.configuracao == null)
-				this.configuracao = this.controller.getConfiguracao(tenant);
+				this.configuracao = this.controller.getConfiguracao(getTenant());
 			else {
-				this.controller.editarConfiguracao(tenant, this.configuracao);
+				this.controller.editarConfiguracao(getTenant(), this.configuracao);
 				addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 			}
 		} catch (Exception e) {

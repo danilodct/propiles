@@ -50,9 +50,11 @@ public class VendaControl extends ControllerBase {
 		this.dao.editarProduto(produto);
 	}
 
-	public Produto getProduto(Produto produto) {
+	public Produto getProduto(Tenant tenant, Produto produto) {
 		SystemUtils.assertObjectIsNotNullHasId(produto);
-		return this.dao.getProdutoById(produto.getId());
+		produto = this.dao.getProdutoById(produto.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, produto);
+		return produto;
 	}
 
 	public void editarProduto(Tenant tenant, Produto produto) {
@@ -119,7 +121,7 @@ public class VendaControl extends ControllerBase {
 		this.dao.editarEstoque(estoque);
 
 		Produto produto = this.dao.getProdutoById(estoque.getProduto().getId());
-		Colaborador vendedor = ColaboradorControl.getInstance().getColaboradorById(estoque.getVendedor().getId());
+		Colaborador vendedor = ColaboradorControl.getInstance().getColaboradorById(tenant, estoque.getVendedor().getId());
 		Movimentacao mov = new Movimentacao(estoque.getValor(), estoque.getData(), produto.getNome() + "; Vendedor: " + vendedor.getNome(), TipoMovimentacao.VENDA);
 		mov.setTenant(tenant);
 		this.dao.cadastrarMovimentacao(mov);
@@ -135,9 +137,10 @@ public class VendaControl extends ControllerBase {
 		this.dao.cadastrarEstoque(estoque);
 	}
 
-	public void removerEstoque(Estoque estoque) {
+	public void removerEstoque(Tenant tenant, Estoque estoque) {
 		SystemUtils.assertObjectIsNotNullHasId(estoque);
 		estoque = this.dao.getEstoqueById(estoque.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, estoque);
 		this.dao.removerEstoque(estoque);
 	}
 

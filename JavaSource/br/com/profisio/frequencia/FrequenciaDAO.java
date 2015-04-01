@@ -47,12 +47,18 @@ public class FrequenciaDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Frequencia> getFrequencias(Colaborador colab, Date dataInicial, Date dataFinal) {
+	public Collection<Frequencia> getFrequencias(Tenant tenant, Colaborador colab, Date dataInicial, Date dataFinal) {
 		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		params.put("colaborador", colab);
 		return imp.createNamedQuery("getFrequenciasByColaborador", params).list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public Frequencia getFrequenciaById(Integer id) {
+		return (Frequencia) this.imp.read(Frequencia.class, id);
 	}
 
 }

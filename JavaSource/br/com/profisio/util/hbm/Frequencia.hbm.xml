@@ -94,7 +94,9 @@
 			select freq
 			from Frequencia as freq
 			left join freq.atividade.contrato as cont
-			where (freq.colaborador = :colaborador or cont.colaborador = :colaborador)
+			where 
+			freq.tenant = :tenant
+			and (freq.colaborador = :colaborador or cont.colaborador = :colaborador)
 			and (:dataInicial is null or freq.data >= :dataInicial)
 			and (:dataFinal is null or freq.data <= :dataFinal)
 			]]>

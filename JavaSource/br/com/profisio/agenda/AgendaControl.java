@@ -106,8 +106,10 @@ public class AgendaControl extends ControllerBase {
 		this.dao.editar(agendamentoBD);
 	}
 
-	public void removerAgendamento(Agendamento agendamento) {
+	public void removerAgendamento(Tenant tenant, Agendamento agendamento) {
 		SystemUtils.assertObjectIsNotNullHasId(agendamento);
+		agendamento = this.dao.getAgendamentosById(agendamento.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, agendamento);
 		this.dao.remover(agendamento);
 	}
 

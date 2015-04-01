@@ -59,9 +59,10 @@ public class FrequenciaControl extends ControllerBase {
 		return this.dao.getFrequencias(tenant, dataInicial, dataFinal);
 	}
 
-	public void remover(Frequencia frequencia) {
-		if (frequencia == null || frequencia.getId() == null)
-			throw new ProfisioException(ProfisioBundleUtil.NO_OBJECT_SELECTED);
+	public void remover(Tenant tenant, Frequencia frequencia) {
+		SystemUtils.assertObjectIsNotNullHasId(frequencia);
+		frequencia = this.dao.getFrequenciaById(frequencia.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, frequencia);
 		this.dao.delete(frequencia);
 	}
 
@@ -76,7 +77,7 @@ public class FrequenciaControl extends ControllerBase {
 			frequencia.setContaReceber(null);
 
 		if (frequencia.getContaReceber() != null) {
-			ContaReceber contaReceber = FinanceiroControl.getInstance().getContaReceber(frequencia.getContaReceber());
+			ContaReceber contaReceber = FinanceiroControl.getInstance().getContaReceber(tenant, frequencia.getContaReceber());
 			if (contaReceber.getQtdSessoes() > 0) {
 				Integer qtdFrequencias = this.dao.getQtdFrequenciasByPagamento(contaReceber);
 				if (qtdFrequencias >= contaReceber.getQtdSessoes())
@@ -92,15 +93,17 @@ public class FrequenciaControl extends ControllerBase {
 		this.dao.cadastar(frequencia);
 	}
 
-	public Integer getQtdFrequenciasByPagamento(ContaReceber conta) {
+	public Integer getQtdFrequenciasByPagamento(Tenant tenant, ContaReceber conta) {
 		SystemUtils.assertObjectIsNotNullHasId(conta);
+		//já faz a checagem de posse do tenant
+		conta = FinanceiroControl.getInstance().getContaReceber(tenant, conta);
 		return this.dao.getQtdFrequenciasByPagamento(conta);
 	}
 
-	public Collection<Frequencia> getFrequencias(Colaborador colab, Date dataInicial, Date dataFinal) {
+	public Collection<Frequencia> getFrequencias(Tenant tenant, Colaborador colab, Date dataInicial, Date dataFinal) {
 		Collection<Frequencia> retorno = new ArrayList<Frequencia>();
 		if (colab != null)
-			retorno = this.dao.getFrequencias(colab, dataInicial, dataFinal);
+			retorno = this.dao.getFrequencias(tenant, colab, dataInicial, dataFinal);
 		return retorno;
 	}
 

@@ -42,14 +42,18 @@ public class ServicoControl extends ControllerBase {
 		this.dao.cadastrar(servico);
 	}
 
-	public void removerServico(Servico servico) {
+	public void removerServico(Tenant tenant, Servico servico) {
 		SystemUtils.assertObjectIsNotNullHasId(servico);
+		servico = this.dao.getServicoById(servico.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, servico);
 		this.dao.remover(servico);
 	}
 
-	public Servico getServico(Servico servico) {
+	public Servico getServico(Tenant tenant, Servico servico) {
 		SystemUtils.assertObjectIsNotNullHasId(servico);
-		return this.dao.getServicoById(servico.getId());
+		servico = this.dao.getServicoById(servico.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, servico);
+		return servico;
 	}
 
 	public void editarServico(Tenant tenant, Servico servico) {
@@ -74,9 +78,10 @@ public class ServicoControl extends ControllerBase {
 		this.dao.editar(centroCusto);
 	}
 
-	public void removerCentroCusto(CentroCusto centroCusto) {
+	public void removerCentroCusto(Tenant tenant, CentroCusto centroCusto) {
 		SystemUtils.assertObjectIsNotNullHasId(centroCusto);
 		centroCusto = this.dao.getCentroCustoById(centroCusto.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, centroCusto);
 		centroCusto.setStatusObjeto(StatusObjeto.MORTO);
 		this.dao.editar(centroCusto);
 	}

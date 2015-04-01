@@ -118,11 +118,11 @@ public class ProfisioActionSupport extends ActionSupport {
 
 	public void dealException(Exception e) {
 		String message = e.getMessage();
-		if (!(e instanceof ProfisioException)) {
+		if (!(e instanceof ProfisioException) || e.getMessage().equalsIgnoreCase("Objeto Nulo")) {
 			e.printStackTrace();
 			message = ProfisioException.EXCEPTION_MSG;
 			Mailer mailer = new Mailer();
-			mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Error", ExceptionUtils.getStackTrace(e));
+			mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Error", "Usuário: " + ProfisioSessionUtil.getUserSession().getId() + " \n" + ExceptionUtils.getStackTrace(e));
 			System.out.println("mandou gerar o email...");
 		}
 		addActionError(message);
@@ -133,6 +133,10 @@ public class ProfisioActionSupport extends ActionSupport {
 	public Collection<Servico> getAllServicos() {
 		Tenant tenant = ProfisioSessionUtil.getTenantSession();
 		return ServicoControl.getInstance().getServicos(tenant, null);
+	}
+
+	public Tenant getTenant() {
+		return ProfisioSessionUtil.getTenantSession();
 	}
 
 }

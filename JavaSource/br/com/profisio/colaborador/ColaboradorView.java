@@ -34,11 +34,11 @@ public class ColaboradorView extends ProfisioActionSupport {
 	public String actionAlterarSenha() {
 		String resposta = REDIRECT;
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
+			
 			if (this.colaborador != null) {
 				Usuario userSession = ProfisioSessionUtil.getUserSession();
 				this.colaborador.setId(userSession.getId());
-				this.controller.alterarSenha(tenant, this.colaborador);
+				this.controller.alterarSenha(getTenant(), this.colaborador);
 				addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 				resposta = "redirect_home";
 			}
@@ -51,7 +51,8 @@ public class ColaboradorView extends ProfisioActionSupport {
 	public String actionGetContratosByServico() {
 		String xml = XML_HEAD;
 		try {
-			this.contratos = this.controller.getContratosByServico(this.servico);
+			
+			this.contratos = this.controller.getContratosByServico(getTenant(), this.servico);
 			xml += "<contratos>";
 			if (this.contratos != null && this.contratos.size() > 0) {
 				for (Contrato contrato : this.contratos) {
@@ -73,8 +74,8 @@ public class ColaboradorView extends ProfisioActionSupport {
 
 	public String actionEditarContrato() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.editarContrato(tenant, contrato);
+			
+			this.controller.editarContrato(getTenant(), contrato);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -84,8 +85,8 @@ public class ColaboradorView extends ProfisioActionSupport {
 
 	public String actionCadastrarContrato() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.cadastrarContrato(tenant, contrato);
+			
+			this.controller.cadastrarContrato(getTenant(), contrato);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -95,8 +96,8 @@ public class ColaboradorView extends ProfisioActionSupport {
 
 	public String actionRemoverContrato() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.removerContrato(tenant, contrato);
+			
+			this.controller.removerContrato(getTenant(), contrato);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REMOCAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -106,8 +107,8 @@ public class ColaboradorView extends ProfisioActionSupport {
 
 	public String actionRemoverColaborador() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.removerColaborador(tenant, colaborador);
+			
+			this.controller.removerColaborador(getTenant(), colaborador);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REMOCAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -117,8 +118,8 @@ public class ColaboradorView extends ProfisioActionSupport {
 
 	public String actionEditarColaborador() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.editarColaborador(tenant, colaborador);
+			
+			this.controller.editarColaborador(getTenant(), colaborador);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -129,8 +130,8 @@ public class ColaboradorView extends ProfisioActionSupport {
 	public String actionCadastrarColaborador() {
 		String resposta = null;
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.cadastrarColaborador(tenant, colaborador);
+			
+			this.controller.cadastrarColaborador(getTenant(), colaborador);
 			resposta = SUCCESS;
 		} catch (Exception e) {
 			this.dealException(e);
@@ -145,8 +146,9 @@ public class ColaboradorView extends ProfisioActionSupport {
 			Integer id = null;
 			if (this.colaborador != null && this.colaborador.getId() != null)
 				id = this.colaborador.getId();
-			this.colaborador = this.controller.getColaboradorById(id);
-			this.contratos = this.controller.getContratosByColaborador(this.colaborador);
+			
+			this.colaborador = this.controller.getColaboradorById(getTenant(), id);
+			this.contratos = this.controller.getContratosByColaborador(getTenant(), this.colaborador);
 			resposta = SUCCESS;
 		} catch (Exception e) {
 			this.dealException(e);
@@ -157,8 +159,8 @@ public class ColaboradorView extends ProfisioActionSupport {
 
 	public String actionColaboradores() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.colaboradores = this.controller.getColaboradores(tenant, nomeColaborador);
+			
+			this.colaboradores = this.controller.getColaboradores(getTenant(), nomeColaborador);
 		} catch (Exception e) {
 			this.dealException(e);
 		}

@@ -116,9 +116,11 @@ public class CadastroControl extends ControllerBase {
 		this.dao.cadastrar(cadastro);
 	}
 
-	public Cadastro getCadastro(Cadastro cadastro) {
+	public Cadastro getCadastro(Tenant tenant, Cadastro cadastro) {
 		SystemUtils.assertObjectIsNotNullHasId(cadastro);
-		return this.dao.getCadastroById(cadastro.getId());
+		cadastro = this.dao.getCadastroById(cadastro.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, cadastro);
+		return cadastro;
 	}
 
 	public void cadastrarAtividade(Tenant tenant, Atividade atividade) {
@@ -139,13 +141,17 @@ public class CadastroControl extends ControllerBase {
 		this.dao.cadatrarAtividade(atividade);
 	}
 
-	public Atividade getAtividadeById(Atividade atividade) {
+	public Atividade getAtividadeById(Tenant tenant, Atividade atividade) {
 		SystemUtils.assertObjectIsNotNullHasId(atividade);
-		return this.dao.getAtividadeById(atividade.getId());
+		atividade = this.dao.getAtividadeById(atividade.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, atividade);
+		return atividade;
 	}
 
-	public Collection<Atividade> getAtividadesByCadastro(Cadastro cadastro) {
+	public Collection<Atividade> getAtividadesByCadastro(Tenant tenant, Cadastro cadastro) {
 		SystemUtils.assertObjectIsNotNullHasId(cadastro);
+		cadastro = this.dao.getCadastroById(cadastro.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, cadastro);
 		return this.dao.getAtividadesByCadastro(cadastro);
 	}
 
@@ -157,8 +163,10 @@ public class CadastroControl extends ControllerBase {
 		this.dao.editarAtividade(atividade);
 	}
 
-	public Collection<Frequencia> getFrequenciasByCadastro(Cadastro cadastro) {
+	public Collection<Frequencia> getFrequenciasByCadastro(Tenant tenant, Cadastro cadastro) {
 		SystemUtils.assertObjectIsNotNullHasId(cadastro);
+		cadastro = this.dao.getCadastroById(cadastro.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, cadastro);
 		Collection<Frequencia> frequenciasByCadastro = this.dao.getFrequenciasByCadastro(cadastro, null, null);
 		setOrdemFrequenciasByServico(frequenciasByCadastro);
 		return frequenciasByCadastro;
@@ -188,8 +196,10 @@ public class CadastroControl extends ControllerBase {
 		this.dao.editarAvaliacao(avaliacao);
 	}
 
-	public String getAgendamentosByCadastro(Cadastro cadastro) {
+	public String getAgendamentosByCadastro(Tenant tenant, Cadastro cadastro) {
 		SystemUtils.assertObjectIsNotNullHasId(cadastro);
+		cadastro = this.dao.getCadastroById(cadastro.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, cadastro);
 		String retorno = "[";
 		Collection<Agendamento> agendamentos = this.dao.getAgendamentosByCadastro(cadastro);
 		if (agendamentos != null && agendamentos.size() > 0) {

@@ -38,10 +38,10 @@ public class RelatorioView extends ProfisioActionSupport {
 
 	public String actionExportAtividadesClientes() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
+			
 			String path = SystemUtils.getPath() + "/report.csv";
 			DataOutputStream doStream = new DataOutputStream(new FileOutputStream(path));
-			doStream.writeBytes(this.controller.getAtividadesClientesCSV(tenant, dataInicial, dataFinal));
+			doStream.writeBytes(this.controller.getAtividadesClientesCSV(getTenant(), dataInicial, dataFinal));
 			doStream.flush();
 			doStream.close();
 			fileInputStream = new FileInputStream(path);
@@ -53,8 +53,8 @@ public class RelatorioView extends ProfisioActionSupport {
 
 	public String actionDRE() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.relatorio = this.controller.gerarDemonstrativoResultado(tenant, dataInicial, dataFinal);
+			
+			this.relatorio = this.controller.gerarDemonstrativoResultado(getTenant(), dataInicial, dataFinal);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -63,9 +63,9 @@ public class RelatorioView extends ProfisioActionSupport {
 
 	public String actionEfetividade() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
+			
 			Integer somaCadastros = 0;
-			this.clientes = this.controller.getNovosCadastros(tenant, dataInicial, dataFinal);
+			this.clientes = this.controller.getNovosCadastros(getTenant(), dataInicial, dataFinal);
 			if (this.clientes != null && this.clientes.size() > 0) {
 				for (Cadastro cli : this.clientes) {
 					if (cli.isVirouNovoCliente())
@@ -82,8 +82,8 @@ public class RelatorioView extends ProfisioActionSupport {
 
 	public String actionFrequentes() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.clientes = this.controller.getClientesFrequentes(tenant, dataInicial, dataFinal, colaborador, servico);
+			
+			this.clientes = this.controller.getClientesFrequentes(getTenant(), dataInicial, dataFinal, colaborador, servico);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -93,8 +93,8 @@ public class RelatorioView extends ProfisioActionSupport {
 	// 888888888888888888888888888888888888888888888888888888888888888888888888888888
 
 	public Collection<Colaborador> getAllColaboradores() {
-		Tenant tenant = ProfisioSessionUtil.getTenantSession();
-		return ColaboradorControl.getInstance().getColaboradores(tenant, null);
+		
+		return ColaboradorControl.getInstance().getColaboradores(getTenant(), null);
 	}
 
 	// 888888888888888888888888888888888888888888888888888888888888888888888888888888
