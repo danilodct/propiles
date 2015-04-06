@@ -7,8 +7,6 @@ import br.com.profisio.basics.Servico;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.ProfisioException;
-import br.com.profisio.util.ProfisioSessionUtil;
-import br.com.profisio.util.Tenant;
 
 public class ServicoView extends ProfisioActionSupport {
 
@@ -27,8 +25,8 @@ public class ServicoView extends ProfisioActionSupport {
 
 	public String actionEditarCentroCusto() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.editarCentroCusto(tenant, this.centroCusto);
+
+			this.controller.editarCentroCusto(getTenant(), this.centroCusto);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -38,7 +36,8 @@ public class ServicoView extends ProfisioActionSupport {
 
 	public String actionRemoverCentroCusto() {
 		try {
-			this.controller.removerCentroCusto(this.centroCusto);
+
+			this.controller.removerCentroCusto(getTenant(), this.centroCusto);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REMOCAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -48,8 +47,8 @@ public class ServicoView extends ProfisioActionSupport {
 
 	public String actionCadastrarCentroCusto() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.cadastrarCentroCusto(tenant, this.centroCusto);
+
+			this.controller.cadastrarCentroCusto(getTenant(), this.centroCusto);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -69,8 +68,8 @@ public class ServicoView extends ProfisioActionSupport {
 
 	public String actionEditarServico() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.editarServico(tenant, this.servico);
+
+			this.controller.editarServico(getTenant(), this.servico);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -80,7 +79,7 @@ public class ServicoView extends ProfisioActionSupport {
 
 	public String actionServico() {
 		try {
-			this.servico = this.controller.getServico(this.servico);
+			this.servico = this.controller.getServico(getTenant(), this.servico);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -89,7 +88,7 @@ public class ServicoView extends ProfisioActionSupport {
 
 	public String actionRemoverServico() {
 		try {
-			this.controller.removerServico(this.servico);
+			this.controller.removerServico(getTenant(), this.servico);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REMOCAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -99,8 +98,8 @@ public class ServicoView extends ProfisioActionSupport {
 
 	public String actionCadastrarServico() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.controller.cadastrarServico(tenant, this.servico);
+
+			this.controller.cadastrarServico(getTenant(), this.servico);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -110,8 +109,8 @@ public class ServicoView extends ProfisioActionSupport {
 
 	public String actionServicos() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.servicos = this.controller.getServicos(tenant, null);
+
+			this.servicos = this.controller.getServicos(getTenant(), null);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -120,8 +119,8 @@ public class ServicoView extends ProfisioActionSupport {
 
 	public Collection<CentroCusto> getCentrosCusto() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.centrosCusto = this.controller.getCentrosCusto(tenant);
+
+			this.centrosCusto = this.controller.getCentrosCusto(getTenant());
 		} catch (Exception e) {
 			if (!(e instanceof ProfisioException))
 				e.printStackTrace();

@@ -483,6 +483,16 @@ public class SystemUtils {
 		}
 		return data;
 	}
+
 	// 88888888888888888888888888888888888888888888888888888888888888888888888888888888
+
+	public static void assertObjectIsFromTenant(Tenant tenant, ObjetoBasico objeto) {
+		if (tenant != null && objeto != null) {
+			if (tenant.getId() != null && objeto.getTenant() != null && objeto.getTenant().getId() != null) {
+				if (tenant.getId().intValue() != objeto.getTenant().getId().intValue())
+					throw new ProfisioException(ProfisioBundleUtil.ITEM_NAO_PERTENCE_TENANT);
+			}
+		}
+	}
 
 }

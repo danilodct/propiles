@@ -51,10 +51,12 @@ public class ColaboradorControl extends ControllerBase {
 		return this.dao.getColaboradores(tenant, nomeColaborador);
 	}
 
-	public Colaborador getColaboradorById(Integer id) {
+	public Colaborador getColaboradorById(Tenant tenant, Integer id) {
 		if (id == null)
 			throw new ProfisioException(ProfisioBundleUtil.NO_OBJECT_SELECTED);
-		return this.dao.getColaboradorById(id);
+		Colaborador colaborador = this.dao.getColaboradorById(id);
+		SystemUtils.assertObjectIsFromTenant(tenant, colaborador);
+		return colaborador;
 	}
 
 	public void cadastrarColaborador(Tenant tenant, Colaborador colaborador) {
@@ -130,13 +132,17 @@ public class ColaboradorControl extends ControllerBase {
 		this.dao.editar(contrato);
 	}
 
-	public Collection<Contrato> getContratosByColaborador(Colaborador colaborador) {
+	public Collection<Contrato> getContratosByColaborador(Tenant tenant, Colaborador colaborador) {
 		SystemUtils.assertObjectIsNotNullHasId(colaborador);
+		colaborador = this.dao.getColaboradorById(colaborador.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, colaborador);
 		return this.dao.getContratosByColaborador(colaborador);
 	}
 
-	public Collection<Contrato> getContratosByServico(Servico servico) {
+	public Collection<Contrato> getContratosByServico(Tenant tenant, Servico servico) {
 		SystemUtils.assertObjectIsNotNullHasId(servico);
+		servico = this.dao.getServicoById(servico.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, servico);
 		return this.dao.getContratosByServico(servico);
 	}
 
@@ -151,9 +157,13 @@ public class ColaboradorControl extends ControllerBase {
 		this.dao.editar(userBD);
 	}
 
-	public Contrato getContratoByColaboradorServico(Colaborador colaborador, Servico servico) {
+	public Contrato getContratoByColaboradorServico(Tenant tenant, Colaborador colaborador, Servico servico) {
 		SystemUtils.assertObjectIsNotNullHasId(colaborador);
 		SystemUtils.assertObjectIsNotNullHasId(servico);
+		servico = this.dao.getServicoById(servico.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, servico);
+		colaborador = this.dao.getColaboradorById(colaborador.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, colaborador);
 		Contrato contrato = this.dao.getContratoByColaboradorServico(colaborador, servico);
 		return contrato;
 	}

@@ -47,16 +47,20 @@ public class FinanceiroControl extends ControllerBase {
 		return instance;
 	}
 
-	public Collection<ContaReceber> getContasReceberByCadastro(Cadastro cadastro) {
+	public Collection<ContaReceber> getContasReceberByCadastro(Tenant tenant, Cadastro cadastro) {
 		SystemUtils.assertObjectIsNotNullHasId(cadastro);
+		//apenas para fazer a verificação de posso do tenant
+		cadastro = CadastroControl.getInstance().getCadastro(tenant, cadastro);
 		Collection<ContaReceber> contasReceber = this.dao.getContasReceberByCadastro(cadastro);
 		return contasReceber;
 	}
 
-	public void remover(ContaReceber contaReceber) {
+	public void remover(Tenant tenant, ContaReceber contaReceber) {
 		SystemUtils.assertObjectIsNotNullHasId(contaReceber);
 		contaReceber = this.dao.getContaReceberById(contaReceber.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, contaReceber);
 		this.dao.desassociarFrequenciasContaReceber(contaReceber);
+		this.dao.removerAgendamentosContaReceber(contaReceber);
 		this.removerParcelasContaReceber(contaReceber);
 		this.dao.remover(contaReceber);
 	}
@@ -106,7 +110,7 @@ public class FinanceiroControl extends ControllerBase {
 		Atividade atividade = null;
 		String cliente = "";
 		if (contaReceber.getAtividade() != null) {
-			atividade = CadastroControl.getInstance().getAtividadeById(contaReceber.getAtividade());
+			atividade = CadastroControl.getInstance().getAtividadeById(tenant, contaReceber.getAtividade());
 			cliente = atividade.getCadastro().getNome() + "; ";
 		}
 		String nota = "Valor original: R$ " + valorOriginal + "; Dia do pagamento: " + contaReceber.getDataLancamentoStr() + "; " + contaReceber.getFormaPagamento().getValor() + "; " + cliente + contaReceber.getObservacao();
@@ -232,8 +236,10 @@ public class FinanceiroControl extends ControllerBase {
 		return this.dao.getContasPagar(tenant, tipoCusto, dataInicial, dataFinal, centroCusto, tipoContaPagar, statusContaPagar, geral);
 	}
 
-	public void removerContaPagar(ContaPagar contaPagar) {
+	public void removerContaPagar(Tenant tenant, ContaPagar contaPagar) {
 		SystemUtils.assertObjectIsNotNullHasId(contaPagar);
+		contaPagar = this.dao.getContaPagarById(contaPagar.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, contaPagar);
 		contaPagar.setCentroCusto(null);
 		this.dao.remover(contaPagar);
 	}
@@ -242,9 +248,11 @@ public class FinanceiroControl extends ControllerBase {
 		return this.dao.getAllTiposContaPagar(tenant);
 	}
 
-	public ContaPagar getContaPagar(ContaPagar contaPagar) {
+	public ContaPagar getContaPagar(Tenant tenant, ContaPagar contaPagar) {
 		SystemUtils.assertObjectIsNotNullHasId(contaPagar);
-		return this.dao.getContaPagarById(contaPagar.getId());
+		contaPagar = this.dao.getContaPagarById(contaPagar.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, contaPagar);
+		return contaPagar;
 	}
 
 	public void editarContaPagar(Tenant tenant, ContaPagar contaPagar) {
@@ -351,14 +359,18 @@ public class FinanceiroControl extends ControllerBase {
 		return this.dao.getSomaMovimentacoes(tenant, caixaDataInicial, dataInicial);
 	}
 
-	public Collection<ContaReceber> getPagamentosCheiosByAtividade(Atividade atividade) {
+	public Collection<ContaReceber> getPagamentosCheiosByAtividade(Tenant tenant, Atividade atividade) {
 		SystemUtils.assertObjectIsNotNullHasId(atividade);
+		//já faz a verificação de posse do tenant
+		atividade = CadastroControl.getInstance().getAtividadeById(tenant, atividade);
 		return this.dao.getPagamentosCheiosByAtividade(atividade);
 	}
 
-	public ContaReceber getContaReceber(ContaReceber contaReceber) {
+	public ContaReceber getContaReceber(Tenant tenant, ContaReceber contaReceber) {
 		SystemUtils.assertObjectIsNotNullHasId(contaReceber);
-		return this.dao.getContaReceberById(contaReceber.getId());
+		contaReceber = this.dao.getContaReceberById(contaReceber.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, contaReceber);
+		return contaReceber;
 	}
 
 	public String getContasReceberClientesCSV(Tenant tenant, Date dataInicial, Date dataFinal, FormaPagamento formaPagamento, Colaborador colaborador, Servico servico, StatusConta statusContaPagar) {
@@ -406,7 +418,7 @@ public class FinanceiroControl extends ControllerBase {
 		contaReceber.setOutroColaborador(false);
 
 		this.removerParcelasContaReceber(contaReceber);
-		this.removerMovimentacoes(contaReceber);
+		this.removerMovimentacoes(tenant, contaReceber);
 
 		Double valorOriginal = contaReceber.getValor();
 
@@ -421,7 +433,7 @@ public class FinanceiroControl extends ControllerBase {
 		Atividade atividade = null;
 		String cliente = "";
 		if (contaReceber.getAtividade() != null) {
-			atividade = CadastroControl.getInstance().getAtividadeById(contaReceber.getAtividade());
+			atividade = CadastroControl.getInstance().getAtividadeById(tenant, contaReceber.getAtividade());
 			cliente = atividade.getCadastro().getNome() + "; ";
 		}
 		String nota = "Valor original: R$ " + valorOriginal + "; Dia do pagamento: " + contaReceber.getDataLancamentoStr() + "; " + contaReceber.getFormaPagamento().getValor() + "; " + cliente + contaReceber.getObservacao();
@@ -443,8 +455,10 @@ public class FinanceiroControl extends ControllerBase {
 		}
 	}
 
-	public void removerMovimentacoes(ContaReceber contaReceber) {
+	public void removerMovimentacoes(Tenant tenant, ContaReceber contaReceber) {
 		SystemUtils.assertObjectIsNotNullHasId(contaReceber);
+		contaReceber = this.dao.getContaReceberById(contaReceber.getId());
+		SystemUtils.assertObjectIsFromTenant(tenant, contaReceber);
 		this.dao.removerMovimentacao(contaReceber);
 	}
 
@@ -456,20 +470,20 @@ public class FinanceiroControl extends ControllerBase {
 			if (colaborador == null || colaborador.getId() == null || colaborador.getId().intValue() == -1)
 				temp = ColaboradorControl.getInstance().getColaboradores(tenant, null);
 			else {
-				colaborador = ColaboradorControl.getInstance().getColaboradorById(colaborador.getId());
+				colaborador = ColaboradorControl.getInstance().getColaboradorById(tenant, colaborador.getId());
 				temp.add(colaborador);
 			}
 			if (temp != null && temp.size() > 0) {
 				for (Colaborador col : temp) {
-					Collection<Frequencia> frequencias = FrequenciaControl.getInstance().getFrequencias(col, dataInicial, dataFinal);
+					Collection<Frequencia> frequencias = FrequenciaControl.getInstance().getFrequencias(tenant, col, dataInicial, dataFinal);
 					if (frequencias != null && frequencias.size() > 0) {
 						for (Frequencia freq : frequencias) {
 							if (freq.getContaReceber() != null) {
 								Double valorCheio = freq.getContaReceber().getValorCheio();
 								Integer qtdSessoes = freq.getContaReceber().getQtdSessoes();
 								if (qtdSessoes == 0)
-									qtdSessoes = FrequenciaControl.getInstance().getQtdFrequenciasByPagamento(freq.getContaReceber());
-								Contrato contrato = ColaboradorControl.getInstance().getContratoByColaboradorServico(col, freq.getServicoCerto());
+									qtdSessoes = FrequenciaControl.getInstance().getQtdFrequenciasByPagamento(tenant, freq.getContaReceber());
+								Contrato contrato = ColaboradorControl.getInstance().getContratoByColaboradorServico(tenant, col, freq.getServicoCerto());
 								Double valorFrequencia = 0.0;
 								if (contrato != null) {
 									Double porcAtendimentos = contrato.getPercentual();

@@ -109,4 +109,9 @@ public class ColaboradorDAO extends DAOBase {
 		return (Contrato) this.imp.queryObject("getContratoByColaboradorServico", params);
 	}
 
+	@SuppressWarnings("unchecked")
+	public Servico getServicoById(Integer id) {
+		return (Servico) this.imp.read(Servico.class, id);
+	}
+
 }

@@ -28,8 +28,8 @@ public class FrequenciaView extends ProfisioActionSupport {
 
 	public String actionCadastrarFrequencia() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			controller.cadastrarFrequencia(tenant, frequencia);
+			
+			controller.cadastrarFrequencia(getTenant(), frequencia);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -40,7 +40,8 @@ public class FrequenciaView extends ProfisioActionSupport {
 	public String actionRemoverFrequencia() {
 		String resposta = REDIRECT;
 		try {
-			controller.remover(frequencia);
+			
+			controller.remover(getTenant(), frequencia);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REMOCAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -52,8 +53,8 @@ public class FrequenciaView extends ProfisioActionSupport {
 
 	public String actionFrequencia() {
 		try {
-			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.frequencias = controller.getFrequencias(tenant, dataInicial, dataFinal);
+			
+			this.frequencias = controller.getFrequencias(getTenant(), dataInicial, dataFinal);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
