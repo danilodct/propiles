@@ -46,12 +46,18 @@
 
 
 		<global-results>
-			<result name="not_logged">v2.0/pages/login.jsp</result>
+			<result name="not_logged">index.jsp</result>
 		</global-results>
 
 
 		<!-- ============= GLOBAL ACTIONS ================= -->
 
+		
+		<action name="cadastre-se" class="br.com.profisio.usuario.UsuarioView" method="actionCadastrese">
+			<interceptor-ref name="defaultProfisioStack-SemLogin"></interceptor-ref>
+			<result name="success" type="chain">home</result>
+			<result name="error">index.jsp</result>
+		</action>
 
 		<action name="home" class="br.com.profisio.util.ProfisioActionSupport" method="redirect">
 			<result name="redirect">/v2.0/pages/home.jsp</result>
@@ -60,11 +66,11 @@
 		<action name="login" class="br.com.profisio.usuario.UsuarioView" method="actionLogin">
 			<interceptor-ref name="defaultProfisioStack-SemLogin"></interceptor-ref>
 			<result name="success" type="chain">home</result>
-			<result name="error">v2.0/pages/login.jsp</result>
+			<result name="error">index.jsp</result>
 		</action>
 		
 		<action name="logout" class="br.com.profisio.usuario.UsuarioView" method="actionLogout">
-			<result name="redirect">v2.0/pages/login.jsp</result>
+			<result name="redirect">index.jsp</result>
 		</action>
 		
 		<action name="getCEP" class="br.com.profisio.util.ProfisioActionSupport" method="actionBuscarCEP">

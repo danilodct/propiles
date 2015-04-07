@@ -15,41 +15,64 @@
 	<link rel="stylesheet" type="text/css" href="css/frontend.css" />
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,700,300&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
     
-	<script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
 	<script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
+	<script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
 	<script type="text/javascript" src="v2.0/js/lib/scripts.js" ></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("input#login").focus();
+		$(".fone").mask("(00) 00000-0000");
+		$(".cadastrese").click(function(evt){
+			evt.preventDefault();
+			showModal("div.modalCadastro");
+		});
+		
+		$("form#formCadastro").submit(function(evt){
+			var sucesso = true;
+			if($("input#senhaCadastro").val() != $("input#repeteSenha").val() || $("input#senhaCadastro").val() == ""){
+				sucesso = false;
+				alert("Verifique se você repetiu a senha corretamente!");
+				showModal("div.modalCadastro");
+			}
+			return sucesso;
+		});
+		
+	});
+	</script>
 </head>
 <body class="frontend">
     <nav class="ui menu inverted navbar page grid frontendTopo" style="margin-bottom: 0px">
-        <a href="" class="brand left item"><img src="img/logo.png" /></a>
+        <a href="http://www.propiles.com.br" class="brand left item"><img src="img/logo.png" /></a>
         <div class="right menu">
             <a href="#planos" class="ui item">Nossos Planos</a>
             <a href="#contato" class="ui item">Entre em contato</a>
-            <a href="" class="ui green degrade button ">Comece agora!</a>
+            <a href="" class="ui green degrade button cadastrese">Cadastre-se agora!</a>
         </div>
     </nav>
     <div class="ui page grid frontendSlide">
-    	<div class="four column row">
-            <div class="column"></div>
-            <div class="column"></div>
-            <div class="column"></div>
+    	<div class="one column row">
             <div class="column">
-            	<div class="ui form segment login">
-			      <div class="field">
-			        <label>Faça seu login:</label>
-			        <div class="ui left icon input">
-			          <input type="text" placeholder="usuário">
-			          <i class="user icon"></i>
-			        </div>
-			      </div>
-			      <div class="field">
-			        <div class="ui left icon input">
-			          <input type="password" placeholder="senha">
-			          <i class="lock icon"></i>
-			        </div>
-			      </div>
-			      <div class="ui blue submit button">Entrar</div>
-			    </div>
+            	<s:form action="login" method="post">
+	            	<div class="ui form segment login right floated">
+				      <div class="field">
+				        <label>Faça seu login:</label>
+				        <div class="ui left icon input">
+				          <input type="text" placeholder="usuário" id="e-mail" name="usuario.login" />
+				          <i class="user icon"></i>
+				        </div>
+				      </div>
+				      <div class="field">
+				        <div class="ui left icon input">
+				          <input type="password" placeholder="senha" name="usuario.senha" />
+				          <i class="lock icon"></i>
+				        </div>
+				      </div>
+				      <s:submit cssClass="ui blue submit button right floated" value="Entrar" />
+				      <div class="item">
+				      	<a href="#" class="">esqueceu a senha?</a>
+				      </div>
+				    </div>
+            	</s:form>
             </div>
         </div>
     </div>
@@ -66,24 +89,24 @@
 
         <div class="three column row">
             <div class="column">
-                <h2 class="ui header">
+                <div class="ui header">
   					<i class="circular teal users icon"></i>
   					<div class="content">Para quem?</div>
-  				</h2>
+  				</div>
                 <p>O ProPilEs foi idealizado inicialmente com o foco de atender às necessidades de Stúdios de Pilates e de Clínicas de Estética. Porém o sistema foi implementado de tal forma que outros estabelecimentos (stúdio/salão de beleza, academia, etc.) podem fazer uso com total contentamento.</p>
             </div>
             <div class="column">
-                <h2 class="ui header">
+                <div class="ui header">
   					<i class="circular teal list icon"></i>
   					<div class="content">O que faz?</div>
-  				</h2>
-                <p>Gerencia as atividades diárias, o cadastro dos seus colaboradores e clientes, as contas a pagar e contas a receber, as anotações de cada atendimento (ficha de avaliação), gerando relatórios para o seu negócio e faz várias análises para que o gestor tome decisões referentes ao negócio no módulo de Análise BI.</p>
+  				</div>
+                <p>Gerencia as atividades diárias, o cadastro dos seus colaboradores e clientes, as contas a pagar e contas a receber, as anotações de cada atendimento (ficha de avaliação), gerando relatórios para o seu negócio e fazendo várias análises no módulo de Análise BI onde que o gestor pode tomar decisões referentes ao seu negócio.</p>
             </div>
             <div class="column">
-                <h2 class="ui header">
+                <div class="ui header">
   					<i class="circular teal desktop icon"></i>
   					<div class="content">Como faz?</div>
-  				</h2>
+  				</div>
                 <p>O ProPilES foi desenvolvido 100% online, isto é, totalmente na internet sem necessidade de instalação. Desta forma, onde quer que esteja o gestor poderá visualizar, alterar e fazer análises sobre os dados do seu estabelecimento, tudo isso com a segurança dos dados garantida e rapidez no acesso à informação.</p>
             </div>
         </div>
@@ -165,7 +188,7 @@
   					<p></p>
   				</div>
   				<div class="content centered">
-	  				<a href="" class="ui green degrade button ">Comece agora!</a>
+	  				<a href="#" class="ui green degrade button cadastrese">Comece agora!</a>
   				</div>
   				<p></p>
   				<div class="centered">
@@ -241,21 +264,29 @@
     <div class="ui page grid faixa contato"><a name="contato"></a>
     	<div class="one column row">
             <div class="column"> 
-            	<form class="ui form">
-				 	<h2 class="ui dividing header">Entre em contato conosco</h2>
+            	<s:form cssClass="ui form" action="contato" method="post">
+				 	<h2 class="ui dividing header">Entre em contato e tire suas dúvidas</h2>
 					<div class="two fields">
 				        <div class="required field">
-				            <input type="text" name="nome" placeholder="Seu nome">
+				            <s:textfield name="nome" placeholder="Seu nome" />
 				        </div>
 					    <div class="field">
-					          <input type="text" name="empresa" placeholder="Sua empresa">
+					          <s:textfield  name="empresa" placeholder="Sua empresa" />
+						</div>
+				    </div>
+					<div class="two fields">
+				        <div class="required field">
+				            <s:textfield name="fone" placeholder="Seu telefone" cssClass="fone" />
+				        </div>
+					    <div class="field">
+					          <s:textfield name="email" placeholder="Seu e-mail" />
 						</div>
 				    </div>
 				    <div class="required field">
-						<textarea name="mensagem" placeholder="Sua dúvida ou mensagem"></textarea>
+						<s:textarea name="mensagem" placeholder="Sua dúvida ou mensagem"></s:textarea>
 					</div>
- 					<div class="ui submit button">Enviar</div>
-				 </form>
+ 					<s:submit cssClass="ui submit button" value="Enviar" />
+				 </s:form>
             </div>
         </div>
        
@@ -271,9 +302,72 @@
           <div class="column right">
 	            <a href="#planos" class="ui right item">Nossos Planos</a>
 	            <a href="#contato" class="ui right item">Entre em contato</a>
-	            <a href="" class="ui right item">Comece agora!</a>
+	            <a href="" class="ui right item cadastrese">Cadastre-se agora!</a>
           </div>
         </div>
     </div>
+      
+	<!-- ----------  MODAL  -------------  -->
+	
+	<div class="ui modal modalCadastro">
+		<i class="close icon"></i>
+		<div class="header">Cadastre-se</div>
+		<div class="content">
+			<s:form action="cadastre-se" cssClass="ui form" id="formCadastro" method="post" >
+				<div class="required field">
+					<label class="">Seu nome:</label>
+					<s:textfield name="usuario.nome" cssClass="" />
+				</div>
+				<div class="required field">
+					<label class="">Sua empresa:</label>
+					<s:textfield name="tenant.nome" cssClass="" />
+				</div>
+				<div class="three fields">
+					<div class="required field ">
+						<label class="">E-mail:</label>
+						<s:textfield name="usuario.email" cssClass="" />
+					</div>
+					<div class="required field">
+						<label class="">Senha:</label>
+						<s:password id="senhaCadastro" name="usuario.senha" cssClass="" />
+					</div>
+					<div class="required field">
+						<label class="">Repita a senha:</label>
+						<s:password id="repeteSenha" cssClass="" />
+					</div>
+				</div>
+				<div class="ui actions buttons right floated">
+					<div class="ui button">Cancelar</div>
+					<div class="or" data-text="ou"></div>
+					<s:submit cssClass="ui positive right submit button" value="Começar agora mesmo!" />
+				</div>
+			</s:form>
+		</div>
+	</div>
+
+
+	<!-- MENSAGEM DE ERRO -->
+	
+	<s:if test="hasActionErrors()">
+		<div class="ui small modal modalErro">
+			<i class="close icon"></i>
+			<div class="header">Ops.. Ocorreu um erro!</div>
+			<div class="content">
+				<ul>
+				<s:iterator value="actionErrors">
+					<li><s:property /></li>
+				</s:iterator>
+				</ul>
+				<div class="ui actions buttons right floated">
+					<div class="ui positive right submit button" >Ok</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			showModal("div.modalErro");
+			$("div.modalCadastro").modal('attach events', '.modalErro .button');
+		</script>
+	</s:if>
+	
 </body>
 </html>

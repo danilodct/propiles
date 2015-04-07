@@ -38,4 +38,14 @@ public class UsuarioDAO extends DAOBase {
 		return (Tenant) imp.queryObject("getTenantByUsuario", params);
 	}
 
+	@SuppressWarnings("unchecked")
+	public void cadastrar(Usuario usuario) {
+		this.imp.insert(usuario);
+	}
+
+	@SuppressWarnings("unchecked")
+	public void cadastrar(Tenant tenant) {
+		this.imp.insert(tenant);
+	}
+
 }

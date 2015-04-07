@@ -50,6 +50,9 @@ public class ProfisioBundleUtil {
 	public static final String QTD_MAX_SESSOES_ATINGIDAS_PAGAMENTO = "QTD_MAX_SESSOES_ATINGIDAS_PAGAMENTO";
 	public static final String INFORME_TITULO = "INFORME_TITULO";
 	public static final String ITEM_NAO_PERTENCE_TENANT = "ITEM_NAO_PERTENCE_TENANT";
+	public static final String INFORME_TODOS_DADOS = "INFORME_TODOS_DADOS";
+	public static final String EMAIL_OBRIGATORIO = "EMAIL_OBRIGATORIO";
+	public static final String EMAIL_JA_CADASTRADO = "EMAIL_JA_CADASTRADO";
 
 	public static String getMsgError(String key) {
 		return getMsg("error", key);

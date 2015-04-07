@@ -1,5 +1,6 @@
 body.frontend{background-color: #fff;}
-*, .ui.button{font-family: "Roboto", "Open sans", Lato, "Helvetica Neue", Arial; font-weight: 300; letter-spacing: 0px;}
+*, .ui.button{font-family: "Roboto", "Open sans", Lato, "Helvetica Neue", Arial; font-weight: 300; letter-spacing: 0px; font-size: 1.1rem;}
+.ui.button{font-size: 1rem;}
 .column *{font-weight: 300;}
 body.frontend .ui.header, body.frontend .ui.header .content{font-family:Roboto, Lato,'Helvetica Neue',Arial,Helvetica,sans-serif; color: rgba(0,0,0,.5); font-weight: 700;}
 .planos .ui.header{text-decoration: underline}
@@ -12,7 +13,7 @@ body.frontend .ui.header, body.frontend .ui.header .content{font-family:Roboto, 
 
 /* FRONTEND TOPO */
 .ui.inverted.menu.frontendTopo {padding-top: 2px;padding-bottom: 5px; background-color: #fff;}
-.ui.inverted.menu.frontendTopo .right.menu {padding-top:17px;}
+.ui.inverted.menu.frontendTopo .right.menu {padding-top:11px;}
 
 /* FRONTEND SLIDE */
 .ui.grid+.grid.frontendSlide{
@@ -23,7 +24,7 @@ body.frontend .ui.header, body.frontend .ui.header .content{font-family:Roboto, 
   background-size: cover;
   background-size: cover;
 }
-.ui.grid+.grid.frontendSlide .four.column{padding-top:70px;}
+.ui.grid+.grid.frontendSlide .one.column{padding-top:70px;}
 .ui.grid+.grid.frontendSlide p{font-size: 16px;}
 .ui.grid+.grid.frontendSlide .button{color:#fff;}
 .ui.grid+.grid.frontendSlide .button.submit{background-color: #00B6BE;}
@@ -50,6 +51,12 @@ body.frontend .ui.form .field>label{font-weight: 400; font-size: 16px; color: #8
   filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/slider/slide3.jpg',sizingMethod='scale');
 }
 
+/* AREA LOGIN */
+.frontendSlide .ui.form.segment{border:1px solid #00B6BE; max-width: 300px; width:280px;}
+.frontendSlide .ui.button{padding:.78571em 2.7em}
+.frontendSlide .item{text-align:left; margin-bottom: 5px; margin-top:27px;}
+.frontendSlide a{font-size: 0.9rem; color:#808080;}
+
 /* BUTTON */
 .ui.green.button.degrade{
   background: -webkit-linear-gradient(top,#98c346 0,#9cdd1f 100%);
@@ -63,6 +70,7 @@ body.frontend .ui.form .field>label{font-weight: 400; font-size: 16px; color: #8
 
 /* HEADINGS */
 .ui.page.grid.headings{background-color: #FFF;}
+.ui.page.grid.headings .ui.header .content{font-size: 1.714rem; font-weight: 700;}
 
 /* FAIXAS */
 .faixa{
@@ -118,13 +126,13 @@ body.frontend .ui.form .field>label{font-weight: 400; font-size: 16px; color: #8
   -webkit-box-shadow: inset 0px 0px 70px #D78B4D; 
   box-shadow: inset 0px 0px 70px #D78B4D;
   background-color: #FFCB80;
-  height: 500px;
+  height: 610px;
 }
 .contato .column.row{padding-top: 6rem;}
 .contato .column *{font-weight: 400;}
 .contato .column p{max-width: 350px;}
 .contato .ui.form input[type=text], .contato .ui.form textarea{border: 0px solid !important;border-radius: 5px !important; padding: 13px !important;  font-family: "Roboto" !important;}
-.contato .ui.form .submit{background-color: #897299; color: #fff; width: 100%; padding: 20px;}
+.contato .ui.form .submit{background-color: #897299; color: #fff; width: 100%; padding: 20px; font-size: 1.2rem;}
 
 /* PLANOS */
 .ui.grid.planos .ui.segment.column{padding-bottom: 6em;}
@@ -143,3 +151,6 @@ body.frontend .ui.form .field>label{font-weight: 400; font-size: 16px; color: #8
 .rodape *{color:#FFF;}
 .rodape a{padding-left:20px;}
 .ui.grid>.row>.column.right{text-align: right;}
+.rodape * {font-size: 0.9rem;}
+
+/* CADASTRE-SE */

@@ -82,3 +82,6 @@ CREATE TABLE IF NOT EXISTS `tipocontapagar` (
   PRIMARY KEY (id) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 */
+
+alter table usuario change login login varchar(255);
+alter table usuario change senha senha varchar(255);

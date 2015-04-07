@@ -147,16 +147,16 @@
 </s:if>
 
 <s:if test="hasActionMessages()">
-		<div class="seven wide column">
-			<div class="ui info message">
-				<i class="close icon"></i>
-				<div class="header">Info</div>
-				<ul class="list">
-					<s:iterator value="actionMessages">
-						<li><s:property /></li>
-					</s:iterator>
-				</ul>
-			</div>
+	<div class="seven wide column">
+		<div class="ui info message">
+			<i class="close icon"></i>
+			<div class="header">Info</div>
+			<ul class="list">
+				<s:iterator value="actionMessages">
+					<li><s:property /></li>
+				</s:iterator>
+			</ul>
 		</div>
-		<div class="ui hidden divider"></div>
-	</s:if>
+	</div>
+	<div class="ui hidden divider"></div>
+</s:if>

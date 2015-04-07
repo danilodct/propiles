@@ -197,7 +197,7 @@ function setSelectOutro(lista, outro){
 }
 
 function showModal(modal){
-	$(modal).modal('show');
+	$(modal).modal({allowMultiple: true}).modal('show');
 }
 
 function removeOptions(select){

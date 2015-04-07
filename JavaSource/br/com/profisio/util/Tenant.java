@@ -13,6 +13,12 @@ public class Tenant extends ObjetoBasico {
 	public Tenant() {
 	}
 
+	public Tenant(String nome, Date date, Plano plano) {
+		this.setNome(nome);
+		this.setDataCriacao(date);
+		this.setPlano(plano);
+	}
+
 	public String getNome() {
 		return nome;
 	}
