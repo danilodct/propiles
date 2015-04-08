@@ -13,10 +13,21 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	private Usuario usuario;
 	private Tenant tenant;
-	private String page;
+	private String page, nome, empresa, fone, email, mensagem;
 
 	public UsuarioView() {
 		controller = UsuarioControl.getInstance();
+	}
+
+	public String actionContato() {
+		try {
+			controller.contato(nome, empresa, fone, email, mensagem);
+			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.MENSAGEM_ENVIADA));
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		this.page = "contato";
+		return REDIRECT;
 	}
 
 	public String actionEsqueceuSenha() {
@@ -111,6 +122,46 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public void setPage(String page) {
 		this.page = page;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(String empresa) {
+		this.empresa = empresa;
+	}
+
+	public String getFone() {
+		return fone;
+	}
+
+	public void setFone(String fone) {
+		this.fone = fone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getMensagem() {
+		return mensagem;
+	}
+
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
 	}
 
 }

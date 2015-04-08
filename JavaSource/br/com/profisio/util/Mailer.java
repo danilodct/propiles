@@ -71,11 +71,9 @@ public class Mailer {
 
 				message.setRecipients(Message.RecipientType.TO, toUser);
 				message.setSubject(subject);// Assunto
-				message.setText(corpo);
+				message.setContent(corpo, "text/html; charset=utf-8");
 				/** Método para enviar a mensagem criada */
 				Transport.send(message);
-
-				System.out.println("Feito!!!");
 
 			} catch (MessagingException e) {
 				e.printStackTrace();

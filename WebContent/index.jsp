@@ -61,7 +61,7 @@
         <a href="http://www.propiles.com.br" class="brand left item"><img src="img/logo.png" /></a>
         <div class="right menu">
             <a href="#planos" class="ui item">Nossos Planos</a>
-            <a href="#contato" class="ui item">Entre em contato</a>
+            <a href="#contato" class="ui item btContato">Entre em contato</a>
             <a href="" class="ui green degrade button cadastrese">Cadastre-se agora!</a>
         </div>
     </nav>
@@ -419,6 +419,15 @@
 		</div>
 		<script type="text/javascript">
 			showModal("div.modalInfo");
+		</script>
+	</s:if>
+	
+	
+	<!-- CASO TENHA ENVIADO ALGUMA MSG VAI DIRETO PRA AREA DE MSG -->
+	
+	<s:if test="page == 'contato'">
+		<script type="text/javascript">
+			location.href = "#contato";
 		</script>
 	</s:if>
 	

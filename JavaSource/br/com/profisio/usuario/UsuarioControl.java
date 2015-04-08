@@ -129,4 +129,13 @@ public class UsuarioControl extends ControllerBase {
 		String msg = "Sua senha é: " + usuario.getSenha();
 		mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Esqueceu sua senha?", msg);
 	}
+
+	public void contato(String nome, String empresa, String fone, String email, String mensagem) {
+		if ((email == null || email.trim().equals("")) && (fone == null || fone.trim().equals("")))
+			throw new ProfisioException(ProfisioBundleUtil.INFORME_EMAIL_FONE);
+
+		Mailer mailer = new Mailer();
+		String msg = nome + "<br />Empresa: " + empresa + "<br />" + fone + "<br />E-mail: " + email + "<br /><br />" + mensagem;
+		mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Mensagem de contato", msg);
+	}
 }

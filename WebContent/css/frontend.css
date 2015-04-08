@@ -124,18 +124,18 @@ body.frontend .ui.form .field>label{font-weight: 400; font-size: 16px; color: #8
 .faixa3 .column p{max-width: 350px;}
 
 /*CONTATO*/
-.contato{
+div.contato{
   -moz-box-shadow: inset 0px 0px 70px #D78B4D; 
   -webkit-box-shadow: inset 0px 0px 70px #D78B4D; 
   box-shadow: inset 0px 0px 70px #D78B4D;
   background-color: #FFCB80;
   height: 610px;
 }
-.contato .column.row{padding-top: 6rem;}
-.contato .column *{font-weight: 400;}
-.contato .column p{max-width: 350px;}
-.contato .ui.form input[type=text], .contato .ui.form textarea{border: 0px solid !important;border-radius: 5px !important; padding: 13px !important;  font-family: "Roboto" !important;}
-.contato .ui.form .submit{background-color: #897299; color: #fff; width: 100%; padding: 20px; font-size: 1.2rem;}
+div.contato .column.row{padding-top: 6rem;}
+div.contato .column *{font-weight: 400;}
+div.contato .column p{max-width: 350px;}
+div.contato .ui.form input[type=text], .contato .ui.form textarea{border: 0px solid !important;border-radius: 5px !important; padding: 13px !important;  font-family: "Roboto" !important;}
+div.contato .ui.form .submit{background-color: #897299; color: #fff; width: 100%; padding: 20px; font-size: 1.2rem;}
 
 /* PLANOS */
 .ui.grid.planos .ui.segment.column{padding-bottom: 6em;}
