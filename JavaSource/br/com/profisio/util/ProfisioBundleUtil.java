@@ -1,6 +1,6 @@
 package br.com.profisio.util;
 
-import java.util.ArrayList;
+import java.text.MessageFormat;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,37 +53,24 @@ public class ProfisioBundleUtil {
 	public static final String INFORME_TODOS_DADOS = "INFORME_TODOS_DADOS";
 	public static final String EMAIL_OBRIGATORIO = "EMAIL_OBRIGATORIO";
 	public static final String EMAIL_JA_CADASTRADO = "EMAIL_JA_CADASTRADO";
+	public static final String VERIFIQUE_EMAIL = "VERIFIQUE_EMAIL";
+	public static final String ERRO_CONFIRMAR_CADASTRO = "ERRO_CONFIRMAR_CADASTRO";
+	public static final String CADASTRO_NAO_CONFIRMADO = "CADASTRO_NAO_CONFIRMADO";
+	public static final String REENVIADO_EMAIL_CONFIRMACAO = "REENVIADO_EMAIL_CONFIRMACAO";
+	public static final String ERRO_REENVIAR_CONFIRMACAO = "ERRO_REENVIAR_CONFIRMACAO";
+	public static final String CONFIRMADO_SUCESSO = "CONFIRMADO_SUCESSO";
 
-	public static String getMsgError(String key) {
-		return getMsg("error", key);
+	public static String getMsgError(String key, Object... params) {
+		return getMsgFile("error", key, params);
 	}
 
-	public static String getMsg(String key) {
-		return getMsg("msg", key);
+	public static String getMsg(String key, Object... params) {
+		return getMsgFile("msg", key, params);
 	}
 
-	public static String getMsgError(String key, ArrayList<String> params) {
-		return getMsg("error", key, params);
-	}
-
-	public static String getMsg(String key, ArrayList<String> params) {
-		return getMsg("msg", key, params);
-	}
-
-	public static String getMsg(String file, String key) {
+	public static String getMsgFile(String file, String key, Object... params) {
 		ResourceBundle bundle = ResourceBundle.getBundle(file);
-		return bundle.getString(key);
-	}
-
-	public static String getMsg(String file, String key, ArrayList<String> params) {
-		ResourceBundle bundle = ResourceBundle.getBundle(file);
-		String str = bundle.getString(key);
-		if (params != null) {
-			for (int i = 0; i < params.size(); i += 1) {
-				str = str.replaceAll("\\[" + i + "\\]", params.get(i));
-			}
-		}
-		return str;
+		return MessageFormat.format(bundle.getString(key), params);
 	}
 
 	public static Enumeration<String> getAllKeys(String file) {

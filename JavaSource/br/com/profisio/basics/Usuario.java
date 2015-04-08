@@ -8,6 +8,7 @@ public class Usuario extends Pessoa {
 	private String login;
 	private String senha;
 	private TipoUser tipo;
+	private Boolean confirmado;
 
 	public Usuario() {
 	}
@@ -53,6 +54,14 @@ public class Usuario extends Pessoa {
 
 	public void setTipoStr(String tipo) {
 		this.tipo = TipoUser.createEnum(tipo);
+	}
+
+	public Boolean getConfirmado() {
+		return confirmado;
+	}
+
+	public void setConfirmado(Boolean confirmado) {
+		this.confirmado = confirmado;
 	}
 
 }

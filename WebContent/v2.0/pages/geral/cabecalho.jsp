@@ -138,7 +138,7 @@
 			<div class="header">Opss...</div>
 			<ul class="list">
 				<s:iterator value="actionErrors">
-					<li><s:property /></li>
+					<li><s:property escape="false" /></li>
 				</s:iterator>
 			</ul>
 		</div>
@@ -153,7 +153,7 @@
 			<div class="header">Info</div>
 			<ul class="list">
 				<s:iterator value="actionMessages">
-					<li><s:property /></li>
+					<li><s:property escape="false" /></li>
 				</s:iterator>
 			</ul>
 		</div>

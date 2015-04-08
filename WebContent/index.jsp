@@ -31,8 +31,20 @@
 			var sucesso = true;
 			if($("input#senhaCadastro").val() != $("input#repeteSenha").val() || $("input#senhaCadastro").val() == ""){
 				sucesso = false;
-				alert("Verifique se você repetiu a senha corretamente!");
+				alert("Verifique a sua senha!");
 				showModal("div.modalCadastro");
+			}
+			return sucesso;
+		});
+		
+		$("form#formLogin").submit(function(evt){
+			var sucesso = true;
+			if($("input#e-mail").val().trim() == ""){
+				sucesso = false;
+				$("input#e-mail").focus();
+			}else if($("input#senha").val().trim() == ""){
+				sucesso = false;
+				$("input#senha").focus();
 			}
 			return sucesso;
 		});
@@ -52,18 +64,18 @@
     <div class="ui page grid frontendSlide">
     	<div class="one column row">
             <div class="column">
-            	<s:form action="login" method="post">
+            	<s:form action="login" method="post" id="formLogin">
 	            	<div class="ui form segment login right floated">
 				      <div class="field">
 				        <label>Faça seu login:</label>
 				        <div class="ui left icon input">
-				          <input type="text" placeholder="usuário" id="e-mail" name="usuario.login" />
+				          <input type="text" placeholder="e-mail" id="e-mail" name="usuario.login" />
 				          <i class="user icon"></i>
 				        </div>
 				      </div>
 				      <div class="field">
 				        <div class="ui left icon input">
-				          <input type="password" placeholder="senha" name="usuario.senha" />
+				          <input type="password" placeholder="senha" id="senha" name="usuario.senha" />
 				          <i class="lock icon"></i>
 				        </div>
 				      </div>
@@ -325,7 +337,7 @@
 				<div class="three fields">
 					<div class="required field ">
 						<label class="">E-mail:</label>
-						<s:textfield name="usuario.email" cssClass="" />
+						<s:textfield name="usuario.login" cssClass="" />
 					</div>
 					<div class="required field">
 						<label class="">Senha:</label>
@@ -346,7 +358,7 @@
 	</div>
 
 
-	<!-- MENSAGEM DE ERRO -->
+	<!-- MENSAGEM DE INFO E ERRO -->
 	
 	<s:if test="hasActionErrors()">
 		<div class="ui small modal modalErro">
@@ -355,7 +367,7 @@
 			<div class="content">
 				<ul>
 				<s:iterator value="actionErrors">
-					<li><s:property /></li>
+					<li><s:property escape="false" /></li>
 				</s:iterator>
 				</ul>
 				<div class="ui actions buttons right floated">
@@ -365,7 +377,28 @@
 		</div>
 		<script type="text/javascript">
 			showModal("div.modalErro");
-			$("div.modalCadastro").modal('attach events', '.modalErro .button');
+			<s:if test="page == 'cadastro' ">
+				$("div.modalCadastro").modal('attach events', '.modalErro .button');
+			</s:if>
+		</script>
+	</s:if>
+	<s:if test="hasActionMessages()">
+		<div class="ui small modal modalInfo">
+			<i class="close icon"></i>
+			<div class="header">Info!</div>
+			<div class="content">
+				<ul>
+				<s:iterator value="actionMessages">
+					<li><s:property escape="false" /></li>
+				</s:iterator>
+				</ul>
+				<div class="ui actions buttons right floated">
+					<div class="ui positive right submit button" >Ok</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			showModal("div.modalInfo");
 		</script>
 	</s:if>
 	

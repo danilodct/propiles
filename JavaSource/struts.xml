@@ -55,8 +55,18 @@
 		
 		<action name="cadastre-se" class="br.com.profisio.usuario.UsuarioView" method="actionCadastrese">
 			<interceptor-ref name="defaultProfisioStack-SemLogin"></interceptor-ref>
+			<result name="redirect">index.jsp</result>
+		</action>
+		
+		<action name="confirmar" class="br.com.profisio.usuario.UsuarioView" method="actionConfirmar">
+			<interceptor-ref name="defaultProfisioStack-SemLogin"></interceptor-ref>
 			<result name="success" type="chain">home</result>
-			<result name="error">index.jsp</result>
+			<result name="error" >index.jsp</result>
+		</action>
+		
+		<action name="reenviarConfirmacao" class="br.com.profisio.usuario.UsuarioView" method="actionReenviarConfirmacao">
+			<interceptor-ref name="defaultProfisioStack-SemLogin"></interceptor-ref>
+			<result name="redirect" >index.jsp</result>
 		</action>
 
 		<action name="home" class="br.com.profisio.util.ProfisioActionSupport" method="redirect">

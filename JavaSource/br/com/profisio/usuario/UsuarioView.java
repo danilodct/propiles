@@ -2,6 +2,7 @@ package br.com.profisio.usuario;
 
 import br.com.profisio.basics.Usuario;
 import br.com.profisio.util.ProfisioActionSupport;
+import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.Tenant;
 
 public class UsuarioView extends ProfisioActionSupport {
@@ -12,23 +13,45 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	private Usuario usuario;
 	private Tenant tenant;
+	private String page;
 
 	public UsuarioView() {
 		controller = UsuarioControl.getInstance();
 	}
 
-	public String actionCadastrese() {
-		String resposta = "";
+	public String actionReenviarConfirmacao() {
 		try {
-			if (usuario != null && tenant != null)
-				usuario.setTenant(tenant);
-			controller.cadastro(usuario);
-			resposta = SUCCESS;
+			usuario = controller.reenviarConfirmacao(usuario);
+			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REENVIADO_EMAIL_CONFIRMACAO, usuario.getLogin()));
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		return REDIRECT;
+	}
+
+	public String actionConfirmar() {
+		String resposta = SUCCESS;
+		try {
+			controller.confirmarCadastro(usuario);
+			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CONFIRMADO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
 			resposta = ERROR;
 		}
 		return resposta;
+	}
+
+	public String actionCadastrese() {
+		try {
+			if (usuario != null && tenant != null)
+				usuario.setTenant(tenant);
+			controller.cadastro(usuario);
+			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.VERIFIQUE_EMAIL));
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		page = "cadastro";
+		return REDIRECT;
 	}
 
 	public String actionLogin() {
@@ -40,6 +63,7 @@ public class UsuarioView extends ProfisioActionSupport {
 			this.dealException(e);
 			resposta = ERROR;
 		}
+		this.page = "login";
 		return resposta;
 	}
 
@@ -52,7 +76,7 @@ public class UsuarioView extends ProfisioActionSupport {
 		return REDIRECT;
 	}
 
-	//===================================
+	// ===================================
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -69,6 +93,14 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public void setTenant(Tenant tenant) {
 		this.tenant = tenant;
+	}
+
+	public String getPage() {
+		return page;
+	}
+
+	public void setPage(String page) {
+		this.page = page;
 	}
 
 }

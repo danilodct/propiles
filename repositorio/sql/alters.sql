@@ -85,3 +85,6 @@ CREATE TABLE IF NOT EXISTS `tipocontapagar` (
 
 alter table usuario change login login varchar(255);
 alter table usuario change senha senha varchar(255);
+
+alter table usuario add column confirmado tinyint(1) default 0;
+update usuario set confirmado = 1;

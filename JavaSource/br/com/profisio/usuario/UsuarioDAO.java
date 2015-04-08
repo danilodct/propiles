@@ -32,13 +32,6 @@ public class UsuarioDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Tenant getTenantByUsuario(Usuario usuario) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("usuario", usuario);
-		return (Tenant) imp.queryObject("getTenantByUsuario", params);
-	}
-
-	@SuppressWarnings("unchecked")
 	public void cadastrar(Usuario usuario) {
 		this.imp.insert(usuario);
 	}
@@ -46,6 +39,16 @@ public class UsuarioDAO extends DAOBase {
 	@SuppressWarnings("unchecked")
 	public void cadastrar(Tenant tenant) {
 		this.imp.insert(tenant);
+	}
+
+	@SuppressWarnings("unchecked")
+	public Usuario getUsuarioById(Integer id) {
+		return (Usuario) this.imp.read(Usuario.class, id);
+	}
+
+	@SuppressWarnings("unchecked")
+	public void editar(Usuario usuario) {
+		this.imp.update(usuario);
 	}
 
 }

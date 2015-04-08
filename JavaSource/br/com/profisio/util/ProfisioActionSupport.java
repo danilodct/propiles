@@ -122,7 +122,10 @@ public class ProfisioActionSupport extends ActionSupport {
 			e.printStackTrace();
 			message = ProfisioException.EXCEPTION_MSG;
 			Mailer mailer = new Mailer();
-			mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Error", "Usuário: " + ProfisioSessionUtil.getUserSession().getId() + " \n" + ExceptionUtils.getStackTrace(e));
+			String userId = "Não logado";
+			if (ProfisioSessionUtil.getUserSession() != null)
+				userId = String.valueOf(ProfisioSessionUtil.getUserSession().getId());
+			mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Error", "Usuário: " + userId + " \n" + ExceptionUtils.getStackTrace(e));
 			System.out.println("mandou gerar o email...");
 		}
 		addActionError(message);

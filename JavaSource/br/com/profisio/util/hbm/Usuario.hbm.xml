@@ -11,6 +11,7 @@
 		
 		<property name="login" />
 		<property name="senha" />
+		<property name="confirmado"><column name="confirmado" sql-type="tinyint(1)" /></property>
 		<property name="tipo" type="br.com.profisio.basics.enums.TipoUserEnumType"/>
 		<property name="statusObjeto" type="br.com.profisio.basics.enums.StatusObjetoEnumType"/>
 		
@@ -30,14 +31,6 @@
 			from Usuario as user
 			where user.login = :login
 			and statusObjeto = 'ATIVO'
-			]]>
-	</query>
-
-	<query name="getTenantByUsuario">
-			<![CDATA[
-			select tenant
-			from Usuario as user
-			where user = :usuario
 			]]>
 	</query>
 	

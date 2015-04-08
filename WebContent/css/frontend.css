@@ -5,6 +5,7 @@ body.frontend{background-color: #fff;}
 body.frontend .ui.header, body.frontend .ui.header .content{font-family:Roboto, Lato,'Helvetica Neue',Arial,Helvetica,sans-serif; color: rgba(0,0,0,.5); font-weight: 700;}
 .planos .ui.header{text-decoration: underline}
 .centered {text-align: center;}
+ul li{list-style: none;}
 
 /* MENU */
 .menu .right.menu a.item{color:rgba(0,0,0,.8);}
