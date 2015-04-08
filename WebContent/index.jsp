@@ -20,7 +20,7 @@
 	<script type="text/javascript" src="v2.0/js/lib/scripts.js" ></script>
 	<script type="text/javascript">
 	$(document).ready(function(){
-		$("input#login").focus();
+		$("input#e-mail").focus();
 		$("a.esqueceuSenha").click(function(evt){
 			evt.preventDefault();
 			$("div.modalEsqueceuSenha").modal("hide dimmer").modal("show");
