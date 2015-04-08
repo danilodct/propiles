@@ -59,6 +59,9 @@ public class ProfisioBundleUtil {
 	public static final String REENVIADO_EMAIL_CONFIRMACAO = "REENVIADO_EMAIL_CONFIRMACAO";
 	public static final String ERRO_REENVIAR_CONFIRMACAO = "ERRO_REENVIAR_CONFIRMACAO";
 	public static final String CONFIRMADO_SUCESSO = "CONFIRMADO_SUCESSO";
+	public static final String INFORME_EMAIL = "INFORME_EMAIL";
+	public static final String ESQUECEU_SENHA_ENVIADO = "ESQUECEU_SENHA_ENVIADO";
+	public static final String EMAIL_INEXISTENTE = "EMAIL_INEXISTENTE";
 
 	public static String getMsgError(String key, Object... params) {
 		return getMsgFile("error", key, params);

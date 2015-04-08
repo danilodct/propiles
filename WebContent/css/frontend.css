@@ -6,6 +6,8 @@ body.frontend .ui.header, body.frontend .ui.header .content{font-family:Roboto, 
 .planos .ui.header{text-decoration: underline}
 .centered {text-align: center;}
 ul li{list-style: none;}
+.ui.dimmer{background:rgba(0,0,0,.3);}
+.ui.modal{box-shadow:0 1px 14px 1px rgba(0,0,0,.3);}
 
 /* MENU */
 .menu .right.menu a.item{color:rgba(0,0,0,.8);}

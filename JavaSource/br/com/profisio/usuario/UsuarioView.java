@@ -19,6 +19,16 @@ public class UsuarioView extends ProfisioActionSupport {
 		controller = UsuarioControl.getInstance();
 	}
 
+	public String actionEsqueceuSenha() {
+		try {
+			controller.esqueceuSenha(usuario);
+			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ESQUECEU_SENHA_ENVIADO));
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		return REDIRECT;
+	}
+
 	public String actionReenviarConfirmacao() {
 		try {
 			usuario = controller.reenviarConfirmacao(usuario);

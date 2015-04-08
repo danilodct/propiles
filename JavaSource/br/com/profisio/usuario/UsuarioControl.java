@@ -116,4 +116,17 @@ public class UsuarioControl extends ControllerBase {
 		enviarEmailConfirmacao(usuario);
 		return usuario;
 	}
+
+	public void esqueceuSenha(Usuario usuario) {
+		if (usuario == null || usuario.getLogin() == null)
+			throw new ProfisioException(ProfisioBundleUtil.INFORME_EMAIL);
+
+		usuario = this.dao.getUsuarioByLogin(usuario.getLogin());
+		if (usuario == null || usuario.getLogin() == null)
+			throw new ProfisioException(ProfisioBundleUtil.EMAIL_INEXISTENTE);
+
+		Mailer mailer = new Mailer();
+		String msg = "Sua senha é: " + usuario.getSenha();
+		mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Esqueceu sua senha?", msg);
+	}
 }

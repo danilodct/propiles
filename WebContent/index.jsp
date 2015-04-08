@@ -22,6 +22,10 @@
 	$(document).ready(function(){
 		$("input#login").focus();
 		$(".fone").mask("(00) 00000-0000");
+		$("a.esqueceuSenha").click(function(evt){
+			evt.preventDefault();
+			$("div.modalEsqueceuSenha").modal("hide dimmer").modal("show");
+		});
 		$(".cadastrese").click(function(evt){
 			evt.preventDefault();
 			showModal("div.modalCadastro");
@@ -81,7 +85,7 @@
 				      </div>
 				      <s:submit cssClass="ui blue submit button right floated" value="Entrar" />
 				      <div class="item">
-				      	<a href="#" class="">esqueceu a senha?</a>
+				      	<a href="#" class="esqueceuSenha">esqueceu a senha?</a>
 				      </div>
 				    </div>
             	</s:form>
@@ -322,7 +326,6 @@
 	<!-- ----------  MODAL  -------------  -->
 	
 	<div class="ui modal modalCadastro">
-		<i class="close icon"></i>
 		<div class="header">Cadastre-se</div>
 		<div class="content">
 			<s:form action="cadastre-se" cssClass="ui form" id="formCadastro" method="post" >
@@ -356,13 +359,31 @@
 			</s:form>
 		</div>
 	</div>
+      
+	<!-- ----------  MODAL ESQUECEU SENHA  -------------  -->
+	
+	<div class="ui small modal modalEsqueceuSenha">
+		<div class="header">Esqueceu sua senha?</div>
+		<div class="content">
+			<s:form action="esqueceuSenha" cssClass="ui form" id="formEsqueceuSenha" method="post" >
+				<div class="required field ">
+					<label class="">Informe seu e-mail de cadastro:</label>
+					<s:textfield name="usuario.login" cssClass="" />
+				</div>
+				<div class="ui actions buttons right floated">
+					<div class="ui button">Cancelar</div>
+					<div class="or" data-text="ou"></div>
+					<s:submit cssClass="ui positive right submit button" value="Reenviar minha senha" />
+				</div>
+			</s:form>
+		</div>
+	</div>
 
 
 	<!-- MENSAGEM DE INFO E ERRO -->
 	
 	<s:if test="hasActionErrors()">
 		<div class="ui small modal modalErro">
-			<i class="close icon"></i>
 			<div class="header">Ops.. Ocorreu um erro!</div>
 			<div class="content">
 				<ul>
@@ -384,7 +405,6 @@
 	</s:if>
 	<s:if test="hasActionMessages()">
 		<div class="ui small modal modalInfo">
-			<i class="close icon"></i>
 			<div class="header">Info!</div>
 			<div class="content">
 				<ul>
