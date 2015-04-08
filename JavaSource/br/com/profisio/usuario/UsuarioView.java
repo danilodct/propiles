@@ -27,6 +27,13 @@ public class UsuarioView extends ProfisioActionSupport {
 			this.dealException(e);
 		}
 		this.page = "contato";
+
+		nome = null;
+		empresa = null;
+		fone = null;
+		email = null;
+		mensagem = null;
+
 		return REDIRECT;
 	}
 

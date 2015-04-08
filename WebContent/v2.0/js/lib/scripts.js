@@ -354,6 +354,12 @@ function setMaskCPF(campo){
 	$(campo).mask("000.000.000-00");
 }
 
+function isEmail(emailField) {
+  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  var email = $(emailField).val();
+  return regex.test(email);
+}
+
 // AJAX  8888888888888888888888888888888888888888888888888888888888888888888888
 
 function setCEP(campo){

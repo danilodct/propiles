@@ -21,7 +21,6 @@
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$("input#login").focus();
-		$(".fone").mask("(00) 00000-0000");
 		$("a.esqueceuSenha").click(function(evt){
 			evt.preventDefault();
 			$("div.modalEsqueceuSenha").modal("hide dimmer").modal("show");
@@ -29,6 +28,17 @@
 		$(".cadastrese").click(function(evt){
 			evt.preventDefault();
 			showModal("div.modalCadastro");
+		});
+		
+		$("form#formContato").submit(function(evt){
+			var sucesso = true;
+			if(!isEmail("input#emailContato")){
+				sucesso = false;
+				alert("Digite um e-mail válido!");
+				showModal("div.modalContato");
+				$("input#emailContato").focus();
+			}
+			return sucesso;
 		});
 		
 		$("form#formCadastro").submit(function(evt){
@@ -280,7 +290,7 @@
     <div class="ui page grid faixa contato"><a name="contato"></a>
     	<div class="one column row">
             <div class="column"> 
-            	<s:form cssClass="ui form" action="contato" method="post">
+            	<s:form cssClass="ui form" id="formContato" action="contato" method="post">
 				 	<h2 class="ui dividing header">Entre em contato e tire suas dúvidas</h2>
 					<div class="two fields">
 				        <div class="required field">
@@ -295,7 +305,7 @@
 				            <s:textfield name="fone" placeholder="Seu telefone" cssClass="fone" />
 				        </div>
 					    <div class="field">
-					          <s:textfield name="email" placeholder="Seu e-mail" />
+					          <s:textfield name="email" placeholder="Seu e-mail" id="emailContato" />
 						</div>
 				    </div>
 				    <div class="required field">

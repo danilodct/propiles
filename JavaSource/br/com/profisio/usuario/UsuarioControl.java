@@ -94,7 +94,7 @@ public class UsuarioControl extends ControllerBase {
 
 	private void enviarEmailConfirmacao(Usuario usuario) {
 		Mailer mailer = new Mailer();
-		String msg = "Novo Cadastro!\n http://localhost:8080/propiles/confirmar?usuario.idCript=" + usuario.getIdCript();
+		String msg = Mailer.EMAIL_PARTE_CIMA_ATE_IMAGEM + Mailer.IMG_CADASTRO + Mailer.EMAIL_POS_IMAGEM_PRE_CONTEUDO + "Olá " + usuario.getNome() + ", bem-vindo(a) ao ProPilEs!<br /><br />Para finalizarmos o seu cadastro precisamos apenas que você clique no link abaixo. Caso não consiga abrir o link após clicar, por favor copie a url abaixo e cole no seu navegador." + Mailer.EMAIL_POS_CONTEUDO_PRE_LINK_URL + "http://localhost:8080/propiles/confirmar?usuario.idCript=" + usuario.getIdCript() + Mailer.EMAIL_POS_LINK_URL_PRE_LINK_TXT + "http://localhost:8080/propiles/confirmar?usuario.idCript=" + usuario.getIdCript() + Mailer.EMAIL_POS_LINK_TXT;
 		mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Novo Cadastro", msg);
 	}
 
@@ -126,7 +126,7 @@ public class UsuarioControl extends ControllerBase {
 			throw new ProfisioException(ProfisioBundleUtil.EMAIL_INEXISTENTE);
 
 		Mailer mailer = new Mailer();
-		String msg = "Sua senha é: " + usuario.getSenha();
+		String msg = Mailer.EMAIL_PARTE_CIMA_ATE_IMAGEM + Mailer.IMG_RECUPERE_SENHA + Mailer.EMAIL_POS_IMAGEM_PRE_CONTEUDO + "Olá " + usuario.getNome() + ", não está conseguindo acessar o ProPilEs por ter esquecido a senha? Não se preocupe, nós lembramos para você: <br /><br />Por questões de segurança sugerimos que você remova este e-mail para que outras pessoas que acessem o seu e-mail não tenham acesso à sua senha." + Mailer.EMAIL_POS_CONTEUDO_PRE_LINK_URL + "#" + Mailer.EMAIL_POS_LINK_URL_PRE_LINK_TXT + "sua senha é: " + usuario.getSenha() + Mailer.EMAIL_POS_LINK_TXT;
 		mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Esqueceu sua senha?", msg);
 	}
 
@@ -135,7 +135,8 @@ public class UsuarioControl extends ControllerBase {
 			throw new ProfisioException(ProfisioBundleUtil.INFORME_EMAIL_FONE);
 
 		Mailer mailer = new Mailer();
-		String msg = nome + "<br />Empresa: " + empresa + "<br />" + fone + "<br />E-mail: " + email + "<br /><br />" + mensagem;
+		String msgCorpo = nome + "<br />Empresa: " + empresa + "<br />" + fone + "<br />E-mail: " + email + "<br /><br />" + mensagem;
+		String msg = Mailer.EMAIL_PARTE_CIMA_ATE_IMAGEM + Mailer.IMG_CONTATO + Mailer.EMAIL_POS_IMAGEM_PRE_CONTEUDO + msgCorpo + Mailer.EMAIL_POS_CONTEUDO;
 		mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Mensagem de contato", msg);
 	}
 }
