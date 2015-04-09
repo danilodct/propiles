@@ -209,4 +209,9 @@ public class FinanceiroDAO extends DAOBase {
 		imp.execute("removerAgendamentosContaReceber", params);
 	}
 
+	@SuppressWarnings("unchecked")
+	public TipoContaPagar getTipoContaPagarById(Integer id) {
+		return (TipoContaPagar) this.imp.read(TipoContaPagar.class, id);
+	}
+
 }

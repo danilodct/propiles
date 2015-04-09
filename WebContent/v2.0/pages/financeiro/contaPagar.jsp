@@ -24,7 +24,7 @@ $(document).ready(function() {
 });
 function setSelectTipoContaPagar(){
 	$("select#selectTipoContaPagar").change(function(){
-		if($(this).val() == "Outro"){
+		if($(this).val() == "-1"){
 			$("#novoTipoContaPagar").show();
 		}else{
 			$("#novoTipoContaPagar").hide();
@@ -100,7 +100,7 @@ function setSelectTipoContaPagar(){
 						<div class="two fields">
 							<div class="field">
 								<label>Tipo de despesa:</label>
-								<s:select name="contaPagar.tipo.nome" id="selectTipoContaPagar" headerValue="ESCOLHA" headerKey="" cssClass="ui search dropdown" list="allTiposContaPagar" listKey="nome" listValue="nome" />
+								<s:select name="contaPagar.tipo.id" id="selectTipoContaPagar" headerValue="ESCOLHA" headerKey="" cssClass="ui search dropdown" list="allTiposContaPagar" listKey="id" listValue="nome" />
 							</div>
 							<div class="field hide " id="novoTipoContaPagar">
 								<label>Novo Tipo:</label> 

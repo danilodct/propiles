@@ -182,6 +182,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 		try {
 			controller.editarContaReceber(contaReceber, false);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
+			this.contaReceber = null;
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -197,6 +198,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 				contaPagar.setTipo(new TipoContaPagar(this.novoTipoContaPagar));
 			this.controller.editarContaPagar(contaPagar);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
+			this.contaPagar = null;
 			resposta = SUCCESS;
 		} catch (Exception e) {
 			this.dealException(e);
@@ -257,6 +259,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 			controller.cadastrarContaPagar(contaPagar);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
 			this.cadastro = null;
+			this.contaPagar = null;
 		} catch (Exception e) {
 			this.dealException(e);
 		}

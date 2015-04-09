@@ -23,7 +23,7 @@ import br.com.profisio.servico.ServicoControl;
 import br.com.profisio.util.ControllerBase;
 import br.com.profisio.util.OrdenadorMapDouble;
 import br.com.profisio.util.OrdenadorMapInteger;
-import br.com.profisio.util.OrdenadorMapStringDouble;
+import br.com.profisio.util.OrdenadorMapIntegerDouble;
 import br.com.profisio.util.SystemUtils;
 
 public class BIControl extends ControllerBase {
@@ -529,22 +529,22 @@ public class BIControl extends ControllerBase {
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 
 		Collection<TipoContaPagar> allTiposContaPagar = this.dao.getAllTiposContaPagarByTipoCusto(tipoCusto);
-		Map<String, Double> ordenador = new HashMap<String, Double>();
+		Map<Integer, Double> ordenador = new HashMap<Integer, Double>();
 		if (allTiposContaPagar != null && allTiposContaPagar.size() > 0) {
 			for (TipoContaPagar tipo : allTiposContaPagar) {
 				Double soma = this.dao.getSomaCustosByTipo(dataInicial, dataFinal, tipo);
 				if (soma > 0)
-					ordenador.put(tipo.getNome(), soma);
+					ordenador.put(tipo.getId(), soma);
 			}
 		}
 
-		OrdenadorMapStringDouble bvc = new OrdenadorMapStringDouble(ordenador, true);
-		TreeMap<String, Double> sorted_map = new TreeMap<String, Double>(bvc);
+		OrdenadorMapIntegerDouble bvc = new OrdenadorMapIntegerDouble(ordenador, true);
+		TreeMap<Integer, Double> sorted_map = new TreeMap<Integer, Double>(bvc);
 		sorted_map.putAll(ordenador);
-		for (String key : sorted_map.keySet()) {
+		for (Integer key : sorted_map.keySet()) {
 			TipoContaPagar tipo = null;
 			for (TipoContaPagar tipo2 : allTiposContaPagar) {
-				if (tipo2.getNome().equals(key))
+				if (tipo2.getId().intValue() == key)
 					tipo = tipo2;
 			}
 			retorno += ",{\"TIPO\":\"" + tipo.getNome() + "\", \"soma\":" + ordenador.get(key) + ", \"cor\":\"" + pickColor() + "\"}";
