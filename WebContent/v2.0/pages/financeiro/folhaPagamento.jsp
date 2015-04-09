@@ -206,7 +206,7 @@ function setBtGerarConta(){
 				<div class="three fields">
 					<div class="field">
 						<label>Tipo de despesa:</label>
-						<s:select name="contaPagar.tipo.nome" id="selectTipoContaPagar" headerValue="ESCOLHA" headerKey="" cssClass="ui dropdown" list="allTiposContaPagar" listKey="nome" listValue="nome" />
+						<s:select name="contaPagar.tipo.id" id="selectTipoContaPagar" headerValue="ESCOLHA" headerKey="" cssClass="ui dropdown" list="allTiposContaPagar" listKey="id" listValue="nome" />
 					</div>
 					<div class="field hide " id="novoTipoContaPagar">
 						<label>Novo Tipo:</label> 

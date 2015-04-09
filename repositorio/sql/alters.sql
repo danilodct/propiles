@@ -88,3 +88,23 @@ alter table usuario change senha senha varchar(255);
 
 alter table usuario add column confirmado tinyint(1) default 0;
 update usuario set confirmado = 1;
+
+
+
+
+RENAME TABLE tipocontapagar TO tipocontapagar_antiga;
+
+CREATE TABLE IF NOT EXISTS `tipocontapagar` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+SELECT 'insert into tipocontapagar (nome) values (\"', nome, '\");' FROM tipocontapagar_antiga ORDER BY nome ;
+/*
+ * 
+ * RODAR O SCRIPT GERADO ACIMA
+ * 
+ * */
+UPDATE CONTAPAGAR cnta SET cnta.tipo = (SELECT tpn.id FROM tipocontapagar tpn WHERE tpn.nome = cnta.tipo);
+ALTER TABLE contapagar CHANGE tipo tipo INT(11);

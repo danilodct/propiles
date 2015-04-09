@@ -2,9 +2,13 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="br.com.profisio.basics.TipoContaPagar" table="tipocontapagar">
-		<id name="nome" ></id>
+		<id name="id" >
+			<generator class="increment" />
+		</id>
 		
 		<many-to-one name="tenant" column="tenant_id" lazy="false" />
+		
+		<property name="nome" />
 		
 	</class>
 	

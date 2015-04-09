@@ -30,9 +30,7 @@ import br.com.profisio.colaborador.ColaboradorControl;
 import br.com.profisio.servico.ServicoControl;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
-import br.com.profisio.util.ProfisioSessionUtil;
 import br.com.profisio.util.SystemUtils;
-import br.com.profisio.util.Tenant;
 import br.com.profisio.venda.VendaControl;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -74,7 +72,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 
 	public String actionFolhaPagamento() {
 		try {
-			
+
 			this.colaboradores = this.controller.getFolhaPagamento(getTenant(), this.colaborador, this.dataInicial);
 			this.soma = 0.0;
 			if (this.colaboradores != null && this.colaboradores.size() > 0) {
@@ -99,7 +97,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 
 	public String actionExportContasReceber() {
 		try {
-			
+
 			String path = SystemUtils.getPath() + "/report_conta_receber.csv";
 			DataOutputStream doStream = new DataOutputStream(new FileOutputStream(path));
 			doStream.writeBytes(this.controller.getContasReceberClientesCSV(getTenant(), dataInicial, dataFinal, formaPagamento, colaborador, servico, statusContaPagar));
@@ -115,7 +113,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	public String actionGetPagamentosCheiosByAtividade() {
 		String xml = XML_HEAD;
 		try {
-			
+
 			this.contasReceber = this.controller.getPagamentosCheiosByAtividade(getTenant(), this.atividade);
 			xml += "<pagamentos>";
 			if (this.contasReceber != null && this.contasReceber.size() > 0) {
@@ -133,7 +131,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 
 	public String actionCaixa() {
 		try {
-			
+
 			this.soma = this.controller.getSaldoAnteriorCaixa(getTenant(), dataInicial);
 			this.somaTotal += this.soma;
 			this.movimentacoes = this.controller.getMovimentacoes(getTenant(), dataInicial, dataFinal);
@@ -154,7 +152,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 
 	public String actionContasReceber() {
 		try {
-			
+
 			this.contasReceber = this.controller.getContasReceber(getTenant(), dataInicial, dataFinal, formaPagamento, colaborador, servico, statusContaPagar);
 			for (ContaReceber conta : this.contasReceber) {
 				Double valorTemp = conta.getValor();
@@ -187,9 +185,10 @@ public class FinanceiroView extends ProfisioActionSupport {
 	public String actionEditarContaReceber() {
 		String resposta = REDIRECT;
 		try {
-			
+
 			controller.editarContaReceber(getTenant(), contaReceber, false);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
+			this.contaReceber = null;
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -201,11 +200,12 @@ public class FinanceiroView extends ProfisioActionSupport {
 	public String actionEditarContaPagar() {
 		String resposta = "";
 		try {
-			
+
 			if (contaPagar != null && this.novoTipoContaPagar != null && !this.novoTipoContaPagar.equals(""))
 				contaPagar.setTipo(new TipoContaPagar(this.novoTipoContaPagar));
 			this.controller.editarContaPagar(getTenant(), contaPagar);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
+			this.contaPagar = null;
 			resposta = SUCCESS;
 		} catch (Exception e) {
 			this.dealException(e);
@@ -216,7 +216,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 
 	public String actionContaReceber() {
 		try {
-			
+
 			this.contaReceber = this.controller.getContaReceber(getTenant(), contaReceber);
 			if (this.cadastro != null && this.cadastro.getId() != null)
 				this.atividades = CadastroControl.getInstance().getAtividadesByCadastro(getTenant(), cadastro);
@@ -228,7 +228,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 
 	public String actionContaPagar() {
 		try {
-			
+
 			this.contaPagar = this.controller.getContaPagar(getTenant(), contaPagar);
 		} catch (Exception e) {
 			this.dealException(e);
@@ -238,7 +238,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 
 	public String actionContasPagar() {
 		try {
-			
+
 			TipoCusto tipo = null;
 			if (contaPagar != null)
 				tipo = contaPagar.getTipoCusto();
@@ -264,12 +264,13 @@ public class FinanceiroView extends ProfisioActionSupport {
 	public String actionCadastrarContaPagar() {
 		String resposta = REDIRECT;
 		try {
-			
+
 			if (contaPagar != null && this.novoTipoContaPagar != null && !this.novoTipoContaPagar.equals(""))
 				contaPagar.setTipo(new TipoContaPagar(this.novoTipoContaPagar));
 			controller.cadastrarContaPagar(getTenant(), contaPagar);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
 			this.cadastro = null;
+			this.contaPagar = null;
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -280,7 +281,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 
 	public String actionRemoverContaPagar() {
 		try {
-			
+
 			controller.removerContaPagar(getTenant(), contaPagar);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REMOCAO_SUCESSO));
 		} catch (Exception e) {
@@ -292,7 +293,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	public String actionCadastrarContaReceber() {
 		String resposta = REDIRECT;
 		Boolean sucesso = true;
-		
+
 		try {
 			controller.cadastrarContaReceber(getTenant(), contaReceber, avulso);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
@@ -315,7 +316,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	}
 
 	private Collection<Agendamento> extractAgendamentos(ContaReceber contaReceber) {
-		
+
 		Collection<Agendamento> retorno = new ArrayList<Agendamento>();
 		if (this.qtdAgendamentos != null && this.qtdAgendamentos > 0) {
 			Map<String, Object> params = ActionContext.getContext().getParameters();
@@ -343,7 +344,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	public String actionRemoverContaReceber() {
 		String resposta = REDIRECT;
 		try {
-			
+
 			controller.remover(getTenant(), contaReceber);
 			this.formaPagamento = null;
 			this.colaborador = null;
@@ -363,12 +364,12 @@ public class FinanceiroView extends ProfisioActionSupport {
 	}
 
 	public Collection<CentroCusto> getAllCentrosCusto() {
-		
+
 		return ServicoControl.getInstance().getCentrosCusto(getTenant());
 	}
 
 	public Collection<TipoContaPagar> getAllTiposContaPagar() {
-		
+
 		Collection<TipoContaPagar> allTiposContaPagar = this.controller.getAllTiposContaPagar(getTenant());
 		if (allTiposContaPagar != null)
 			allTiposContaPagar.add(new TipoContaPagar(-1, "Outro"));
@@ -376,7 +377,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	}
 
 	public Collection<Colaborador> getAllColaboradores() {
-		
+
 		return ColaboradorControl.getInstance().getColaboradores(getTenant(), null);
 	}
 

@@ -33,7 +33,7 @@ function setMesCompetencia(){
 }
 function setSelectTipoContaPagar(){
 	$("select#selectTipoContaPagar").change(function(){
-		if($(this).val() == "Outro"){
+		if($(this).val() == "-1"){
 			$("#novoTipoContaPagar").show();
 		}else{
 			$("#novoTipoContaPagar").hide();
@@ -114,7 +114,7 @@ function setSelectTipoContaPagar(){
 						<div class="two fields">
 							<div class="field">
 								<label>Tipo de despesa:</label>
-								<s:select name="contaPagar.tipo.nome" id="selectTipoContaPagar" headerValue="ESCOLHA" headerKey="" cssClass="ui dropdown" list="allTiposContaPagar" listKey="nome" listValue="nome" />
+								<s:select name="contaPagar.tipo.id" id="selectTipoContaPagar" headerValue="ESCOLHA" headerKey="" cssClass="ui dropdown" list="allTiposContaPagar" listKey="id" listValue="nome" />
 							</div>
 							<div class="field hide " id="novoTipoContaPagar">
 								<label>Novo Tipo:</label> 
@@ -221,11 +221,11 @@ function setSelectTipoContaPagar(){
 				<tr>
 					<th class="colapse">Ref.:<i class="help circle icon hint" data-content="Código de referência para identificar o pagamento" data-variation="inverted" ></i></th>
 					<th>Valor (R$)</th>
+					<th>Mês compet.</th>
+					<th>Data Pag.</th>
 					<th>Classificação</th>
 					<th>Centro Custo</th>
 					<th>Tipo despesa</th>
-					<th>Mês compet.</th>
-					<th>Data Pag.</th>
 					<th>Obs.:</th>
 					<!-- 
 					<th>Pago</th>
@@ -240,11 +240,11 @@ function setSelectTipoContaPagar(){
 						<tr>
 							<td><s:property value="id" /></td>
 							<td><s:property value="valorStr" /></td>
+							<td><s:property value="mesCompetenciaNome" /></td>
+							<td><s:property value="dataPagamentoStr" /></td>
 							<td><s:property value="tipoCusto.valor" /></td>
 							<td><s:property value="centroCusto.nome" /></td>
 							<td><s:property value="tipo.nome" /></td>
-							<td><s:property value="mesCompetenciaNome" /></td>
-							<td><s:property value="dataPagamentoStr" /></td>
 							<td><s:property value="observacao" /></td>
 							<!-- 
 							<td>
@@ -293,11 +293,11 @@ function setSelectTipoContaPagar(){
 				<tr>
 					<th class="colapse">Ref.:<i class="help circle icon hint" data-content="Código de referência para identificar o pagamento" data-variation="inverted" ></i></th>
 					<th>Valor (R$)</th>
+					<th>Mês compet.</th>
+					<th>Data Pag.</th>
 					<th>Classificação</th>
 					<th>Centro Custo</th>
 					<th>Tipo despesa</th>
-					<th>Mês compet.</th>
-					<th>Data Pag.</th>
 					<th>Obs.:</th>
 					<!-- 
 					<th>Pago</th>
@@ -312,11 +312,11 @@ function setSelectTipoContaPagar(){
 						<tr>
 							<td><s:property value="id" /></td>
 							<td><s:property value="valorStr" /></td>
+							<td><s:property value="mesCompetenciaNome" /></td>
+							<td><s:property value="dataPagamentoStr" /></td>
 							<td><s:property value="tipoCusto.valor" /></td>
 							<td><s:property value="centroCusto.nome" /></td>
 							<td><s:property value="tipo.nome" /></td>
-							<td><s:property value="mesCompetenciaNome" /></td>
-							<td><s:property value="dataPagamentoStr" /></td>
 							<td><s:property value="observacao" /></td>
 							<!-- 
 							<td>

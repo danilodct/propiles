@@ -195,7 +195,7 @@ public class FinanceiroControl extends ControllerBase {
 			throw new ProfisioException(ProfisioBundleUtil.INFORME_VALOR);
 		if (contaPagar.getTipoCusto() == null)
 			throw new ProfisioException(ProfisioBundleUtil.INFORME_TIPO_CUSTO);
-		if (contaPagar.getTipo() != null && (contaPagar.getTipo().getNome() == null || contaPagar.getTipo().getNome().trim().equalsIgnoreCase("") || contaPagar.getTipo().getNome().trim().equalsIgnoreCase("Outro")))
+		if (contaPagar.getTipo() == null || (contaPagar.getTipo() != null && ((contaPagar.getTipo().getId() == null || contaPagar.getTipo().getId().intValue() == -1) && (contaPagar.getTipo().getNome() == null || contaPagar.getTipo().getNome().trim().equalsIgnoreCase("") || contaPagar.getTipo().getNome().trim().equalsIgnoreCase("Outro")))))
 			throw new ProfisioException(ProfisioBundleUtil.TIPO_INVALIDO);
 		if (contaPagar.getMesCompetencia() == null)
 			throw new ProfisioException(ProfisioBundleUtil.INFORME_MES_COMPETENCIA);
@@ -205,9 +205,11 @@ public class FinanceiroControl extends ControllerBase {
 		if (contaPagar.getCentroCusto() != null && (contaPagar.getCentroCusto().getId() == null || contaPagar.getCentroCusto().getId().intValue() == -1))
 			contaPagar.setCentroCusto(null);
 
-		TipoContaPagar tipo = contaPagar.getTipo();
-		tipo.setTenant(tenant);
-		this.dao.cadastrar(tipo);
+		if (contaPagar.getTipo().getId() == null || contaPagar.getTipo().getId().intValue() == -1) {
+			contaPagar.getTipo().setTenant(tenant);
+			this.dao.cadastrar(contaPagar.getTipo());
+		} else
+			contaPagar.setTipo(this.dao.getTipoContaPagarById(contaPagar.getTipo().getId()));
 
 		contaPagar.setTenant(tenant);
 		this.dao.cadastrar(contaPagar);
@@ -261,15 +263,26 @@ public class FinanceiroControl extends ControllerBase {
 			throw new ProfisioException(ProfisioBundleUtil.INFORME_VALOR);
 		if (contaPagar.getTipoCusto() == null)
 			throw new ProfisioException(ProfisioBundleUtil.INFORME_TIPO_CUSTO);
+		if (contaPagar.getTipo() == null || (contaPagar.getTipo() != null && ((contaPagar.getTipo().getId() == null || contaPagar.getTipo().getId().intValue() == -1) && (contaPagar.getTipo().getNome() == null || contaPagar.getTipo().getNome().trim().equalsIgnoreCase("") || contaPagar.getTipo().getNome().trim().equalsIgnoreCase("Outro")))))
+			throw new ProfisioException(ProfisioBundleUtil.TIPO_INVALIDO);
+		if (contaPagar.getMesCompetencia() == null)
+			throw new ProfisioException(ProfisioBundleUtil.INFORME_MES_COMPETENCIA);
+
+		if (contaPagar.getStatus() == null)
+			contaPagar.setStatus(StatusConta.PENDENTE);
+		if (contaPagar.getCentroCusto() != null && contaPagar.getCentroCusto().getId().intValue() == -1)
+			contaPagar.setCentroCusto(null);
+
+		if (contaPagar.getTipo().getId() == null || contaPagar.getTipo().getId().intValue() == -1) {
+			contaPagar.getTipo().setTenant(tenant);
+			this.dao.cadastrar(contaPagar.getTipo());
+		} else
+			contaPagar.setTipo(this.dao.getTipoContaPagarById(contaPagar.getTipo().getId()));
 
 		if (contaPagar.getStatus() == null)
 			contaPagar.setStatus(StatusConta.PENDENTE);
 		if (contaPagar.getCentroCusto() != null && (contaPagar.getCentroCusto().getId() == null || contaPagar.getCentroCusto().getId().intValue() == -1))
 			contaPagar.setCentroCusto(null);
-
-		TipoContaPagar tipo = contaPagar.getTipo();
-		tipo.setTenant(tenant);
-		this.dao.cadastrar(tipo);
 
 		ContaPagar contaPagarBD = this.dao.getContaPagarById(contaPagar.getId());
 		contaPagar.setMovimentacao(contaPagarBD.getMovimentacao());
