@@ -350,7 +350,7 @@ public class FinanceiroControl extends ControllerBase {
 		String csv = "CLIENTE;E-MAIL;DATA NASCIMENTO;BAIRRO;SEXO;SERVIÇO;MES COMPETENCIA;VALOR\n";
 		// se o usuário nao informou data inicio e fim, vai pegar paenas
 		if (dataInicial == null && dataFinal == null) {
-			dataInicial = SystemUtils.getHoje();
+			dataInicial = SystemUtils.getPrimeiroDiaMesAtual(null);
 			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
 		} else {
 			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
