@@ -96,8 +96,9 @@ RENAME TABLE tipocontapagar TO tipocontapagar_antiga;
 
 CREATE TABLE IF NOT EXISTS `tipocontapagar` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tenant_id` int(11) not null,
   `nome` varchar(255),
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`, `tenant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 SELECT 'insert into tipocontapagar (nome) values (\"', nome, '\");' FROM tipocontapagar_antiga ORDER BY nome ;

@@ -24,7 +24,7 @@ $(document).ready(function() {
 });
 function setSelectTipoContaPagar(){
 	$("select#selectTipoContaPagar").change(function(){
-		if($(this).val() == "Outro"){
+		if($(this).val() == "-1"){
 			$("#novoTipoContaPagar").show();
 		}else{
 			$("#novoTipoContaPagar").hide();
