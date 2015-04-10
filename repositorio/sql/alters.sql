@@ -109,3 +109,6 @@ SELECT 'insert into tipocontapagar (nome) values (\"', nome, '\");' FROM tipocon
  * */
 UPDATE CONTAPAGAR cnta SET cnta.tipo = (SELECT tpn.id FROM tipocontapagar tpn WHERE tpn.nome = cnta.tipo);
 ALTER TABLE contapagar CHANGE tipo tipo INT(11);
+
+alter table contapagar add column numRef varchar(11);
+alter table contareceber add column numRef varchar(11);

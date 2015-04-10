@@ -228,4 +228,18 @@ public class FinanceiroDAO extends DAOBase {
 	public TipoContaPagar getTipoContaPagarById(Integer id) {
 		return (TipoContaPagar) this.imp.read(TipoContaPagar.class, id);
 	}
+
+	@SuppressWarnings("unchecked")
+	public Integer getQtdContasPagar(Tenant tenant) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("tenant", tenant);
+		return ((Long) imp.queryObject("getQtdContasPagar", params)).intValue();
+	}
+
+	@SuppressWarnings("unchecked")
+	public Integer getQtdContasReceber(Tenant tenant) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("tenant", tenant);
+		return ((Long) imp.queryObject("getQtdContasReceber", params)).intValue();
+	}
 }

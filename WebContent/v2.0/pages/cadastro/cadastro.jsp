@@ -959,7 +959,7 @@
 					<s:if test="contasReceber.size > 0">
 						<s:iterator value="contasReceber">
 							<tr class="linhaConta linhaConta<s:property value="atividade.contrato.servico.id" />">
-								<td><s:property value="id" /></td>
+								<td><s:property value="numRef" /></td>
 								<td class="valorConta">
 									<s:property value="valorCheioStr" />
 								</td>

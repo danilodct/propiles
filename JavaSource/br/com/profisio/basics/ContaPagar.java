@@ -16,6 +16,7 @@ public class ContaPagar extends ObjetoBasico {
 	private CentroCusto centroCusto;
 	private Movimentacao movimentacao;
 	private String observacao;
+	private String numRef;
 	//serve para inserir pagamentos aos colaboradores
 	private Colaborador colaborador;
 
@@ -170,6 +171,14 @@ public class ContaPagar extends ObjetoBasico {
 
 	public void setColaborador(Colaborador colaborador) {
 		this.colaborador = colaborador;
+	}
+
+	public String getNumRef() {
+		return numRef;
+	}
+
+	public void setNumRef(String numRef) {
+		this.numRef = numRef;
 	}
 
 }

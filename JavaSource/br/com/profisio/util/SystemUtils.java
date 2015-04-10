@@ -322,6 +322,18 @@ public class SystemUtils {
 		return str;
 	}
 
+	public static String gerarNumRefPagamento(Integer num) {
+		String numRef = "";
+		if (num == null)
+			throw new ProfisioException(ProfisioBundleUtil.NO_OBJECT_SELECTED);
+		Integer qtdNum = 5;
+		numRef = "" + num;
+		while (numRef.length() < qtdNum) {
+			numRef = "0" + numRef;
+		}
+		return numRef;
+	}
+
 	// ORDENACAO 888888888888888888888888888888888888888888888888888888888888888
 
 	public static String orderLabelValue(String valores) {

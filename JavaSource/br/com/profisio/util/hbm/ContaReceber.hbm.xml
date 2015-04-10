@@ -18,6 +18,7 @@
 		<property name="observacao" />
 		<property name="qtdParcelas" />
 		<property name="qtdSessoes" />
+		<property name="numRef" />
 		<property name="primeiraParcela"><column name="primeiraParcela" sql-type="tinyint(1)" /></property>
 		<property name="outroColaborador"><column name="outroColaborador" sql-type="tinyint(1)" /></property>
 		<property name="formaPagamento" type="br.com.profisio.basics.enums.FormaPagamentoEnumType"/>
@@ -37,7 +38,7 @@
 			atividade.cadastro = :cadastro 
 			and 
 			parcelamentoPai = null
-			order by dataLancamento desc
+			order by dataLancamento desc, id desc
 			]]>
 	</query>
 	
@@ -159,6 +160,14 @@
 			and primeiraParcela = true
 			and (:dataInicial is null or dataLancamento >= :dataInicial)
 			and (:dataFinal is null or dataLancamento <= :dataFinal)
+			]]>
+	</query>
+	
+	<query name="getQtdContasReceber">
+			<![CDATA[
+			select count(cnta.id)
+			from ContaReceber cnta
+			where cnta.tenant = :tenant
 			]]>
 	</query>
 	

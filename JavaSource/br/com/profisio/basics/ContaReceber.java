@@ -4,13 +4,14 @@ import java.util.Date;
 
 import br.com.profisio.basics.enums.FormaPagamento;
 import br.com.profisio.basics.enums.StatusConta;
+import br.com.profisio.util.Encriptador;
 import br.com.profisio.util.SystemUtils;
 
 public class ContaReceber extends ObjetoBasico {
 
 	private Date dataPagamento, dataLancamento;
 	private Double valor, descontos, caixa, valorCheio;
-	private String observacao;
+	private String observacao, numRef;
 	private FormaPagamento formaPagamento;
 	private Atividade atividade;
 	private StatusConta status;
@@ -281,6 +282,22 @@ public class ContaReceber extends ObjetoBasico {
 
 	public void setQtdParcelas(Integer qtdParcelas) {
 		this.qtdParcelas = qtdParcelas;
+	}
+
+	public String getNumRef() {
+		return numRef;
+	}
+
+	public void setNumRef(String numRef) {
+		this.numRef = numRef;
+	}
+
+	public String getNumRefCript() {
+		return Encriptador.encode(numRef);
+	}
+
+	public void setNumRefCript(String numRef) {
+		this.numRef = Encriptador.decode(numRef);
 	}
 
 }

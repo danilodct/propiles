@@ -238,7 +238,7 @@ function setSelectTipoContaPagar(){
 				<s:if test="contasPagarColaboradores.size > 0">
 					<s:iterator value="contasPagarColaboradores" >
 						<tr>
-							<td><s:property value="id" /></td>
+							<td><s:property value="numRef" /></td>
 							<td><s:property value="valorStr" /></td>
 							<td><s:property value="mesCompetenciaNome" /></td>
 							<td><s:property value="dataPagamentoStr" /></td>
@@ -310,7 +310,7 @@ function setSelectTipoContaPagar(){
 				<s:if test="contasPagar.size > 0">
 					<s:iterator value="contasPagar">
 						<tr>
-							<td><s:property value="id" /></td>
+							<td><s:property value="numRef" /></td>
 							<td><s:property value="valorStr" /></td>
 							<td><s:property value="mesCompetenciaNome" /></td>
 							<td><s:property value="dataPagamentoStr" /></td>

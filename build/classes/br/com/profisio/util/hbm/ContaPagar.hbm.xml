@@ -13,6 +13,7 @@
 		<property name="dataPagamento" />
 		<property name="mesCompetencia" />
 		<property name="observacao" />
+		<property name="numRef" />
 		<property name="status" type="br.com.profisio.basics.enums.StatusContaEnumType"/>
 		<property name="tipoCusto" type="br.com.profisio.basics.enums.TipoCustoEnumType"/>
 		
@@ -98,6 +99,14 @@
 			where ((:tipo is null and cnta.tenant = :tenant) or (cnta.tipo.tenant = :tenant and cnta.tipo = :tipo)) 
 			and (:dataInicial is null or cnta.mesCompetencia >= :dataInicial)
 			and (:dataFinal is null or cnta.mesCompetencia <= :dataFinal)
+			]]>
+	</query>
+	
+	<query name="getQtdContasPagar">
+			<![CDATA[
+			select count(cnta.id)
+			from ContaPagar cnta
+			where cnta.tenant = :tenant
 			]]>
 	</query>
 	

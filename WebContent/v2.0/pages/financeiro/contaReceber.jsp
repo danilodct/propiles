@@ -66,6 +66,7 @@ function setSelectAtividadesPagamentos(){
 						<div class="content"> Editar Conta a Receber</div>
 					</div>
 					<s:form action="editarContaReceber" method="post">
+						<s:hidden name="contaReceber.numRefCript" />
 						<s:hidden name="contaReceber.idCript" />
 						<s:hidden name="cadastro.idCript" id="cadastroId" />
 						<s:hidden name="aba" />

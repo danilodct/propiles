@@ -101,6 +101,9 @@ public class FinanceiroControl extends ControllerBase {
 
 		this.processarParcelasEDescontos(contaReceber);
 
+		Integer qtd = this.dao.getQtdContasReceber(tenant);
+		contaReceber.setNumRef(SystemUtils.gerarNumRefPagamento(qtd + 1));
+
 		contaReceber.setQtdParcelas(contaReceber.getFormaPagamento().getQtdParcelas());
 		contaReceber.setPrimeiraParcela(true);
 		contaReceber.setValorCheio(valorOriginal);
@@ -113,7 +116,7 @@ public class FinanceiroControl extends ControllerBase {
 			atividade = CadastroControl.getInstance().getAtividadeById(tenant, contaReceber.getAtividade());
 			cliente = atividade.getCadastro().getNome() + "; ";
 		}
-		String nota = "Valor original: R$ " + valorOriginal + "; Dia do pagamento: " + contaReceber.getDataLancamentoStr() + "; " + contaReceber.getFormaPagamento().getValor() + "; " + cliente + contaReceber.getObservacao();
+		String nota = "Valor original: R$ " + valorOriginal + "; Ref.: " + contaReceber.getNumRef() + "; Dia do pagamento: " + contaReceber.getDataLancamentoStr() + "; " + contaReceber.getFormaPagamento().getValor() + "; " + cliente + contaReceber.getObservacao();
 		String compNota = "";
 		if (contaReceber.getFormaPagamento().getQtdParcelas() > 1)
 			compNota = " [" + contaReceber.getOrdemParcelamento() + "/" + contaReceber.getFormaPagamento().getQtdParcelas() + "]";
@@ -211,10 +214,13 @@ public class FinanceiroControl extends ControllerBase {
 		} else
 			contaPagar.setTipo(this.dao.getTipoContaPagarById(contaPagar.getTipo().getId()));
 
+		Integer qtd = this.dao.getQtdContasPagar(tenant);
+		contaPagar.setNumRef(SystemUtils.gerarNumRefPagamento(qtd + 1));
+
 		contaPagar.setTenant(tenant);
 		this.dao.cadastrar(contaPagar);
 
-		Movimentacao movimentacao = new Movimentacao(-contaPagar.getValor(), contaPagar.getDataPagamento(), contaPagar.getTipo().getNome() + " - " + contaPagar.getObservacao(), TipoMovimentacao.CONTA_PAGAR);
+		Movimentacao movimentacao = new Movimentacao(-contaPagar.getValor(), contaPagar.getDataPagamento(), "Ref.: " + contaPagar.getNumRef() + "; " + contaPagar.getTipo().getNome() + " - " + contaPagar.getObservacao(), TipoMovimentacao.CONTA_PAGAR);
 		movimentacao.setTenant(tenant);
 		this.dao.cadastrar(movimentacao);
 		contaPagar.setMovimentacao(movimentacao);
@@ -287,6 +293,7 @@ public class FinanceiroControl extends ControllerBase {
 		ContaPagar contaPagarBD = this.dao.getContaPagarById(contaPagar.getId());
 		contaPagar.setMovimentacao(contaPagarBD.getMovimentacao());
 		contaPagar.setTenant(tenant);
+		contaPagar.setNumRef(contaPagarBD.getNumRef());
 		this.dao.editar(contaPagar);
 
 		Movimentacao movBd = this.dao.getMovimentacaoByContaPagar(contaPagar);
@@ -449,7 +456,7 @@ public class FinanceiroControl extends ControllerBase {
 			atividade = CadastroControl.getInstance().getAtividadeById(tenant, contaReceber.getAtividade());
 			cliente = atividade.getCadastro().getNome() + "; ";
 		}
-		String nota = "Valor original: R$ " + valorOriginal + "; Dia do pagamento: " + contaReceber.getDataLancamentoStr() + "; " + contaReceber.getFormaPagamento().getValor() + "; " + cliente + contaReceber.getObservacao();
+		String nota = "Valor original: R$ " + valorOriginal + "; Ref.: " + contaReceber.getNumRef() + "; Dia do pagamento: " + contaReceber.getDataLancamentoStr() + "; " + contaReceber.getFormaPagamento().getValor() + "; " + cliente + contaReceber.getObservacao();
 		String compNota = "";
 		if (contaReceber.getFormaPagamento().getQtdParcelas() > 1)
 			compNota = "[" + contaReceber.getOrdemParcelamento() + "/" + contaReceber.getFormaPagamento().getQtdParcelas() + "]";
