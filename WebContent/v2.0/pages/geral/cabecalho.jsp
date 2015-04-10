@@ -6,7 +6,13 @@
     
 	<div class="menu">
 		<div class="ui image tiny item">
-			<a href="home"><img src="v2.0/img/logo.png" /></a>
+			<a href="home">
+				<s:if test="#session.profisio_user.tenant.logo == null || #session.profisio_user.tenant.logo == '' ">
+					<img src="v2.0/img/logo.jpg" />
+				</s:if><s:else>
+					<img src="logos/<s:property value="#session.profisio_user.tenant.logo" />" />
+				</s:else>
+			</a>
 		</div>
 	<s:if test="#session.profisio_user.tipo.value != 'PROFESSOR'">
 		<div class="ui dropdown item" id="subMenuGerenciamento">
@@ -124,6 +130,8 @@
 			<div class="menu">
 				<div class="item nome"><a href="#" class="text">Olá <s:property value="#session.profisio_user.nomeUser" /> [<s:property value="#session.profisio_user.tenant.nome" />]</a></div>
 				<div class="divider nome"></div>
+				<div class="item"><a href="aparencia" id="aparencia"><i class="icon unhide"></i>Mudar aparência</a></div>
+				<div class="divider"></div>
 				<div class="item"><a href="alterarSenha" id="alterarSenha"><i class="icon unlock alternate"></i>Alterar senha</a></div>
 				<div class="divider"></div>
 				<div class="item"><a href="logout" id="logout"><i class="icon sign out"></i>Sair</a></div>

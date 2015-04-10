@@ -496,6 +496,25 @@ public class SystemUtils {
 		return data;
 	}
 
+	public static Double parseBytesToMegabytes(Double length) {
+		return (length / 1024) / 1024;
+	}
+
+	public static String tratarFileName(String url) {
+		if (url != null) {
+			url = removeAcentuacao(url);
+			url = replaceEspacoUnderLine(url);
+			url = url.toLowerCase();
+		}
+		return url;
+	}
+
+	public static String replaceEspacoUnderLine(String s) {
+		if (s != null)
+			s = s.replaceAll(" ", "_");
+		return s;
+	}
+
 	// 88888888888888888888888888888888888888888888888888888888888888888888888888888888
 
 	public static void assertObjectIsFromTenant(Tenant tenant, ObjetoBasico objeto) {

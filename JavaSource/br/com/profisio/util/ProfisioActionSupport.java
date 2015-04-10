@@ -1,10 +1,14 @@
 package br.com.profisio.util;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.channels.FileChannel;
 import java.util.Collection;
 
 import javax.servlet.http.HttpServletResponse;
@@ -129,6 +133,37 @@ public class ProfisioActionSupport extends ActionSupport {
 			System.out.println("mandou gerar o email...");
 		}
 		addActionError(message);
+	}
+
+	// 8888888888888888888888888888888888888888888888888888888888888888888888888
+	//FILE
+
+	public void assertFileSizeOk(File arquivo) {
+		Long length = arquivo.length();
+		if (SystemUtils.parseBytesToMegabytes(length.doubleValue()) > 5.0) {
+			throw new ProfisioException(ProfisioBundleUtil.FILE_SIZE_MAXIMO);
+		}
+	}
+
+	// MÉTODO copyFile
+	@SuppressWarnings("resource")
+	public String copyFile(File in, String filePath) {
+		String nome = "";
+		try {
+			String fullPath = SystemUtils.getPath() + "/" + filePath;
+			fullPath = SystemUtils.setNomeArquivo(fullPath);
+			nome = SystemUtils.setNomeArquivo(filePath);
+			File out = new File(fullPath);
+			FileChannel sourceChannel = new FileInputStream(in).getChannel();
+			FileChannel destinationChannel = new FileOutputStream(out).getChannel();
+			sourceChannel.transferTo(0L, sourceChannel.size(), destinationChannel);
+			sourceChannel.close();
+			destinationChannel.close();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			throw new ProfisioException(ProfisioBundleUtil.ERRO_SALVAR_ARQUIVO);
+		}
+		return nome;
 	}
 
 	// 8888888888888888888888888888888888888888888888888888888888888888888888888

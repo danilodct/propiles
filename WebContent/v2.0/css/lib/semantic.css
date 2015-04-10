@@ -33,6 +33,8 @@
 .menu .item span.text {color: rgba(0,0,0,.8);}
 #subMenuPreferencias{margin-top:10px;}
 .ui.menu #subMenuPreferencias.item:before{content:normal !important;}
+#subMenuPreferencias.ui.dropdown .menu>.divider{margin:0;}
+.ui.tiny.image{width:54px !important;}
 
 /* ABAS */
 .ui.styled.accordion, .ui.styled.accordion .accordion{background:none !important; box-shadow:none !important;}

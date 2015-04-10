@@ -7,6 +7,8 @@
 		</id>
 		
 		<property name="nome" />
+		<property name="logo" />
+		<property name="cor" />
 		<property name="dataCriacao" />
 		<property name="plano" type="br.com.profisio.util.PlanoEnumType" />
 		

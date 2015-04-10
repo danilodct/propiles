@@ -1,8 +1,12 @@
 package br.com.profisio.usuario;
 
+import java.io.File;
+
 import br.com.profisio.basics.Usuario;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
+import br.com.profisio.util.ProfisioSessionUtil;
+import br.com.profisio.util.SystemUtils;
 import br.com.profisio.util.Tenant;
 
 public class UsuarioView extends ProfisioActionSupport {
@@ -15,8 +19,43 @@ public class UsuarioView extends ProfisioActionSupport {
 	private Tenant tenant;
 	private String page, nome, empresa, fone, email, mensagem;
 
+	private String logoFileName;
+	private String logoContentType;
+	private File logo;
+
 	public UsuarioView() {
 		controller = UsuarioControl.getInstance();
+	}
+
+	public String actionMudarAparencia() {
+		try {
+			Tenant tenantSessao = ProfisioSessionUtil.getTenantSession();
+			//cor
+			String cor = tenant.getCor();
+			this.controller.setCorTenant(tenantSessao, cor);
+
+			//logo
+			String logo = tenant.getLogo();
+			if (this.logo != null) {
+				this.assertFileSizeOk(this.logo);
+				this.copyFile(this.logo, "logos/" + logoFileName);
+				logo = SystemUtils.tratarFileName(logoFileName);
+				this.controller.setLogoTenant(tenantSessao, logo);
+			}
+			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		return REDIRECT;
+	}
+
+	public String actionAparencia() {
+		try {
+			this.tenant = ProfisioSessionUtil.getTenantSession();
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		return REDIRECT;
 	}
 
 	public String actionContato() {
@@ -169,6 +208,30 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
+	}
+
+	public String getLogoFileName() {
+		return logoFileName;
+	}
+
+	public void setLogoFileName(String logoFileName) {
+		this.logoFileName = logoFileName;
+	}
+
+	public String getLogoContentType() {
+		return logoContentType;
+	}
+
+	public void setLogoContentType(String logoContentType) {
+		this.logoContentType = logoContentType;
+	}
+
+	public File getLogo() {
+		return logo;
+	}
+
+	public void setLogo(File logo) {
+		this.logo = logo;
 	}
 
 }

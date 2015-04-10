@@ -6,7 +6,7 @@ import br.com.profisio.basics.ObjetoBasico;
 
 public class Tenant extends ObjetoBasico {
 
-	private String nome;
+	private String nome, logo, cor;
 	private Date dataCriacao;
 	private Plano plano;
 
@@ -49,6 +49,22 @@ public class Tenant extends ObjetoBasico {
 
 	public void setPlano(Plano plano) {
 		this.plano = plano;
+	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public String getCor() {
+		return cor;
+	}
+
+	public void setCor(String cor) {
+		this.cor = cor;
 	}
 
 }

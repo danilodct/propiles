@@ -114,3 +114,6 @@ alter table contapagar add column numRef varchar(11);
 alter table contareceber add column numRef varchar(11);
 
 alter table usuario add column nomeUser varchar(255);
+
+alter table tenant add column logo varchar(255);
+alter table tenant add column cor varchar(20);

@@ -51,4 +51,9 @@ public class UsuarioDAO extends DAOBase {
 		this.imp.update(usuario);
 	}
 
+	@SuppressWarnings("unchecked")
+	public void editar(Tenant tenant) {
+		this.imp.update(tenant);
+	}
+
 }

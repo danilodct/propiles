@@ -46,7 +46,6 @@ public class UsuarioControl extends ControllerBase {
 	private void registrarUsuario(Usuario usuario) {
 		Map<String, Object> session = SystemUtils.getHttpSession();
 		session.put(ProfisioSessionUtil.SESSION_USER, usuario);
-		session.put(ProfisioSessionUtil.SESSION_TENANT, usuario.getTenant());
 	}
 
 	public void logout() {
@@ -138,5 +137,24 @@ public class UsuarioControl extends ControllerBase {
 		String msgCorpo = nome + "<br />Empresa: " + empresa + "<br />" + fone + "<br />E-mail: " + email + "<br /><br />" + mensagem;
 		String msg = Mailer.EMAIL_PARTE_CIMA_ATE_IMAGEM + Mailer.IMG_CONTATO + Mailer.EMAIL_POS_IMAGEM_PRE_CONTEUDO + msgCorpo + Mailer.EMAIL_POS_CONTEUDO;
 		mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Mensagem de contato", msg);
+	}
+
+	public void setLogoTenant(Tenant tenant, String logo) {
+		SystemUtils.assertObjectIsNotNullHasId(tenant);
+		tenant.setLogo(logo);
+		this.dao.editar(tenant);
+		Usuario userSession = ProfisioSessionUtil.getUserSession();
+		userSession.setTenant(tenant);
+		this.registrarUsuario(userSession);
+	}
+
+	public void setCorTenant(Tenant tenant, String cor) {
+		SystemUtils.assertObjectIsNotNullHasId(tenant);
+		tenant.setCor(cor);
+		this.dao.editar(tenant);
+		Usuario userSession = ProfisioSessionUtil.getUserSession();
+		userSession.setTenant(tenant);
+		this.registrarUsuario(userSession);
+
 	}
 }

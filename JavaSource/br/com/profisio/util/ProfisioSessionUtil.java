@@ -9,7 +9,6 @@ import com.opensymphony.xwork2.ActionContext;
 public class ProfisioSessionUtil {
 
 	public static final String SESSION_USER = "profisio_user";
-	public static final String SESSION_TENANT = "profisio_tenant";
 
 	public static Map<String, Object> getSession() {
 		return ActionContext.getContext().getSession();

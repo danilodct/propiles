@@ -451,6 +451,18 @@
 			<result name="redirect" >v2.0/pages/venda/vendidos.jsp</result>
 		</action>
 		
+		<!-- APARENCIA -->
+
+		<action name="aparencia" class="br.com.profisio.usuario.UsuarioView" method="actionAparencia">
+			<result name="redirect" >v2.0/pages/configuracao/aparencia.jsp</result>
+		</action>
+
+		<action name="mudarAparencia" class="br.com.profisio.usuario.UsuarioView" method="actionMudarAparencia">
+			<result name="redirect" type="chain">aparencia</result>
+		</action>
+		
+		
+		
 	</package>
 	
 </struts>
