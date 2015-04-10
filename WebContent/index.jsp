@@ -341,7 +341,7 @@
 			<s:form action="cadastre-se" cssClass="ui form" id="formCadastro" method="post" >
 				<div class="required field">
 					<label class="">Seu nome:</label>
-					<s:textfield name="usuario.nome" cssClass="" />
+					<s:textfield name="usuario.nomeUser" cssClass="" />
 				</div>
 				<div class="required field">
 					<label class="">Sua empresa:</label>

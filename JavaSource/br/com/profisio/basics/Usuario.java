@@ -5,8 +5,7 @@ import br.com.profisio.util.Encriptador;
 
 public class Usuario extends Pessoa {
 
-	private String login;
-	private String senha;
+	private String login, senha, nomeUser;
 	private TipoUser tipo;
 	private Boolean confirmado;
 
@@ -62,6 +61,14 @@ public class Usuario extends Pessoa {
 
 	public void setConfirmado(Boolean confirmado) {
 		this.confirmado = confirmado;
+	}
+
+	public String getNomeUser() {
+		return nomeUser;
+	}
+
+	public void setNomeUser(String nomeUser) {
+		this.nomeUser = nomeUser;
 	}
 
 }

@@ -66,7 +66,7 @@ public class UsuarioControl extends ControllerBase {
 	public void cadastro(Usuario usuario) {
 		if (usuario == null)
 			throw new ProfisioException(ProfisioBundleUtil.INFORME_TODOS_DADOS);
-		if (usuario.getNome() == null || usuario.getNome().trim().equals(""))
+		if (usuario.getNomeUser() == null || usuario.getNomeUser().trim().equals(""))
 			throw new ProfisioException(ProfisioBundleUtil.NOME_OBRIGATORIO);
 		if (usuario.getLogin() == null || usuario.getLogin().trim().equals(""))
 			throw new ProfisioException(ProfisioBundleUtil.EMAIL_OBRIGATORIO);

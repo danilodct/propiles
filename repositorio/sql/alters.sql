@@ -112,3 +112,5 @@ ALTER TABLE contapagar CHANGE tipo tipo INT(11);
 
 alter table contapagar add column numRef varchar(11);
 alter table contareceber add column numRef varchar(11);
+
+alter table usuario add column nomeUser varchar(255);

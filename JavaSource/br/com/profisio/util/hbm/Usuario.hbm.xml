@@ -11,6 +11,7 @@
 		
 		<property name="login" />
 		<property name="senha" />
+		<property name="nomeUser" />
 		<property name="confirmado"><column name="confirmado" sql-type="tinyint(1)" /></property>
 		<property name="tipo" type="br.com.profisio.basics.enums.TipoUserEnumType"/>
 		<property name="statusObjeto" type="br.com.profisio.basics.enums.StatusObjetoEnumType"/>

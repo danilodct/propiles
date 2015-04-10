@@ -117,10 +117,13 @@
 			</div>
 		</div>
 	</s:if>
-		<div class="ui dropdown item right" id="subMenuPreferencias">
+		<div class="ui dropdown item right" id="subMenuPreferencias" title="<s:property value="#session.profisio_user.tenant.nome" /> [<s:property value="#session.profisio_user.nomeUser" />]">
+			<div class="text">Olá <s:property value="#session.profisio_user.nomeUser" /> [<s:property value="#session.profisio_user.tenant.nome" />]</div>
 			<i class="setting icon"></i>
 			<i class="dropdown icon"></i>
 			<div class="menu">
+				<div class="item nome"><a href="#" class="text">Olá <s:property value="#session.profisio_user.nomeUser" /> [<s:property value="#session.profisio_user.tenant.nome" />]</a></div>
+				<div class="divider nome"></div>
 				<div class="item"><a href="alterarSenha" id="alterarSenha"><i class="icon unlock alternate"></i>Alterar senha</a></div>
 				<div class="divider"></div>
 				<div class="item"><a href="logout" id="logout"><i class="icon sign out"></i>Sair</a></div>

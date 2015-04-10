@@ -15,6 +15,15 @@ function setCabecalho(){
 	}else{
 		$(".vaiLeft").removeClass("left");
 	}
+	if(width < 1200){
+		$("div#subMenuPreferencias .text").hide();
+		$("div#subMenuPreferencias .menu .nome").show();
+		$("div#subMenuPreferencias .menu .nome .text").show();
+	}else{
+		$("div#subMenuPreferencias .text").show();
+		$("div#subMenuPreferencias .menu .nome").hide();
+		$("div#subMenuPreferencias .menu .nome .text").hide();
+	}
 }
 
 // SEMANTIC UI 888888888888888888888888888888888888888888888888888888888888888888
