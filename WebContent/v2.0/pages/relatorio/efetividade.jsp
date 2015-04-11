@@ -10,6 +10,7 @@
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
+
 <style type="text/css">
  @media print{
  	.ui.menu .item, .title, .add.icon, .print.icon, tr.linhaFicha.hide, form, h4, .ui.buttons{display:none;}
@@ -61,7 +62,7 @@
 		<!-- TITULO DA PÁGINA 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 
 		<div class="ui dividing  header">
-			<i class="list layout teal circular inverted icon"></i>
+			<i class="list layout <s:property value="#session.profisio_user.tenant.corFinal" /> circular inverted icon"></i>
 			<div class="content">
 				Relatório de efetividade
 				<div class="sub header">Mostra quantos novos cadastros foram feitos em determinado período e quantos destes tornaram-se clientes</div>
@@ -102,7 +103,7 @@
 						</div>
 						<div class="field">
 							<label class="visibilityHidden">Botão:</label> 
-							<input type="submit" class="ui teal submit button" value="Gerar" />
+							<input type="submit" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit button" value="Gerar" />
 						</div>
 					</div>
 				</s:form>			
@@ -134,7 +135,7 @@
 		</s:if>
 		
 		<!-- TABELA DE CONTAS A RECEBER AVULSO 88888888888888888888888888888888888888888888888888888888888888888888888 -->
-		<table class="ui celled teal table">
+		<table class="ui celled <s:property value="#session.profisio_user.tenant.corFinal" /> table">
 			<thead><tr><th>Nome</th><th>E-mail</th><th>Telefone</th><th>Data de cadastro</th><th>Tornou-se cliente?</th></tr></thead>
 			<tbody>
 				<s:if test="clientes.size > 0">

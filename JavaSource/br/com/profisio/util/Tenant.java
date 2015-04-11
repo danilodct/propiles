@@ -59,6 +59,13 @@ public class Tenant extends ObjetoBasico {
 		this.logo = logo;
 	}
 
+	public String getCorFinal() {
+		String cor = "teal";
+		if (this.cor != null && !this.cor.trim().equalsIgnoreCase(""))
+			cor = this.cor;
+		return cor;
+	}
+
 	public String getCor() {
 		return cor;
 	}

@@ -10,6 +10,7 @@
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
+
 <script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/scripts.js"></script>
@@ -54,7 +55,7 @@
 	
 	<div class="thirteen wide column">
 		<div class="ui dividing  header">
-			<i class="user teal circular inverted icon"></i>
+			<i class="user <s:property value="#session.profisio_user.tenant.corFinal" /> circular inverted icon"></i>
 			<div class="content">
 				Colaborador
 				<div class="sub header">Veja as informações do seu colaborador, assim como suas atividades na clínica</div>
@@ -86,7 +87,7 @@
 					<s:hidden name="colaborador.idCript" />
 					<s:hidden name="colaborador.login" />
 					<s:hidden name="colaborador.senhaCript" />
-					<h4 class="ui dividing teal header">Dados Principais</h4>
+					<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Dados Principais</h4>
 					<div class="required field">
 						<label>Nome:</label>
 						<div class="ui transparent input">
@@ -159,7 +160,7 @@
 						</div>
 					</div>
 						
-					<h4 class="ui dividing teal header">Endereço</h4>
+					<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Endereço</h4>
 					<div class="two fields">	
 						<div class="field">
 							<div class="two fields">	
@@ -224,7 +225,7 @@
 					
 					
 					<div class="actions">
-						<div class="ui right floated labeled icon teal button editar">
+						<div class="ui right floated labeled icon <s:property value="#session.profisio_user.tenant.corFinal" /> button editar">
 							Editar
 							<i class="edit right icon"></i>
 						</div>				
@@ -233,7 +234,7 @@
 					<div class="ui buttons hide right floated">
 						<input type="button" class="ui cancelar button" value="Cancelar" />
 	  					<div class="or" data-text="ou"></div>
-						<s:submit value="Salvar alterações" cssClass="ui teal submit  button" /> 
+						<input type="submit" value="Salvar alterações" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 					</div>	
 					
 				</s:form>
@@ -253,7 +254,7 @@
 			
 			<div class="column">
 				<a href="#" class="btAdd" title="Inserir novo" >
-					<i class="add circle big teal icon"></i>
+					<i class="add circle big <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 				</a>
 			</div>
 		
@@ -263,8 +264,8 @@
 			<div class="ui areaAdd hide centered grid" >
 				<div class="twelve wide column"> 
 					<div class="ui form segment">
-						<div class="ui block teal header">
-							<i class="add teal icon"></i>
+						<div class="ui block <s:property value="#session.profisio_user.tenant.corFinal" /> header">
+							<i class="add <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 							<div class="content"> Associar novo serviço ao colaborador</div>
 						</div>
 						<div class="ui form">
@@ -290,7 +291,7 @@
 								<div class="ui buttons right floated">
 									<input type="button" class="ui cancelarAdd button" value="Cancelar" />
 				  					<div class="or" data-text="ou"></div>
-									<s:submit value="Cadastrar" cssClass="ui teal submit  button" /> 
+									<input type="submit" value="Cadastrar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 								</div>	
 							</s:form>
 							<div class="ui divider hidden"></div>
@@ -304,7 +305,7 @@
 			
 			<!-- TABELA COM OS CONTRATOS JÁ EXISTENTES 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 			
-			<table class="ui celled striped teal table">
+			<table class="ui celled striped <s:property value="#session.profisio_user.tenant.corFinal" /> table">
 				<thead>
 					<tr>
 						<th>#</th>
@@ -339,7 +340,7 @@
 												<input type="button" value="Cancelar" class="ui cancel cancelarContrato button" /> 
 											</div>
 											<div class="field">
-												<s:submit value="Salvar" cssClass="ui teal submit  button" /> 
+												<input type="submit" value="Salvar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 											</div>
 										</div>
 									</s:form>

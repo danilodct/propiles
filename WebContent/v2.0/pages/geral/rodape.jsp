@@ -8,6 +8,6 @@
 		<div class="ui hidden divider"></div>
 		<div class="ui hidden divider"></div>
 		<div class="ui hidden divider"></div>
-		<div class="ui horizontal teal divider">ProPilEs 2015</div>
+		<div class="ui horizontal <s:property value="#session.profisio_user.tenant.corFinal" /> divider">ProPilEs 2015</div>
 	</div>
 </div>

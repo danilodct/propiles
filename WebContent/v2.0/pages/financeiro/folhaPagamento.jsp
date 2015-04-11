@@ -10,6 +10,7 @@
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
+
 <script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/scripts.js"></script>
@@ -61,7 +62,7 @@ function setBtGerarConta(){
 		<!-- TITULO DA PÁGINA 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 
 		<div class="ui dividing  header">
-			<i class="dollar teal circular inverted icon"></i>
+			<i class="dollar <s:property value="#session.profisio_user.tenant.corFinal" /> circular inverted icon"></i>
 			<div class="content">
 				Folha de Pagamento
 				<div class="sub header">Tenha uma visão da sua folha de pagamento com os seus colaboradores e gere contas a pagar direto em seu fluxo de caixa</div>
@@ -90,7 +91,7 @@ function setBtGerarConta(){
 						</div>
 						<div class="field">
 							<label class="visibilityHidden">Botão:</label> 
-							<input type="submit" class="ui teal submit button" value="Pesquisar" />
+							<input type="submit" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit button" value="Pesquisar" />
 						</div>
 					</div>
 				</s:form>			
@@ -112,7 +113,7 @@ function setBtGerarConta(){
 		<s:if test="colaboradores.size > 0">
 			<s:iterator value="colaboradores" >
 				<h4 class="ui header"><a href="colaborador?colaborador.idCript=<s:property value="idCript" />"><s:property value="nome" /></a></h4>
-				<table class="ui celled striped teal table">
+				<table class="ui celled striped <s:property value="#session.profisio_user.tenant.corFinal" /> table">
 					<thead>
 						<tr>
 							<th>Salário base</th>
@@ -172,7 +173,7 @@ function setBtGerarConta(){
 				<s:hidden name="dataInicialStr" />
 				<input type="hidden" name="contaPagar.colaborador.idCript" id="cntaColaboradorId" />
 				<input type="hidden" name="aba" value="folha" />
-				<h4 id="areaNomeCliente" class="ui header teal hide"></h4>
+				<h4 id="areaNomeCliente" class="ui header <s:property value="#session.profisio_user.tenant.corFinal" /> hide"></h4>
 				<div class="three fields">
 					<div class="required field">
 						<label>Valor (R$):</label>

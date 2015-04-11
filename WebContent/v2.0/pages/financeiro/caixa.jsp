@@ -10,6 +10,7 @@
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
+
 <script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/scripts.js"></script>
@@ -29,7 +30,7 @@ $(document).ready(function() {
 		<!-- TITULO DA PÁGINA 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 
 		<div class="ui dividing  header">
-			<i class="money teal circular inverted icon"></i>
+			<i class="money <s:property value="#session.profisio_user.tenant.corFinal" /> circular inverted icon"></i>
 			<div class="content">
 				Caixa
 				<div class="sub header">Veja o extrato do seu caixa em determinado período</div>
@@ -62,7 +63,7 @@ $(document).ready(function() {
 						</div>
 						<div class="field">
 							<label class="visibilityHidden">Botão:</label> 
-							<input type="submit" class="ui teal submit button" value="Pesquisar" />
+							<input type="submit" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit button" value="Pesquisar" />
 						</div>
 					</div>
 				</s:form>			
@@ -92,7 +93,7 @@ $(document).ready(function() {
 		</h4>
 
 		<!-- TABELA DE CONTAS A RECEBER AVULSO 88888888888888888888888888888888888888888888888888888888888888888888888 -->
-		<table class="ui celled teal striped table">
+		<table class="ui celled <s:property value="#session.profisio_user.tenant.corFinal" /> striped table">
 			<tbody>
 				<tr>
 					<td>Saldo anterior</td>
@@ -125,7 +126,7 @@ $(document).ready(function() {
 			<div style="float:left; margin-right:10px;">= vendas feitas</div>
 		</div>
 		
-		<table class="ui celled teal table">
+		<table class="ui celled <s:property value="#session.profisio_user.tenant.corFinal" /> table">
 			<tbody>
 				<s:if test="movimentacoes.size > 0">
 					<s:iterator value="movimentacoes">

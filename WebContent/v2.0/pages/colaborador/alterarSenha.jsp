@@ -10,6 +10,7 @@
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
+
 <script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/scripts.js"></script>
@@ -41,7 +42,7 @@
 
 		<!-- TITULO DA PÁGINA 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		<div class="ui dividing  header">
-			<i class="unlock alternate teal circular inverted icon"></i>
+			<i class="unlock alternate <s:property value="#session.profisio_user.tenant.corFinal" /> circular inverted icon"></i>
 			<div class="content">
 				Alterar Senha
 				<div class="sub header">Altere sua senha de acesso ao sistema</div>
@@ -55,8 +56,8 @@
 		<div class="ui areaAdd centered grid" >
 			<div class="eight wide column"> 
 				<div class="ui form segment">
-					<div class="ui block teal header">
-						<i class="add teal icon"></i>
+					<div class="ui block <s:property value="#session.profisio_user.tenant.corFinal" /> header">
+						<i class="add <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 						<div class="content">Mudar senha de acesso</div>
 					</div>
 					
@@ -71,7 +72,7 @@
 						</div>
 
 						<div class="ui buttons right floated">
-							<s:submit value="Alterar" cssClass="ui teal submit  button" /> 
+							<input type="submit" value="Alterar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 						</div>
 						
 					</s:form>

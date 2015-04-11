@@ -10,31 +10,35 @@
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
-<link rel="stylesheet" type="text/css" href="v2.0/css/lib/colorpicker.css" />
+<style type="text/css">
+.button.actived{border:5px solid red;}
+</style>
 <script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
-<script type="text/javascript" src="v2.0/js/lib/colorpicker.js"></script>
 <script type="text/javascript" src="v2.0/js/lib/scripts.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		setSubMenuAtivo("#subMenuPreferencias");
 		setMenuAtivo("#aparencia");
-		$('#colorPicker').ColorPicker({flat: true});
-		$("form#formAparencia").submit(function(){
-			$("input#cor").val($("div.colorpicker_hex input").val());
+		$("div.cores .button").click(function(evt){
+			evt.preventDefault();
+			$("input#cor").val($(this).attr("id"));
+			$("div.cores .button").removeClass("actived");
+			$(this).addClass("actived");
 			return true;
 		});
 	});
 </script>
 </head>
 <body>
+<s:hidden name="tenant.cor" id="corAtual" />
 	<s:include value="../geral/cabecalho.jsp" />
 
-	<div class="nine wide column">
+	<div class="eleven wide column">
 
 		<!-- TITULO PAGINA 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		<div class="ui dividing  header">
-			<i class="unhide teal circular inverted icon"></i>
+			<i class="unhide <s:property value="#session.profisio_user.tenant.corFinal" /> circular inverted icon"></i>
 			<div class="content">
 				Alterar Aparência
 				<div class="sub header">Personalize o sistema e deixe-o com a cara do seu estabelecimento</div>
@@ -66,16 +70,23 @@
 				
 				<div class="field">
 					<label>Cor dos componentes do sistema:</label>
-					<p id="colorPicker"></p>
+					<div class="cores">
+						<div class="ui black button <s:if test="#session.profisio_user.tenant.corFinal == 'black' " >actived</s:if>" id="black" >Preto</div>
+						<div class="ui yellow button <s:if test="#session.profisio_user.tenant.corFinal == 'yellow' " >actived</s:if>" id="yellow">Amarelo</div>
+						<div class="ui green button <s:if test="#session.profisio_user.tenant.corFinal == 'green' " >actived</s:if>" id="green" >Verde</div>
+						<div class="ui blue button <s:if test="#session.profisio_user.tenant.corFinal == 'blue' " >actived</s:if>" id="blue" >Azul</div>
+						<div class="ui orange button <s:if test="#session.profisio_user.tenant.corFinal == 'orange' " >actived</s:if>" id="orange" >Laranja</div>
+						<div class="ui purple button <s:if test="#session.profisio_user.tenant.corFinal == 'purple' " >actived</s:if>" id="purple" >Rocho</div>
+						<div class="ui red button <s:if test="#session.profisio_user.tenant.corFinal == 'red' " >actived</s:if>" id="red" >Vermelho</div>
+						<div class="ui teal button <s:if test="#session.profisio_user.tenant.corFinal == 'teal' " >actived</s:if>" id="teal" >Teal</div>
+					</div>
 					<s:hidden name="tenant.cor" id="cor" />
 				</div>
 
 				<div class="ui hidden divider"></div>
 				
 				<div class="ui buttons right floated">
-					<input type="button" class="ui cancelar button" value="Cancelar" />
-  					<div class="or" data-text="ou"></div>
-					<s:submit value="Salvar" cssClass="ui teal submit  button" /> 
+					<input type="submit" value="Salvar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 				</div>				
 			</s:form>
 		

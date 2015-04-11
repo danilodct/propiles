@@ -10,6 +10,7 @@
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
+
 <script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/scripts.js"></script>
@@ -30,7 +31,7 @@
 	<div class="nine wide column">
 
 		<div class="ui dividing  header">
-			<i class="cube teal circular inverted icon"></i>
+			<i class="cube <s:property value="#session.profisio_user.tenant.corFinal" /> circular inverted icon"></i>
 			<div class="content">
 				Produto
 				<div class="sub header">Atualize as informações do produto</div>
@@ -67,7 +68,7 @@
 				<div class="ui buttons right floated">
 					<input type="button" class="ui cancelar button" value="Cancelar" />
   					<div class="or" data-text="ou"></div>
-					<s:submit value="Salvar" cssClass="ui teal submit  button" /> 
+					<input type="submit" value="Salvar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 				</div>				
 				
 			</s:form>

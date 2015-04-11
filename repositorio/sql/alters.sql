@@ -117,3 +117,6 @@ alter table usuario add column nomeUser varchar(255);
 
 alter table tenant add column logo varchar(255);
 alter table tenant add column cor varchar(20);
+
+alter table servico add column statusObjeto varchar(100);
+update servico set statusObjeto = "ATIVO";

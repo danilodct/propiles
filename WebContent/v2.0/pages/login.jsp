@@ -61,7 +61,7 @@
 					</div>
 				</div>
 				<div class="ui hidden divider"></div>
-				<s:submit value="Entrar" cssClass="ui teal submit right floated button" />
+				<input type="submit" value="Entrar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit right floated button" />
 			</form>
 		</div>
 	</div>

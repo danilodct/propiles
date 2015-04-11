@@ -10,6 +10,7 @@
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
+
 <script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/scripts.js"></script>
@@ -51,7 +52,7 @@ function setSelectTipoContaPagar(){
 		<!-- TITULO DA PÁGINA 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 
 		<div class="ui dividing  header">
-			<i class="dollar teal circular inverted icon"></i>
+			<i class="dollar <s:property value="#session.profisio_user.tenant.corFinal" /> circular inverted icon"></i>
 			<div class="content">
 				Contas a pagar
 				<div class="sub header">Gerencie todos os pagamentos (aluguel, manutenção, material, etc.)</div>
@@ -64,7 +65,7 @@ function setSelectTipoContaPagar(){
 		
 		<div class="left floated column">
 			<a href="#" class="btAdd" title="Inserir novo" >
-				<i class="add circle big teal icon"></i>
+				<i class="add circle big <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 			</a>
 		</div>
 		
@@ -75,12 +76,12 @@ function setSelectTipoContaPagar(){
 		<div class="ui areaAdd hide centered grid" >
 			<div class="twelve wide column"> 
 				<div class="ui form segment">
-					<div class="ui block teal header">
-						<i class="add teal icon"></i>
+					<div class="ui block <s:property value="#session.profisio_user.tenant.corFinal" /> header">
+						<i class="add <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 						<div class="content"> Inserir Conta a Pagar</div>
 					</div>
 					<s:form id="formInserirContaPagar" action="cadastrarContaPagar" method="post">
-						<h4 class="ui dividing teal header">Dados Principais</h4>
+						<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Dados Principais</h4>
 						<div class="three fields">
 							<div class="required field">
 								<label>Valor (R$):</label>
@@ -139,7 +140,7 @@ function setSelectTipoContaPagar(){
 						<div class="ui buttons right floated">
 							<input type="button" class="ui cancelar button" value="Cancelar" />
 		  					<div class="or" data-text="ou"></div>
-							<s:submit value="Cadastrar" cssClass="ui teal submit  button" /> 
+							<input type="submit" value="Cadastrar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 						</div>	
 					</s:form>
 				</div>
@@ -196,7 +197,7 @@ function setSelectTipoContaPagar(){
 						 -->
 						<div class="field">
 							<label class="visibilityHidden">Botão:</label> 
-							<input type="submit" class="ui teal submit button" value="Pesquisar" />
+							<input type="submit" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit button" value="Pesquisar" />
 						</div>
 					</div>
 				</s:form>			
@@ -216,7 +217,7 @@ function setSelectTipoContaPagar(){
 		
 		<!-- TABELA DE CONTAS A PAGAR PESSOAL 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 
-		<table class="ui celled striped teal table">
+		<table class="ui celled striped <s:property value="#session.profisio_user.tenant.corFinal" /> table">
 			<thead>
 				<tr>
 					<th class="colapse">Ref.:<i class="help circle icon hint" data-content="Código de referência para identificar o pagamento" data-variation="inverted" ></i></th>
@@ -288,7 +289,7 @@ function setSelectTipoContaPagar(){
 		
 		<!-- TABELA DE CONTAS A PAGAR 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 
-		<table class="ui celled striped teal table">
+		<table class="ui celled striped <s:property value="#session.profisio_user.tenant.corFinal" /> table">
 			<thead>
 				<tr>
 					<th class="colapse">Ref.:<i class="help circle icon hint" data-content="Código de referência para identificar o pagamento" data-variation="inverted" ></i></th>

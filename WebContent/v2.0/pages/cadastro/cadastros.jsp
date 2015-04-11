@@ -10,6 +10,7 @@
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
+
 <script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/scripts.js"></script>
@@ -47,7 +48,7 @@
 		<!-- TITULO DA PÁGINA 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 
 		<div class="ui dividing  header">
-			<i class="users teal circular inverted icon"></i>
+			<i class="users <s:property value="#session.profisio_user.tenant.corFinal" /> circular inverted icon"></i>
 			<div class="content">
 				Cadastros
 				<div class="sub header">Todos os cadastros já feitos de visitantes ou clientes</div>
@@ -61,7 +62,7 @@
 	
 		<div class="left floated column">
 			<a href="#" class="btAdd" title="Inserir novo" >
-				<i class="add circle big teal icon"></i>
+				<i class="add circle big <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 			</a>
 		</div>
 		
@@ -71,13 +72,13 @@
 		<div class="ui areaAdd hide centered grid" >
 			<div class="fifteen wide column"> 
 				<div class="ui form segment">
-					<div class="ui block teal header">
-						<i class="add teal icon"></i>
+					<div class="ui block <s:property value="#session.profisio_user.tenant.corFinal" /> header">
+						<i class="add <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 						<div class="content"> Inserir novo Cadastro</div>
 					</div>
 					
 					<s:form action="cadastrarCadastro" method="post">
-						<h4 class="ui dividing teal header">Dados Principais</h4>
+						<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Dados Principais</h4>
 						<div class="required field">
 							<label>Nome:</label>
 							<s:textfield id="nome" name="cadastro.nome" />
@@ -128,7 +129,7 @@
 							</div>
 						</div>
 						
-						<h4 class="ui dividing teal header">Endereço</h4>
+						<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Endereço</h4>
 						<div class="three fields">
 							<div class="field">
 								<label>CEP:</label>
@@ -170,7 +171,7 @@
 							</div>
 						</div>
 					
-						<h4 class="ui dividing teal header">Como o cliente tomou conhecimento deste estabelecimento?</h4>
+						<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Como o cliente tomou conhecimento deste estabelecimento?</h4>
  						<div class="grouped fields">
  							<s:iterator value="allFormasConhecimento" >
  								<div class="field">
@@ -192,7 +193,7 @@
 						<div class="ui buttons right floated">
 							<input type="button" class="ui cancelar button" value="Cancelar" />
 		  					<div class="or" data-text="ou"></div>
-							<s:submit value="Cadastrar" cssClass="ui teal submit  button" /> 
+							<input type="submit" value="Cadastrar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 						</div>	
 					</s:form>
 				</div>
@@ -219,7 +220,7 @@
 						</div>
 						<div class="field">
 							<label class="visibilityHidden">Botão</label>
-							<s:submit value="Pesquisar" cssClass="ui teal right submit  button" />
+							<input type="submit" value="Pesquisar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> right submit  button" />
 						</div>
 					</div>
 				</s:form>
@@ -232,7 +233,7 @@
 		<div class="left floated column">
 			Mostrando <s:property value="clientes.size" /> de <s:property value="qtdCadastros" /> cadastros
 		</div>
-		<table class="ui celled striped teal table">
+		<table class="ui celled striped <s:property value="#session.profisio_user.tenant.corFinal" /> table">
 			<thead>
 				<tr>
 					<th>Nome</th>

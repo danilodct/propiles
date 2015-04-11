@@ -10,6 +10,7 @@
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
+
 <script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/scripts.js"></script>
@@ -46,7 +47,7 @@ function setSelectAtividadesPagamentos(){
 		<!-- TITULO DA PÁGINA 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 
 		<div class="ui dividing  header">
-			<i class="dollar teal circular inverted icon"></i>
+			<i class="dollar <s:property value="#session.profisio_user.tenant.corFinal" /> circular inverted icon"></i>
 			<div class="content">
 				Conta a receber
 				<div class="sub header">Edite os dados do pagamento</div>
@@ -61,8 +62,8 @@ function setSelectAtividadesPagamentos(){
 		<div class="ui areaAdd centered grid" >
 			<div class="twelve wide column"> 
 				<div class="ui form segment">
-					<div class="ui block teal header">
-						<i class="add teal icon"></i>
+					<div class="ui block <s:property value="#session.profisio_user.tenant.corFinal" /> header">
+						<i class="add <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 						<div class="content"> Editar Conta a Receber</div>
 					</div>
 					<s:form action="editarContaReceber" method="post">
@@ -71,7 +72,7 @@ function setSelectAtividadesPagamentos(){
 						<s:hidden name="cadastro.idCript" id="cadastroId" />
 						<s:hidden name="aba" />
 
-						<h4 class="ui dividing teal header">Dados do Pagamento</h4>
+						<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Dados do Pagamento</h4>
 						<div class="two fields">
 							<div class="required field">
 								<label class="medio final left">Atividade </label>
@@ -122,7 +123,7 @@ function setSelectAtividadesPagamentos(){
 						<div class="ui buttons right floated">
 							<input type="button" class="ui cancelar button" value="Cancelar" />
 		  					<div class="or" data-text="ou"></div>
-							<s:submit value="Salvar" cssClass="ui teal submit  button" /> 
+							<input type="submit" value="Salvar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 						</div>	
 					</s:form>
 				</div>

@@ -12,6 +12,7 @@
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/fullcalendar.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/fullcalendar.print.css" media="print" />
+
 <style type="text/css">
  @media print{
  	.ui.menu .item, .ui.dividing.header, .title, .add.icon, .print.icon, tr.linhaFicha.hide, form, tr, h4, .ui.buttons{display:none;}
@@ -270,7 +271,7 @@
 	
 	<div class="fifteen wide column">
 		<div class="ui dividing  header">
-			<i class="user teal circular inverted icon"></i>
+			<i class="user <s:property value="#session.profisio_user.tenant.corFinal" /> circular inverted icon"></i>
 			<div class="content">
 				Cadastro
 				<div class="sub header">Veja as informações do seu cliente, assim como suas atividades na clínica</div>
@@ -303,7 +304,7 @@
 				<!-- FORM EDITAR CADASTRO 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 				<s:form id="formEditarCadastro" action="editarCadastro" method="post">
 					<s:hidden name="cadastro.idCript" />
-					<h4 class="ui dividing teal header">Dados Principais</h4>
+					<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Dados Principais</h4>
 						<div class="required field">
 							<label>Nome:</label>
 							<div class="ui transparent input">
@@ -362,7 +363,7 @@
 							</div>
 						</div>
 						
-						<h4 class="ui dividing teal header">Endereço</h4>
+						<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Endereço</h4>
 						<div class="three fields">
 							<div class="field">
 								<label>CEP:</label>
@@ -414,7 +415,7 @@
 							</div>
 						</div>
 					
-						<h4 class="ui dividing teal header">Informações adicionais</h4>
+						<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Informações adicionais</h4>
  						<div class="grouped fields">
  							<s:iterator value="allFormasConhecimento" >
  								<div class="field">
@@ -441,7 +442,7 @@
 					
 					
 					<div class="actions">
-						<div class="ui right floated labeled icon teal button editar">
+						<div class="ui right floated labeled icon <s:property value="#session.profisio_user.tenant.corFinal" /> button editar">
 							Editar
 							<i class="edit right icon"></i>
 						</div>				
@@ -450,7 +451,7 @@
 					<div class="ui buttons hide right floated">
 						<input type="button" class="ui cancelar button" value="Cancelar" />
 	  					<div class="or" data-text="ou"></div>
-						<s:submit value="Salvar alterações" cssClass="ui teal submit  button" /> 
+						<input type="submit" value="Salvar alterações" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 					</div>	
 					
 				</s:form>
@@ -469,7 +470,7 @@
 			<!-- BT ADD ATIVIDADE 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 			<div class="column">
 				<a href="#" class="btAdd" title="Inserir novo" >
-					<i class="add circle big teal icon"></i>
+					<i class="add circle big <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 				</a>
 			</div>
 			
@@ -492,15 +493,15 @@
 					</div>
 				
 					<div class="ui form segment">
-						<div class="ui block teal header">
-							<i class="add teal icon"></i>
+						<div class="ui block <s:property value="#session.profisio_user.tenant.corFinal" /> header">
+							<i class="add <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 							<div class="content">Inserir nova atividade/serviço para este cliente</div>
 						</div>
 						<s:form id="formInserirAtividade" action="cadastrarAtividade" method="post">
 							<input type="hidden" name="atividade.cadastro.idCript" value="<s:property value="cadastro.idCript" />" />
 							<s:hidden name="cadastro.idCript" />
 							<input type="hidden" name="aba" value="atividades" />
-							<h4 class="ui dividing teal header">Dados da Atividade</h4>
+							<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Dados da Atividade</h4>
 							<div class="two fields">
 								<div class="required field">
 									<label>Data de Início:</label>
@@ -528,7 +529,7 @@
 							<div class="ui buttons right floated">
 								<input type="button" class="ui cancelarAdd button" value="Cancelar" />
 			  					<div class="or" data-text="ou"></div>
-								<s:submit value="Cadastrar" cssClass="ui teal submit  button" /> 
+								<input type="submit" value="Cadastrar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 							</div>	
 						</s:form>
 						<div class="ui divider hidden"></div>
@@ -539,7 +540,7 @@
 			</div>
 			
 			<!-- TABELA COM AS ATIVIDADES 88888888888888888888888888888888888888888888888888888888888888888888888 -->
-			<table class="ui celled striped teal table">
+			<table class="ui celled striped <s:property value="#session.profisio_user.tenant.corFinal" /> table">
 				<thead>
 					<tr>
 						<th>#</th>
@@ -557,7 +558,7 @@
 								<td class="colapse"><% i += 1; %><%=i %></td>
 								<td><s:property value="contrato.servico.nome" /></td>
 								<td><s:property value="contrato.colaborador.nome" /></td>
-								<td><input type="button" value="FICHA DE AVALIAÇÃO" class="ui teal mini button btFicha" /></td>
+								<td><input type="button" value="FICHA DE AVALIAÇÃO" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> mini button btFicha" /></td>
 								<td class="colapse"><a class="remover" href="removerAtividade?aba=atividades&cadastro.idCript=<s:property value="cadastro.idCript" />&atividade.idCript=<s:property value="idCript" />"><i class="remove circle red icon"></i></a></td>
 							</tr>
 							<tr class="linhaFicha <s:if test="avaliacaoId == null || avaliacaoId != avaliacao.id" >hide</s:if>">
@@ -568,14 +569,14 @@
 										<input type="hidden" name="aba" value="atividades" />
 										<input type="hidden" name="avaliacaoId" value="<s:property value="avaliacao.idCript" />" />
 										
-										<h2 class="ui block teal header">
+										<h2 class="ui block <s:property value="#session.profisio_user.tenant.corFinal" /> header">
 											<a href="#" title="Imprimir ficha de avaliação" class="btPrint ui buttons right floated">
 												<i class="print black mini icon"></i>
 											</a>
-											<i class="text file teal icon"></i>
+											<i class="text file <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 											<div class="content">Ficha de Avaliação</div>
 										</h2>
-										<h4 class="ui dividing teal header">ANAMNESE</h4>
+										<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">ANAMNESE</h4>
 											<div class="field">
 												<label>Motivo da consulta / Queixa principal:</label>
 												<s:textarea name="avaliacao.objetivo"></s:textarea>
@@ -668,7 +669,7 @@
 												<s:textarea name="avaliacao.antecedentes" ></s:textarea>
 											</div>
 											
-										<h4 class="ui dividing teal header">História Ginecológica</h4>
+										<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">História Ginecológica</h4>
 											<div class="field">
 												<label>Tensão pré-menstrual:</label>
 												<s:textfield  name="avaliacao.tensaoPremenstrual" />
@@ -682,7 +683,7 @@
 												<s:textfield  name="avaliacao.anticonceptivo" />
 											</div>
 											
-										<h4 class="ui dividing teal header">Perimetria (cm)</h4>
+										<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Perimetria (cm)</h4>
 											<div class="field">
 												<table>
 													<tr>
@@ -800,7 +801,7 @@
 											<div class="ui buttons right floated">
 												<input type="button" class="ui cancelarFicha button" value="Fechar" />
 							  					<div class="or" data-text="ou"></div>
-												<s:submit value="Salvar" cssClass="ui teal submit  button" /> 
+												<input type="submit" value="Salvar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 											</div>
 											
 											<div class="ui hidden divider"></div>
@@ -831,22 +832,22 @@
 			
 			<div class="column">
 				<a href="#" class="btAdd" title="Inserir novo" >
-					<i class="add circle big teal icon"></i>
+					<i class="add circle big <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 				</a>
 			</div>
 			
 			<div class="ui areaAdd hide centered grid" >
 				<div class="fourteen wide column"> 
 					<div class="ui form segment">
-						<div class="ui block teal header">
-							<i class="add teal icon"></i>
+						<div class="ui block <s:property value="#session.profisio_user.tenant.corFinal" /> header">
+							<i class="add <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 							<div class="content">Inserir novo pagamento</div>
 						</div>
 						<s:form id="formInserirContaReceber" action="cadastrarContaReceber" method="post">
 							<s:hidden name="cadastro.idCript" />
 							<input type="hidden" name="aba" value="contasReceber" />
 
-							<h4 class="ui dividing teal header">Dados do Pagamento</h4>
+							<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Dados do Pagamento</h4>
 							<div class="two fields">
 								<div class="required field">
 									<label class="medio final left">Atividade </label>
@@ -896,7 +897,7 @@
 							
 							<s:select id="atividadesAgendamentoSuporte" cssStyle="display:none !important;" list="atividades" listKey="idCript" listValue="contrato.servico.duracaoSessao" />
 							<div id="areaAgendar">
-								<h4 class="ui dividing teal header">Agende os atendimentos (opcional)</h4>
+								<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Agende os atendimentos (opcional)</h4>
 								<input type="hidden" name="qtdAgendamentos" id="qtdAgendamentos" />
 								<div id="areaAgendarConteudo">
 								</div>
@@ -908,7 +909,7 @@
 							<div class="ui buttons right floated">
 								<input type="button" class="ui cancelarAdd button" value="Cancelar" />
 			  					<div class="or" data-text="ou"></div>
-								<s:submit value="Cadastrar" cssClass="ui teal submit  button" /> 
+								<input type="submit" value="Cadastrar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 							</div>	
 						</s:form>
 						<div class="ui divider hidden"></div>
@@ -939,7 +940,7 @@
 				<strong>Total já pago: R$ <span id="pagoContas"><s:property value="totalValorContasReceberStr" /></span></strong>
 			</div>
 			
-			<table class="ui celled striped teal table">
+			<table class="ui celled striped <s:property value="#session.profisio_user.tenant.corFinal" /> table">
 				<thead>
 					<tr>
 						<th class="colapse">Ref.:<i class="help circle icon hint" data-content="Código de referência para identificar o pagamento" data-variation="inverted" ></i></th>
@@ -1006,7 +1007,7 @@
 			<!-- BT ADD FREQUENCIA 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 			<div class="column">
 				<a href="#" class="btAdd" title="Inserir novo" >
-					<i class="add circle big teal icon"></i>
+					<i class="add circle big <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 				</a>
 			</div>
 			
@@ -1014,8 +1015,8 @@
 				<div class="fourteen wide column"> 
 				
 					<div class="ui form segment">
-						<div class="ui block teal header">
-							<i class="add teal icon"></i>
+						<div class="ui block <s:property value="#session.profisio_user.tenant.corFinal" /> header">
+							<i class="add <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 							<div class="content">Inserir nova frequência</div>
 						</div>
 						<s:form id="formInserirFrequencia" action="cadastrarFrequencia" method="post">
@@ -1024,7 +1025,7 @@
 							<s:hidden name="cadastro.idCript" />
 							<input type="hidden" name="aba" value="frequencias" />
 							
-							<h4 class="ui dividing teal header">Dados principais</h4>
+							<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Dados principais</h4>
 							<div class="field">
 								<label class="medio final left">Atividade</label>
 								<s:select id="atividadesFrequencia" name="frequencia.atividade.idCript" cssClass="ui dropdown" headerKey="-1" headerValue="SELECIONE UMA ATIVIDADE" list="atividades" listKey="idCript" listValue="contrato.servico.nome + ' - ' + contrato.colaborador.nome" />
@@ -1062,7 +1063,7 @@
 							<div class="ui buttons right floated">
 								<input type="button" class="ui cancelarAdd button" value="Cancelar" />
 			  					<div class="or" data-text="ou"></div>
-								<s:submit value="Cadastrar" cssClass="ui teal submit  button" /> 
+								<input type="submit" value="Cadastrar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 							</div>	
 						</s:form>
 						<div class="ui divider hidden"></div>
@@ -1090,7 +1091,7 @@
 			
 			<!-- TABELA COM AS FREQUENCIAS EXISTENTES 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 			
-			<table class="ui celled striped teal table">
+			<table class="ui celled striped <s:property value="#session.profisio_user.tenant.corFinal" /> table">
 				<thead>
 					<tr>
 						<th>#</th>
@@ -1110,7 +1111,7 @@
 								<td><s:date name="data" format="dd/MM/yyyy" /> às <s:date name="data" format="HH:mm" /> <s:if test="duracao != null && duracao != 0">(<s:property value="duracao" />min)</s:if></td>
 								<td><s:property value="servicoCerto.nome" /></td>
 								<td><s:property value="colaboradorCerto.nome" /></td>
-								<td><s:property value="contaReceber.id" /></td>
+								<td><s:property value="contaReceber.numRef" /></td>
 								<td><a class="remover" href="removerFrequencia?aba=frequencias&frequencia.idCript=<s:property value="idCript" />&cadastro.idCript=<s:property value="cadastro.idCript" />"><i class="remove circle red icon"></i></a></td>
 							</tr>
 						</s:iterator>
@@ -1137,7 +1138,7 @@
 			<!-- BT ADD AGENDAMENTO 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 			<div class="column">
 				<a href="#" class="btAdd" title="Inserir novo" >
-					<i class="add circle big teal icon"></i>
+					<i class="add circle big <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 				</a>
 			</div>
 			
@@ -1145,8 +1146,8 @@
 				<div class="fourteen wide column"> 
 				
 					<div class="ui form segment">
-						<div class="ui block teal header">
-							<i class="add teal icon"></i>
+						<div class="ui block <s:property value="#session.profisio_user.tenant.corFinal" /> header">
+							<i class="add <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 							<div class="content">Inserir Agendamento</div>
 						</div>
 						<s:form id="formInserirAgendamentos" action="cadastrarAgendamento" method="post">
@@ -1154,7 +1155,7 @@
 							<s:hidden name="cadastro.idCript" />
 							<input type="hidden" name="aba" value="agendamentos" />
 							
-							<h4 class="ui dividing teal header">Dados principais</h4>
+							<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Dados principais</h4>
 							<div class="required field">
 								<label>Título</label>
 								<s:textfield name="agendamento.titulo" />
@@ -1184,7 +1185,7 @@
 							<div class="ui buttons right floated">
 								<input type="button" class="ui cancelarAdd button" value="Cancelar" />
 			  					<div class="or" data-text="ou"></div>
-								<s:submit value="Cadastrar" cssClass="ui teal submit  button" /> 
+								<input type="submit" value="Cadastrar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 							</div>	
 						</s:form>
 						<div class="ui divider hidden"></div>

@@ -10,6 +10,7 @@
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
+
 <script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/scripts.js"></script>
@@ -28,7 +29,7 @@
 	<div class="twelve wide column">
 
 		<div class="ui dividing  header">
-			<i class="shop teal circular inverted icon"></i>
+			<i class="shop <s:property value="#session.profisio_user.tenant.corFinal" /> circular inverted icon"></i>
 			<div class="content">
 				Estoque Vendido
 				<div class="sub header">Lista com todas as vendas já efetuadas</div>
@@ -67,7 +68,7 @@
 						</div>
 						<div class="field">
 							<label class="visibilityHidden">Botão:</label> 
-							<input type="submit" class="ui teal submit button" value="Pesquisar" />
+							<input type="submit" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit button" value="Pesquisar" />
 						</div>
 					</div>
 				</s:form>			
@@ -82,7 +83,7 @@
 			<h3 class="ui horizontal header">Dados referentes ao mês atual</h3>
 		</s:if>
 
-		<table class="ui celled striped teal table">
+		<table class="ui celled striped <s:property value="#session.profisio_user.tenant.corFinal" /> table">
 			<thead>
 				<tr>
 					<th>Produto</th>

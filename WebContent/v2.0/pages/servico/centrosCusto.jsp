@@ -10,6 +10,7 @@
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
+
 <script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/scripts.js"></script>
@@ -47,7 +48,7 @@
 
 		<!-- TITULO DA PÁGINA 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		<div class="ui dividing  header">
-			<i class="grid layout teal circular inverted icon"></i>
+			<i class="grid layout <s:property value="#session.profisio_user.tenant.corFinal" /> circular inverted icon"></i>
 			<div class="content">
 				Centros de Custo
 				<div class="sub header">Crie grupos de serviços para gerar análises mais detalhas no futuro. Ex.: estéticos, aquáticos, massagens, etc.</div>
@@ -59,7 +60,7 @@
 		<!-- BT ADD 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		<div class="left floated column">
 			<a href="#" class="btAdd" title="Inserir novo" >
-				<i class="add circle big teal icon"></i>
+				<i class="add circle big <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 			</a>
 		</div>
 		
@@ -70,13 +71,13 @@
 		<div class="ui areaAdd hide centered grid" >
 			<div class="twelve wide column"> 
 				<div class="ui form segment">
-					<div class="ui block teal header">
-						<i class="add teal icon"></i>
+					<div class="ui block <s:property value="#session.profisio_user.tenant.corFinal" /> header">
+						<i class="add <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 						<div class="content"> Inserir novo centro de custo</div>
 					</div>
 					
 					<s:form action="cadastrarCentroCusto" method="post">
-						<h4 class="ui dividing teal header">Dados Principais</h4>
+						<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Dados Principais</h4>
 						<div class="two fields">
 							<div class="required field">
 								<label>Nome do centro de custo:</label>
@@ -87,7 +88,7 @@
 						<div class="ui buttons right floated">
 							<input type="button" class="ui cancelar button" value="Cancelar" />
 		  					<div class="or" data-text="ou"></div>
-							<s:submit value="Cadastrar" cssClass="ui teal submit  button" /> 
+							<input type="submit" value="Cadastrar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 						</div>
 					</s:form>
 				</div>
@@ -98,7 +99,7 @@
 		<div class="ui hidden divider"></div>
 		
 		<!-- AREA LISTA 88888888888888888888888888888888888888888888888888888888888888888888888 -->
-		<table class="ui celled striped teal table">
+		<table class="ui celled striped <s:property value="#session.profisio_user.tenant.corFinal" /> table">
 			<thead>
 				<tr>
 					<th>#</th>
@@ -130,7 +131,7 @@
 													<input type="button" value="Cancelar" class="ui cancel cancelarCentroCusto button" /> 
 												</div>
 												<div class="field">
-													<s:submit value="Salvar" cssClass="ui teal submit  button" /> 
+													<input type="submit" value="Salvar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 												</div>
 											</div>
 										</div>

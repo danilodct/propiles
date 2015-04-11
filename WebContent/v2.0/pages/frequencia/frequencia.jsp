@@ -10,6 +10,7 @@
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
+
 <script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/scripts.js"></script>
@@ -28,7 +29,7 @@
 	<div class="twelve wide column">
 
 		<div class="ui dividing  header">
-			<i class="wait teal circular inverted icon"></i>
+			<i class="wait <s:property value="#session.profisio_user.tenant.corFinal" /> circular inverted icon"></i>
 			<div class="content">
 				Últimos Atendimentos
 				<div class="sub header">Os últimos atendimentos de todos os serviços</div>
@@ -58,7 +59,7 @@
 						</div>
 						<div class="field">
 							<label class="visibilityHidden">Botão</label>
-							<s:submit value="Buscar" cssClass="ui teal submit  button" />
+							<input type="submit" value="Buscar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" />
 						</div>
 					</div>
 				</s:form>
@@ -71,7 +72,7 @@
 			Mostrando <s:property value="frequencias.size" /> atendimentos
 		</h4>
 	</s:if>
-		<table class="ui celled striped teal table">
+		<table class="ui celled striped <s:property value="#session.profisio_user.tenant.corFinal" /> table">
 			<thead>
 				<tr>
 					<th>Data</th>

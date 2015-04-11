@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/fullcalendar.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/fullcalendar.print.css" media="print" />
+
 <script type="text/javascript" src="v2.0/js/lib/moment.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
@@ -62,7 +63,7 @@
 	<div class="twelve wide column">
 
 		<div class="ui dividing  header">
-			<i class="calendar teal circular inverted icon"></i>
+			<i class="calendar <s:property value="#session.profisio_user.tenant.corFinal" /> circular inverted icon"></i>
 			<div class="content">
 				Agenda
 				<div class="sub header">Veja todos os atendimentos já programados</div>
@@ -75,7 +76,7 @@
 		<!-- BT ADD FREQUENCIA 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		<div class="column">
 			<a href="#" class="btAdd" title="Inserir novo" >
-				<i class="add circle big teal icon"></i>
+				<i class="add circle big <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 			</a>
 		</div>
 		
@@ -83,12 +84,12 @@
 			<div class="fourteen wide column"> 
 			
 				<div class="ui form segment">
-					<div class="ui block teal header">
-						<i class="add teal icon"></i>
+					<div class="ui block <s:property value="#session.profisio_user.tenant.corFinal" /> header">
+						<i class="add <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 						<div class="content">Inserir Agendamento</div>
 					</div>
 					<s:form id="formInserirAgendamentos" action="cadastrarAgendamento" method="post">
-						<h4 class="ui dividing teal header">Dados principais</h4>
+						<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Dados principais</h4>
 						<div class="required field">
 							<label>Título</label>
 							<s:textfield name="agendamento.titulo" />
@@ -118,7 +119,7 @@
 						<div class="ui buttons right floated">
 							<input type="button" class="ui cancelarAdd button" value="Cancelar" />
 		  					<div class="or" data-text="ou"></div>
-							<s:submit value="Cadastrar" cssClass="ui teal submit  button" /> 
+							<input type="submit" value="Cadastrar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 						</div>	
 					</s:form>
 					<div class="ui divider hidden"></div>
@@ -137,7 +138,7 @@
 			<div class="header">Editar Agendamento</div>
 			<div class="content">
 				<s:form action="editarAgendamento" cssClass="ui form" >
-					<h4 id="areaNomeCliente" class="ui header teal hide"></h4>
+					<h4 id="areaNomeCliente" class="ui header <s:property value="#session.profisio_user.tenant.corFinal" /> hide"></h4>
 					<input type="hidden" id="agId" name="agendamento.idCript" />
 					<div class="required field">
 						<label>Título:</label>

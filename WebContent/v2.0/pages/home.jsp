@@ -7,6 +7,7 @@
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
+
 <script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/scripts.js" ></script>
@@ -23,11 +24,11 @@
 	<div class="ui two centered column grid">
 		<div class="two column centered row" >
 			<div class="column" >
-				<h2 class="ui small header"><i class="teal feed icon"></i> Novidades do Sistema</h2>
+				<h2 class="ui small header"><i class="<s:property value="#session.profisio_user.tenant.corFinal" /> feed icon"></i> Novidades do Sistema</h2>
 				<div class="ui segment" >
 					<div class="ui list">
 					  	<div class="item">
-						    <i class="top aligned right bar chart teal large circular icon"></i>
+						    <i class="top aligned right bar chart <s:property value="#session.profisio_user.tenant.corFinal" /> large circular icon"></i>
 						    <div class="content">
 						      <div class="header">Última Atualização</div>
 						      20/03/2015 às 13:00

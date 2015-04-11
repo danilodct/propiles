@@ -10,6 +10,7 @@
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
+
 <script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/scripts.js"></script>
@@ -38,7 +39,7 @@
 	<div class="twelve wide column">
 
 		<div class="ui dividing  header">
-			<i class="shop teal circular inverted icon"></i>
+			<i class="shop <s:property value="#session.profisio_user.tenant.corFinal" /> circular inverted icon"></i>
 			<div class="content">
 				Estoque
 				<div class="sub header">Gerencie seu estoque e suas vendas</div>
@@ -49,7 +50,7 @@
 
 		<div class="left floated column">
 			<a href="#" class="btAdd" title="Inserir novo" >
-				<i class="add circle big teal icon"></i>
+				<i class="add circle big <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 			</a>
 			<div class="ui hidden divider"></div>
 			<div class="ui hidden divider"></div>
@@ -58,8 +59,8 @@
 		<div class="ui areaAdd hide centered grid" >
 			<div class="ten wide column"> 
 				<div class="ui form segment">
-					<div class="ui block teal header">
-						<i class="add teal icon"></i>
+					<div class="ui block <s:property value="#session.profisio_user.tenant.corFinal" /> header">
+						<i class="add <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
 						<div class="content"> Inserir item Estoque</div>
 					</div>
 					<s:form id="formInserirEstoque" action="addEstoque" method="post">
@@ -77,7 +78,7 @@
 						<div class="ui buttons right floated">
 							<input type="button" class="ui cancelar button" value="Cancelar" />
 		  					<div class="or" data-text="ou"></div>
-							<s:submit value="Cadastrar" cssClass="ui teal submit  button" /> 
+							<input type="submit" value="Cadastrar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 						</div>	
 					</s:form>
 				</div>
@@ -95,7 +96,7 @@
 						</div>
 						<div class="field">
 							<label class="visibilityHidden">Botão:</label> 
-							<input type="submit" class="ui teal submit button" value="Pesquisar" />
+							<input type="submit" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit button" value="Pesquisar" />
 						</div>
 					</div>
 				</s:form>			
@@ -106,7 +107,7 @@
 		<div class="ui hidden divider"></div>
 		<div class="ui hidden divider"></div>
 
-		<table class="ui celled striped teal table">
+		<table class="ui celled striped <s:property value="#session.profisio_user.tenant.corFinal" /> table">
 			<thead>
 				<tr>
 					<th>Produto</th>
@@ -162,7 +163,7 @@
 						</div>
 					</div>
 					<div class="ui actions buttons right floated">
-						<div class="ui negative button">Cancelar</div>
+						<div class="ui button">Cancelar</div>
 						<div class="or" data-text="ou"></div>
 						<s:submit cssClass="ui positive right submit button" value="Salvar" />
 					</div>
