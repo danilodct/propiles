@@ -27,6 +27,34 @@ public class UsuarioView extends ProfisioActionSupport {
 		controller = UsuarioControl.getInstance();
 	}
 
+	public String actionMudarDados() {
+		try {
+			Tenant tenantSessao = ProfisioSessionUtil.getTenantSession();
+			//empresa
+			String empresa = this.tenant.getNome();
+			this.controller.setNomeTenant(tenantSessao, empresa);
+
+			Usuario userSessao = ProfisioSessionUtil.getUserSession();
+			//nome
+			String nome = this.usuario.getNomeUser();
+			this.controller.setNomeUsuario(userSessao, nome);
+
+			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		return REDIRECT;
+	}
+
+	public String actionDados() {
+		try {
+			this.tenant = ProfisioSessionUtil.getTenantSession();
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		return REDIRECT;
+	}
+
 	public String actionMudarAparencia() {
 		try {
 			Tenant tenantSessao = ProfisioSessionUtil.getTenantSession();

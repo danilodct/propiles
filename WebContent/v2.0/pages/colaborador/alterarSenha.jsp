@@ -37,7 +37,7 @@
 <body>
 	<s:include value="../geral/cabecalho.jsp" />
 
-	<div class="twelve wide column">
+	<div class="nine wide column">
 
 
 		<!-- TITULO DA PÁGINA 88888888888888888888888888888888888888888888888888888888888888888888888 -->
@@ -53,31 +53,22 @@
 		<div class="ui hidden divider"></div>
 		
 		<!-- AREA ADD 88888888888888888888888888888888888888888888888888888888888888888888888 -->
-		<div class="ui areaAdd centered grid" >
-			<div class="eight wide column"> 
-				<div class="ui form segment">
-					<div class="ui block <s:property value="#session.profisio_user.tenant.corFinal" /> header">
-						<i class="add <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
-						<div class="content">Mudar senha de acesso</div>
-					</div>
-					
-					<s:form action="alterarSenha" method="post" id="formAlterarSenha">
-						<div class="required field">
-							<label>Digite a nova senha: </label>
-							<s:password name="colaborador.senha" id="novaSenha1" />
-						</div>
-						<div class="required field">
-							<label>Digite novamente a nova senha:</label>
-							<input type="password" id="novaSenha2" />
-						</div>
-
-						<div class="ui buttons right floated">
-							<input type="submit" value="Alterar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
-						</div>
-						
-					</s:form>
+		<div class="ui form segment">
+			<s:form action="alterarSenha" method="post" id="formAlterarSenha">
+				<div class="required field">
+					<label>Digite a nova senha: </label>
+					<s:password name="colaborador.senha" id="novaSenha1" />
 				</div>
-			</div>
+				<div class="required field">
+					<label>Digite novamente a nova senha:</label>
+					<input type="password" id="novaSenha2" />
+				</div>
+
+				<div class="ui buttons right floated">
+					<input type="submit" value="Alterar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
+				</div>
+				
+			</s:form>
 		</div>
 		
 		<div class="ui hidden divider"></div>

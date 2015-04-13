@@ -132,6 +132,8 @@
 				<div class="divider nome"></div>
 				<div class="item"><a href="aparencia" id="aparencia"><i class="icon unhide"></i>Mudar aparência</a></div>
 				<div class="divider"></div>
+				<div class="item"><a href="dados" id="dados"><i class="icon edit"></i>Alterar dados</a></div>
+				<div class="divider"></div>
 				<div class="item"><a href="alterarSenha" id="alterarSenha"><i class="icon unlock alternate"></i>Alterar senha</a></div>
 				<div class="divider"></div>
 				<div class="item"><a href="logout" id="logout"><i class="icon sign out"></i>Sair</a></div>

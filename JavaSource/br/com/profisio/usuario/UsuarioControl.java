@@ -157,4 +157,20 @@ public class UsuarioControl extends ControllerBase {
 		this.registrarUsuario(userSession);
 
 	}
+
+	public void setNomeTenant(Tenant tenant, String empresa) {
+		SystemUtils.assertObjectIsNotNullHasId(tenant);
+		tenant.setNome(empresa);
+		this.dao.editar(tenant);
+		Usuario userSession = ProfisioSessionUtil.getUserSession();
+		userSession.setTenant(tenant);
+		this.registrarUsuario(userSession);
+	}
+
+	public void setNomeUsuario(Usuario usuario, String nome) {
+		SystemUtils.assertObjectIsNotNullHasId(usuario);
+		usuario.setNomeUser(nome);
+		this.dao.editar(usuario);
+		this.registrarUsuario(usuario);
+	}
 }

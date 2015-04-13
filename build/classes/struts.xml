@@ -460,7 +460,14 @@
 		<action name="mudarAparencia" class="br.com.profisio.usuario.UsuarioView" method="actionMudarAparencia">
 			<result name="redirect" type="chain">aparencia</result>
 		</action>
+
+		<action name="dados" class="br.com.profisio.usuario.UsuarioView" method="actionDados">
+			<result name="redirect" >v2.0/pages/configuracao/dados.jsp</result>
+		</action>
 		
+		<action name="mudarDados" class="br.com.profisio.usuario.UsuarioView" method="actionMudarDados">
+			<result name="redirect" type="chain">dados</result>
+		</action>
 		
 		
 	</package>
