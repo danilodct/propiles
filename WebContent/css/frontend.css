@@ -157,3 +157,6 @@ div.contato .ui.form .submit{background-color: #897299; color: #fff; width: 100%
 .rodape * {font-size: 0.9rem;}
 
 /* CADASTRE-SE */
+.modalCadastro *, .modalCadastro .ui.button{font-size:0.9rem}
+.modalCadastro .planos .column.ui.horizontal.segment{max-height:300px;}
+span.claro {color: #CBCBCB;}

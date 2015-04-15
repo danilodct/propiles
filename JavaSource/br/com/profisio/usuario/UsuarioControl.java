@@ -3,17 +3,21 @@ package br.com.profisio.usuario;
 import java.util.Date;
 import java.util.Map;
 
+import br.com.profisio.basics.TransacaoPagamento;
 import br.com.profisio.basics.Usuario;
 import br.com.profisio.basics.enums.StatusObjeto;
 import br.com.profisio.basics.enums.TipoUser;
 import br.com.profisio.util.ControllerBase;
 import br.com.profisio.util.Mailer;
+import br.com.profisio.util.Pagseguro;
 import br.com.profisio.util.Plano;
 import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.ProfisioException;
 import br.com.profisio.util.ProfisioSessionUtil;
 import br.com.profisio.util.SystemUtils;
 import br.com.profisio.util.Tenant;
+import br.com.uol.pagseguro.domain.Transaction;
+import br.com.uol.pagseguro.enums.TransactionStatus;
 
 public class UsuarioControl extends ControllerBase {
 
@@ -69,16 +73,19 @@ public class UsuarioControl extends ControllerBase {
 			throw new ProfisioException(ProfisioBundleUtil.NOME_OBRIGATORIO);
 		if (usuario.getLogin() == null || usuario.getLogin().trim().equals(""))
 			throw new ProfisioException(ProfisioBundleUtil.EMAIL_OBRIGATORIO);
+		if (usuario.getTenant() == null || usuario.getTenant().getPlano() == null)
+			throw new ProfisioException(ProfisioBundleUtil.INFORME_PLANO);
 
 		Usuario userBd = this.dao.getUsuarioByLogin(usuario.getLogin());
 		if (userBd != null)
 			throw new ProfisioException(ProfisioBundleUtil.EMAIL_JA_CADASTRADO);
 
-		if (usuario.getTenant() == null || usuario.getTenant().getNome().trim().equals(""))
-			usuario.setTenant(new Tenant(usuario.getNome(), new Date(), Plano.PLANO_1));
-
-		// retirar qd colocar para o usuario escolher o plano
-		usuario.getTenant().setPlano(Plano.PLANO_1);
+		Tenant tenant = usuario.getTenant();
+		if (usuario.getTenant().getNome().trim().equals("")) {
+			tenant.setNome(usuario.getNomeUser());
+			usuario.setTenant(tenant);
+		}
+		tenant.setDataCriacao(new Date());
 
 		usuario.setConfirmado(false);
 		usuario.getTenant().setDataCriacao(new Date());
@@ -97,21 +104,33 @@ public class UsuarioControl extends ControllerBase {
 		mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Novo Cadastro", msg);
 	}
 
-	public void confirmarCadastro(Usuario usuario) {
+	public String confirmarCadastro(Usuario usuario) {
+		String url = null;
 		if (usuario == null || usuario.getId() == null)
 			throw new ProfisioException(ProfisioBundleUtil.ERRO_CONFIRMAR_CADASTRO);
 		usuario = this.dao.getUsuarioById(usuario.getId());
-		usuario.setConfirmado(true);
-		this.dao.editar(usuario);
-		registrarUsuario(usuario);
+		if (!usuario.getConfirmado()) {
+			Tenant tenant = usuario.getTenant();
+			if (tenant.getPlano() == Plano.PLANO_1) {
+				usuario.setConfirmado(true);
+				this.dao.editar(usuario);
+				registrarUsuario(usuario);
+			} else {
+				Pagseguro pagseguro = new Pagseguro();
+				TransacaoPagamento transacao = pagseguro.doPagamento(usuario.getId() + "", tenant.getPlano().getValor(), tenant.getPlano().getCusto(), usuario.getNomeUser(), usuario.getLogin());
+				url = transacao.getUrl();
+				transacao.setUsuario(usuario);
+				transacao.setData(new Date());
+				this.dao.cadastrar(transacao);
+			}
+		}
+		return url;
 	}
 
 	public Usuario reenviarConfirmacao(Usuario usuario) {
 		if (usuario == null || usuario.getId() == null)
 			throw new ProfisioException(ProfisioBundleUtil.ERRO_REENVIAR_CONFIRMACAO);
-
 		usuario = this.dao.getUsuarioById(usuario.getId());
-
 		enviarEmailConfirmacao(usuario);
 		return usuario;
 	}
@@ -172,5 +191,43 @@ public class UsuarioControl extends ControllerBase {
 		usuario.setNomeUser(nome);
 		this.dao.editar(usuario);
 		this.registrarUsuario(usuario);
+	}
+
+	public void atualizacaoPagamento(String transactionCode) {
+		if (transactionCode != null) {
+			Pagseguro pagseguro = new Pagseguro();
+			Transaction transaction = pagseguro.checkTransaction(transactionCode);
+			TransacaoPagamento transacaoPagamento = this.dao.getTransacaoPagamentoByCodigo(transaction.getCode());
+			if (transacaoPagamento != null) {
+				transacaoPagamento.setStatus(transaction.getStatus().name());
+				this.dao.atualizarTransacao(transacaoPagamento);
+
+				Usuario usuario = transacaoPagamento.getUsuario();
+
+				String situacaoPagamento = "";
+				if (transaction.getStatus() == TransactionStatus.PAID) {
+					situacaoPagamento = "confirmado!";
+					usuario.setConfirmado(true);
+					this.dao.editar(usuario);
+				} else if (transaction.getStatus() == TransactionStatus.CANCELLED) {
+					situacaoPagamento = "cancelado!";
+				} else if (transaction.getStatus() == TransactionStatus.CONTESTATION) {
+					situacaoPagamento = "contestado.";
+				} else if (transaction.getStatus() == TransactionStatus.IN_ANALYSIS) {
+					situacaoPagamento = "em análise.";
+				} else if (transaction.getStatus() == TransactionStatus.IN_DISPUTE) {
+					situacaoPagamento = "em disputa.";
+				} else if (transaction.getStatus() == TransactionStatus.INITIATED) {
+					situacaoPagamento = "iniciado.";
+				} else if (transaction.getStatus() == TransactionStatus.WAITING_PAYMENT) {
+					situacaoPagamento = "aguardando pagamento.";
+				}
+
+				Mailer mailer = new Mailer();
+				String msgCorpo = "Status atual do seu pagamento: " + situacaoPagamento;
+				String msg = Mailer.EMAIL_PARTE_CIMA_ATE_IMAGEM + Mailer.IMG_CONTATO + Mailer.EMAIL_POS_IMAGEM_PRE_CONTEUDO + msgCorpo + Mailer.EMAIL_POS_CONTEUDO;
+				mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Atualização do seu pagamento", msg);
+			}
+		}
 	}
 }

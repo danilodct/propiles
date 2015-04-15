@@ -66,6 +66,9 @@ public class ProfisioBundleUtil {
 	public static final String INFORME_EMAIL_FONE = "INFORME_EMAIL_FONE";
 	public static final String FILE_SIZE_MAXIMO = "FILE_SIZE_MAXIMO";
 	public static final String ERRO_SALVAR_ARQUIVO = "ERRO_SALVAR_ARQUIVO";
+	public static final String INFORME_PLANO = "INFORME_PLANO";
+	public static final String ERRO_COMUNICACAO_EMPRESA_PAGAMENTO = "ERRO_COMUNICACAO_EMPRESA_PAGAMENTO";
+	public static final String ERRO_ATUALIZACAO_PAGAMENTO = "ERRO_ATUALIZACAO_PAGAMENTO";
 
 	public static String getMsgError(String key, Object... params) {
 		return getMsgFile("error", key, params);

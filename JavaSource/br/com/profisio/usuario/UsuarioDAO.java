@@ -3,6 +3,7 @@ package br.com.profisio.usuario;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.com.profisio.basics.TransacaoPagamento;
 import br.com.profisio.basics.Usuario;
 import br.com.profisio.util.DAOBase;
 import br.com.profisio.util.Tenant;
@@ -54,6 +55,23 @@ public class UsuarioDAO extends DAOBase {
 	@SuppressWarnings("unchecked")
 	public void editar(Tenant tenant) {
 		this.imp.update(tenant);
+	}
+
+	@SuppressWarnings("unchecked")
+	public void cadastrar(TransacaoPagamento transacao) {
+		this.imp.insert(transacao);
+	}
+
+	@SuppressWarnings("unchecked")
+	public TransacaoPagamento getTransacaoPagamentoByCodigo(String codigo) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("codigo", codigo);
+		return (TransacaoPagamento) this.imp.queryObject("getTransacaoPagamentoByCodigo", params);
+	}
+
+	@SuppressWarnings("unchecked")
+	public void atualizarTransacao(TransacaoPagamento transacaoPagamento) {
+		this.imp.update(transacaoPagamento);
 	}
 
 }

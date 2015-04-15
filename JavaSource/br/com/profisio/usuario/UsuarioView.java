@@ -3,6 +3,7 @@ package br.com.profisio.usuario;
 import java.io.File;
 
 import br.com.profisio.basics.Usuario;
+import br.com.profisio.util.Plano;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.ProfisioSessionUtil;
@@ -17,7 +18,7 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	private Usuario usuario;
 	private Tenant tenant;
-	private String page, nome, empresa, fone, email, mensagem;
+	private String page, nome, empresa, fone, email, mensagem, url, transaction;
 
 	private String logoFileName;
 	private String logoContentType;
@@ -25,6 +26,24 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public UsuarioView() {
 		controller = UsuarioControl.getInstance();
+	}
+
+	public String actionAtualizacaoPagamento() {
+		try {
+			this.controller.atualizacaoPagamento(transaction);
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		return REDIRECT;
+	}
+
+	public String actionRetornoPagamento() {
+		try {
+
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		return REDIRECT;
 	}
 
 	public String actionMudarDados() {
@@ -127,8 +146,11 @@ public class UsuarioView extends ProfisioActionSupport {
 	public String actionConfirmar() {
 		String resposta = SUCCESS;
 		try {
-			controller.confirmarCadastro(usuario);
-			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CONFIRMADO_SUCESSO));
+			this.url = controller.confirmarCadastro(usuario);
+			if (this.url != null && !this.url.trim().equals(""))
+				resposta = REDIRECT;
+			else
+				addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CONFIRMADO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
 			resposta = ERROR;
@@ -260,6 +282,29 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public void setLogo(File logo) {
 		this.logo = logo;
+	}
+
+	public void setPlano(String planoStr) {
+		if (this.tenant == null)
+			this.tenant = new Tenant();
+		Plano plano = Plano.createEnum(planoStr);
+		tenant.setPlano(plano);
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getTransaction() {
+		return transaction;
+	}
+
+	public void setTransaction(String transaction) {
+		this.transaction = transaction;
 	}
 
 }

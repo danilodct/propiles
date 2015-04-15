@@ -120,3 +120,12 @@ alter table tenant add column cor varchar(20);
 
 alter table servico add column statusObjeto varchar(100);
 update servico set statusObjeto = "ATIVO";
+
+
+CREATE TABLE IF NOT EXISTS `transacaopagamento` (
+  `codigo` varchar(255) NOT NULL,
+  `data` date DEFAULT NULL,
+  `url` varchar(255),
+  `usuario_id` int(11) NOT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;

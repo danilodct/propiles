@@ -62,6 +62,7 @@
 			<interceptor-ref name="defaultProfisioStack-SemLogin"></interceptor-ref>
 			<result name="success" type="chain">home</result>
 			<result name="error" >index.jsp</result>
+			<result name="redirect" >index.jsp</result>
 		</action>
 		
 		<action name="reenviarConfirmacao" class="br.com.profisio.usuario.UsuarioView" method="actionReenviarConfirmacao">
@@ -72,6 +73,15 @@
 		<action name="esqueceuSenha" class="br.com.profisio.usuario.UsuarioView" method="actionEsqueceuSenha">
 			<interceptor-ref name="defaultProfisioStack-SemLogin"></interceptor-ref>
 			<result name="redirect" >index.jsp</result>
+		</action>
+		
+		<action name="retornoPagamento" class="br.com.profisio.usuario.UsuarioView" method="actionRetornoPagamento">
+			<interceptor-ref name="defaultProfisioStack-SemLogin"></interceptor-ref>
+			<result name="redirect" type="chain" >home</result>
+		</action>
+		
+		<action name="atualizacaoPagamento" class="br.com.profisio.usuario.UsuarioView" method="actionAtualizacaoPagamento">
+			<result />
 		</action>
 		
 		<action name="contato" class="br.com.profisio.usuario.UsuarioView" method="actionContato">
