@@ -472,7 +472,7 @@
 		<div class="header headerModal">Informe seus dados</div>
 		<div class="content">
 			<s:form action="cadastre-se" cssClass="ui form" id="formCadastro" method="post" >
-				<s:hidden name="plano" id="plano" />
+				<s:hidden name="plano" id="plano" value="PLANO_4" />
 				<div class="required field step2">
 					<label class="">Seu nome:</label>
 					<s:textfield name="usuario.nomeUser" cssClass="" />

@@ -47,11 +47,13 @@ public class TransacaoPagamento extends ObjetoBasico {
 	private void extrairCodigo(String url) {
 		if (url != null) {
 			String[] split = url.split("t=");
-			if (split.length > 1) {
-				String param = split[1];
-				String[] verify = param.split("&");
-				this.codigo = verify[0];
-			}
+			String param = "";
+			if (split.length == 1)
+				split = url.split("code=");
+			if (split.length == 2)
+				param = split[1];
+			String[] verify = param.split("&");
+			this.codigo = verify[0];
 		}
 	}
 
