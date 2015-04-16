@@ -182,7 +182,7 @@ function setSelectTipoContaPagar(){
 					<div class="two fields">
 						<div class="field">
 							<label>Tipo da despesa:</label>
-							<s:select name="tipoContaPagar.nome" headerKey="-1" headerValue="TODOS" cssClass="ui search dropdown" list="allTiposContaPagar" listKey="nome" listValue="nome" />
+							<s:select name="tipoContaPagar.id" headerKey="-1" headerValue="TODOS" cssClass="ui search dropdown" list="allTiposContaPagar" listKey="id" listValue="nome" />
 						</div>
 						<!-- 
 						<div class="field">
