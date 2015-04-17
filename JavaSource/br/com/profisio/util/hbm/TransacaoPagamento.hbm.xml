@@ -6,6 +6,7 @@
 		
 		<property name="url" />
 		<property name="data" />
+		<property name="status" />
 
 		<many-to-one name="usuario" column="usuario_id" lazy="false" />
 				

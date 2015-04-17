@@ -69,6 +69,7 @@ public class ProfisioBundleUtil {
 	public static final String INFORME_PLANO = "INFORME_PLANO";
 	public static final String ERRO_COMUNICACAO_EMPRESA_PAGAMENTO = "ERRO_COMUNICACAO_EMPRESA_PAGAMENTO";
 	public static final String ERRO_ATUALIZACAO_PAGAMENTO = "ERRO_ATUALIZACAO_PAGAMENTO";
+	public static final String RETORNO_PAGAMENTO_SUCESSO = "RETORNO_PAGAMENTO_SUCESSO";
 
 	public static String getMsgError(String key, Object... params) {
 		return getMsgFile("error", key, params);

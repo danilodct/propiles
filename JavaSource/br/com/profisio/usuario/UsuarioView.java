@@ -18,7 +18,7 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	private Usuario usuario;
 	private Tenant tenant;
-	private String page, nome, empresa, fone, email, mensagem, url, transaction;
+	private String page, nome, empresa, fone, email, mensagem, url, transacaoId;
 
 	private String logoFileName;
 	private String logoContentType;
@@ -30,16 +30,16 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public String actionAtualizacaoPagamento() {
 		try {
-			this.controller.atualizacaoPagamento(transaction);
+			this.controller.atualizacaoPagamento(transacaoId);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
-		return REDIRECT;
+		return null;
 	}
 
 	public String actionRetornoPagamento() {
 		try {
-
+			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.RETORNO_PAGAMENTO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -299,12 +299,12 @@ public class UsuarioView extends ProfisioActionSupport {
 		this.url = url;
 	}
 
-	public String getTransaction() {
-		return transaction;
+	public String getTransacaoId() {
+		return transacaoId;
 	}
 
-	public void setTransaction(String transaction) {
-		this.transaction = transaction;
+	public void setTransacaoId(String transaction) {
+		this.transacaoId = transaction;
 	}
 
 }

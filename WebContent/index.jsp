@@ -4,7 +4,7 @@
 <html lang="pt">
 <head>
 	<s:if test="url != null && url != '' ">
-		<meta http-equiv="refresh" content="5;URL=<s:property value="url" />" /> 
+		<meta http-equiv="refresh" content="6;URL=<s:property value="url" />" /> 
 	</s:if>
     <meta charset="utf-8">
     <title><s:text name="TITULO_SISTEMA" /></title>
@@ -32,6 +32,7 @@
 			evt.preventDefault();
 			showModal("div.modalCadastro");
 			$('.modalCadastro2').modal('attach events', '.modalCadastro .btAvancar');
+			$("#btAvancar").focus();
 		});
 		$("input#radioGratis").change(function(evt){$("input#plano").val("PLANO_1");});
 		$("input#radioPlano1").change(function(evt){$("input#plano").val("PLANO_2");});
@@ -102,8 +103,9 @@
 		<div class="header">Confirmação de cadastro</div>
 		<div class="content">
 			<h2>Seu cadastro foi confirmado com sucesso!</h2>
-			Estamos te redirecionando agora para a página do PagSeguro onde seu pagamento será feito com toda segurança, confiabilidade e comodidade.<br />
-			Por favor aguarde...
+			<p><img src="img/logo_pagseguro.png" style="float:right; padding-left:5px;" />Estamos te redirecionando agora para a página do PagSeguro onde seu pagamento será feito com toda segurança, confiabilidade e comodidade.</p>
+			<br />
+			Por favor aguarde...<br /><br /><br />
 		</div>
 	</div>
 	<script type="text/javascript">
@@ -116,33 +118,44 @@
         <div class="right menu">
             <a href="#planos" class="ui item">Nossos Planos</a>
             <a href="#contato" class="ui item btContato">Entre em contato</a>
-            <a href="" class="ui green degrade button cadastrese">Cadastre-se agora!</a>
+            <s:if test="#session.profisio_user == null">
+            	<a href="" class="ui green degrade button cadastrese">Cadastre-se agora!</a>
+            </s:if><s:else>
+            	<a href="logout" class="ui btLogout">sair <i class="remove circle outline icon"></i></a>
+            </s:else>
         </div>
     </nav>
     <div class="ui page grid frontendSlide">
     	<div class="one column row">
             <div class="column">
-            	<s:form action="login" method="post" id="formLogin">
-	            	<div class="ui form segment login right floated">
-				      <div class="field">
-				        <label>Faça seu login:</label>
-				        <div class="ui left icon input">
-				          <input type="text" placeholder="e-mail" id="e-mail" name="usuario.login" />
-				          <i class="user icon"></i>
-				        </div>
-				      </div>
-				      <div class="field">
-				        <div class="ui left icon input">
-				          <input type="password" placeholder="senha" id="senha" name="usuario.senha" />
-				          <i class="lock icon"></i>
-				        </div>
-				      </div>
-				      <s:submit cssClass="ui blue submit button right floated" value="Entrar" />
-				      <div class="item">
-				      	<a href="#" class="esqueceuSenha">esqueceu a senha?</a>
-				      </div>
-				    </div>
-            	</s:form>
+            	<s:if test="#session.profisio_user == null">
+	            	<s:form action="login" method="post" id="formLogin">
+		            	<div class="ui form segment login right floated">
+					      <div class="field">
+					        <label>Faça seu login:</label>
+					        <div class="ui left icon input">
+					          <input type="text" placeholder="e-mail" id="e-mail" name="usuario.login" />
+					          <i class="user icon"></i>
+					        </div>
+					      </div>
+					      <div class="field">
+					        <div class="ui left icon input">
+					          <input type="password" placeholder="senha" id="senha" name="usuario.senha" />
+					          <i class="lock icon"></i>
+					        </div>
+					      </div>
+					      <s:submit cssClass="ui blue submit button right floated" value="Entrar" />
+					      <div class="item">
+					      	<a href="#" class="esqueceuSenha">esqueceu a senha?</a>
+					      </div>
+					    </div>
+	            	</s:form>
+            	</s:if><s:else>
+		            <div class="ui segment logado right floated">
+	            		Olá <s:property value="#session.profisio_user.nomeUser" />!<br />
+	            		<a href="home" >Entre no sistema</a>
+            		</div>
+            	</s:else>
             </div>
         </div>
     </div>
@@ -245,13 +258,17 @@
 	<!-- ----------  PLANOS -------------  -->
 	
     <div class="ui page four column grid planos"><a name="planos"></a>
+
 	    <div class="ui hidden divider"></div>
+
+	    <h2 class="ui centered header nossosPlanos">Nossos Planos</h2>
+
 	    <div class="ui hidden divider"></div>
 	    <div class="ui hidden divider"></div>
 
        	<div class="column ui horizontal segment">
                 <h2 class="ui centered header">
-                	Plano Grátis
+                	Grátis
   				</h2>
   				<div class="centered">
   					<p>Grátis<br />&nbsp;</p>
@@ -269,7 +286,7 @@
        	</div>
        	<div class="column ui horizontal segment ">
                 <h2 class="ui centered header">
-                	Plano 1
+                	Básico
   				</h2>
   				<div class="centered">
   					<p>R$ 19,90 / mês<br />
@@ -288,7 +305,7 @@
        	</div>
        	<div class="column ui horizontal segment actived">
                 <h2 class="ui centered header">
-                	Plano 2
+                	Avançado
   				</h2>
   				<div class="centered">
   					<p>R$ 29,90 / mês<br />
@@ -307,7 +324,7 @@
        	</div>
        	<div class="column ui horizontal segment last">
                 <h2 class="ui centered header">
-                	Plano 3
+                	Personalizado
   				</h2>
   				<div class="centered">
   					<p>Valor a combinar<br />&nbsp;</p>
@@ -388,7 +405,7 @@
 		       	<div class="column ui horizontal segment">
 		                <h2 class="ui centered header">
 		                	<input type="radio" id="radioGratis" name="plano" value="PLANO_1" /><br />
-		                	Plano Grátis
+		                	Grátis
 		  				</h2>
 		  				<div class="centered">
 		  					<p>Grátis<br />&nbsp;</p>
@@ -404,7 +421,7 @@
 		       	<div class="column ui horizontal segment ">
 		                <h2 class="ui centered header">
 		                	<input type="radio" id="radioPlano1" name="plano" value="PLANO_2" /><br />
-		                	Plano 1
+		                	Básico
 		  				</h2>
 		  				<div class="centered">
 		  					<p>R$ 19,90 / mês<br />
@@ -421,7 +438,7 @@
 		       	<div class="column ui horizontal segment actived">
 		                <h2 class="ui centered header">
 		                	<input type="radio" id="radioPlano2" checked="checked" name="plano" value="PLANO_3" /><br />
-		                	Plano 2
+		                	Avançado
 		  				</h2>
 		  				<div class="centered">
 		  					<p>R$ 29,90 / mês<br />
@@ -437,8 +454,8 @@
 		       	</div>
 		       	<div class="column ui horizontal segment last">
 					<h2 class="ui centered header">
-		                	<input type="radio" id="radioPlano3" name="plano" value="PLANO_4" /><br />
-		            	Plano 3
+		                <input type="radio" id="radioPlano3" name="plano" value="PLANO_4" /><br />
+		            	Personalizado
 		  			</h2>
 		  			<div class="centered">
 		  				<p>Valor a combinar<br />&nbsp;</p>

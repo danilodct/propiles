@@ -129,3 +129,8 @@ CREATE TABLE IF NOT EXISTS `transacaopagamento` (
   `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+alter table usuario add column aguardandoPagamento tinyint(1) default 1;
+update usuario set aguardandoPagamento = 0;
+
+alter table transacaopagamento add column status varchar(100);

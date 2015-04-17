@@ -38,12 +38,10 @@ public class UsuarioControl extends ControllerBase {
 		Usuario usuarioBD = null;
 		if (usuario != null && usuario.getLogin() != null && usuario.getSenha() != null)
 			usuarioBD = this.dao.getUsuarioByLoginSenha(usuario);
-		if (usuarioBD == null) {
+		if (usuarioBD == null)
 			throw new ProfisioException(ProfisioBundleUtil.LOGIN_INCORRETO);
-		}
-		if (!usuarioBD.getConfirmado()) {
+		if (!usuarioBD.getConfirmado())
 			throw new ProfisioException(ProfisioBundleUtil.CADASTRO_NAO_CONFIRMADO, usuarioBD.getIdCript());
-		}
 		registrarUsuario(usuarioBD);
 	}
 
@@ -87,10 +85,13 @@ public class UsuarioControl extends ControllerBase {
 		}
 		tenant.setDataCriacao(new Date());
 
-		usuario.setConfirmado(false);
-		usuario.getTenant().setDataCriacao(new Date());
-		this.dao.cadastrar(usuario.getTenant());
+		tenant.setDataCriacao(new Date());
+		this.dao.cadastrar(tenant);
 
+		usuario.setAguardandoPagamento(false);
+		if (tenant.getPlano() == Plano.PLANO_2 || tenant.getPlano() == Plano.PLANO_3)
+			usuario.setAguardandoPagamento(true);
+		usuario.setConfirmado(false);
 		usuario.setStatusObjeto(StatusObjeto.ATIVO);
 		usuario.setTipo(TipoUser.ADMINISTRADOR);
 		this.dao.cadastrar(usuario);
@@ -101,6 +102,9 @@ public class UsuarioControl extends ControllerBase {
 	private void enviarEmailConfirmacao(Usuario usuario) {
 		Mailer mailer = new Mailer();
 		String msg = Mailer.EMAIL_PARTE_CIMA_ATE_IMAGEM + Mailer.IMG_CADASTRO + Mailer.EMAIL_POS_IMAGEM_PRE_CONTEUDO + "Olá " + usuario.getNome() + ", bem-vindo(a) ao ProPilEs!<br /><br />Para finalizarmos o seu cadastro precisamos apenas que você clique no link abaixo. Caso não consiga abrir o link após clicar, por favor copie a url abaixo e cole no seu navegador." + Mailer.EMAIL_POS_CONTEUDO_PRE_LINK_URL + "http://localhost:8080/propiles/confirmar?usuario.idCript=" + usuario.getIdCript() + Mailer.EMAIL_POS_LINK_URL_PRE_LINK_TXT + "http://localhost:8080/propiles/confirmar?usuario.idCript=" + usuario.getIdCript() + Mailer.EMAIL_POS_LINK_TXT;
+		//enviar para a pessa
+		//		mailer.sendMail(usuario.getLogin(), "[ProPilEs] Confirme seu cadastro", msg);
+		//enviar para mim
 		mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Novo Cadastro", msg);
 	}
 
@@ -109,20 +113,18 @@ public class UsuarioControl extends ControllerBase {
 		if (usuario == null || usuario.getId() == null)
 			throw new ProfisioException(ProfisioBundleUtil.ERRO_CONFIRMAR_CADASTRO);
 		usuario = this.dao.getUsuarioById(usuario.getId());
-		if (!usuario.getConfirmado()) {
-			Tenant tenant = usuario.getTenant();
-			if (tenant.getPlano() == Plano.PLANO_1) {
-				usuario.setConfirmado(true);
-				this.dao.editar(usuario);
-				registrarUsuario(usuario);
-			} else {
-				Pagseguro pagseguro = new Pagseguro();
-				TransacaoPagamento transacao = pagseguro.doPagamento(usuario.getId() + "", tenant.getPlano().getValor(), tenant.getPlano().getCusto(), usuario.getNomeUser(), usuario.getLogin());
-				url = transacao.getUrl();
-				transacao.setUsuario(usuario);
-				transacao.setData(new Date());
-				this.dao.cadastrar(transacao);
-			}
+		Tenant tenant = usuario.getTenant();
+		usuario.setConfirmado(true);
+		this.dao.editar(usuario);
+		if (tenant.getPlano() == Plano.PLANO_1 || tenant.getPlano() == Plano.PLANO_4) {
+			registrarUsuario(usuario);
+		} else {
+			Pagseguro pagseguro = new Pagseguro();
+			TransacaoPagamento transacao = pagseguro.doPagamento(usuario.getId() + "", tenant.getPlano().getValor(), tenant.getPlano().getCusto(), usuario.getNomeUser(), usuario.getLogin());
+			url = transacao.getUrl();
+			transacao.setUsuario(usuario);
+			transacao.setData(new Date());
+			this.dao.cadastrar(transacao);
 		}
 		return url;
 	}
@@ -145,6 +147,9 @@ public class UsuarioControl extends ControllerBase {
 
 		Mailer mailer = new Mailer();
 		String msg = Mailer.EMAIL_PARTE_CIMA_ATE_IMAGEM + Mailer.IMG_RECUPERE_SENHA + Mailer.EMAIL_POS_IMAGEM_PRE_CONTEUDO + "Olá " + usuario.getNome() + ", não está conseguindo acessar o ProPilEs por ter esquecido a senha? Não se preocupe, nós lembramos para você: <br /><br />Por questões de segurança sugerimos que você remova este e-mail para que outras pessoas que acessem o seu e-mail não tenham acesso à sua senha." + Mailer.EMAIL_POS_CONTEUDO_PRE_LINK_URL + "#" + Mailer.EMAIL_POS_LINK_URL_PRE_LINK_TXT + "sua senha é: " + usuario.getSenha() + Mailer.EMAIL_POS_LINK_TXT;
+		//envia para o usuario
+		//		mailer.sendMail(usuario.getLogin(), "[ProPilEs] Esqueceu sua senha?", msg);
+		//envia para mim
 		mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Esqueceu sua senha?", msg);
 	}
 
@@ -204,29 +209,39 @@ public class UsuarioControl extends ControllerBase {
 
 				Usuario usuario = transacaoPagamento.getUsuario();
 
+				Boolean statusRelevante = true;
 				String situacaoPagamento = "";
 				if (transaction.getStatus() == TransactionStatus.PAID) {
-					situacaoPagamento = "confirmado!";
-					usuario.setConfirmado(true);
+					situacaoPagamento = "Seu pagamento foi confirmado!<br />";
+					if (usuario.getTenant().getPlano() == Plano.PLANO_2)
+						situacaoPagamento += "Agora você pode ter vários usuários no sistema além do administrador. Cada colaborador, secretária, auxiliar administrativo e os outros colaboradores podem acessar o sistema, cada um com um nível específico de visualização de acordo com o perfil de usuário.";
+					else if (usuario.getTenant().getPlano() == Plano.PLANO_3)
+						situacaoPagamento += "Agora, além de poder ter vários usuários no sistema além do administrador, você tem acesso aos módulos de Relatório e Análise BI.";
+					usuario.setAguardandoPagamento(false);
 					this.dao.editar(usuario);
 				} else if (transaction.getStatus() == TransactionStatus.CANCELLED) {
-					situacaoPagamento = "cancelado!";
+					situacaoPagamento = "Seu pagamento foi cancelado! Por favor entre em contato com a operadora do seu cartão ou fale com a nossa equipe através do formulário em nosso site.";
 				} else if (transaction.getStatus() == TransactionStatus.CONTESTATION) {
-					situacaoPagamento = "contestado.";
+					situacaoPagamento = "Seu pagamento foi contestado! Por favor entre em contato com a operadora do seu cartão ou fale com a nossa equipe através do formulário em nosso site..";
 				} else if (transaction.getStatus() == TransactionStatus.IN_ANALYSIS) {
-					situacaoPagamento = "em análise.";
+					situacaoPagamento = "Seu pagamento está em análise. Vamos aguardar mais um pouco.";
 				} else if (transaction.getStatus() == TransactionStatus.IN_DISPUTE) {
-					situacaoPagamento = "em disputa.";
+					situacaoPagamento = "Seu pagamento está em disputa. Vamos aguardar mais um pouco.";
 				} else if (transaction.getStatus() == TransactionStatus.INITIATED) {
-					situacaoPagamento = "iniciado.";
-				} else if (transaction.getStatus() == TransactionStatus.WAITING_PAYMENT) {
-					situacaoPagamento = "aguardando pagamento.";
+					situacaoPagamento = "O processo de autorizar o seu pagamento foi iniciado. Vamos aguardar mais um pouco.";
+				} else {
+					statusRelevante = false;
 				}
 
-				Mailer mailer = new Mailer();
-				String msgCorpo = "Status atual do seu pagamento: " + situacaoPagamento;
-				String msg = Mailer.EMAIL_PARTE_CIMA_ATE_IMAGEM + Mailer.IMG_CONTATO + Mailer.EMAIL_POS_IMAGEM_PRE_CONTEUDO + msgCorpo + Mailer.EMAIL_POS_CONTEUDO;
-				mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Atualização do seu pagamento", msg);
+				if (statusRelevante) {
+					Mailer mailer = new Mailer();
+					String msgCorpo = situacaoPagamento;
+					String msg = Mailer.EMAIL_PARTE_CIMA_ATE_IMAGEM + Mailer.IMG_CONTATO + Mailer.EMAIL_POS_IMAGEM_PRE_CONTEUDO + msgCorpo + Mailer.EMAIL_POS_CONTEUDO;
+					//envia para o usuario
+					//mailer.sendMail(usuario.getLogin(), "[ProPilEs] Atualização do seu pagamento", msg);
+					//envia para mim
+					mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Atualização do seu pagamento", msg);
+				}
 			}
 		}
 	}

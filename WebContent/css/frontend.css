@@ -3,7 +3,7 @@ body.frontend{background-color: #fff;}
 .ui.button{font-size: 1rem;}
 .column *{font-weight: 300;}
 body.frontend .ui.header, body.frontend .ui.header .content{font-family:Roboto, Lato,'Helvetica Neue',Arial,Helvetica,sans-serif; color: rgba(0,0,0,.5); font-weight: 700;}
-.planos .ui.header{text-decoration: underline}
+
 .centered {text-align: center;}
 ul li{list-style: none;}
 .ui.dimmer{background:rgba(0,0,0,.3);}
@@ -13,6 +13,7 @@ ul li{list-style: none;}
 .menu .right.menu a.item{color:rgba(0,0,0,.8);}
 .menu .right.menu a.item:hover{color:rgba(0,0,0,.5);}
 .menu .right.menu a{margin-left:20px;}
+.menu .right.menu a.btLogout{color:red;}
 
 /* FRONTEND TOPO */
 .ui.inverted.menu.frontendTopo {padding-top: 2px;padding-bottom: 5px; background-color: #fff;}
@@ -59,6 +60,8 @@ body.frontend .ui.form .field>label{font-weight: 400; font-size: 16px; color: #8
 .frontendSlide .ui.button{padding:.78571em 2.7em}
 .frontendSlide .item{text-align:left; margin-bottom: 5px; margin-top:27px;}
 .frontendSlide a{font-size: 0.9rem; color:#808080;}
+.frontendSlide .ui.logado.segment{border: none;box-shadow: none;background-color: #9AD032;color: white; text-align: right;}
+.frontendSlide .ui.logado.segment a{  color: #fff;font-weight: 400;font-size: 1rem;}
 
 /* BUTTON */
 .ui.green.button.degrade{
@@ -138,16 +141,16 @@ div.contato .ui.form input[type=text], .contato .ui.form textarea{border: 0px so
 div.contato .ui.form .submit{background-color: #897299; color: #fff; width: 100%; padding: 20px; font-size: 1.2rem;}
 
 /* PLANOS */
-.ui.grid.planos .ui.segment.column{padding-bottom: 6em;}
-.planos .actived{
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	background-color: #897299;
-}
+.planos .ui.header{text-decoration: underline}
+.planos .ui.header.nossosPlanos{text-decoration: none;font-size: 3rem;color: #897299;}
+.ui.grid.planos .ui.segment.column{padding-bottom: 6em;background-color: #F4F2F5;}
+.ui.grid.planos .ui.segment.column.actived{-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;background-color: #897299;}
 .planos .column.ui.horizontal.segment {max-height: 330px;}
 .planos .column.actived p{color:#FFF;}
 .ui.last[class*="horizontal segment"] {box-shadow: none;}
+.planos .ui[class*="horizontal segment"]{box-shadow: 1px 1px 1px 1px rgba(39,41,43,0.2);border: 1px solid #DEDEDF;border-right: none;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;margin-right: 5px;}
+.planos .ui[class*="horizontal segment"].actived{border:none;}
+.planos.ui[class*="four column"].grid>.column{width:24%;}
 
 /* RODAPE */
 .rodape{background-color:#1d082f;}
@@ -160,3 +163,4 @@ div.contato .ui.form .submit{background-color: #897299; color: #fff; width: 100%
 .modalCadastro *, .modalCadastro .ui.button{font-size:0.9rem}
 .modalCadastro .planos .column.ui.horizontal.segment{max-height:300px;}
 span.claro {color: #CBCBCB;}
+
