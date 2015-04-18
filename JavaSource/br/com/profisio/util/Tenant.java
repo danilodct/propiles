@@ -74,4 +74,11 @@ public class Tenant extends ObjetoBasico {
 		this.cor = cor;
 	}
 
+	public boolean hasAccessRelatorio() {
+		boolean hasAccess = true;
+		if (this.plano == Plano.PLANO_1 || this.plano == Plano.PLANO_2)
+			hasAccess = false;
+		return hasAccess;
+	}
+
 }

@@ -17,14 +17,13 @@
 .ui.selection.dropdown.disabled {border: none !important;}
 .ui.selection.dropdown.disabled i{display:none;}
 .ui.transparent.icon.input>.icon{display:none;}
-
-/* MODAL */
+`/* MODAL */
 .ui.modal .actions>.button{margin-left:0 !important;}
 .ui.modal .actions{background:none !important; border-top:none !important; padding:0 !important;}
 
 /* ACCORDION */
 .ui.styled.accordion .content .content{padding:0;}
-
+	
  /* MENU */
 .menuCabecalho .ui.dropdown .menu>.item a, .menuCabecalho .ui.dropdown .menu>.item span {display: inherit;padding: 9px 19px;}
 .menuCabecalho .ui.dropdown .menu>.item {padding: 0 !important;}
@@ -46,3 +45,18 @@
 /* HINT */
 .ui.header>.icon.hint{display:inline-block !important;font-size:1rem !important;margin-left: 10px;margin-bottom: 10px;}
 .ui.header .popup .content {line-height: 15px;}
+
+/* PLANOS */
+.planos .ui.header{text-decoration: underline}
+.planos .ui.header.nossosPlanos{text-decoration: none;font-size: 1.5rem;color: #897299;}
+.ui.grid.planos .ui.segment.column{padding-bottom: 6em;background-color: #F4F2F5;}
+.ui.grid.planos .ui.segment.column.actived{-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;background-color: #897299;}
+.planos .column.ui.horizontal.segment {max-height: 330px;}
+.planos .column.actived p{color:#FFF;}
+.ui.last[class*="horizontal segment"] {box-shadow: none;}
+.planos .ui[class*="horizontal segment"]{box-shadow: 1px 1px 1px 1px rgba(39,41,43,0.2);border: 1px solid #DEDEDF;border-right: none;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;}
+.planos .ui[class*="horizontal segment"].actived{border:none; margin-right:5px;}
+.planos.ui[class*="two column"].grid>.column{width:45%;}
+.planos .centered{text-align: center}
+.planos span.claro {color: #CBCBCB;}
+.planos .ui.green.button.degrade {background: -webkit-linear-gradient(top,#98c346 0,#9cdd1f 100%);background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#98c346 0),color-stop(1,#9cdd1f 100%));background: -moz-linear-gradient(top,#98c346 0,#9cdd1f 100%);background: -moz-gradient(linear,left top,left bottom,color-stop(0,#98c346 0),color-stop(1,#9cdd1f 100%));background: linear-gradient(top,#98c346 0,#9cdd1f 100%);background-color: #98c346;border-color: #5dba00;}

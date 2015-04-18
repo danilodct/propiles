@@ -12,7 +12,6 @@ import br.com.profisio.basics.Colaborador;
 import br.com.profisio.basics.Servico;
 import br.com.profisio.colaborador.ColaboradorControl;
 import br.com.profisio.util.ProfisioActionSupport;
-import br.com.profisio.util.ProfisioSessionUtil;
 import br.com.profisio.util.SystemUtils;
 import br.com.profisio.util.Tenant;
 
@@ -38,7 +37,7 @@ public class RelatorioView extends ProfisioActionSupport {
 
 	public String actionExportAtividadesClientes() {
 		try {
-			
+
 			String path = SystemUtils.getPath() + "/report.csv";
 			DataOutputStream doStream = new DataOutputStream(new FileOutputStream(path));
 			doStream.writeBytes(this.controller.getAtividadesClientesCSV(getTenant(), dataInicial, dataFinal));
@@ -53,7 +52,7 @@ public class RelatorioView extends ProfisioActionSupport {
 
 	public String actionDRE() {
 		try {
-			
+
 			this.relatorio = this.controller.gerarDemonstrativoResultado(getTenant(), dataInicial, dataFinal);
 		} catch (Exception e) {
 			this.dealException(e);
@@ -63,7 +62,7 @@ public class RelatorioView extends ProfisioActionSupport {
 
 	public String actionEfetividade() {
 		try {
-			
+
 			Integer somaCadastros = 0;
 			this.clientes = this.controller.getNovosCadastros(getTenant(), dataInicial, dataFinal);
 			if (this.clientes != null && this.clientes.size() > 0) {
@@ -82,8 +81,9 @@ public class RelatorioView extends ProfisioActionSupport {
 
 	public String actionFrequentes() {
 		try {
-			
-			this.clientes = this.controller.getClientesFrequentes(getTenant(), dataInicial, dataFinal, colaborador, servico);
+			Tenant tenant = getTenant();
+			if (tenant.hasAccessRelatorio())
+				this.clientes = this.controller.getClientesFrequentes(getTenant(), dataInicial, dataFinal, colaborador, servico);
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -93,7 +93,7 @@ public class RelatorioView extends ProfisioActionSupport {
 	// 888888888888888888888888888888888888888888888888888888888888888888888888888888
 
 	public Collection<Colaborador> getAllColaboradores() {
-		
+
 		return ColaboradorControl.getInstance().getColaboradores(getTenant(), null);
 	}
 
