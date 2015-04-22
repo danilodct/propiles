@@ -101,7 +101,7 @@
 			<i class="list layout <s:property value="#session.profisio_user.tenant.corFinal" /> circular inverted icon"></i>
 			<div class="content">
 				Demonstrativo de Resultados
-				<div class="sub header">Relatório com várias análises financeiras da sua empresa</div>
+				<div class="sub header">Relatório com vários parâmetros relevantes (ticket médio, faturamento bruto e líquido, custos fixos e variáveis, margem de contribuição)</div>
 			</div>
 		</div>
 		
@@ -137,6 +137,7 @@
 			</div>
 		</div>
 		
+	<s:if test="#session.profisio_user.tenant.accessRelatorio">	
 		<div class="ui hidden divider"></div>
 		<div class="ui hidden divider"></div>
 		
@@ -206,6 +207,10 @@
 		</table>
 		
 	</s:if>
+	</s:if>
+	<s:else>
+		<s:include value="../planos.jsp" />
+	</s:else>
 	</div>
 	
 	<s:include value="../geral/rodape.jsp" />

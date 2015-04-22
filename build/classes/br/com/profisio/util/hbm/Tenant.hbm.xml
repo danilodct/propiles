@@ -10,6 +10,7 @@
 		<property name="logo" />
 		<property name="cor" />
 		<property name="dataCriacao" />
+		<property name="aguardandoPagamento"><column name="aguardandoPagamento" sql-type="tinyint(1)" /></property>
 		<property name="plano" type="br.com.profisio.util.PlanoEnumType" />
 		
 	</class>

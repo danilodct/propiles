@@ -18,7 +18,7 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	private Usuario usuario;
 	private Tenant tenant;
-	private String page, nome, empresa, fone, email, mensagem, url, transacaoId;
+	private String page, nome, empresa, fone, email, mensagem, transacaoId;
 
 	private String logoFileName;
 	private String logoContentType;
@@ -26,6 +26,27 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public UsuarioView() {
 		controller = UsuarioControl.getInstance();
+	}
+
+	public String actionPersonalizado() {
+		try {
+			Tenant tenant = ProfisioSessionUtil.getTenantSession();
+			this.controller.personalizado(tenant);
+			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.PEDIDO_PERSONALIZADO_SUCESSO));
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		return REDIRECT;
+	}
+
+	public String actionUpgrade() {
+		try {
+			Tenant tenant = ProfisioSessionUtil.getTenantSession();
+			this.setUrl(this.controller.upgrade(tenant));
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		return REDIRECT;
 	}
 
 	public String actionAtualizacaoPagamento() {
@@ -146,8 +167,8 @@ public class UsuarioView extends ProfisioActionSupport {
 	public String actionConfirmar() {
 		String resposta = SUCCESS;
 		try {
-			this.url = controller.confirmarCadastro(usuario);
-			if (this.url != null && !this.url.trim().equals(""))
+			this.setUrl(controller.confirmarCadastro(usuario));
+			if (this.getUrl() != null && !this.getUrl().trim().equals(""))
 				resposta = REDIRECT;
 			else
 				addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CONFIRMADO_SUCESSO));
@@ -289,14 +310,6 @@ public class UsuarioView extends ProfisioActionSupport {
 			this.tenant = new Tenant();
 		Plano plano = Plano.createEnum(planoStr);
 		tenant.setPlano(plano);
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
 	}
 
 	public String getTransacaoId() {

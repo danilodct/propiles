@@ -85,6 +85,14 @@
 			<result />
 		</action>
 		
+		<action name="upgrade" class="br.com.profisio.usuario.UsuarioView" method="actionUpgrade">
+			<result name="redirect" type="chain">home</result>
+		</action>
+		
+		<action name="personalizado" class="br.com.profisio.usuario.UsuarioView" method="actionPersonalizado">
+			<result name="redirect" type="chain">home</result>
+		</action>
+		
 		<action name="contato" class="br.com.profisio.usuario.UsuarioView" method="actionContato">
 			<interceptor-ref name="defaultProfisioStack-SemLogin"></interceptor-ref>
 			<result name="redirect" >index.jsp</result>

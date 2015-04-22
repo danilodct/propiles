@@ -140,6 +140,7 @@
 			</div>
 		</div>
 		
+	<s:if test="#session.profisio_user.tenant.accessRelatorio">	
 		<div class="ui hidden divider"></div>
 		<div class="ui hidden divider"></div>
 
@@ -176,6 +177,11 @@
 			</div>
 		</div>
 	</s:if>
+		
+	</s:if>
+	<s:else>
+		<s:include value="../planos.jsp" />
+	</s:else>
 		
 	</div>
 	

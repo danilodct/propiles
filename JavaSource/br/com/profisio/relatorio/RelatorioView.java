@@ -12,8 +12,8 @@ import br.com.profisio.basics.Colaborador;
 import br.com.profisio.basics.Servico;
 import br.com.profisio.colaborador.ColaboradorControl;
 import br.com.profisio.util.ProfisioActionSupport;
+import br.com.profisio.util.ProfisioSessionUtil;
 import br.com.profisio.util.SystemUtils;
-import br.com.profisio.util.Tenant;
 
 public class RelatorioView extends ProfisioActionSupport {
 
@@ -62,17 +62,18 @@ public class RelatorioView extends ProfisioActionSupport {
 
 	public String actionEfetividade() {
 		try {
-
-			Integer somaCadastros = 0;
-			this.clientes = this.controller.getNovosCadastros(getTenant(), dataInicial, dataFinal);
-			if (this.clientes != null && this.clientes.size() > 0) {
-				for (Cadastro cli : this.clientes) {
-					if (cli.isVirouNovoCliente())
-						this.somaEfetividade += 1;
-					somaCadastros += 1;
+			if (ProfisioSessionUtil.hasAccess(ProfisioSessionUtil.FUNC_RELATORIO_EFETIVIDADE, getTenant())) {
+				Integer somaCadastros = 0;
+				this.clientes = this.controller.getNovosCadastros(getTenant(), dataInicial, dataFinal);
+				if (this.clientes != null && this.clientes.size() > 0) {
+					for (Cadastro cli : this.clientes) {
+						if (cli.isVirouNovoCliente())
+							this.somaEfetividade += 1;
+						somaCadastros += 1;
+					}
 				}
+				this.porcentagemEfetividade = ((double) this.somaEfetividade / somaCadastros) * 100;
 			}
-			this.porcentagemEfetividade = ((double) this.somaEfetividade / somaCadastros) * 100;
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -81,8 +82,7 @@ public class RelatorioView extends ProfisioActionSupport {
 
 	public String actionFrequentes() {
 		try {
-			Tenant tenant = getTenant();
-			if (tenant.hasAccessRelatorio())
+			if (ProfisioSessionUtil.hasAccess(ProfisioSessionUtil.FUNC_RELATORIO_FREQUENTES, getTenant()))
 				this.clientes = this.controller.getClientesFrequentes(getTenant(), dataInicial, dataFinal, colaborador, servico);
 		} catch (Exception e) {
 			this.dealException(e);

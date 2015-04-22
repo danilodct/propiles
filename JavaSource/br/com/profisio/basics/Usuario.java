@@ -7,7 +7,7 @@ public class Usuario extends Pessoa {
 
 	private String login, senha, nomeUser;
 	private TipoUser tipo;
-	private Boolean confirmado, aguardandoPagamento;//aguardandoPagamento serve para os plaanos 2 e 3 qd o usuario cofirmou o email, porém ainda nao confirmou o pagamento
+	private Boolean confirmado;
 
 	public Usuario() {
 	}
@@ -69,14 +69,6 @@ public class Usuario extends Pessoa {
 
 	public void setNomeUser(String nomeUser) {
 		this.nomeUser = nomeUser;
-	}
-
-	public Boolean getAguardandoPagamento() {
-		return aguardandoPagamento;
-	}
-
-	public void setAguardandoPagamento(Boolean aguardandoPagamento) {
-		this.aguardandoPagamento = aguardandoPagamento;
 	}
 
 }

@@ -34,6 +34,8 @@ public class ProfisioActionSupport extends ActionSupport {
 	public static final String SEPARADOR_ESPACO = " ";
 	public static final String OUTRA = "OUTRA";
 
+	public String url;
+
 	// variáveis do getCEP
 	private String cep;
 	private static final String URL_WEBSERVICE_BUSCAR_CEP = "http://viacep.com.br/ws/";
@@ -175,6 +177,14 @@ public class ProfisioActionSupport extends ActionSupport {
 
 	public Tenant getTenant() {
 		return ProfisioSessionUtil.getTenantSession();
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 }

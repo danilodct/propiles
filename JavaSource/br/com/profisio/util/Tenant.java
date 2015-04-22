@@ -9,6 +9,7 @@ public class Tenant extends ObjetoBasico {
 	private String nome, logo, cor;
 	private Date dataCriacao;
 	private Plano plano;
+	private Boolean aguardandoPagamento;//aguardandoPagamento serve para os plaanos 2 e 3 qd o usuario cofirmou o email, porém ainda nao confirmou o pagamento
 
 	public Tenant() {
 	}
@@ -74,11 +75,16 @@ public class Tenant extends ObjetoBasico {
 		this.cor = cor;
 	}
 
-	public boolean hasAccessRelatorio() {
-		boolean hasAccess = true;
-		if (this.plano == Plano.PLANO_1 || this.plano == Plano.PLANO_2)
-			hasAccess = false;
-		return hasAccess;
+	public boolean getAccessRelatorio() {
+		return ProfisioSessionUtil.hasAccess(ProfisioSessionUtil.FUNC_RELATORIOS, this);
+	}
+
+	public Boolean getAguardandoPagamento() {
+		return aguardandoPagamento;
+	}
+
+	public void setAguardandoPagamento(Boolean aguardandoPagamento) {
+		this.aguardandoPagamento = aguardandoPagamento;
 	}
 
 }

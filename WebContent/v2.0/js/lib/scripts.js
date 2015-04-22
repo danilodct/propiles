@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	doSemanticInitials();
 	setCabecalho();
+	setPlanos();
 });
 
 $(window).resize(function() {
@@ -24,6 +25,17 @@ function setCabecalho(){
 		$("div#subMenuPreferencias .menu .nome").hide();
 		$("div#subMenuPreferencias .menu .nome .text").hide();
 	}
+}
+
+function setPlanos(){
+	$("a#btPlano2").click(function(evt){
+		evt.preventDefault();
+		showModal("div.modalUpgrade");
+	});
+	$("a#btPlano3").click(function(evt){
+		evt.preventDefault();
+		showModal("div.modalPersonalizado");
+	});
 }
 
 // SEMANTIC UI 888888888888888888888888888888888888888888888888888888888888888888

@@ -21,6 +21,8 @@ public class Mailer {
 	public static final String IMG_CADASTRO = "http://localhost:8080/propiles/img/email-falta-pouco.jpg";
 	public static final String IMG_RECUPERE_SENHA = "http://localhost:8080/propiles/img/email-recupere-senha.jpg";
 	public static final String IMG_CONTATO = "http://localhost:8080/propiles/img/email-contato.jpg";
+	public static final String IMG_UPGRADE = "http://localhost:8080/propiles/img/email-upgrade.jpg";
+	public static final String IMG_PRONTO = "http://localhost:8080/propiles/img/email-pronto.jpg";
 
 	public static final String EMAIL_POS_CONTEUDO_PRE_LINK_URL = "</font></div></td></tr><tr><td style=\"padding-bottom:25px;padding-top:0px;padding-left:0px\" align=\"center\"><div><table border=\"0\" cellpadding=\"10\" cellspacing=\"0\" style=\"border-spacing:0px;width:400px\"><tbody><tr><td align=\"center\" valign=\"top\" style=\"background:#FF8E57;border-radius:5px;padding:15px\" bgcolor=\"#FF8E57\"><a href=\"";
 	public static final String EMAIL_POS_LINK_URL_PRE_LINK_TXT = "\" style=\"color:#ffffff;display:block;font-family:Arial,Helvetica Neue,sans-serif;font-size:16px;text-align:center;text-decoration:none\" target=\"_blank\">";

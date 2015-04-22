@@ -134,3 +134,7 @@ alter table usuario add column aguardandoPagamento tinyint(1) default 1;
 update usuario set aguardandoPagamento = 0;
 
 alter table transacaopagamento add column status varchar(100);
+
+alter table usuario drop column aguardandoPagamento;
+alter table tenant add column aguardandoPagamento tinyint(1) default 1;
+update tenant set aguardandoPagamento = 0;

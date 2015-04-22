@@ -474,7 +474,6 @@
 			
 			<div class="ui actions buttons right floated step1">
 				<div class="ui button">Cancelar</div>
-				<div class="or" data-text="ou"></div>
 				<div class="ui right labeled teal icon button btAvancar">
 			      <i class="right arrow icon"></i>
 			      Avançar
@@ -489,7 +488,7 @@
 		<div class="header headerModal">Informe seus dados</div>
 		<div class="content">
 			<s:form action="cadastre-se" cssClass="ui form" id="formCadastro" method="post" >
-				<s:hidden name="plano" id="plano" value="PLANO_4" />
+				<s:hidden name="plano" id="plano" value="" />
 				<div class="required field step2">
 					<label class="">Seu nome:</label>
 					<s:textfield name="usuario.nomeUser" cssClass="" />
@@ -517,7 +516,6 @@
 				
 				<div class="ui actions buttons right floated step2">
 					<div class="ui button">Cancelar</div>
-					<div class="or" data-text="ou"></div>
 					<s:submit cssClass="ui positive right submit button" value="Começar agora mesmo!" />
 				</div>
 			</s:form>

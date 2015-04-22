@@ -60,3 +60,6 @@
 .planos .centered{text-align: center}
 .planos span.claro {color: #CBCBCB;}
 .planos .ui.green.button.degrade {background: -webkit-linear-gradient(top,#98c346 0,#9cdd1f 100%);background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#98c346 0),color-stop(1,#9cdd1f 100%));background: -moz-linear-gradient(top,#98c346 0,#9cdd1f 100%);background: -moz-gradient(linear,left top,left bottom,color-stop(0,#98c346 0),color-stop(1,#9cdd1f 100%));background: linear-gradient(top,#98c346 0,#9cdd1f 100%);background-color: #98c346;border-color: #5dba00;}
+.ui.grid.planos .ui.segment.column {width: 25%;}
+
+.ui.modal .actions>.button {margin-left: 0;}
