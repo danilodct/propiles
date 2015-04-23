@@ -38,7 +38,7 @@
 		        else
 		        	$("#areaNomeCliente").html("").hide();
 		        $("a#btRemoverAgendamento").attr("href", "removerAgendamento?agendamento.id="+calEvent.id);
-		        showModal(".modal");
+		        showModal("#modalEditarAgendamento");
 		    },
 		    function(event, delta, revertFunc){
 		    	if(!confirm("Tem certeza que deseja alterar a data deste agendamento?")){
@@ -132,7 +132,7 @@
 
 	</div>
 
-		<div class="ui small modal">
+		<div class="ui small modal" id="modalEditarAgendamento">
 			<i class="close icon"></i>
 			<div class="header">Editar Agendamento</div>
 			<div class="content">

@@ -483,6 +483,25 @@ public class SystemUtils {
 		}
 		return data;
 	}
+
 	// 88888888888888888888888888888888888888888888888888888888888888888888888888888888
+	//PAGINACAO
+
+	public static int getStartPaginacao(Integer pagAtual, Integer pagSize) {
+		return (pagAtual - 1) * pagSize;
+	}
+
+	public static int getEndPaginacao(Integer pagAtual, Double qtdPag, Integer pagSizeFixed) {
+		Double round = Math.floor(qtdPag);
+		Integer pagSize = pagSizeFixed;
+		if (round.intValue() == pagAtual - 1) {
+			long round2 = Math.round(Math.floor(qtdPag));
+			double d = qtdPag - round2;
+			double e = d * pagSizeFixed;
+			pagSize = new Double(e).intValue();
+		}
+		int start = SystemUtils.getStartPaginacao(pagAtual, pagSizeFixed);
+		return start + pagSize;
+	}
 
 }

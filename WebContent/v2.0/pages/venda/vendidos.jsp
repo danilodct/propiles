@@ -78,6 +78,13 @@
 		<div class="ui hidden divider"></div>
 		<div class="ui hidden divider"></div>
 
+		<div class="left floated column">
+			Mostrando <s:property value="estoques.size" /> de <s:property value="qtdProdutos" /> vendas 
+			<s:if test="(dataInicialStr == null || dataInicialStr == '') && (dataFinalStr == null || dataFinalStr == '') ">
+				no mês atual
+			</s:if>
+		</div>
+		
 		<table class="ui celled striped teal table">
 			<thead>
 				<tr>
@@ -107,6 +114,33 @@
 				</s:else>
 			</tbody>
 		</table>
+		
+		
+		<!-- PAGINACAO 88888888888888888888888888888888888888888888888888888888888888888888888 -->
+		
+		<s:if test="qtdPaginas.size > 1">
+			<div class="ui pagination menu">
+				<s:if test="pagAtual > 1">
+					<a class="icon item" href="vendidos?pagAtual=<%=(((Integer)request.getAttribute("pagAtual")) - 1) %>&produto.idCript=<s:property value="produto.idCript" />&dataFinalStr=<s:property value="dataFinalStr" />&dataInicialStr=<s:property value="dataInicialStr" />&vendedor.idCript=<s:property value="vendedor.idCript" />"><i class="left arrow icon"></i></a> 
+				</s:if>
+				<s:iterator value="qtdPaginas" >
+					<s:if test="qtdPaginas.size > 13 && ((pagAtual + 5) == nome)">
+						<div class="disabled item">...</div>
+					</s:if>
+					<s:elseif test="qtdPaginas.size > 13 && ((pagAtual - 5) == nome)">
+						<div class="disabled item">...</div>
+					</s:elseif>
+					<s:elseif test="qtdPaginas.size > 13 && (((pagAtual - nome) > 0 && (pagAtual - nome) > 4) || ((pagAtual - nome) < 0 && (pagAtual - nome) < -4))">
+					</s:elseif><s:else>
+						<a class="<s:if test="pagAtual == nome">active</s:if> item" href="vendidos?pagAtual=<s:property value="nome" />&produto.idCript=<s:property value="produto.idCript" />&dataFinalStr=<s:property value="dataFinalStr" />&dataInicialStr=<s:property value="dataInicialStr" />&vendedor.idCript=<s:property value="vendedor.idCript" />"><s:property value="nome" /></a>
+					</s:else>
+				</s:iterator>
+				<s:if test="pagAtual < qtdPaginas.size">
+					<a class="icon item" href="vendidos?pagAtual=<%=(((Integer)request.getAttribute("pagAtual")) + 1) %>&produto.idCript=<s:property value="produto.idCript" />&dataFinalStr=<s:property value="dataFinalStr" />&dataInicialStr=<s:property value="dataInicialStr" />&vendedor.idCript=<s:property value="vendedor.idCript" />"><i class="right arrow icon"></i></a>
+				</s:if>
+			</div>
+		</s:if>
+		
 	</div>
 	
 	<s:include value="../geral/rodape.jsp" />

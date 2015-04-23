@@ -245,7 +245,7 @@
 			        $("input#agHorario").val(calEvent.horario);
 			        $("input#agDuracao").val(calEvent.duracao);
 			        $("a#btRemoverAgendamento").attr("href", $("a#btRemoverAgendamento").attr("href")+calEvent.id);
-			        showModal(".modal");
+			        showModal("#modalEditarAgendamento");
 			    },
 				function(event, delta, revertFunc){
 			    	if(!confirm("Tem certeza que deseja alterar a data deste agendamento?")){
@@ -1209,7 +1209,7 @@
 	
 	
 		<!-- POPUP EDITAR AGENDAMENTO 88888888888888888888888888888888888888888888888888888888888888888888888888888 -->
-		<div class="ui small modal">
+		<div class="ui small modal" id="modalEditarAgendamento">
 			<i class="close icon"></i>
 			<div class="header">Editar Agendamento</div>
 			<div class="content">

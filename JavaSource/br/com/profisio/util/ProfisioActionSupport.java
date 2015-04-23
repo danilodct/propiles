@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +30,9 @@ public class ProfisioActionSupport extends ActionSupport {
 	public static final String SEPARADOR = "-";
 	public static final String SEPARADOR_ESPACO = " ";
 	public static final String OUTRA = "OUTRA";
+
+	//PAGINAÇÃO
+	private Integer pagAtual, qtdPaginas, qtdItens;
 
 	//variáveis do getCEP
 	private String cep;
@@ -132,6 +136,39 @@ public class ProfisioActionSupport extends ActionSupport {
 
 	public Collection<Servico> getAllServicos() {
 		return ServicoControl.getInstance().getServicos(null);
+	}
+
+	// 8888888888888888888888888888888888888888888888888888888888888888888888888
+	//PAGINAÇÃO
+
+	public Integer getPagAtual() {
+		return pagAtual;
+	}
+
+	public void setPagAtual(Integer pagAtual) {
+		this.pagAtual = pagAtual;
+	}
+
+	public void setQtdPaginas(Double qtdPaginas) {
+		this.qtdPaginas = new Double(Math.round(Math.ceil(qtdPaginas))).intValue();
+	}
+
+	public Collection<ItemGeralUI> getQtdPaginas() {
+		Collection<ItemGeralUI> qtdPaginas = new ArrayList<ItemGeralUI>();
+		if (this.qtdPaginas > 0) {
+			for (int i = 1; i <= this.qtdPaginas; i += 1) {
+				qtdPaginas.add(new ItemGeralUI(i + "", i + ""));
+			}
+		}
+		return qtdPaginas;
+	}
+
+	public Integer getQtdItens() {
+		return qtdItens;
+	}
+
+	public void setQtdItens(Integer qtdItens) {
+		this.qtdItens = qtdItens;
 	}
 
 }

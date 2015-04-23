@@ -27,7 +27,7 @@
 			$("input#estoqueId").val($(this).attr("id"));
 			setMaskDate(".data");
 			setMaskNumerico("form#formVenda .decimal");
-			showModal("div.modal");
+			showModal("#modalAddVenda");
 		});
 	});
 </script>
@@ -143,7 +143,7 @@
 		</table>
 	</div>
 	
-		<div class="ui small modal">
+		<div class="ui small modal" id="modalAddVenda">
 			<i class="close icon"></i>
 			<div class="header">Efetuar Venda</div>
 			<div class="content">

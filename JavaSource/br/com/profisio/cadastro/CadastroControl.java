@@ -56,21 +56,25 @@ public class CadastroControl extends ControllerBase {
 	}
 
 	public Collection<Cadastro> getCadastros(String nomeCliente, String cpf, Integer pagAtual) {
-		Integer qtdPag = this.getQtdPaginas(nomeCliente, cpf);
-		if (qtdPag == null || qtdPag < 2)
+		Double qtdPag = this.getQtdPaginas(nomeCliente, cpf);
+		if (qtdPag == null || qtdPag <= 1)
 			pagAtual = null;
-		return this.dao.getCadastros(nomeCliente, cpf, TAMANHO_PAGINACAO_CADASTRO, pagAtual);
+		Integer start = null;
+		Integer end = null;
+		if (pagAtual != null) {
+			start = SystemUtils.getStartPaginacao(pagAtual, TAMANHO_PAGINACAO_CADASTRO);
+			end = SystemUtils.getEndPaginacao(pagAtual, qtdPag, TAMANHO_PAGINACAO_CADASTRO);
+		}
+		return this.dao.getCadastros(nomeCliente, cpf, start, end);
 	}
 
 	public Integer getQtdCadastros(String nomeCliente, String cpf) {
 		return this.dao.getQtdCadastros(nomeCliente, cpf);
 	}
 
-	public Integer getQtdPaginas(String nomeCliente, String cpf) {
+	public Double getQtdPaginas(String nomeCliente, String cpf) {
 		Integer qtdTotal = this.getQtdCadastros(nomeCliente, cpf);
-		double ceil = Math.ceil(qtdTotal / TAMANHO_PAGINACAO_CADASTRO);
-		long round = Math.round(ceil);
-		return Long.valueOf(round).intValue();
+		return qtdTotal / new Double(TAMANHO_PAGINACAO_CADASTRO);
 	}
 
 	public void removerCadastro(Cadastro cadastro) {

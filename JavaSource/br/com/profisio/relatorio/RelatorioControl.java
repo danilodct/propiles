@@ -195,7 +195,7 @@ public class RelatorioControl extends ControllerBase {
 		double soma = 0;
 		Collection<ContaReceber> contas = FinanceiroControl.getInstance().getContasReceber(dataInicial, proximoMes, null, null, null, null);
 		Collection<ContaReceber> contasAvulso = FinanceiroControl.getInstance().getContasReceberAvulso(dataInicial, proximoMes, null, null);
-		Collection<Estoque> estoques = VendaControl.getInstance().getEstoquesVendidos(dataInicial, proximoMes, null, null);
+		Collection<Estoque> estoques = VendaControl.getInstance().getEstoquesVendidos(dataInicial, proximoMes, null, null, null);
 		if (contas != null && contas.size() > 0) {
 			for (ContaReceber conta : contas)
 				soma += conta.getValorCheioComDesconto();

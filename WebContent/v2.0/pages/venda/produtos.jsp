@@ -25,6 +25,7 @@
 </script>
 </head>
 <body>
+<s:hidden name="pagAtual" id="pagAtual" />
 	<s:include value="../geral/cabecalho.jsp" />
 
 	<div class="twelve wide column">
@@ -131,6 +132,32 @@
 				</s:else>
 			</tbody>
 		</table>
+
+
+		<!-- PAGINACAO 88888888888888888888888888888888888888888888888888888888888888888888888 -->
+		
+		<s:if test="qtdPaginas.size > 1">
+			<div class="ui pagination menu">
+				<s:if test="pagAtual > 1">
+					<a class="icon item" href="produtos?pagAtual=<%=(((Integer)request.getAttribute("pagAtual")) - 1) %>&produto.categoria=<s:property value="produto.categoria" />"><i class="left arrow icon"></i></a> 
+				</s:if>
+				<s:iterator value="qtdPaginas" >
+					<s:if test="qtdPaginas.size > 13 && ((pagAtual + 5) == nome)">
+						<div class="disabled item">...</div>
+					</s:if>
+					<s:elseif test="qtdPaginas.size > 13 && ((pagAtual - 5) == nome)">
+						<div class="disabled item">...</div>
+					</s:elseif>
+					<s:elseif test="qtdPaginas.size > 13 && (((pagAtual - nome) > 0 && (pagAtual - nome) > 4) || ((pagAtual - nome) < 0 && (pagAtual - nome) < -4))">
+					</s:elseif><s:else>
+						<a class="<s:if test="pagAtual == nome">active</s:if> item" href="produtos?pagAtual=<s:property value="nome" />&produto.categoria=<s:property value="produto.categoria" />"><s:property value="nome" /></a>
+					</s:else>
+				</s:iterator>
+				<s:if test="pagAtual < qtdPaginas.size">
+					<a class="icon item" href="produtos?pagAtual=<%=(((Integer)request.getAttribute("pagAtual")) + 1) %>&produto.categoria=<s:property value="produto.categoria" />"><i class="right arrow icon"></i></a>
+				</s:if>
+			</div>
+		</s:if>
 
 	</div>
 

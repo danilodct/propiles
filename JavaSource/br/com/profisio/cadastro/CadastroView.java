@@ -19,7 +19,6 @@ import br.com.profisio.basics.enums.FormaPagamento;
 import br.com.profisio.basics.enums.Sexo;
 import br.com.profisio.colaborador.ColaboradorControl;
 import br.com.profisio.financeiro.FinanceiroControl;
-import br.com.profisio.util.ItemGeralUI;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.SystemUtils;
@@ -42,7 +41,6 @@ public class CadastroView extends ProfisioActionSupport {
 	private Atividade atividade;
 	private Avaliacao avaliacao;
 	private String nomeCliente, outraFormaConhecimento, aba, avaliacaoId;
-	private Integer pagAtual, qtdPaginas, qtdCadastros;
 	private double totalValorContasReceber;
 
 	private Frequencia frequencia;
@@ -194,11 +192,11 @@ public class CadastroView extends ProfisioActionSupport {
 
 	public String actionCadastros() {
 		try {
-			if (pagAtual == null)
-				pagAtual = 1;
-			this.qtdCadastros = this.controller.getQtdCadastros(null, null);
-			this.qtdPaginas = this.controller.getQtdPaginas(nomeCliente, cpf);
-			this.clientes = this.controller.getCadastros(nomeCliente, cpf, pagAtual);
+			if (getPagAtual() == null)
+				setPagAtual(1);
+			this.setQtdItens(this.controller.getQtdCadastros(null, null));
+			this.setQtdPaginas(this.controller.getQtdPaginas(nomeCliente, cpf));
+			this.clientes = this.controller.getCadastros(nomeCliente, cpf, getPagAtual());
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -274,32 +272,6 @@ public class CadastroView extends ProfisioActionSupport {
 
 	public void setOutraFormaConhecimento(String outraFormaConhecimento) {
 		this.outraFormaConhecimento = outraFormaConhecimento;
-	}
-
-	public Integer getPagAtual() {
-		return pagAtual;
-	}
-
-	public void setPagAtual(Integer pagAtual) {
-		this.pagAtual = pagAtual;
-	}
-
-	public Collection<ItemGeralUI> getQtdPaginas() {
-		Collection<ItemGeralUI> qtdPaginas = new ArrayList<ItemGeralUI>();
-		if (this.qtdPaginas > 0) {
-			for (int i = 1; i < this.qtdPaginas; i += 1) {
-				qtdPaginas.add(new ItemGeralUI(i + "", i + ""));
-			}
-		}
-		return qtdPaginas;
-	}
-
-	public Integer getQtdCadastros() {
-		return qtdCadastros;
-	}
-
-	public void setQtdCadastros(Integer qtdCadastros) {
-		this.qtdCadastros = qtdCadastros;
 	}
 
 	public Cadastro getCadastro() {

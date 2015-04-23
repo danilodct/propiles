@@ -21,10 +21,16 @@ public class VendaDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Produto> getProdutos(String categoria) {
+	public Collection<Produto> getProdutos(String categoria, Integer start, Integer end) {
+		Collection<Produto> retorno = null;
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("categoria", categoria);
-		return this.imp.createNamedQuery("getProdutos", params).list();
+		if (start != null) {
+			retorno = imp.createNamedQuery("getProdutos", params).list().subList(start, end);
+		} else {
+			retorno = this.imp.createNamedQuery("getProdutos", params).list();
+		}
+		return retorno;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -52,8 +58,11 @@ public class VendaDAO extends DAOBase {
 		this.imp.insert(produto);
 	}
 
-	public Integer getQtdTotalProdutos() {
-		return ((Long) this.imp.createNamedQuery("getQtdTotalProdutos").uniqueResult()).intValue();
+	@SuppressWarnings("unchecked")
+	public Integer getQtdProdutos(String categoria) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("categoria", categoria);
+		return ((Long) this.imp.createNamedQuery("getQtdProdutos", params).uniqueResult()).intValue();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -90,13 +99,20 @@ public class VendaDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Estoque> getEstoquesVendidos(Date dataInicial, Date dataFinal, Produto produto, Colaborador colaborador) {
+	public Collection<Estoque> getEstoquesVendidos(Date dataInicial, Date dataFinal, Produto produto, Colaborador colaborador, Integer start, Integer end) {
+		Collection<Estoque> retorno = null;
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		params.put("produto", produto);
 		params.put("colaborador", colaborador);
-		return this.imp.createNamedQuery("getEstoquesVendidos", params).list();
+
+		if (start != null) {
+			retorno = this.imp.createNamedQuery("getEstoquesVendidos", params).list().subList(start, end);
+		} else {
+			retorno = this.imp.createNamedQuery("getEstoquesVendidos", params).list();
+		}
+		return retorno;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -104,4 +120,13 @@ public class VendaDAO extends DAOBase {
 		this.imp.insert(mov);
 	}
 
+	@SuppressWarnings("unchecked")
+	public Integer getQtdEstoquesVendidos(Date dataInicial, Date dataFinal, Produto produto, Colaborador vendedor) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("dataInicial", dataInicial);
+		params.put("dataFinal", dataFinal);
+		params.put("produto", produto);
+		params.put("colaborador", vendedor);
+		return ((Long) this.imp.createNamedQuery("getQtdEstoquesVendidos", params).uniqueResult()).intValue();
+	}
 }

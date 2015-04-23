@@ -42,6 +42,17 @@
 			]]>
 	</query>
 	
+	<query name="getQtdEstoquesVendidos">
+			<![CDATA[
+			select count(est)
+			from Estoque as est
+			where (:dataInicial is null or est.data >= :dataInicial)
+			and (:dataFinal is null or est.data <= :dataFinal)
+			and (:produto is null or est.produto = :produto)
+			and (:colaborador is null or est.vendedor = :colaborador)
+			]]>
+	</query>
+	
 	<query name="getSomaVendas">
 			<![CDATA[
 			select sum(est.valor)
