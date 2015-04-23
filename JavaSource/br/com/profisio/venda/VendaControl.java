@@ -20,6 +20,9 @@ import br.com.profisio.util.Tenant;
 
 public class VendaControl extends ControllerBase {
 
+	private static final Integer SIZE_PAGINACAO_PRODUTOS = 30;
+	private static final Integer SIZE_PAGINACAO_ESTOQUE = 100;
+
 	private static VendaControl instance = null;
 	private VendaDAO dao = null;
 
@@ -33,8 +36,22 @@ public class VendaControl extends ControllerBase {
 		return instance;
 	}
 
-	public Collection<Produto> getProdutos(Tenant tenant, String categoria) {
-		return this.dao.getProdutos(tenant, categoria);
+	public Collection<Produto> getProdutos(Tenant tenant, String categoria, Integer pagAtual) {
+		Double qtdPag = this.getQtdPaginasProdutos(tenant, categoria);
+		if (qtdPag == null || qtdPag < 2)
+			pagAtual = null;
+		Integer start = null;
+		Integer end = null;
+		if (pagAtual != null) {
+			start = SystemUtils.getStartPaginacao(pagAtual, SIZE_PAGINACAO_PRODUTOS);
+			end = SystemUtils.getEndPaginacao(pagAtual, qtdPag, SIZE_PAGINACAO_PRODUTOS);
+		}
+		return this.dao.getProdutos(tenant, categoria, start, end);
+	}
+
+	public Double getQtdPaginasProdutos(Tenant tenant, String categoria) {
+		Integer qtdTotal = this.getQtdProdutos(tenant, categoria);
+		return qtdTotal / new Double(SIZE_PAGINACAO_PRODUTOS);
 	}
 
 	public Collection<String> getCategoriasProduto(Tenant tenant) {
@@ -84,8 +101,8 @@ public class VendaControl extends ControllerBase {
 		this.dao.cadastrarProduto(produto);
 	}
 
-	public Integer getQtdTotalProdutos(Tenant tenant) {
-		return this.dao.getQtdTotalProdutos(tenant);
+	public Integer getQtdProdutos(Tenant tenant, String categoria) {
+		return this.dao.getQtdProdutos(tenant, categoria);
 	}
 
 	public Collection<Estoque> getEstoque(Tenant tenant, Produto produto, Colaborador vendedor, Date dataInicial, Date dataFinal, String status) {
@@ -144,7 +161,7 @@ public class VendaControl extends ControllerBase {
 		this.dao.removerEstoque(estoque);
 	}
 
-	public Collection<Estoque> getEstoquesVendidos(Tenant tenant, Date dataInicial, Date dataFinal, Produto produto, Colaborador colaborador) {
+	public Collection<Estoque> getEstoquesVendidos(Tenant tenant, Date dataInicial, Date dataFinal, Produto produto, Colaborador colaborador, Integer pagAtual) {
 		// se o usuário nao informou data inicio e fim, vai pegar paenas
 		if (dataInicial == null && dataFinal == null) {
 			Calendar calendar = Calendar.getInstance();
@@ -171,7 +188,46 @@ public class VendaControl extends ControllerBase {
 		if (colaborador != null && (colaborador.getId() == null || colaborador.getId().intValue() == -1))
 			colaborador = null;
 
-		return this.dao.getEstoquesVendidos(tenant, dataInicial, dataFinal, produto, colaborador);
+		Double qtdPag = this.getQtdPaginasEstoqueVendidos(tenant, dataInicial, dataFinal, produto, colaborador);
+		if (qtdPag == null || qtdPag < 2)
+			pagAtual = null;
+		Integer start = null;
+		Integer end = null;
+		if (pagAtual != null) {
+			start = SystemUtils.getStartPaginacao(pagAtual, SIZE_PAGINACAO_ESTOQUE);
+			end = SystemUtils.getEndPaginacao(pagAtual, qtdPag, SIZE_PAGINACAO_ESTOQUE);
+		}
+
+		return this.dao.getEstoquesVendidos(tenant, dataInicial, dataFinal, produto, colaborador, start, end);
+	}
+
+	public Integer getQtdEstoquesVendidos(Tenant tenant, Date dataInicial, Date dataFinal, Produto produto, Colaborador vendedor) {
+		// se o usuário nao informou data inicio e fim, vai pegar paenas
+		if (dataInicial == null && dataFinal == null) {
+			Calendar calendar = Calendar.getInstance();
+			calendar.set(Calendar.DAY_OF_MONTH, 1);
+			calendar.set(Calendar.AM_PM, Calendar.AM);
+			calendar.set(Calendar.HOUR, 0);
+			calendar.set(Calendar.MINUTE, 0);
+			calendar.set(Calendar.SECOND, 0);
+			dataInicial = calendar.getTime();
+			calendar = Calendar.getInstance();
+			calendar.set(Calendar.AM_PM, Calendar.PM);
+			calendar.set(Calendar.HOUR, 23);
+			calendar.set(Calendar.MINUTE, 59);
+			calendar.set(Calendar.SECOND, 59);
+			calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+			dataFinal = calendar.getTime();
+		} else {
+			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 23, 59, 59);
+		}
+		return this.dao.getQtdEstoquesVendidos(tenant, dataInicial, dataFinal, produto, vendedor);
+	}
+
+	public Double getQtdPaginasEstoqueVendidos(Tenant tenant, Date dataInicial, Date dataFinal, Produto produto, Colaborador vendedor) {
+		Integer qtdTotal = this.getQtdEstoquesVendidos(tenant, dataInicial, dataFinal, produto, vendedor);
+		return qtdTotal / new Double(SIZE_PAGINACAO_ESTOQUE);
 	}
 
 }

@@ -50,19 +50,18 @@ public class CadastroDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Cadastro> getCadastros(Tenant tenant, String nomeCliente, String cpf, Integer sizePag, Integer pagAtual) {
+	public Collection<Cadastro> getCadastros(Tenant tenant, String nomeCliente, String cpf, Integer start, Integer end) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("tenant", tenant);
 		params.put("nomeCliente", nomeCliente);
 		if (nomeCliente != null)
 			params.put("nomeCliente", nomeCliente + "%");
 		params.put("cpf", cpf);
-		if (nomeCliente != null)
+		if (cpf != null)
 			params.put("cpf", cpf + "%");
 		Collection<Cadastro> retorno = null;
-		if (pagAtual != null) {
-			int start = (pagAtual - 1) * sizePag;
-			retorno = imp.createNamedQuery("getCadastros", params).list().subList(start, sizePag + start);
+		if (start != null) {
+			retorno = imp.createNamedQuery("getCadastros", params).list().subList(start, end);
 		} else
 			retorno = imp.createNamedQuery("getCadastros", params).list();
 		return retorno;

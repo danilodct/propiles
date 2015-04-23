@@ -37,7 +37,15 @@ public class VendaView extends ProfisioActionSupport {
 	public String actionVendidos() {
 		try {
 
-			this.estoques = this.controller.getEstoquesVendidos(getTenant(), dataInicial, dataFinal, produto, vendedor);
+			if (getPagAtual() == null)
+				setPagAtual(1);
+			if (produto != null && produto.getId() == null)
+				produto = null;
+			if (vendedor != null && vendedor.getId() == null)
+				vendedor = null;
+			this.qtdProdutos = controller.getQtdEstoquesVendidos(getTenant(), dataInicial, dataFinal, produto, vendedor);
+			this.setQtdPaginas(this.controller.getQtdPaginasEstoqueVendidos(getTenant(), dataInicial, dataFinal, produto, vendedor));
+			this.estoques = this.controller.getEstoquesVendidos(getTenant(), dataInicial, dataFinal, produto, vendedor, getPagAtual());
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -165,15 +173,20 @@ public class VendaView extends ProfisioActionSupport {
 
 	public String actionProdutos() {
 		try {
-
 			String categoria = null;
 			if (produto != null && produto.getCategoria() != null) {
 				categoria = produto.getCategoria();
-				if (categoria.equals("-1"))
+				if (categoria.equals("-1") || categoria.trim().equals("")) {
 					categoria = null;
+					produto.setCategoria(null);
+				}
 			}
-			this.produtos = controller.getProdutos(getTenant(), categoria);
-			this.qtdProdutos = controller.getQtdTotalProdutos(getTenant());
+
+			if (getPagAtual() == null)
+				setPagAtual(1);
+			this.qtdProdutos = controller.getQtdProdutos(getTenant(), categoria);
+			this.setQtdPaginas(this.controller.getQtdPaginasProdutos(getTenant(), categoria));
+			this.produtos = controller.getProdutos(getTenant(), categoria, getPagAtual());
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -196,7 +209,7 @@ public class VendaView extends ProfisioActionSupport {
 	public Collection<Produto> getAllProdutos() {
 		Collection<Produto> retorno = new ArrayList<Produto>();
 
-		retorno = this.controller.getProdutos(getTenant(), null);
+		retorno = this.controller.getProdutos(getTenant(), null, null);
 		return retorno;
 	}
 

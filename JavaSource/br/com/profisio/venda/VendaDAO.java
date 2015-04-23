@@ -22,11 +22,17 @@ public class VendaDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Produto> getProdutos(Tenant tenant, String categoria) {
+	public Collection<Produto> getProdutos(Tenant tenant, String categoria, Integer start, Integer end) {
+		Collection<Produto> retorno = null;
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("tenant", tenant);
 		params.put("categoria", categoria);
-		return this.imp.createNamedQuery("getProdutos", params).list();
+		if (start != null) {
+			retorno = imp.createNamedQuery("getProdutos", params).list().subList(start, end);
+		} else {
+			retorno = this.imp.createNamedQuery("getProdutos", params).list();
+		}
+		return retorno;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -57,10 +63,11 @@ public class VendaDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Integer getQtdTotalProdutos(Tenant tenant) {
+	public Integer getQtdProdutos(Tenant tenant, String categoria) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("tenant", tenant);
-		return ((Long) this.imp.createNamedQuery("getQtdTotalProdutos", params).uniqueResult()).intValue();
+		params.put("categoria", categoria);
+		return ((Long) this.imp.createNamedQuery("getQtdProdutos", params).uniqueResult()).intValue();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -98,19 +105,37 @@ public class VendaDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Estoque> getEstoquesVendidos(Tenant tenant, Date dataInicial, Date dataFinal, Produto produto, Colaborador colaborador) {
+	public Collection<Estoque> getEstoquesVendidos(Tenant tenant, Date dataInicial, Date dataFinal, Produto produto, Colaborador colaborador, Integer start, Integer end) {
+		Collection<Estoque> retorno = null;
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("tenant", tenant);
 		params.put("dataInicial", dataInicial);
 		params.put("dataFinal", dataFinal);
 		params.put("produto", produto);
 		params.put("colaborador", colaborador);
-		return this.imp.createNamedQuery("getEstoquesVendidos", params).list();
+
+		if (start != null) {
+			retorno = this.imp.createNamedQuery("getEstoquesVendidos", params).list().subList(start, end);
+		} else {
+			retorno = this.imp.createNamedQuery("getEstoquesVendidos", params).list();
+		}
+		return retorno;
 	}
 
 	@SuppressWarnings("unchecked")
 	public void cadastrarMovimentacao(Movimentacao mov) {
 		this.imp.insert(mov);
+	}
+
+	@SuppressWarnings("unchecked")
+	public Integer getQtdEstoquesVendidos(Tenant tenant, Date dataInicial, Date dataFinal, Produto produto, Colaborador vendedor) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("tenant", tenant);
+		params.put("dataInicial", dataInicial);
+		params.put("dataFinal", dataFinal);
+		params.put("produto", produto);
+		params.put("colaborador", vendedor);
+		return ((Long) this.imp.createNamedQuery("getQtdEstoquesVendidos", params).uniqueResult()).intValue();
 	}
 
 }

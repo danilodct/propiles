@@ -49,7 +49,7 @@ function setBtGerarConta(){
 		var salario = $(this).parent().find("input.cntaSalario").val();
 		var parte = setNumberFormat(parseFloat(parseStringToNumber(valorTotal)) - parseFloat(parseStringToNumber(salario)));
 		$("textarea#cntaObs").html(nome + "; Mês/Ano: "+mes[1] + "/"+mes[2] + "; Salário: R$ "+ salario + "; Atendimentos: R$ " + parte);
-    	showModal(".modal");
+    	showModal("#modalAddContaPagar");
 	});
 }
 </script>
@@ -164,7 +164,7 @@ function setBtGerarConta(){
 	</div>
 	
 
-	<div class="ui modal">
+	<div class="ui modal" id="modalAddContaPagar">
 		<i class="close icon"></i>
 		<div class="header">Gerar Conta a Pagar</div>
 		<div class="content">

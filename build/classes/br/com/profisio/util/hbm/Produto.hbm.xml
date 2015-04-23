@@ -37,11 +37,13 @@
 			]]>
 	</query>
 	
-	<query name="getQtdTotalProdutos">
+	<query name="getQtdProdutos">
 			<![CDATA[
 			select count(prod) as qtd
 			from Produto as prod
-			where prod.tenant = :tenant and prod.statusObjeto = 'ATIVO'
+			where prod.tenant = :tenant 
+			and (:categoria is null or prod.categoria = :categoria)
+			and prod.statusObjeto = 'ATIVO'
 			]]>
 	</query>
 	

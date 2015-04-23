@@ -231,7 +231,7 @@
 		<!-- ÁREA LISTAGEM 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		
 		<div class="left floated column">
-			Mostrando <s:property value="clientes.size" /> de <s:property value="qtdCadastros" /> cadastros
+			Mostrando <s:property value="clientes.size" /> de <s:property value="qtdItens" /> cadastros
 		</div>
 		<table class="ui celled striped <s:property value="#session.profisio_user.tenant.corFinal" /> table">
 			<thead>
