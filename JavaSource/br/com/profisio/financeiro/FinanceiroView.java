@@ -171,7 +171,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 				this.somaTotal += valorTemp;
 			}
 
-			this.estoques = VendaControl.getInstance().getEstoquesVendidos(getTenant(), dataInicial, dataFinal, null, colaborador);
+			this.estoques = VendaControl.getInstance().getEstoquesVendidos(getTenant(), dataInicial, dataFinal, null, colaborador, null);
 			for (Estoque estoque : this.estoques) {
 				this.somaEstoque += estoque.getValor();
 				this.somaTotal += estoque.getValor();
