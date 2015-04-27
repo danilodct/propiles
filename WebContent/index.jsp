@@ -474,6 +474,7 @@
 			
 			<div class="ui actions buttons right floated step1">
 				<div class="ui button">Cancelar</div>
+				<div class="or" data-text="ou"></div>
 				<div class="ui right labeled teal icon button btAvancar">
 			      <i class="right arrow icon"></i>
 			      Avançar
@@ -516,6 +517,7 @@
 				
 				<div class="ui actions buttons right floated step2">
 					<div class="ui button">Cancelar</div>
+					<div class="or" data-text="ou"></div>
 					<s:submit cssClass="ui positive right submit button" value="Começar agora mesmo!" />
 				</div>
 			</s:form>

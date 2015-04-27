@@ -51,11 +51,11 @@ public class Colaborador extends Usuario {
 		this.contratos = contratos;
 	}
 
-	public double getPorcentagemVendas() {
+	public Double getPorcentagemVendas() {
 		return porcentagemVendas;
 	}
 
-	public void setPorcentagemVendas(double porcentagemVendas) {
+	public void setPorcentagemVendas(Double porcentagemVendas) {
 		this.porcentagemVendas = porcentagemVendas;
 	}
 

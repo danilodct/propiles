@@ -79,7 +79,7 @@
 									<i class="calendar icon"></i>
 								</div>
 							</div>
-							<div class="field">
+							<div class="required field">
 								<label>E-mail:</label>
 								<s:textfield name="colaborador.email" />
 							</div>
@@ -112,10 +112,6 @@
 							<div class="field">
 							    <label>Tipo do usuário no sistema <i class="help circle icon hint" data-content="Professor: Tem acesso aos dados dos clientes || Recepcionista: Tem acesso aos dados dos clientes, à área administrativa, à área dos colaboradores || Aux. Administrativo: Tem acesso a tudo que os outros usuários podem ver, além da área financeira e gerencial" data-variation="inverted" ></i></label>
 								<s:select name="colaborador.tipoStr" cssClass="ui dropdown" list="tiposUser" listKey="value" listValue="value" />
-							</div>
-							<div class="field">
-								<label>Parte nas vendas de produtos (%): <i class="help circle icon hint" data-content="Utilize este campo caso seus colaboradores recebam porcentagem em cima de cada produto vendido, vendas estas especificadas no menu VENDAS" data-variation="inverted" ></i></label>
-								<s:textfield cssClass="decimal" name="colaborador.porcentagemVendasStr" />
 							</div>
 						</div>
 							
@@ -164,18 +160,86 @@
 								</div>
 							</div>
 						</div>
-
-						<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Dados de Autenticação</h4>
-						<div class="four fields">
-							<div class="required field">
-								<label>Login:</label>
-								<s:textfield id="login" name="colaborador.login" />
+						
+						<s:if test="#session.profisio_user.tenant.plano.value == 'PLANO_2' || #session.profisio_user.tenant.plano.value == 'PLANO_3' ">
+							<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Dados de Autenticação</h4>
+							<div class="four fields">
+								<div class="required field">
+									<label>Senha:</label>
+									<s:password name="colaborador.senha" />
+								</div>
 							</div>
-							<div class="required field">
-								<label>Senha:</label>
-								<s:password name="colaborador.senha" />
-							</div>
-						</div>
+						</s:if><s:else>
+							   <div class="ui four centered column grid planos">
+								 <div class="ui hidden divider"></div>
+								
+								 <h4 class="ui header nossosPlanos">Deseja que este colaborador acesse o sistema?</h4>
+								 
+								<div style="font-size:1rem">Com acesso ao sistema este colaborador poderá inserir no momento do atendimento as informações da ficha de avaliação dos pacientes, dentre outras funcionalidades.</div>
+								
+								 <div class="ui hidden divider"></div>
+								
+								   	<div class="column ui horizontal segment">
+								           <h2 class="ui centered header">
+												Básico
+											</h2>
+											<div class="centered">
+												<p>R$ 19,90 / mês<br />
+												<span class="claro">ou R$ 228,00 / ano</span></p>
+												<p></p>
+											</div>
+											<div class="content centered">
+												<a href="" class="ui green degrade button btPlano1" id="btPlano1">Contrate já!</a>
+											</div>
+											<p></p>
+											<div class="centered">
+										            <p>Total acesso ao sistema</p>
+										            <p>Quantidade ilimitada de usuários</p>
+										            <p>Não tem acesso aos módulos Relatório e Análise BI</p>
+											</div>
+								   	</div>
+								   	<div class="column ui horizontal segment actived">
+								           <h2 class="ui centered header">
+										           	Avançado
+											</h2>
+											<div class="centered">
+												<p>R$ 29,90 / mês<br />
+												<span class="claro">ou R$ 339,00 / ano</span></p>
+												<p></p>
+											</div>
+											<div class="content centered">
+												<a href="" class="ui green degrade button btPlano2" id="btPlano2">Contrate já!</a>
+											</div>
+											<p></p>
+											<div class="centered">
+										            <p>Total acesso ao sistema</p>
+										            <p>Quantidade ilimitada de usuários</p>
+										            <p>Acesso à todos os módulos do sistema</p>
+											</div>
+								   	</div>
+								   	<div class="column ui horizontal segment last">
+								           <h2 class="ui centered header">
+										           	Personalizado
+											</h2>
+											<div class="centered">
+												<p>Valor a combinar<br />&nbsp;</p>
+												<p></p>
+											</div>
+											<div class="content centered">
+												<a href="" class="ui green degrade button btPlano3" id="btPlano3">Contrate já!</a>
+											</div>
+											<p></p>
+											<div class="centered">
+										            <p>Total acesso ao sistema com quantidade ilimitada de usuários</p>
+										            <p>Possibilidade de adequar o sistema à sua necessidade com atendimento personalizado e individual</p>
+											</div>
+								   	</div>
+								</div>
+								
+								<div class="ui hidden divider"></div>
+								<div class="ui hidden divider"></div>
+								<div class="ui hidden divider"></div>
+						</s:else>
 
 						<div class="ui buttons right floated">
 							<input type="button" class="ui cancelar button" value="Cancelar" />

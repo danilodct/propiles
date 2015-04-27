@@ -29,6 +29,10 @@ function setCabecalho(){
 }
 
 function setPlanos(){
+	$("a#btPlano1").click(function(evt){
+		evt.preventDefault();
+		showModal("div.modalPlano1");
+	});
 	$("a#btPlano2").click(function(evt){
 		evt.preventDefault();
 		showModal("div.modalUpgrade");

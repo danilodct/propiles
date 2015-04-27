@@ -10,6 +10,7 @@ import br.com.profisio.basics.Usuario;
 import br.com.profisio.basics.enums.StatusObjeto;
 import br.com.profisio.usuario.UsuarioControl;
 import br.com.profisio.util.ControllerBase;
+import br.com.profisio.util.Plano;
 import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.ProfisioException;
 import br.com.profisio.util.SystemUtils;
@@ -64,13 +65,22 @@ public class ColaboradorControl extends ControllerBase {
 			throw new ProfisioException(ProfisioBundleUtil.NO_OBJECT_SELECTED);
 		if (colaborador.getNome() == null || colaborador.getNome().equals(""))
 			throw new ProfisioException(ProfisioBundleUtil.NOME_OBRIGATORIO);
-		if (colaborador.getLogin() == null || colaborador.getLogin().equals(""))
-			throw new ProfisioException(ProfisioBundleUtil.LOGIN_OBRIGATORIO);
-		if (colaborador.getSenha() == null || colaborador.getSenha().equals(""))
-			throw new ProfisioException(ProfisioBundleUtil.SENHA_OBRIGATORIA);
+		if (colaborador.getEmail() == null || colaborador.getEmail().equals(""))
+			throw new ProfisioException(ProfisioBundleUtil.EMAIL_OBRIGATORIO);
 		if (this.checkLoginExiste(colaborador))
 			throw new ProfisioException(ProfisioBundleUtil.LOGIN_JA_EXISTE);
 
+		if (tenant.getPlano() == Plano.PLANO_2 || tenant.getPlano() == Plano.PLANO_3) {
+			if (colaborador.getSenha() == null || colaborador.getSenha().equals(""))
+				throw new ProfisioException(ProfisioBundleUtil.SENHA_OBRIGATORIA);
+		} else {
+			colaborador.setSenha(SystemUtils.gerarSenhaAleatoria(6));
+		}
+
+		colaborador.setLogin(colaborador.getEmail());
+		colaborador.setNomeUser(colaborador.getNome());
+
+		colaborador.setConfirmado(true);
 		colaborador.setStatusObjeto(StatusObjeto.ATIVO);
 		SystemUtils.gerarNiver(colaborador);
 		colaborador.setTenant(tenant);

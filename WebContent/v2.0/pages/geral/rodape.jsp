@@ -68,8 +68,31 @@
 	<div class="header">Upgrade</div>
 	<div class="content">
 		<s:form action="upgrade" method="post" >
+			<input type="hidden" name="plano" value="PLANO_3" />
 			<h3>Parabéns!</h3>
 			Você está prestes a dar um upgrade na sua versão. Com ela você poderá acessar todos os módulos do ProPilEs.
+			
+			<div class="ui hidden divider"></div>
+			<div class="ui hidden divider"></div>
+			
+			<div class="ui actions buttons right floated">
+				<div class="ui button">Cancelar</div>
+				<div class="or" data-text="ou"></div>
+				<s:submit cssClass="ui positive right submit button" value="Continuar" />
+			</div>
+		</s:form>
+	</div>
+</div>
+
+<!-- POPUP UPGRADE PLANO1 -->
+<div class="ui small modal modalPlano1">
+	<i class="close icon"></i>
+	<div class="header">Upgrade</div>
+	<div class="content">
+		<s:form action="upgrade" method="post" >
+			<input type="hidden" name="plano" value="PLANO_2" />
+			<h3>Parabéns!</h3>
+			Você está prestes a dar um upgrade na sua versão. Com ela os seus colaboradores poderão acessar o sistema e inserir informações também.
 			
 			<div class="ui hidden divider"></div>
 			<div class="ui hidden divider"></div>

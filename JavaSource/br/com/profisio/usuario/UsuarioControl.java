@@ -42,6 +42,10 @@ public class UsuarioControl extends ControllerBase {
 			throw new ProfisioException(ProfisioBundleUtil.LOGIN_INCORRETO);
 		if (!usuarioBD.getConfirmado())
 			throw new ProfisioException(ProfisioBundleUtil.CADASTRO_NAO_CONFIRMADO, usuarioBD.getIdCript());
+
+		if (usuarioBD.getTipo() != TipoUser.ADMINISTRADOR && (usuarioBD.getTenant().getPlano() == Plano.PLANO_1 || usuarioBD.getTenant().getPlano() == Plano.PLANO_4))
+			throw new ProfisioException(ProfisioBundleUtil.PLANO_SEM_ACESSO);
+
 		registrarUsuario(usuarioBD);
 	}
 
@@ -158,6 +162,9 @@ public class UsuarioControl extends ControllerBase {
 		if (usuario == null || usuario.getLogin() == null)
 			throw new ProfisioException(ProfisioBundleUtil.EMAIL_INEXISTENTE);
 
+		if (usuario.getTipo() != TipoUser.ADMINISTRADOR && (usuario.getTenant().getPlano() == Plano.PLANO_1 || usuario.getTenant().getPlano() == Plano.PLANO_4))
+			throw new ProfisioException(ProfisioBundleUtil.PLANO_SEM_ACESSO);
+
 		Mailer mailer = new Mailer();
 		String msg = Mailer.EMAIL_PARTE_CIMA_ATE_IMAGEM + Mailer.IMG_RECUPERE_SENHA + Mailer.EMAIL_POS_IMAGEM_PRE_CONTEUDO + "Olá " + usuario.getNomeUser() + ", não está conseguindo acessar o ProPilEs por ter esquecido a senha? Não se preocupe, nós lembramos para você: <br /><br />Por questões de segurança sugerimos que você remova este e-mail para que outras pessoas que acessem o seu e-mail não tenham acesso à sua senha." + Mailer.EMAIL_POS_CONTEUDO_PRE_LINK_URL + "#" + Mailer.EMAIL_POS_LINK_URL_PRE_LINK_TXT + "sua senha é: " + usuario.getSenha() + Mailer.EMAIL_POS_LINK_TXT;
 		//envia para o usuario
@@ -259,10 +266,10 @@ public class UsuarioControl extends ControllerBase {
 		}
 	}
 
-	public String upgrade(Tenant tenant) {
+	public String upgrade(Tenant tenant, Plano plano) {
 		String url = "";
 		SystemUtils.assertObjectIsNotNullHasId(tenant);
-		tenant.setPlano(Plano.PLANO_3);
+		tenant.setPlano(plano);
 		tenant.setAguardandoPagamento(true);
 		this.dao.editar(tenant);
 		Usuario usuario = ProfisioSessionUtil.getUserSession();
@@ -283,7 +290,7 @@ public class UsuarioControl extends ControllerBase {
 		//envia para o usuario
 		//mailer.sendMail(usuario.getLogin(), "[ProPilEs] Upgrade de versão!", msg);
 		//envia para mim
-		mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Upgrade de versão!", msg);
+		mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Upgrade para versão " + plano.getValor() + "!", msg);
 
 		return url;
 	}

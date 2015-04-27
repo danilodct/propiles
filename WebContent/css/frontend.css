@@ -150,7 +150,7 @@ div.contato .ui.form .submit{background-color: #897299; color: #fff; width: 100%
 .ui.last[class*="horizontal segment"] {box-shadow: none;}
 .planos .ui[class*="horizontal segment"]{box-shadow: 1px 1px 1px 1px rgba(39,41,43,0.2);border: 1px solid #DEDEDF;border-right: none;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;margin-right: 5px;}
 .planos .ui[class*="horizontal segment"].actived{border:none;}
-.planos.ui[class*="four column"].grid>.column{width:24%;}
+.ui.grid.planos .ui.segment.column, .planos.ui[class*="four column"].grid>.column{width:24%;}
 
 /* RODAPE */
 .rodape{background-color:#1d082f;}

@@ -19,6 +19,7 @@ public class UsuarioView extends ProfisioActionSupport {
 	private Usuario usuario;
 	private Tenant tenant;
 	private String page, nome, empresa, fone, email, mensagem, transacaoId;
+	private Plano plano;
 
 	private String logoFileName;
 	private String logoContentType;
@@ -42,7 +43,7 @@ public class UsuarioView extends ProfisioActionSupport {
 	public String actionUpgrade() {
 		try {
 			Tenant tenant = ProfisioSessionUtil.getTenantSession();
-			this.setUrl(this.controller.upgrade(tenant));
+			this.setUrl(this.controller.upgrade(tenant, this.plano));
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -329,6 +330,25 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public void setTransacaoId(String transaction) {
 		this.transacaoId = transaction;
+	}
+
+	public Plano getPlano() {
+		return plano;
+	}
+
+	public void setPlano(Plano plano) {
+		this.plano = plano;
+	}
+
+	public String getPlanoStr() {
+		String planoStr = "";
+		if (this.plano != null)
+			planoStr = this.plano.getValue();
+		return planoStr;
+	}
+
+	public void setPlanoStr(String plano) {
+		this.plano = Plano.createEnum(plano);
 	}
 
 }

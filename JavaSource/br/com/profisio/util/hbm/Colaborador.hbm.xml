@@ -15,7 +15,7 @@
 		<property name="foneFixo" />
 		<property name="foneCelular" />
 		<property name="salarioBase" />
-		<property name="porcentagemVendas" />
+		<!-- <property name="porcentagemVendas" /> -->
 		<property name="numeroCarteira" />
 		<property name="sexo" type="br.com.profisio.basics.enums.SexoEnumType"/>
 		
