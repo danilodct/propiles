@@ -96,26 +96,13 @@ public class VendaView extends ProfisioActionSupport {
 
 	public String actionEstoque() {
 		try {
-
 			this.estoques = this.controller.getEstoque(getTenant(), produto, vendedor, dataInicial, dataFinal, StatusEstoque.DISPONIVEL.getValue());
-			this.qtdVendidos = this.getQtdVendidos(this.estoques);
 			if (this.estoques != null && this.estoques.size() > 0)
 				this.qtdEstoque = this.estoques.size();
 		} catch (Exception e) {
 			this.dealException(e);
 		}
 		return REDIRECT;
-	}
-
-	private Integer getQtdVendidos(Collection<Estoque> estoques) {
-		Integer qtd = 0;
-		if (estoques != null && estoques.size() > 0) {
-			for (Estoque est : estoques) {
-				if (est.getStatus() == StatusEstoque.VENDIDO)
-					qtd += 1;
-			}
-		}
-		return qtd;
 	}
 
 	public String actionCadastrarProduto() {

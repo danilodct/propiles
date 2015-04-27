@@ -2,6 +2,7 @@ $(document).ready(function(){
 	doSemanticInitials();
 	setCabecalho();
 	setPlanos();
+	setDuvidas();
 });
 
 $(window).resize(function() {
@@ -35,6 +36,19 @@ function setPlanos(){
 	$("a#btPlano3").click(function(evt){
 		evt.preventDefault();
 		showModal("div.modalPersonalizado");
+	});
+}
+
+function setDuvidas(){
+	$("div#duvidas a").click(function(evt){
+		evt.preventDefault();
+		showModal("div#modalDuvidas");
+	});
+	$("div#modalDuvidas form").submit(function(){
+		runAjax("duvidas", "mensagem="+$("textarea#mensagem").val(), "text", doNothing);
+		$(".close").click();
+		showModal("div#modalMsgDuvidas");
+		return false;
 	});
 }
 

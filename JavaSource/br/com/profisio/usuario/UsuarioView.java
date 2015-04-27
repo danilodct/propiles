@@ -126,6 +126,17 @@ public class UsuarioView extends ProfisioActionSupport {
 		return REDIRECT;
 	}
 
+	public String actionDuvidas() {
+		try {
+			controller.duvidas(mensagem);
+			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.MENSAGEM_ENVIADA));
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		mensagem = null;
+		return null;
+	}
+
 	public String actionContato() {
 		try {
 			controller.contato(nome, empresa, fone, email, mensagem);

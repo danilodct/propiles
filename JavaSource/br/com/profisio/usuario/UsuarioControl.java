@@ -297,4 +297,12 @@ public class UsuarioControl extends ControllerBase {
 		//envia para mim
 		mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Pedido versão personalizada!", msg);
 	}
+
+	public void duvidas(String mensagem) {
+		Usuario usuario = ProfisioSessionUtil.getUserSession();
+		Mailer mailer = new Mailer();
+		String msgCorpo = usuario.getNomeUser() + "<br />Empresa: " + usuario.getTenant().getNome() + "<br />" + "E-mail: " + usuario.getLogin() + "<br /><br />" + mensagem;
+		String msg = Mailer.EMAIL_PARTE_CIMA_ATE_IMAGEM + Mailer.IMG_CONTATO + Mailer.EMAIL_POS_IMAGEM_PRE_CONTEUDO + msgCorpo + Mailer.EMAIL_POS_CONTEUDO;
+		mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Dúvidas/Sugestões/Correções", msg);
+	}
 }

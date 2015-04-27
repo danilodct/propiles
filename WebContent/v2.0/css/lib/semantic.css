@@ -63,3 +63,7 @@
 .ui.grid.planos .ui.segment.column {width: 25%;}
 
 .ui.modal .actions>.button {margin-left: 0;}
+
+/* DÚVIDAS */
+#duvidas{position: fixed;right: 0;width: 30px;height: 165px;background-image: url("../../../img/duvidas.png"); top: 40%; padding:0;}
+#duvidas a{display: block; width:100%; height:100%;}

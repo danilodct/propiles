@@ -97,6 +97,10 @@
 			<interceptor-ref name="defaultProfisioStack-SemLogin"></interceptor-ref>
 			<result name="redirect" >index.jsp</result>
 		</action>
+		
+		<action name="duvidas" class="br.com.profisio.usuario.UsuarioView" method="actionDuvidas">
+			<result />
+		</action>
 
 		<action name="home" class="br.com.profisio.util.ProfisioActionSupport" method="redirect">
 			<result name="redirect">/v2.0/pages/home.jsp</result>
