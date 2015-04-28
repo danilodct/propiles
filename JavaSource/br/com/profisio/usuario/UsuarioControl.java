@@ -111,7 +111,7 @@ public class UsuarioControl extends ControllerBase {
 
 	private void enviarEmailConfirmacao(Usuario usuario) {
 		Mailer mailer = new Mailer();
-		String msg = Mailer.EMAIL_PARTE_CIMA_ATE_IMAGEM + Mailer.IMG_CADASTRO + Mailer.EMAIL_POS_IMAGEM_PRE_CONTEUDO + "Olá " + usuario.getNomeUser() + ", bem-vindo(a) ao ProPilEs!<br /><br />Para finalizarmos o seu cadastro precisamos apenas que você clique no link abaixo. Caso não consiga abrir o link após clicar, por favor copie a url abaixo e cole no seu navegador." + Mailer.EMAIL_POS_CONTEUDO_PRE_LINK_URL + "http://localhost:8080/propiles/confirmar?usuario.idCript=" + usuario.getIdCript() + Mailer.EMAIL_POS_LINK_URL_PRE_LINK_TXT + "http://localhost:8080/propiles/confirmar?usuario.idCript=" + usuario.getIdCript() + Mailer.EMAIL_POS_LINK_TXT;
+		String msg = Mailer.EMAIL_PARTE_CIMA_ATE_IMAGEM + Mailer.IMG_CADASTRO + Mailer.EMAIL_POS_IMAGEM_PRE_CONTEUDO + "Olá " + usuario.getNomeUser() + ", bem-vindo(a) ao ProPilEs!<br /><br />Para finalizarmos o seu cadastro precisamos apenas que você clique no link abaixo. Caso não consiga abrir o link após clicar, por favor copie a url abaixo e cole no seu navegador." + Mailer.EMAIL_POS_CONTEUDO_PRE_LINK_URL + "http://www.propiles.com.br/confirmar?usuario.idCript=" + usuario.getIdCript() + Mailer.EMAIL_POS_LINK_URL_PRE_LINK_TXT + "http://www.propiles.com.br/confirmar?usuario.idCript=" + usuario.getIdCript() + Mailer.EMAIL_POS_LINK_TXT;
 		//enviar para a pessa
 		//		mailer.sendMail(usuario.getLogin(), "[ProPilEs] Confirme seu cadastro", msg);
 		//enviar para mim
