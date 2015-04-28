@@ -522,7 +522,8 @@ public class SystemUtils {
 			if (tenant.getId() != null && objeto.getTenant() != null && objeto.getTenant().getId() != null) {
 				if (tenant.getId().intValue() != objeto.getTenant().getId().intValue())
 					throw new ProfisioException(ProfisioBundleUtil.ITEM_NAO_PERTENCE_TENANT);
-			}
+			} else
+				throw new ProfisioException(ProfisioBundleUtil.ITEM_NAO_PERTENCE_TENANT);
 		}
 	}
 

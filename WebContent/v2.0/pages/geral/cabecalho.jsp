@@ -130,8 +130,10 @@
 			<div class="menu">
 				<div class="item nome"><a href="#" class="text">Olá <s:property value="#session.profisio_user.nomeUser" /> [<s:property value="#session.profisio_user.tenant.nome" />]</a></div>
 				<div class="divider nome"></div>
-				<div class="item"><a href="aparencia" id="aparencia"><i class="icon unhide"></i>Mudar aparência</a></div>
-				<div class="divider"></div>
+				<s:if test="#session.profisio_user.tipo.value == 'ADMINISTRADOR'">
+					<div class="item"><a href="aparencia" id="aparencia"><i class="icon unhide"></i>Mudar aparência</a></div>
+					<div class="divider"></div>
+				</s:if>
 				<div class="item"><a href="dados" id="dados"><i class="icon edit"></i>Alterar dados</a></div>
 				<div class="divider"></div>
 				<div class="item"><a href="alterarSenha" id="alterarSenha"><i class="icon unlock alternate"></i>Alterar senha</a></div>
