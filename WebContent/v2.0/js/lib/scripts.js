@@ -46,7 +46,8 @@ function setPlanos(){
 function setDuvidas(){
 	$("div#duvidas a").click(function(evt){
 		evt.preventDefault();
-		showModal("div#modalDuvidas");
+		if(typeof linksLiberados == 'undefined' || linksLiberados)
+			showModal("div#modalDuvidas");
 	});
 	$("div#modalDuvidas form").submit(function(){
 		runAjax("duvidas", "mensagem="+$("textarea#mensagem").val(), "text", doNothing);

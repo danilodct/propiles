@@ -303,7 +303,7 @@
 				<thead>
 					<tr>
 						<th>#</th>
-						<th>Modalidade</th>
+						<th>Serviço</th>
 						<th>Percentual do Colaborador <i class="help circle icon hint" data-content="Porcentagem que o colaborador recebe sobre cada atendimento feito neste contrato de serviço" data-variation="inverted" ></i></th>
 						<th>Alterar %</th>
 						<th>#</th>

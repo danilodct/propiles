@@ -74,4 +74,29 @@ public class UsuarioDAO extends DAOBase {
 		this.imp.update(transacaoPagamento);
 	}
 
+	@SuppressWarnings("unchecked")
+	public void cadastrarTour(Tenant tenant) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("tenant", tenant);
+		this.imp.execute("cadastrarTour", params);
+	}
+
+	@SuppressWarnings("unchecked")
+	public boolean rodarTour(Tenant tenant) {
+		boolean ePraRodar = false;
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("tenant", tenant);
+		Object tenant_id = this.imp.queryObject("getTour", params);
+		if (tenant_id != null)
+			ePraRodar = true;
+		return ePraRodar;
+	}
+
+	@SuppressWarnings("unchecked")
+	public void removeFromTour(Tenant tenant) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("tenant", tenant);
+		this.imp.execute("removeFromTour", params);
+
+	}
 }

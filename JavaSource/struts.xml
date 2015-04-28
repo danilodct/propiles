@@ -101,6 +101,10 @@
 		<action name="duvidas" class="br.com.profisio.usuario.UsuarioView" method="actionDuvidas">
 			<result />
 		</action>
+		
+		<action name="rodarTour" class="br.com.profisio.usuario.UsuarioView" method="actionTour">
+			<result />
+		</action>
 
 		<action name="home" class="br.com.profisio.util.ProfisioActionSupport" method="redirect">
 			<result name="redirect">/v2.0/pages/home.jsp</result>

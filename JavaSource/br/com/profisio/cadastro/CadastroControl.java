@@ -110,9 +110,10 @@ public class CadastroControl extends ControllerBase {
 		if (cadastro.getNome() == null || cadastro.getNome().equals("")) {
 			throw new ProfisioException(ProfisioBundleUtil.NOME_CLIENTE_OBRIGATORIO);
 		}
-		if (cadastro.getConhecimentoStudio() == null || cadastro.getConhecimentoStudio() != null && (cadastro.getConhecimentoStudio().trim().equals("") || cadastro.getConhecimentoStudio().trim().equalsIgnoreCase("Outro"))) {
-			throw new ProfisioException(ProfisioBundleUtil.FORMA_CONHECIMENTO_INVALIDA);
-		}
+
+		if (cadastro.getConhecimentoStudio() != null && (cadastro.getConhecimentoStudio().trim().equals("") || cadastro.getConhecimentoStudio().trim().equalsIgnoreCase("Outro")))
+			cadastro.setConhecimentoStudio(null);
+
 		cadastro.setDataCadastro(new Date());
 		cadastro.setStatusObjeto(StatusObjeto.ATIVO);
 		SystemUtils.gerarNiver(cadastro);

@@ -34,5 +34,23 @@
 			and statusObjeto = 'ATIVO'
 			]]>
 	</query>
+
+	<sql-query name="cadastrarTour">
+			<![CDATA[
+			insert into tour (tenant_id) values (:tenant)
+			]]>
+	</sql-query>
+
+	<sql-query name="getTour">
+			<![CDATA[
+			select * from tour where tenant_id = :tenant
+			]]>
+	</sql-query>
+
+	<sql-query name="removeFromTour">
+			<![CDATA[
+			delete from tour where tenant_id = :tenant
+			]]>
+	</sql-query>
 	
 </hibernate-mapping>

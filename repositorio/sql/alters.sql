@@ -138,3 +138,9 @@ alter table transacaopagamento add column status varchar(100);
 alter table usuario drop column aguardandoPagamento;
 alter table tenant add column aguardandoPagamento tinyint(1) default 1;
 update tenant set aguardandoPagamento = 0;
+
+
+CREATE TABLE IF NOT EXISTS `tour` (
+  `tenant_id` int(11) NOT NULL,
+  PRIMARY KEY (`tenant_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;

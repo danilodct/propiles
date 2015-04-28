@@ -10,6 +10,7 @@ public class Tenant extends ObjetoBasico {
 	private Date dataCriacao;
 	private Plano plano;
 	private Boolean aguardandoPagamento;//aguardandoPagamento serve para os plaanos 2 e 3 qd o usuario cofirmou o email, porém ainda nao confirmou o pagamento
+	private Boolean tour;//não persistido, apenas para indicar se é para ter o tour inicial
 
 	public Tenant() {
 	}
@@ -85,6 +86,14 @@ public class Tenant extends ObjetoBasico {
 
 	public void setAguardandoPagamento(Boolean aguardandoPagamento) {
 		this.aguardandoPagamento = aguardandoPagamento;
+	}
+
+	public Boolean getTour() {
+		return tour;
+	}
+
+	public void setTour(Boolean tour) {
+		this.tour = tour;
 	}
 
 }

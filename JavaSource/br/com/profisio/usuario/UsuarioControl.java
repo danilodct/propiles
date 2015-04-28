@@ -47,6 +47,11 @@ public class UsuarioControl extends ControllerBase {
 			throw new ProfisioException(ProfisioBundleUtil.PLANO_SEM_ACESSO);
 
 		registrarUsuario(usuarioBD);
+
+		if (this.dao.rodarTour(usuarioBD.getTenant())) {
+			usuarioBD.getTenant().setTour(true);
+			registrarUsuario(usuarioBD);
+		}
 	}
 
 	private void registrarUsuario(Usuario usuario) {
@@ -98,6 +103,8 @@ public class UsuarioControl extends ControllerBase {
 		usuario.setStatusObjeto(StatusObjeto.ATIVO);
 		usuario.setTipo(TipoUser.ADMINISTRADOR);
 		this.dao.cadastrar(usuario);
+
+		this.dao.cadastrarTour(tenant);
 
 		enviarEmailConfirmacao(usuario);
 	}
@@ -311,5 +318,10 @@ public class UsuarioControl extends ControllerBase {
 		String msgCorpo = usuario.getNomeUser() + "<br />Empresa: " + usuario.getTenant().getNome() + "<br />" + "E-mail: " + usuario.getLogin() + "<br /><br />" + mensagem;
 		String msg = Mailer.EMAIL_PARTE_CIMA_ATE_IMAGEM + Mailer.IMG_CONTATO + Mailer.EMAIL_POS_IMAGEM_PRE_CONTEUDO + msgCorpo + Mailer.EMAIL_POS_CONTEUDO;
 		mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Dúvidas/Sugestões/Correções", msg);
+	}
+
+	public void tour() {
+		Tenant tenant = ProfisioSessionUtil.getTenantSession();
+		this.dao.removeFromTour(tenant);
 	}
 }

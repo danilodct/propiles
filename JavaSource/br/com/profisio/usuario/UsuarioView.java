@@ -29,6 +29,16 @@ public class UsuarioView extends ProfisioActionSupport {
 		controller = UsuarioControl.getInstance();
 	}
 
+	public String actionTour() {
+		try {
+			this.controller.tour();
+			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.PEDIDO_PERSONALIZADO_SUCESSO));
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		return null;
+	}
+
 	public String actionPersonalizado() {
 		try {
 			Tenant tenant = ProfisioSessionUtil.getTenantSession();
@@ -334,10 +344,6 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public Plano getPlano() {
 		return plano;
-	}
-
-	public void setPlano(Plano plano) {
-		this.plano = plano;
 	}
 
 	public String getPlanoStr() {
