@@ -243,23 +243,23 @@
 			<div class="column" >
 				<h2 class="ui header" id="tourTitulo"><i class="<s:property value="#session.profisio_user.tenant.corFinal" /> sitemap icon"></i> Guia de Uso</h2>
 				<div class="ui segment" >
-					O ProPilEs foi desenvolvido tendo em vista uma usabilidade fácil e prática para o você, nosso usuário, portanto será bem fácil e intuitivo utilizá-lo.<br />
+					O ProPilEs foi desenvolvido tendo em vista uma usabilidade fácil e prática para você, nosso usuário, portanto será bem fácil e intuitivo utilizá-lo.<br />
 					<ol class="ui list tourList" >
 						<li id="tourMenu">
 							<p>Na parte superior temos o menu de navegação onde reunimos todas as funcionalidades:</p>
 							<img src="v2.0/img/tour/tour-menu.jpg" />
 						</li>
 						<li id="tourConfig">
-							<p>No lado superior direito temos o menu de configuração onde temos algumas funcionalidades referentes ao seu usuário no sistema. Você poderá alterar as cores e a logo utilizada no sistema para que fique com a aparência de sua empresa, alterar os seus dados de cadastro e sua senha de acesso e temos o botão para finalizar sua sessão no sistema.</p>
+							<p>No lado superior direito encontramos o menu de configuração onde temos algumas funcionalidades referentes ao seu usuário no sistema. Você poderá alterar as cores e a logo utilizada no sistema para que fique com a aparência de sua empresa, alterar os seus dados de cadastro, sua senha de acesso e temos o botão para finalizar sua sessão no sistema.</p>
 							<img src="v2.0/img/tour/tour-menu-config.jpg" />
 						</li>
 						<li id="tourDuvidas">
-							<p>No lado direito teremos sempre uma área onde você poderá enviar-nos uma mensagem com críticas, dúvidas, sugestões ou problemas enfrentados. Isto servirá para que possamo lhe atender melhor, aprimorando cada vez mais nossa ferramenta</p>
+							<p>No lado direito teremos sempre uma área onde você poderá enviar-nos uma mensagem com críticas, dúvidas, sugestões ou problemas enfrentados. Isto servirá para que possamos lhe atender melhor, aprimorando cada vez mais nossa ferramenta</p>
 							<img src="v2.0/img/tour/tour-duvidas.jpg" />
 						</li>
 						<li id="tourAdmin">
 							<p>No menu "Admin" encontramos as funcionalidades referentes às informações de sua empresa. É de fundamental importância para o bom funcionamento do sistema que sejam cadastrados primeiramente estes dados antes de qualquer outro.</p> 
-							<p>Os <u>Centros de Custo</u> devem ser cadastrados de tal forma que os serviçoes de sua empresa estejam organizados por tipo de serviço (ex.: Aquáticos, Fisioterápicos, Estética, etc.)</p>
+							<p>Os <u>Centros de Custo</u> devem ser cadastrados de tal forma que os serviços de sua empresa estejam organizados por tipo de serviço (ex.: Aquáticos, Fisioterápicos, Estética, etc.)</p>
 							<p>Os <u>Serviços</u> devem refletir exatamente todos os serviços que seu estabelecimento oferece. Obs.: Lembre-se de associá-lo a um Centro de Custo já cadastrado.</p>
 							<p>O <u>Saldo Caixa</u> é um valor que reflete o valor que você possui em caixa em determinado dia (ex.: hoje) e não deve ser alterado constantemente. Não é obrigatório. Este valor será utilizado para fazer batimento de caixa.</p>
 							<img src="v2.0/img/tour/tour-menu-admin.jpg" />
@@ -267,10 +267,10 @@
 						<li id="tourColaboradores">
 							<p>No menu "Colaboradores" reunimos todas as ações referentes aos colaboradores da sua empresa.</p> 
 							<p>A) Todas as páginas internas do ProPilEs mantém uma mesma estrutura visual para facilitar o uso. O ponto A na imagem abaixo irá mostrar sempre qual parte do sistema está sendo acessada no momento.</p>
-							<p>B) Sempre que vermos este botão com o símbolo "+" siginifica que podemos inserir no sistema alguma informação. No caso da imagem abaixo, como estamos na área de Colaboradores, poderemos cadastrar um novo colaborador.</p>
-							<p>C) No meio da página, na parte superior, colocaremos sempre a opção de pesquisa referente aos dados listados abaixo.</p>
+							<p>B) Sempre que vermos este botão com o símbolo "+" (como mostrado no ponto B na imagem abaixo) siginifica que podemos inserir no sistema alguma informação. No caso da imagem abaixo, como estamos na área de Colaboradores, poderemos cadastrar um novo colaborador.</p>
+							<p>C) No meio da página, na parte superior, colocaremos sempre a opção de pesquisa referente aos dados listados abaixo, conforme indicado pelo ponto C na imagem.</p>
 							<p>D) A listagem é feita por meio de tabelas, onde cada coluna representa uma informação da listagem. Ao clicar na informação principal (no caso abaixo o nome do colaborador) poderemos ter mais detalhes desta informação.</p>
-							<p>E) Algumas tabelas, como a mostrada abaixo, terão a funcionalidade de remoção. Então ao clicar no ícone vermelho com o ícone "x" você poderá remover um colaborador.</p>
+							<p>E) Algumas tabelas, como a mostrada abaixo, terão a funcionalidade de remoção. Então ao clicar no ícone vermelho com o ícone "x" (indicado abaixo pelo ponto E) você poderá remover um colaborador.</p>
 							<img src="v2.0/img/tour/tour-menu-colaboradores.jpg" />
 						</li>
 						<li id="tourColaborador">

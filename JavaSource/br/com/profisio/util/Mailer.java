@@ -2,20 +2,18 @@ package br.com.profisio.util;
 
 import java.util.Properties;
 
-import javax.mail.Address;
-import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class Mailer {
 
-	public static final String EMAIL_PARTE_CIMA_ATE_IMAGEM = "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" bgcolor=\"#6c6c6c\" style=\"border-spacing:0px\"><tbody><tr><td style=\"width:50%\"><a style=\"color:inherit;text-decoration:none\"></a></td><td><table width=\"600\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-spacing:0px\"><tbody style=\"font-family:helvetica,arial,sans-serif\"><tr style=\"height:18px\"><td><a style=\"color:inherit;text-decoration:none\"></a></td></tr><tr><td bgcolor=\"#ECECEC\" style=\"background:#ECECEC\"><table width=\"600\" border=\"0\" cellpadding=\"10px\" cellspacing=\"0\" style=\"border-spacing:0px\"><tbody><tr><td align=\"center\"  bgcolor=\"#ECECEC\" style=\"background:#ECECEC\"><a href=\"http://www.propiles.com.br\" style=\"color:inherit;text-decoration:none;vertical-align:middle\" target=\"_blank\"><img src=\"http://www.propiles.com.br/img/logo.png\" alt=\"ProPilEs\" class=\"\"></a></td></tr></tbody></table></td></tr><tr><td bgcolor=\"#ffffff\" style=\"background:#ffffff\"><table width=\"600\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-spacing:0px\"><tbody><tr><td align=\"center\" bgcolor=\"#ffffff\" style=\"background:#ffffff;padding-top:25px\">";
-	public static final String EMAIL_POS_IMAGEM_PRE_CONTEUDO = "</td></tr></tbody></table></td> </tr><tr style=\"font-size:15px\"><td bgcolor=\"#ffffff\" style=\"background:#ffffff\"><table width=\"600\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-spacing:0px\"><tbody><tr><td align=\"center\" bgcolor=\"#ffffff\" style=\"background:#ffffff;font-size:16px;padding:14px;color:#666666\"><div style=\"padding-top:10px;width:90%\"><font face=\"Helvetica Neue Regular, sans-serif\">";
+	public static final String EMAIL_PARTE_CIMA_ATE_IMAGEM = "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" bgcolor=\"#6c6c6c\" style=\"border-spacing:0px\"><tbody><tr><td style=\"width:50%\"><a style=\"color:inherit;text-decoration:none\"></a></td><td><table width=\"600\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-spacing:0px\"><tbody style=\"font-family:helvetica,arial,sans-serif\"><tr style=\"height:18px\"><td><a style=\"color:inherit;text-decoration:none\"></a></td></tr><tr><td bgcolor=\"#ECECEC\" style=\"background:#ECECEC\"><table width=\"600\" border=\"0\" cellpadding=\"10px\" cellspacing=\"0\" style=\"border-spacing:0px\"><tbody><tr><td align=\"center\"  bgcolor=\"#ECECEC\" style=\"background:#ECECEC\"><a href=\"http://www.propiles.com.br\" style=\"color:inherit;text-decoration:none;vertical-align:middle\" target=\"_blank\"><img src=\"http://www.propiles.com.br/img/logo.png\" alt=\"ProPilEs\" class=\"\"></a></td></tr></tbody></table></td></tr><tr><td bgcolor=\"#ffffff\" style=\"background:#ffffff\"><table width=\"600\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-spacing:0px\"><tbody><tr><td align=\"center\" bgcolor=\"#ffffff\" style=\"background:#ffffff;padding-top:25px\"><img src=\"";
+	public static final String EMAIL_POS_IMAGEM_PRE_CONTEUDO = "\" /></td></tr></tbody></table></td> </tr><tr style=\"font-size:15px\"><td bgcolor=\"#ffffff\" style=\"background:#ffffff\"><table width=\"600\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-spacing:0px\"><tbody><tr><td align=\"center\" bgcolor=\"#ffffff\" style=\"background:#ffffff;font-size:16px;padding:14px;color:#666666\"><div style=\"padding-top:10px;width:90%\"><font face=\"Helvetica Neue Regular, sans-serif\">";
 	public static final String EMAIL_POS_CONTEUDO = "</font></div></td></tr><tr><td align=\"center\" width=\"100%\" style=\"background:#ffffff;padding-bottom:25px\" bgcolor=\"#ffffff\">&nbsp;&nbsp;&nbsp;</td></tr></tbody></table></td></tr><tr><td bgcolor=\"#ffffff\" style=\"background:#ffffff\"><table width=\"600\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-spacing:0px\"><tbody><tr><td align=\"center\" bgcolor=\"#ffffff\" valign=\"bottom\" style=\"background:#ffffff;vertical-align:bottom\"><img src=\"http://www.propiles.com.br/img/email.jpg\" style=\"display:block\" class=\"\"><div style=\"font-size:0;line-height:0;max-height:0;overflow:hidden;padding:0\"><img src=\"http://www.propiles.com.br/img/email.jpg\" alt=\"ProPilEs\" class=\"\"></div></td></tr></tbody></table></td></tr><tr style=\"font-size:15px\"><td align=\"center\" style=\"background:#e5e5e5\" bgcolor=\"#e5e5e5\"><div style=\"background:#e5e5e5;border:0px solid #cccccc\"><table width=\"560px\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-spacing:0px\"><tbody><tr><td align=\"center\" style=\"background:#e5e5e5;color:#999999;font-size:10px;padding-bottom:20px;padding-top:10px\" bgcolor=\"#e5e5e5\"><font face=\"helvetica, arial, sans-serif\"><a href=\"http://www.propiles.com.br\" style=\"color:#999999;text-decoration:none\" target=\"_blank\">ProPilEs 2015 - www.propiles.com.br</a></font></td></tr></tbody></table></div></td></tr><tr style=\"height:18px\"><td><a style=\"color:inherit;text-decoration:none\"></a></td></tr></tbody></table></td><td style=\"width:50%\"><a style=\"color:inherit;text-decoration:none\"></a></td></tr></tbody></table>";
 
 	public static final String IMG_CADASTRO = "http://www.propiles.com.br/img/email-falta-pouco.jpg";
@@ -46,7 +44,6 @@ public class Mailer {
 
 		@Override
 		public void run() {
-			// chama a classe que envia o email
 			MailSender mailSender = new MailSender();
 			mailSender.sendMailThread(this.to, this.subject, this.corpo);
 		}
@@ -54,52 +51,37 @@ public class Mailer {
 
 	class MailSender {
 
-		private void sendMailThread(String to, String subject, String corpo) {
-
-			Properties props = new Properties();
-			/** Parâmetros de conexão com servidor Gmail */
-			props.put("mail.smtp.host", "smtp.propiles.com.br");
-			props.put("mail.smtp.socketFactory.port", "25");
-			props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-			props.put("mail.smtp.auth", "true");
-			props.put("mail.smtp.port", "25");
-
-			Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-				@Override
-				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication("propiles@propiles.com.br", "f9q6f8m8");
-				}
-			});
-
-			/** Ativa Debug para sessão */
-			// session.setDebug(true);
-
+		private void sendMailThread(String to, String assunto, String conteudo) {
+			InternetAddress remetente;
 			try {
 
-				Message message = new MimeMessage(session);
-				message.setFrom(new InternetAddress("propiles@propiles.com.br")); // Remetente
+				String smtphost = "smtp-web.kinghost.net";
+				remetente = new InternetAddress("propiles@propiles.com.br");
+				InternetAddress destinatario = new InternetAddress(to);
 
-				Address[] toUser = InternetAddress.parse(to); // Destinatário(s)
+				Properties p = new Properties();
+				p.put("mail.smtp.host", smtphost);
 
-				message.setRecipients(Message.RecipientType.TO, toUser);
-				message.setSubject(subject);// Assunto
-				message.setContent(corpo, "text/html; charset=utf-8");
+				Session email = Session.getInstance(p, null);
+				MimeMessage msg = new MimeMessage(email);
 
-				/** Método para enviar a mensagem criada */
-				Transport.send(message);
+				msg.setFrom(remetente);
+				msg.setRecipient(Message.RecipientType.TO, destinatario);
+				msg.setSubject(assunto);
+				msg.setContent(conteudo, "text/html");
+				msg.saveChanges();
 
+				Transport transport = email.getTransport("smtp");
+				transport.connect(smtphost, "");
+				transport.sendMessage(msg, msg.getAllRecipients());
+				transport.close();
+			} catch (AddressException e) {
+				e.printStackTrace();
 			} catch (MessagingException e) {
 				e.printStackTrace();
-				System.out.println("Não conseguiu enviar o email...");
 			}
 		}
 
-		class PopupAuthenticator extends Authenticator {
-			@Override
-			public PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("propiles@propiles.com.br", "f9q6f8m8");
-			}
-		}
 	}
 
 }

@@ -33,7 +33,7 @@
            	Personalizado
 	</h2>
 	<div class="centered">
-		<p>Valor a combinar<br />&nbsp;</p>
+		<p>Valor à combinar<br />&nbsp;</p>
 		<p></p>
 	</div>
 	<div class="content centered">
