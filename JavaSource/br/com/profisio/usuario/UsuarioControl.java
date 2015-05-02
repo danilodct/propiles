@@ -113,8 +113,7 @@ public class UsuarioControl extends ControllerBase {
 		Mailer mailer = new Mailer();
 		String msg = Mailer.EMAIL_PARTE_CIMA_ATE_IMAGEM + Mailer.IMG_CADASTRO + Mailer.EMAIL_POS_IMAGEM_PRE_CONTEUDO + "Olá " + usuario.getNomeUser() + ", bem-vindo(a) ao ProPilEs!<br /><br />Para finalizarmos o seu cadastro precisamos apenas que você clique no link abaixo. Caso não consiga abrir o link após clicar, por favor copie a url abaixo e cole no seu navegador." + Mailer.EMAIL_POS_CONTEUDO_PRE_LINK_URL + "http://www.propiles.com.br/confirmar?usuario.idCript=" + usuario.getIdCript() + Mailer.EMAIL_POS_LINK_URL_PRE_LINK_TXT + "http://www.propiles.com.br/confirmar?usuario.idCript=" + usuario.getIdCript() + Mailer.EMAIL_POS_LINK_TXT;
 		// enviar para a pessa
-		// mailer.sendMail(usuario.getLogin(),
-		// "[ProPilEs] Confirme seu cadastro", msg);
+		mailer.sendMail(usuario.getLogin(), "[ProPilEs] Confirme seu cadastro", msg);
 		// enviar para mim
 		mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Novo Cadastro", msg);
 	}
@@ -147,8 +146,7 @@ public class UsuarioControl extends ControllerBase {
 			Mailer mailer = new Mailer();
 			String msg = Mailer.EMAIL_PARTE_CIMA_ATE_IMAGEM + Mailer.IMG_PRONTO + Mailer.EMAIL_POS_IMAGEM_PRE_CONTEUDO + "Olá " + usuario.getNomeUser() + ", você já pode usar o ProPilEs! Mas para ter acesso a todos os módulos contratados você precisa efetuar o pagamento. Clique no link abaixo e faça seu pagamento com toda rapidez, segurança e comodidade." + Mailer.EMAIL_POS_CONTEUDO_PRE_LINK_URL + transacao.getUrl() + Mailer.EMAIL_POS_LINK_URL_PRE_LINK_TXT + transacao.getUrl() + Mailer.EMAIL_POS_LINK_TXT;
 			// envia para o usuario
-			// mailer.sendMail(usuario.getLogin(),
-			// "[ProPilEs] Conta confirmada!", msg);
+			mailer.sendMail(usuario.getLogin(), "[ProPilEs] Conta confirmada!", msg);
 			// envia para mim
 			mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Conta confirmada!", msg);
 		}
@@ -177,8 +175,7 @@ public class UsuarioControl extends ControllerBase {
 		Mailer mailer = new Mailer();
 		String msg = Mailer.EMAIL_PARTE_CIMA_ATE_IMAGEM + Mailer.IMG_RECUPERE_SENHA + Mailer.EMAIL_POS_IMAGEM_PRE_CONTEUDO + "Olá " + usuario.getNomeUser() + ", não está conseguindo acessar o ProPilEs por ter esquecido a senha? Não se preocupe, nós lembramos para você: <br /><br />Por questões de segurança sugerimos que você remova este e-mail para que outras pessoas que acessem o seu e-mail não tenham acesso à sua senha." + Mailer.EMAIL_POS_CONTEUDO_PRE_LINK_URL + "#" + Mailer.EMAIL_POS_LINK_URL_PRE_LINK_TXT + "sua senha é: " + usuario.getSenha() + Mailer.EMAIL_POS_LINK_TXT;
 		// envia para o usuario
-		// mailer.sendMail(usuario.getLogin(), "[ProPilEs] Esqueceu sua senha?",
-		// msg);
+		mailer.sendMail(usuario.getLogin(), "[ProPilEs] Esqueceu sua senha?", msg);
 		// envia para mim
 		mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Esqueceu sua senha?", msg);
 	}
@@ -237,7 +234,8 @@ public class UsuarioControl extends ControllerBase {
 				transacaoPagamento.setStatus(transaction.getStatus().name());
 				this.dao.atualizarTransacao(transacaoPagamento);
 
-				Tenant tenant = transacaoPagamento.getUsuario().getTenant();
+				Usuario usuario = transacaoPagamento.getUsuario();
+				Tenant tenant = usuario.getTenant();
 
 				Boolean statusRelevante = true;
 				String situacaoPagamento = "";
@@ -268,8 +266,7 @@ public class UsuarioControl extends ControllerBase {
 					String msgCorpo = situacaoPagamento;
 					String msg = Mailer.EMAIL_PARTE_CIMA_ATE_IMAGEM + Mailer.IMG_CONTATO + Mailer.EMAIL_POS_IMAGEM_PRE_CONTEUDO + msgCorpo + Mailer.EMAIL_POS_CONTEUDO;
 					// envia para o usuario
-					// mailer.sendMail(usuario.getLogin(),
-					// "[ProPilEs] Atualização do seu pagamento", msg);
+					mailer.sendMail(usuario.getLogin(), "[ProPilEs] Atualização do seu pagamento", msg);
 					// envia para mim
 					mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Atualização do seu pagamento", msg);
 				}
@@ -299,8 +296,7 @@ public class UsuarioControl extends ControllerBase {
 		String msgCorpo = "Você fez um upgrade na sua versão. Clique no link abaixo para fazer o pagamento agora mesmo com toda segurança e comodidade.";
 		String msg = Mailer.EMAIL_PARTE_CIMA_ATE_IMAGEM + Mailer.IMG_UPGRADE + Mailer.EMAIL_POS_IMAGEM_PRE_CONTEUDO + msgCorpo + Mailer.EMAIL_POS_CONTEUDO_PRE_LINK_URL + transacao.getUrl() + Mailer.EMAIL_POS_LINK_URL_PRE_LINK_TXT + transacao.getUrl() + Mailer.EMAIL_POS_LINK_TXT;
 		// envia para o usuario
-		// mailer.sendMail(usuario.getLogin(), "[ProPilEs] Upgrade de versão!",
-		// msg);
+		mailer.sendMail(usuario.getLogin(), "[ProPilEs] Upgrade para versão " + plano.getValor(), msg);
 		// envia para mim
 		mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Upgrade para versão " + plano.getValor() + "!", msg);
 

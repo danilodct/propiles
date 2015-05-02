@@ -4,9 +4,9 @@ public enum Plano {
 
 	PLANO_1("Plano 1", "0.00"), // apenas um usuário
 	// nao ve financeiro
-	PLANO_2("Plano 2", "1.00"), // asdf
+	PLANO_2("Plano 2", "10.00"), // asdf
 	// asdf
-	PLANO_3("Plano 3", "1.10"), // asdf
+	PLANO_3("Plano 3", "20.00"), // asdf
 	// asdf
 	PLANO_4("Plano 4", "1.20"); // asdf
 	// asdf
