@@ -384,27 +384,27 @@
 								</div>
 							</div>
 						</div>
-						<div class="field">
-							<label>Logradouro:</label>
-							<div class="ui transparent input">
-								<s:textfield name="cadastro.endereco.logradouro" id="logradouro" />
-							</div>
-						</div>
-						<div class="three fields">
+						<div class="two fields">
 							<div class="field">
-								<label>Bairro:</label>
+								<label>Logradouro:</label>
 								<div class="ui transparent input">
-									<s:textfield id="bairro" name="cadastro.endereco.bairro" />
+									<s:textfield name="cadastro.endereco.logradouro" id="logradouro" />
 								</div>
 							</div>
 							<div class="field">
-								<label>Cidade:</label>
-								<div class="ui transparent input">
-									<s:textfield id="cidade" name="cadastro.endereco.cidade" />
-								</div>
-							</div>
-							<div class="field">
-								<div class="five fields">
+								<div class="three fields">
+									<div class="field">
+										<label>Bairro:</label>
+										<div class="ui transparent input">
+											<s:textfield id="bairro" name="cadastro.endereco.bairro" />
+										</div>
+									</div>
+									<div class="field">
+										<label>Cidade:</label>
+										<div class="ui transparent input">
+											<s:textfield id="cidade" name="cadastro.endereco.cidade" />
+										</div>
+									</div>
 									<div class="field">
 										<label>UF:</label>	
 										<div class="ui transparent input">
@@ -415,7 +415,7 @@
 							</div>
 						</div>
 					
-						<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Informações adicionais</h4>
+						<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Como o cliente tomou conhecimento deste estabelecimento? (ex.: Outdoor, Facebook, Visinhos, etc.)</h4>
  						<div class="grouped fields">
  							<s:iterator value="allFormasConhecimento" >
  								<div class="field">
@@ -791,7 +791,7 @@
 											</div>
 											
 											<div class="field">
-												<label>Tratamento fisioterapêutico proposto:</label>
+												<label>Tratamento proposto:</label>
 												<s:textarea name="avaliacao.tratamento" ></s:textarea>
 											</div>
 											
@@ -864,7 +864,7 @@
 							</div>
 							<div class="three fields">
 								<div class="required field" id="areaQtdSessoes">
-									<label>Quantidade de sessões:</label>
+									<label>Quantidade de sessões: <i class="help circle icon hint" data-content="Este pagamento dará direito a quantas sessões/visitas deste cliente para esta atividade?" data-variation="inverted" ></i></label>
 									<s:textfield id="qtdSessoes" name="contaReceber.qtdSessoes" cssClass="inteiro" />
 								</div>
 								<div class="required field">

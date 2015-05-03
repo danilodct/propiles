@@ -3,6 +3,7 @@ package br.com.profisio.usuario;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.com.profisio.basics.Configuracao;
 import br.com.profisio.basics.TransacaoPagamento;
 import br.com.profisio.basics.Usuario;
 import br.com.profisio.util.DAOBase;
@@ -98,5 +99,10 @@ public class UsuarioDAO extends DAOBase {
 		params.put("tenant", tenant);
 		this.imp.execute("removeFromTour", params);
 
+	}
+
+	@SuppressWarnings("unchecked")
+	public void cadastrar(Configuracao configuracao) {
+		this.imp.insert(configuracao);
 	}
 }

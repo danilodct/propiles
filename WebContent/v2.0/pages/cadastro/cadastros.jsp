@@ -160,18 +160,14 @@
 										<s:textfield id="cidade" name="cadastro.endereco.cidade" />
 									</div>
 									<div class="field">
-										<div class="five fields">
-											<div class="field">
-												<label>UF:</label>	
-												<s:textfield id="uf" maxlength="2" name="cadastro.endereco.uf" />
-											</div>
-										</div>
+										<label>UF:</label>	
+										<s:textfield id="uf" maxlength="2" name="cadastro.endereco.uf" />
 									</div>
 								</div>
 							</div>
 						</div>
 					
-						<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Como o cliente tomou conhecimento deste estabelecimento?</h4>
+						<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Como o cliente tomou conhecimento deste estabelecimento? (ex.: Outdoor, Facebook, Visinhos, etc.)</h4>
  						<div class="grouped fields">
  							<s:iterator value="allFormasConhecimento" >
  								<div class="field">

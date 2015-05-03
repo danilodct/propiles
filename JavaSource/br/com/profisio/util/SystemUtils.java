@@ -528,7 +528,7 @@ public class SystemUtils {
 	}
 
 	// 88888888888888888888888888888888888888888888888888888888888888888888888888888888
-	//PAGINACAO
+	// PAGINACAO
 
 	public static int getStartPaginacao(Integer pagAtual, Integer pagSize) {
 		return (pagAtual - 1) * pagSize;

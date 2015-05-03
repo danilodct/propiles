@@ -81,12 +81,12 @@ public class UsuarioView extends ProfisioActionSupport {
 	public String actionMudarDados() {
 		try {
 			Tenant tenantSessao = ProfisioSessionUtil.getTenantSession();
-			//empresa
+			// empresa
 			String empresa = this.tenant.getNome();
 			this.controller.setNomeTenant(tenantSessao, empresa);
 
 			Usuario userSessao = ProfisioSessionUtil.getUserSession();
-			//nome
+			// nome
 			String nome = this.usuario.getNomeUser();
 			this.controller.setNomeUsuario(userSessao, nome);
 
@@ -99,6 +99,7 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public String actionDados() {
 		try {
+			this.usuario = ProfisioSessionUtil.getUserSession();
 			this.tenant = ProfisioSessionUtil.getTenantSession();
 		} catch (Exception e) {
 			this.dealException(e);
@@ -109,15 +110,15 @@ public class UsuarioView extends ProfisioActionSupport {
 	public String actionMudarAparencia() {
 		try {
 			Tenant tenantSessao = ProfisioSessionUtil.getTenantSession();
-			//cor
+			// cor
 			String cor = tenant.getCor();
 			this.controller.setCorTenant(tenantSessao, cor);
 
-			//logo
+			// logo
 			String logo = tenant.getLogo();
 			if (this.logo != null) {
 				this.assertFileSizeOk(this.logo);
-				this.copyFile(this.logo, "logos/" + logoFileName);
+				this.copyFile(this.logo, "logos/" + SystemUtils.tratarFileName(logoFileName));
 				logo = SystemUtils.tratarFileName(logoFileName);
 				this.controller.setLogoTenant(tenantSessao, logo);
 			}

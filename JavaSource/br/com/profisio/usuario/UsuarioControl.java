@@ -3,6 +3,7 @@ package br.com.profisio.usuario;
 import java.util.Date;
 import java.util.Map;
 
+import br.com.profisio.basics.Configuracao;
 import br.com.profisio.basics.TransacaoPagamento;
 import br.com.profisio.basics.Usuario;
 import br.com.profisio.basics.enums.StatusObjeto;
@@ -97,6 +98,10 @@ public class UsuarioControl extends ControllerBase {
 		if (tenant.getPlano() == Plano.PLANO_2 || tenant.getPlano() == Plano.PLANO_3)
 			tenant.setAguardandoPagamento(true);
 		this.dao.cadastrar(tenant);
+
+		Configuracao configuracao = new Configuracao();
+		configuracao.setTenant(tenant);
+		this.dao.cadastrar(configuracao);
 
 		usuario.setTenant(tenant);
 		usuario.setConfirmado(false);

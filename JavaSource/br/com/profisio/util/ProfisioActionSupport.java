@@ -35,10 +35,10 @@ public class ProfisioActionSupport extends ActionSupport {
 	public static final String SEPARADOR_ESPACO = " ";
 	public static final String OUTRA = "OUTRA";
 
-	//FAZER REDIRECIONAMENTO EXTERNO
+	// FAZER REDIRECIONAMENTO EXTERNO
 	public String url;
 
-	//PAGINAÇÃO
+	// PAGINAÇÃO
 	private Integer pagAtual, qtdPaginas, qtdItens;
 
 	// variáveis do getCEP
@@ -143,7 +143,7 @@ public class ProfisioActionSupport extends ActionSupport {
 	}
 
 	// 8888888888888888888888888888888888888888888888888888888888888888888888888
-	//FILE
+	// FILE
 
 	public void assertFileSizeOk(File arquivo) {
 		Long length = arquivo.length();
@@ -157,8 +157,7 @@ public class ProfisioActionSupport extends ActionSupport {
 	public String copyFile(File in, String filePath) {
 		String nome = "";
 		try {
-			String fullPath = SystemUtils.getPath() + "/" + filePath;
-			fullPath = SystemUtils.setNomeArquivo(fullPath);
+			String fullPath = SystemUtils.getPath() + "/" + SystemUtils.setNomeArquivo(filePath);
 			nome = SystemUtils.setNomeArquivo(filePath);
 			File out = new File(fullPath);
 			FileChannel sourceChannel = new FileInputStream(in).getChannel();
@@ -193,7 +192,7 @@ public class ProfisioActionSupport extends ActionSupport {
 	}
 
 	// 8888888888888888888888888888888888888888888888888888888888888888888888888
-	//PAGINAÇÃO
+	// PAGINAÇÃO
 
 	public Integer getPagAtual() {
 		return pagAtual;
