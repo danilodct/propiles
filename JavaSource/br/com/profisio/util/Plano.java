@@ -2,13 +2,13 @@ package br.com.profisio.util;
 
 public enum Plano {
 
-	PLANO_1("Plano 1", "0.00"), // apenas um usuário
+	PLANO_1("Plano Grátis", "0.00"), // apenas um usuário
 	// nao ve financeiro
-	PLANO_2("Plano 2", "228.00"), // ilimitado usuario
+	PLANO_2("Plano Básico", "228.00"), // ilimitado usuario
 	// asdf
-	PLANO_3("Plano 3", "339.00"), // ilimitado usuario + todos modulos
+	PLANO_3("Plano Avançado", "339.00"), // ilimitado usuario + todos modulos
 	// asdf
-	PLANO_4("Plano 4", "0.00"); // personalizado
+	PLANO_4("Plano Personalizado", "0.00"); // personalizado
 	// asdf
 
 	private String valor, custo;
