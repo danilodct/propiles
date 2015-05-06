@@ -299,7 +299,7 @@ public class FinanceiroControl extends ControllerBase {
 		Movimentacao movBd = this.dao.getMovimentacaoByContaPagar(contaPagar);
 		movBd.setValor(contaPagar.getValor());
 		movBd.setData(contaPagar.getDataPagamento());
-		movBd.setDescricao(contaPagar.getObservacao());
+		movBd.setDescricao("Ref.: " + contaPagar.getNumRef() + "; " + contaPagar.getTipo().getNome() + " - " + contaPagar.getObservacao());
 		movBd.setTenant(tenant);
 		this.dao.editar(movBd);
 	}

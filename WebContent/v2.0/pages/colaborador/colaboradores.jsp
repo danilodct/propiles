@@ -161,7 +161,7 @@
 							</div>
 						</div>
 						
-						<s:if test="#session.profisio_user.tenant.plano.value == 'PLANO_2' || #session.profisio_user.tenant.plano.value == 'PLANO_3' ">
+						<s:if test="(#session.profisio_user.tenant.plano.value == 'PLANO_2' && !#session.profisio_user.tenant.aguardandoPagamento) || (#session.profisio_user.tenant.plano.value == 'PLANO_3' && !#session.profisio_user.tenant.aguardandoPagamento) ">
 							<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Dados de Autenticação</h4>
 							<div class="four fields">
 								<div class="required field">

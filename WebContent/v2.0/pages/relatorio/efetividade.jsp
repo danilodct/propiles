@@ -137,7 +137,7 @@
 		
 		<!-- TABELA DE CONTAS A RECEBER AVULSO 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		<table class="ui celled <s:property value="#session.profisio_user.tenant.corFinal" /> table">
-			<thead><tr><th>Nome</th><th>E-mail</th><th>Telefone</th><th>Data de cadastro</th><th>Tornou-se cliente?</th></tr></thead>
+			<thead><tr><th>Nome</th><th>E-mail</th><th>Telefone</th><th>Data de cadastro</th><th>Tornou-se cliente? <i class="help small circle icon hint" data-content="Este dado nos informa se o cadastro feito efetivamente se tornou cliente (pagou e frequentou alguma sessão de algum serviço prestado pelo estabelecimento)" data-variation="inverted" ></i></th></tr></thead>
 			<tbody>
 				<s:if test="clientes.size > 0">
 					<s:iterator value="clientes">

@@ -68,7 +68,7 @@
 						<div class="two fields">
 							<div class="field">
 								<label>Categoria:</label>
-								<s:select list="categoriasProduto" id="listCategorias" cssClass="ui dropdown" name="produto.categoria" headerKey="-1" headerValue="Outra" listKey="valor" listValue="nome" ></s:select>
+								<s:select list="categoriasProduto" id="listCategorias" cssClass="ui dropdown" name="produto.categoria" listKey="valor" listValue="nome" ></s:select>
 							</div>
 							<div class="required field" id="outraCategoria">
 								<label>Nova categoria:</label>
@@ -91,7 +91,7 @@
 					<div class="two fields">
 						<div class="field">
 							<label>Categoria</label>
-							<s:select list="categoriasProduto" cssClass="ui dropdown" name="produto.categoria" headerKey="-1" headerValue="Todos" listKey="valor" listValue="nome" ></s:select>
+							<s:select list="categoriasProduto" cssClass="ui dropdown" name="produto.categoria" headerKey=" " headerValue="Todos" listKey="valor" listValue="nome" ></s:select>
 						</div>
 						<div class="field">
 							<label class="visibilityHidden">Botão</label>

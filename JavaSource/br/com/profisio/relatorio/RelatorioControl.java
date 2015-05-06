@@ -92,6 +92,8 @@ public class RelatorioControl extends ControllerBase {
 			// Se não disse a dataFinal bota como hoje
 			if (dataFinal != null) {
 				calendar2.setTime(dataFinal);
+			} else {
+				dataFinal = new Date();
 			}
 			calendar2.set(Calendar.DAY_OF_MONTH, calendar2.getActualMaximum(Calendar.DAY_OF_MONTH));
 			calendar2.setTime(SystemUtils.setHoraData(calendar2.getTime(), Calendar.PM, 23, 59, 59));
@@ -111,6 +113,7 @@ public class RelatorioControl extends ControllerBase {
 			double somaContasFixas = 0;
 			double somaResultados = 0;
 
+			int qtdMeses = 0;
 			boolean mesIgual = false;
 			// a cada interacao incrementa 1 mês até que chegue ao mês final
 			while (!mesIgual) {
@@ -156,6 +159,8 @@ public class RelatorioControl extends ControllerBase {
 
 				if (!mesIgual)
 					calendar1.set(Calendar.MONTH, calendar1.get(Calendar.MONTH) + 1);
+
+				qtdMeses += 1;
 			}
 
 			Integer qtdClientesAtivos = this.getQtdClientesFrequentes(tenant, dataInicial, dataFinal);
@@ -168,7 +173,7 @@ public class RelatorioControl extends ControllerBase {
 			}
 			String ticket = "0,00";
 			if (qtdClientesAtivos > 0)
-				ticket = SystemUtils.parseDoubleToString((somaFat - somaAvulso) / qtdClientesAtivos);
+				ticket = SystemUtils.parseDoubleToString(((somaFat - somaAvulso) / qtdClientesAtivos) / qtdMeses);
 
 			retorno += "TOTAL_FAT:" + SystemUtils.parseDoubleToString(somaFat) + ";TOTAL_VAR:" + SystemUtils.parseDoubleToString(somaContasVar) + ";TOTAL_MC:" + SystemUtils.parseDoubleToString(somaMargem) + ";TOTAL_FIX:" + SystemUtils.parseDoubleToString(somaContasFixas) + ";TOTAL_RES:" + SystemUtils.parseDoubleToString(somaResultados) + ";";
 			String contasVarSobFat = "0,00";

@@ -10,6 +10,11 @@ public class Produto extends ObjetoBasico {
 	public Produto() {
 	}
 
+	public Produto(Integer id, String nome) {
+		this.setId(id);
+		this.setNome(nome);
+	}
+
 	public Double getValor() {
 		return valor;
 	}

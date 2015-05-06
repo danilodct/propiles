@@ -128,6 +128,7 @@ public class VendaView extends ProfisioActionSupport {
 			controller.editarProduto(getTenant(), produto);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 			resposta = SUCCESS;
+			this.produto = null;
 		} catch (Exception e) {
 			this.dealException(e);
 			resposta = ERROR;
@@ -180,22 +181,22 @@ public class VendaView extends ProfisioActionSupport {
 		return REDIRECT;
 	}
 
-	public Collection<ItemGeralUI> getCategoriasProduto() {
+	// 9888888888888888888888888888888888888888888888888888
 
+	public Collection<ItemGeralUI> getCategoriasProduto() {
 		Collection<String> categoriasProduto = VendaControl.getInstance().getCategoriasProduto(getTenant());
 		Collection<ItemGeralUI> retorno = new ArrayList<ItemGeralUI>();
 		if (categoriasProduto != null && categoriasProduto.size() > 0) {
 			for (String str : categoriasProduto)
 				retorno.add(new ItemGeralUI(str, str));
 		}
+		if (retorno != null && retorno.size() > 0)
+			retorno.add(new ItemGeralUI("-1", "Outro"));
 		return retorno;
 	}
 
-	// 9888888888888888888888888888888888888888888888888888
-
 	public Collection<Produto> getAllProdutos() {
 		Collection<Produto> retorno = new ArrayList<Produto>();
-
 		retorno = this.controller.getProdutos(getTenant(), null, null);
 		return retorno;
 	}

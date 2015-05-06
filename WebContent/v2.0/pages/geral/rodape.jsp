@@ -68,7 +68,7 @@
 	<div class="header">Upgrade</div>
 	<div class="content">
 		<s:form action="upgrade" method="post" >
-			<input type="hidden" name="plano" value="PLANO_3" />
+			<input type="hidden" name="planoStr" value="PLANO_3" />
 			<h3>Parabéns!</h3>
 			Você está prestes a dar um upgrade na sua versão. Com ela você poderá acessar todos os módulos do ProPilEs.
 			
@@ -90,7 +90,7 @@
 	<div class="header">Upgrade</div>
 	<div class="content">
 		<s:form action="upgrade" method="post" >
-			<input type="hidden" name="plano" value="PLANO_2" />
+			<input type="hidden" name="planoStr" value="PLANO_2" />
 			<h3>Parabéns!</h3>
 			Você está prestes a dar um upgrade na sua versão. Com ela os seus colaboradores poderão acessar o sistema e inserir informações também.
 			

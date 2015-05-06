@@ -289,7 +289,7 @@
                 	Básico
   				</h2>
   				<div class="centered">
-  					<p>R$ 19,90 / mês<br />
+  					<p>R$ 22,89 / mês<br />
 			  		<span class="claro">ou R$ 228,00 / ano</span></p>
   					<p></p>
   				</div>
@@ -308,7 +308,7 @@
                 	Avançado
   				</h2>
   				<div class="centered">
-  					<p>R$ 29,90 / mês<br />
+  					<p>R$ 34,04 / mês<br />
 			  		<span class="claro">ou R$ 339,00 / ano</span></p>
   					<p></p>
   				</div>
