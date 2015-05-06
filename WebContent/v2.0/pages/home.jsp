@@ -179,7 +179,7 @@
 	</script>
 </s:if>
 
-</head>
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-62673588-1', 'auto');ga('send', 'pageview');</script></head>
 <body>
 <s:include value="geral/cabecalho.jsp" />
 
@@ -190,47 +190,64 @@
 <s:if test="!#session.profisio_user.tenant.tour">
 
 	<!-- DASHBOARD 88888888888888888888888888888888888888888888888888888888888888888888888 -->
-	<div class="fifteen wide column">
-		<div class="ui two centered column grid">
-			<div class="two column centered row" >
-				<div class="column" >
-					<h2 class="ui small header"><i class="<s:property value="#session.profisio_user.tenant.corFinal" /> feed icon"></i> Novidades do Sistema</h2>
-					<div class="ui segment" >
-						<div class="ui list">
-						  	<div class="item">
-							    <i class="top aligned right bar chart <s:property value="#session.profisio_user.tenant.corFinal" /> large circular icon"></i>
-							    <div class="content">
-							      <div class="header">Última Atualização</div>
-							      20/03/2015 às 13:00
-							      <div class="list">
-							        <div class="item">
-							          <i class="right triangle top aligned icon"></i>
-							          <div class="content">
-							            <b>Folha de pagamento</b>
-							            <div class="description">No menu FINANCEIRO adicionamos uma área de FOLHA DE PAGAMENTO onde você poderá gerenciar os pagamentos aos seus colaboradores, analisando as porcentagens sobre cada atendimento feito. Após fazer suas análises gere uma conta a pagar diretamente em seu fluxo de caixa.</div>
-							          </div>
-							        </div>
-							        <div class="item">
-							          <i class="right triangle top aligned icon"></i>
-							          <div class="content">
-							            <b>Criação da agenda</b>
-							            <div class="description">No menu GERAL foi criada uma área para agendamentos. Nesta área você poderá inserir os atendimentos futuros previstos e assim poder se programar com os atendimentos, salas e horários.</div>
-							          </div>
-							        </div>
-							        <div class="item">
-							          <i class="right triangle top aligned icon"></i>
-							          <div class="content">
-							            <b>Personalização dos serviços</b>
-							            <div class="description">No menu ADMINISTRAÇÃO - SERVIÇOS você poderá informar se o serviço trabalha com base em quantidade de sessões e, em caso positivo, quantas sessões serão utilizadas. Isto servirá apenas para facilitar cadastros futuros, pois todos os valores podem ser alterados. Nenhum valor é fixo ou irrevogável.</div>
-							          </div>
-							        </div>
-							      </div>
-							    </div>
-							  </div>
+	<div class="ui two column grid" style="width: 99%; padding-left: 3rem;" >
+		<div class="ui column grid" >
+			<div class="ui column " >
+				<h2 class="ui small header"><i class="<s:property value="#session.profisio_user.tenant.corFinal" /> feed icon"></i> Novidades do sistema</h2>
+				<div class="ui segment" >
+					<div class="ui list">
+					  	<div class="item">
+						    <div class="content">
+						      <div class="header">Últimas Atualizações</div>
+						      <!-- 20/03/2015 às 13:00 -->
+						      <div class="list">
+						        <div class="item">
+						          <i class="right triangle top aligned icon"></i>
+						          <div class="content">
+						            <b>Beta</b>
+						            <div class="description">O ProPilEs foi desenvolvido por uma grande equipe para atender todas às suas necessidades. Hoje possuímos um grande acervo de funcionalidades que abrangem todas as suas atividades diárias, porém entendemos que com o passar do tempo novas necessidades surgem e você passe a desejar que o ProPilEs atenda às suas novas necessidades. Utilize nossa área de dúvidas e sugestões que ficará sempre no lado direito da tela e analisaremos suas solicitações. Nesta área aqui sempre que você fizer o login poderá ver as novidades que acabamos de implementar. Fique de olho se uma das suas solicitações já está no ar!</div>
+						          </div>
+						        </div>
+						      </div>
+						    </div>
 						  </div>
-					</div>
+					  </div>
 				</div>
-				<div class="column" >
+			</div>
+		</div>
+		<div class="ui column grid" style="padding-top:0 !important">
+			<div class="ui column " >
+				<h2 class="ui small header"><i class="<s:property value="#session.profisio_user.tenant.corFinal" /> wizard icon"></i> Dicas para utilização do sistema</h2>
+				<div class="ui segment" >
+					<div class="ui list">
+					  	<div class="item">
+						    <div class="content">
+						      <div class="list">
+						        <div class="item">
+						          <i class="right triangle top aligned icon"></i>
+						          <div class="content">
+						            <b>Deixe o sistema com a cara de sua empresa</b>
+						            <div class="description">No canto superior direito do ProPilEs temos um link para "Mudar Aparência" onde você poderá mudar a logo padrão do ProPilEs, que fica no canto superior esquerdo, para a da sua empresa. Além disso, poderá escolher uma cor que mais representa seu estabelecimento. Torne assim o ProPilEs um pedaço do seu negócio.</div>
+						          </div>
+						        </div>
+						        <div class="item">
+						          <i class="right triangle top aligned icon"></i>
+						          <div class="content">
+						            <b>Uso do formulário de contato</b>
+						            <div class="description">Sempre que você tiver alguma dúvida, sugestão de melhoria ou de novas funcionalidades a serem implementadas utilize a nossa área de contato que pode ser acessada pelo botão que está presente em todas as páginas no canto direito. Fazendo isso você estará melhorando o ProPilEs e, consequentemente, fazendo com que esta ferramenta de trabalho atenda cada vez mais às suas expectativas.</div>
+						          </div>
+						        </div>
+						        <div class="item">
+						          <i class="right triangle top aligned icon"></i>
+						          <div class="content">
+						            <b>Utilização de Abas</b>
+						            <div class="description">Hoje a maioria dos navegadores (Chrome, Internet Explorer, Mozilla Firefox, etc) possue o sistema de abas onde você pode abrir várias páginas ao mesmo tempo e alternar entre as abas para visualizar cada uma. Você pode fazer uso desta funcionalidade para otimizar seu tempo ao utilizar o ProPilEs. Por exemplo, suponhamos que você está analisando os pagamentos feitos no mês e deseja ver exatamente quais atividades determinado cliente fez neste mesmo período. Provavelmente você irá apenas clicar no link com o nome do cliente e entrará em sua página com seus dados, porém quando quiser voltar para a análise dos pagamentos você terá que clicar novamente na página referente. Para evitarmos esse desperdício de tempo você pode, para abrir a página do cliente sem sair da página dos pagamentos, clicar com o botão direito do seu mouse no link referente ao nome do cliente e escolher a opção "Abrir em outra aba" (esta frase pode mudar de acordo com o seu navegador) ou apenas segurar a teclar Control (Ctrl) e clicar no link.</div>
+						          </div>
+						        </div>
+						      </div>
+						    </div>
+						  </div>
+					  </div>
 				</div>
 			</div>
 		</div>
