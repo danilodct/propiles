@@ -251,7 +251,7 @@ public class UsuarioControl extends ControllerBase {
 					else if (tenant.getPlano() == Plano.PLANO_3)
 						situacaoPagamento += "Agora, além de poder ter vários usuários no sistema além do administrador, você tem acesso aos módulos de Relatório e Análise BI.";
 					tenant.setAguardandoPagamento(false);
-					this.dao.editar(tenant);
+					tenant.setDataUltimoPagamento(new Date());
 				} else if (transaction.getStatus() == TransactionStatus.CANCELLED) {
 					situacaoPagamento = "Seu pagamento foi cancelado! Por favor entre em contato com a operadora do seu cartão ou fale com a nossa equipe através do formulário em nosso site.";
 				} else if (transaction.getStatus() == TransactionStatus.CONTESTATION) {
@@ -275,6 +275,8 @@ public class UsuarioControl extends ControllerBase {
 					// envia para mim
 					mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs] Atualização do seu pagamento", msg);
 				}
+				tenant.setStatusUltimaTransacao(transaction.getStatus().name());
+				this.dao.editar(tenant);
 			}
 		}
 	}

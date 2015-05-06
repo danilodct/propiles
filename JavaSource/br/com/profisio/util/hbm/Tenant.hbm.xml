@@ -9,7 +9,9 @@
 		<property name="nome" />
 		<property name="logo" />
 		<property name="cor" />
+		<property name="statusUltimaTransacao" />
 		<property name="dataCriacao" />
+		<property name="dataUltimoPagamento" />
 		<property name="aguardandoPagamento"><column name="aguardandoPagamento" sql-type="tinyint(1)" /></property>
 		<property name="plano" type="br.com.profisio.util.PlanoEnumType" />
 		

@@ -6,8 +6,8 @@ import br.com.profisio.basics.ObjetoBasico;
 
 public class Tenant extends ObjetoBasico {
 
-	private String nome, logo, cor;
-	private Date dataCriacao;
+	private String nome, logo, cor, statusUltimaTransacao;
+	private Date dataCriacao, dataUltimoPagamento;
 	private Plano plano;
 	private Boolean aguardandoPagamento;//aguardandoPagamento serve para os plaanos 2 e 3 qd o usuario cofirmou o email, porém ainda nao confirmou o pagamento
 	private Boolean tour;//não persistido, apenas para indicar se é para ter o tour inicial
@@ -94,6 +94,22 @@ public class Tenant extends ObjetoBasico {
 
 	public void setTour(Boolean tour) {
 		this.tour = tour;
+	}
+
+	public Date getDataUltimoPagamento() {
+		return dataUltimoPagamento;
+	}
+
+	public void setDataUltimoPagamento(Date dataUltimoPagamento) {
+		this.dataUltimoPagamento = dataUltimoPagamento;
+	}
+
+	public String getStatusUltimaTransacao() {
+		return statusUltimaTransacao;
+	}
+
+	public void setStatusUltimaTransacao(String statusUltimaTransacao) {
+		this.statusUltimaTransacao = statusUltimaTransacao;
 	}
 
 }
