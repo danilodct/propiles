@@ -6,17 +6,22 @@
 	<s:if test="url != null && url != '' ">
 		<meta http-equiv="refresh" content="6;URL=<s:property value="url" />" /> 
 	</s:if>
-    <meta charset="utf-8">
+	
     <title><s:text name="TITULO_SISTEMA" /></title>
-    <meta name="description" content="<s:text name="TITULO_SISTEMA" />">
-    <meta name=viewport content="width=device-width, initial-scale=1">
-    <meta name="mobile-web-app-capable" content="yes">
+    
+    <meta charset="utf-8">
+    <meta name="description" content="<s:text name="TITULO_SISTEMA" />" />
+    <meta name=viewport content="width=device-width, initial-scale=1" />
+    <meta name="mobile-web-app-capable" content="yes" />
+	<meta name="keywords" content="Sistema,Software,Programa,Studio,Pilates,Clinica,Estetica,Nuvem,Cloud" />
+	<meta name="author" content="ProPilEs" />
 
-	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<link rel="alternate" hreflang="pt-br" href="http://www.propiles.com.br" />
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300&subset=latin,latin-ext" />
 	<link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" /> 
 	<link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
 	<link rel="stylesheet" type="text/css" href="css/frontend.css" />
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,700,300&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:400,700,300&subset=latin,vietnamese" />
     
 	<script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
 	<script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
@@ -176,14 +181,14 @@
   					<i class="circular teal users icon"></i>
   					<div class="content">Para quem?</div>
   				</div>
-                <p>O ProPilEs foi idealizado inicialmente com o foco de atender às necessidades de Stúdios de Pilates e de Clínicas de Estética. Porém o sistema foi implementado de tal forma que outros estabelecimentos (stúdio/salão de beleza, academia, etc.) podem fazer uso com total contentamento.</p>
+                <p>O ProPilEs foi idealizado inicialmente com o foco de atender às necessidades de Studios de Pilates e de Clínicas de Estética. Porém o sistema foi implementado de tal forma que outros estabelecimentos (studio/salão de beleza, academia, etc.) podem fazer uso com total contentamento.</p>
             </div>
             <div class="column">
                 <div class="ui header">
   					<i class="circular teal list icon"></i>
   					<div class="content">O que faz?</div>
   				</div>
-                <p>Gerencia as atividades diárias, o cadastro dos seus colaboradores e clientes, as contas a pagar e contas a receber, as anotações de cada atendimento (ficha de avaliação), gerando relatórios para o seu negócio e fazendo várias análises no módulo de Análise BI onde que o gestor pode tomar decisões referentes ao seu negócio.</p>
+                <p>Gerencia as atividades diárias, o cadastro dos seus colaboradores e clientes, as contas a pagar e contas a receber, as anotações de cada atendimento (ficha de avaliação), gerando relatórios para o seu negócio e fazendo várias análises no módulo de Análise BI onde o gestor poderá tomar decisões referentes ao seu negócio.</p>
             </div>
             <div class="column">
                 <div class="ui header">
