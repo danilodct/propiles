@@ -33,7 +33,7 @@
 			evt.preventDefault();
 			$("div.modalEsqueceuSenha").modal("hide dimmer").modal("show");
 		});
-		$(".cadastrese").click(function(evt){
+		$(".cadastrese, .cadastreseLogin").click(function(evt){
 			evt.preventDefault();
 			showModal("div.modalCadastro");
 			$('.modalCadastro2').modal('attach events', '.modalCadastro .btAvancar');
@@ -137,7 +137,7 @@
 	            	<s:form action="login" method="post" id="formLogin">
 		            	<div class="ui form segment login right floated">
 					      <div class="field">
-					        <label>Faça seu login:</label>
+					        <label>Faça seu login abaixo ou <a href="#" class="cadastreseLogin">cadastre-se!</a></label>
 					        <div class="ui left icon input">
 					          <input type="text" placeholder="e-mail" id="e-mail" name="usuario.login" />
 					          <i class="user icon"></i>

@@ -32,7 +32,7 @@ ul li{list-style: none;}
 .ui.grid+.grid.frontendSlide p{font-size: 16px;}
 .ui.grid+.grid.frontendSlide .button{color:#fff;}
 .ui.grid+.grid.frontendSlide .button.submit{background-color: #00B6BE;}
-body.frontend .ui.form .field>label{font-weight: 400; font-size: 16px; color: #808080;}
+body.frontend .ui.form .field>label{font-weight: 400; font-size: 0.9rem; color: #808080;}
 .ui.form.segment.login{-webkit-box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.2); -moz-box-shadow:    0px 0px 10px 0px rgba(50, 50, 50, 0.2); box-shadow:         0px 0px 10px 0px rgba(50, 50, 50, 0.2);}
 
 .slide1{
@@ -60,6 +60,7 @@ body.frontend .ui.form .field>label{font-weight: 400; font-size: 16px; color: #8
 .frontendSlide .ui.button{padding:.78571em 2.7em}
 .frontendSlide .item{text-align:left; margin-bottom: 5px; margin-top:27px;}
 .frontendSlide a{font-size: 0.9rem; color:#808080;}
+.frontendSlide a.cadastreseLogin {font-weight: 400;}
 .frontendSlide .ui.logado.segment{border: none;box-shadow: none;background-color: #9AD032;color: white; text-align: right;}
 .frontendSlide .ui.logado.segment a{  color: #fff;font-weight: 400;font-size: 1rem;}
 
