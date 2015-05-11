@@ -11,10 +11,18 @@
     
     <meta charset="utf-8">
     <meta name="description" content="<s:text name="TITULO_SISTEMA" />" />
-    <meta name=viewport content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="mobile-web-app-capable" content="yes" />
-	<meta name="keywords" content="Sistema,Software,Programa,Studio,Pilates,Clinica,Estetica,Nuvem,Cloud" />
+	<meta name="keywords" content="Sistema,Software,Programa,Studio,Pilates,Clinica,Estetica,Fisioterapia,Nuvem,Cloud" />
 	<meta name="author" content="ProPilEs" />
+
+	<!-- OPENGRAPH -->
+	<meta property="og:title" content="ProPilEs" />
+	<meta property="og:image" content="http://www.propiles.com.br/img/facebook-og-image.png" />
+	<meta property="og:url" content="http://www.propiles.com.br/" />
+	<meta property="og:description" content="Sistema de gerenciamento administrativo e financeiro para Studio de Pilates, Clínicas de Estética, Fisioterapia e afins" />
+	<meta property="og:locale" content="pt_BR" />
+	<meta property="og:site_name" content="ProPilEs" />
 
 	<link rel="alternate" hreflang="pt-br" href="http://www.propiles.com.br" />
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300&subset=latin,latin-ext" />
