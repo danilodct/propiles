@@ -6,8 +6,6 @@ import br.com.profisio.basics.Agendamento;
 import br.com.profisio.basics.Cadastro;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
-import br.com.profisio.util.ProfisioSessionUtil;
-import br.com.profisio.util.Tenant;
 
 public class AgendaView extends ProfisioActionSupport {
 
@@ -17,6 +15,7 @@ public class AgendaView extends ProfisioActionSupport {
 	private Cadastro cadastro;
 	private Agendamento agendamento;
 	private String agendamentos, aba;
+	private Boolean repeticoes;
 
 	public AgendaView() {
 		controller = AgendaControl.getInstance();
@@ -25,8 +24,9 @@ public class AgendaView extends ProfisioActionSupport {
 	public String actionRemoverAgendamento() {
 		String resposta = REDIRECT;
 		try {
-			
-			controller.removerAgendamento(getTenant(), this.agendamento);
+			if (this.repeticoes == null)
+				this.repeticoes = false;
+			controller.removerAgendamento(getTenant(), this.agendamento, this.repeticoes);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REMOCAO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -39,7 +39,6 @@ public class AgendaView extends ProfisioActionSupport {
 	public String actionAlterarDataAgendamento() {
 		String resposta = REDIRECT;
 		try {
-			
 			controller.alterarDataAgendamento(getTenant(), this.agendamento);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 		} catch (Exception e) {
@@ -53,7 +52,6 @@ public class AgendaView extends ProfisioActionSupport {
 	public String actionEditarAgendamento() {
 		String resposta = REDIRECT;
 		try {
-			
 			controller.editarAgendamento(getTenant(), this.agendamento);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 		} catch (Exception e) {
@@ -67,7 +65,6 @@ public class AgendaView extends ProfisioActionSupport {
 	public String actionCadastrarAgendamento() {
 		String resposta = REDIRECT;
 		try {
-			
 			controller.cadastrarAgendamento(getTenant(), this.agendamento);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
 		} catch (Exception e) {
@@ -80,7 +77,7 @@ public class AgendaView extends ProfisioActionSupport {
 
 	public String actionAgenda() {
 		try {
-			
+
 			this.agendamentos = controller.getAgendamentosByMes(getTenant(), null);
 			//Setar valores iniciais
 			this.agendamento = new Agendamento();
@@ -124,6 +121,22 @@ public class AgendaView extends ProfisioActionSupport {
 
 	public void setAba(String aba) {
 		this.aba = aba;
+	}
+
+	public String getRepeticoes() {
+		String repeticoesStr = "";
+		if (this.repeticoes == null || !this.repeticoes)
+			repeticoesStr = "false";
+		else
+			repeticoesStr = "true";
+		return repeticoesStr;
+	}
+
+	public void setRepeticoes(String repeticoes) {
+		if (repeticoes != null && repeticoes.equals("true"))
+			this.repeticoes = true;
+		else
+			this.repeticoes = false;
 	}
 
 }

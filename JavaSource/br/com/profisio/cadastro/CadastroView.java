@@ -16,6 +16,7 @@ import br.com.profisio.basics.Frequencia;
 import br.com.profisio.basics.Servico;
 import br.com.profisio.basics.enums.EstadoCivil;
 import br.com.profisio.basics.enums.FormaPagamento;
+import br.com.profisio.basics.enums.RepeticaoAgendamento;
 import br.com.profisio.basics.enums.Sexo;
 import br.com.profisio.colaborador.ColaboradorControl;
 import br.com.profisio.financeiro.FinanceiroControl;
@@ -225,6 +226,10 @@ public class CadastroView extends ProfisioActionSupport {
 	}
 
 	// 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+
+	public RepeticaoAgendamento[] getAllRepeticaoAgendamento() {
+		return RepeticaoAgendamento.values();
+	}
 
 	public Sexo[] getAllSexos() {
 		return Sexo.values();

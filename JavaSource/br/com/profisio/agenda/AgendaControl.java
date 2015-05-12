@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import br.com.profisio.basics.Agendamento;
+import br.com.profisio.basics.enums.RepeticaoAgendamento;
 import br.com.profisio.util.ControllerBase;
 import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.ProfisioException;
@@ -36,7 +37,27 @@ public class AgendaControl extends ControllerBase {
 		if (agendamento.getDataFim() == null)
 			agendamento.setDuracao(Agendamento.DURACAO_DEFAULT);
 		agendamento.setTenant(tenant);
+		if (agendamento.getPai() != null && agendamento.getPai().getId() == null)
+			agendamento.setPai(null);
 		this.dao.cadastrar(agendamento);
+
+		if (agendamento.getRepeticao() == RepeticaoAgendamento.SEMANALMENTE) {
+			//inserir para os proximos 4 * 6 (6 meses) = 24 vezes a cada 7 dias
+			Calendar calendar = Calendar.getInstance();
+			Agendamento agendamentoRep = new Agendamento();
+			agendamentoRep.parseDados(agendamento);
+			for (int i = 0; i < 24; i += 1) {
+				calendar.setTime(agendamentoRep.getDataInicio());
+				//próxima semana
+				calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + RepeticaoAgendamento.SEMANALMENTE.getQtdDias());
+				agendamentoRep.parseDados(agendamento);
+				agendamentoRep.setDataInicio(calendar.getTime());
+				agendamentoRep.setDuracao(agendamento.getDuracao());
+				agendamentoRep.setRepeticao(null);
+				agendamentoRep.setPai(agendamento);
+				this.dao.cadastrar(agendamentoRep);
+			}
+		}
 	}
 
 	public void cadastrarAgendamentos(Tenant tenant, Collection<Agendamento> agendamentos) {
@@ -106,11 +127,25 @@ public class AgendaControl extends ControllerBase {
 		this.dao.editar(agendamentoBD);
 	}
 
-	public void removerAgendamento(Tenant tenant, Agendamento agendamento) {
+	public void removerAgendamento(Tenant tenant, Agendamento agendamento, Boolean repeticoes) {
 		SystemUtils.assertObjectIsNotNullHasId(agendamento);
 		agendamento = this.dao.getAgendamentosById(agendamento.getId());
 		SystemUtils.assertObjectIsFromTenant(tenant, agendamento);
-		this.dao.remover(agendamento);
+
+		if (repeticoes) {
+			if (agendamento.getPai() != null) {
+				this.removerProximosAgendamentosByPai(agendamento, agendamento.getPai());
+			} else if (agendamento.getRepeticao() == RepeticaoAgendamento.SEMANALMENTE) {
+				this.removerProximosAgendamentosByPai(agendamento, agendamento);
+				this.dao.remover(agendamento);
+			}
+		} else {
+			this.dao.remover(agendamento);
+		}
+	}
+
+	private void removerProximosAgendamentosByPai(Agendamento proximo, Agendamento pai) {
+		this.dao.removerProximosAgendamentosByPai(proximo, pai);
 	}
 
 }

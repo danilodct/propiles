@@ -47,4 +47,12 @@ public class AgendaDAO extends DAOBase {
 		this.imp.delete(agendamento);
 	}
 
+	@SuppressWarnings("unchecked")
+	public void removerProximosAgendamentosByPai(Agendamento proximo, Agendamento pai) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("proximo", proximo);
+		params.put("pai", pai);
+		this.imp.execute("removerProximosAgendamentosByPai", params);
+	}
+
 }

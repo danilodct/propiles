@@ -218,7 +218,13 @@ public class CadastroControl extends ControllerBase {
 				String cliente = "";
 				if (agendamento.getCadastro() != null)
 					cliente = agendamento.getCadastro().getNome();
-				retorno += ",{\"id\":\"" + agendamento.getIdCript() + "\", \"cliente\":\"" + cliente + "\", \"nota\":\"" + nota + "\", \"horario\":\"" + agendamento.getHorario() + "\", \"title\":\"" + agendamento.getTitulo() + "\", \"duracao\":\"" + duracao + "\", \"dataInicial\":\"" + agendamento.getDataInicioStr() + "\",  \"start\":\"" + agendamento.getDataInicioStrEUA() + " " + agendamento.getHorario() + "\", \"dataFinal\":\"" + agendamento.getDataFimStr() + "\", \"end\":\"" + agendamento.getDataFimStrEUA() + " " + agendamento.getHorarioFinal() + "\" }";
+				String paiIdCript = "";
+				if (agendamento.getPai() != null)
+					paiIdCript = agendamento.getPai().getIdCript();
+				String repeticoes = "";
+				if (agendamento.getRepeticao() != null)
+					repeticoes = agendamento.getRepeticao().getValue();
+				retorno += ",{\"id\":\"" + agendamento.getIdCript() + "\", \"pai\":\"" + paiIdCript + "\", \"repeticao\":\"" + repeticoes + "\", \"cliente\":\"" + cliente + "\", \"nota\":\"" + nota + "\", \"horario\":\"" + agendamento.getHorario() + "\", \"title\":\"" + agendamento.getTitulo() + "\", \"duracao\":\"" + duracao + "\", \"dataInicial\":\"" + agendamento.getDataInicioStr() + "\",  \"start\":\"" + agendamento.getDataInicioStrEUA() + " " + agendamento.getHorario() + "\", \"dataFinal\":\"" + agendamento.getDataFimStr() + "\", \"end\":\"" + agendamento.getDataFimStrEUA() + " " + agendamento.getHorarioFinal() + "\" }";
 			}
 		}
 		if (agendamentos != null && agendamentos.size() > 0)

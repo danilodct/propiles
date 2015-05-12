@@ -13,7 +13,9 @@
 		<property name="titulo" />
 		<property name="nota" />
 		<property name="duracao" />
+		<property name="repeticao" type="br.com.profisio.basics.enums.RepeticaoAgendamentoEnumType"/>
 		
+		<many-to-one name="pai" column="pai_id" lazy="false" />
 		<many-to-one name="cadastro" column="cadastro_id" lazy="false" />
 		<many-to-one name="contaReceber" column="contaReceber_id" lazy="false" />
 		
@@ -45,6 +47,18 @@
 				:contaReceber IS NOT NULL 
 				AND 
 				contaReceber_id = :contaReceber
+			]]>
+	</sql-query>
+
+	<sql-query name="removerProximosAgendamentosByPai">
+			<![CDATA[
+			DELETE FROM agendamento  
+			WHERE 
+				:pai IS NOT NULL 
+				AND 
+				pai_id = :pai
+				AND
+				id >= :proximo
 			]]>
 	</sql-query>
 

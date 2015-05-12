@@ -2,6 +2,7 @@ package br.com.profisio.basics;
 
 import java.util.Date;
 
+import br.com.profisio.basics.enums.RepeticaoAgendamento;
 import br.com.profisio.util.SystemUtils;
 
 public class Agendamento extends ObjetoBasico {
@@ -13,6 +14,8 @@ public class Agendamento extends ObjetoBasico {
 	private Cadastro cadastro;
 	private ContaReceber contaReceber;
 	private Integer duracao;//em minutos
+	private RepeticaoAgendamento repeticao;
+	private Agendamento pai;
 
 	public Agendamento() {
 	}
@@ -110,6 +113,49 @@ public class Agendamento extends ObjetoBasico {
 			duracao = DURACAO_DEFAULT;
 		this.duracao = duracao;
 		this.dataFim = SystemUtils.aumentarMinutosData(this.dataInicio, String.valueOf(duracao));
+	}
+
+	public RepeticaoAgendamento getRepeticao() {
+		return repeticao;
+	}
+
+	public void setRepeticao(RepeticaoAgendamento repeticao) {
+		this.repeticao = repeticao;
+	}
+
+	public String getRepeticaoStr() {
+		String repeticaoStr = "";
+		if (this.repeticao != null)
+			repeticaoStr = this.repeticao.getValue();
+		return repeticaoStr;
+	}
+
+	public void setRepeticaoStr(String repeticao) {
+		this.repeticao = RepeticaoAgendamento.createEnum(repeticao);
+	}
+
+	public Agendamento getPai() {
+		return pai;
+	}
+
+	public void setPai(Agendamento pai) {
+		this.pai = pai;
+	}
+
+	public void parseDados(Agendamento agendamento) {
+		this.setCadastro(agendamento.getCadastro());
+		this.setContaReceber(agendamento.getContaReceber());
+		this.setDataFim(agendamento.getDataFim());
+		this.setDataInicio(agendamento.getDataInicio());
+		this.setDuracao(agendamento.getDuracao());
+		this.setGeral(agendamento.getGeral());
+		this.setHorario(agendamento.getHorario());
+		this.setNota(agendamento.getNota());
+		this.setPai(agendamento.getPai());
+		this.setRepeticao(agendamento.getRepeticao());
+		this.setStatusObjeto(agendamento.getStatusObjeto());
+		this.setTenant(agendamento.getTenant());
+		this.setTitulo(agendamento.getTitulo());
 	}
 
 }

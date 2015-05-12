@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
+<head><link rel="icon" href="http://www.propiles.com.br/img/favicon.ico" type="image/x-icon" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />

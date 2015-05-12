@@ -5,7 +5,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
+<head><link rel="icon" href="http://www.propiles.com.br/img/favicon.ico" type="image/x-icon" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
@@ -245,7 +245,15 @@
 			        $("input#agDataInicio").val(calEvent.start.format("DD/MM/YYYY"));
 			        $("input#agHorario").val(calEvent.horario);
 			        $("input#agDuracao").val(calEvent.duracao);
-			        $("a#btRemoverAgendamento").attr("href", $("a#btRemoverAgendamento").attr("href")+calEvent.id);
+			        $("input#agPai").val(calEvent.pai);
+			        $("input#agRepeticao").val(calEvent.repeticao);
+			        if(calEvent.pai == "" && calEvent.repeticao == "NAO_REPETIR"){
+			        	$("form#editarAgendamento .repeticoes").hide();
+			        }else{
+			        	$("form#editarAgendamento .repeticoes").show();
+			        }
+			        $("a.btRemoverAgendamento").attr("href", $("a.btRemoverAgendamento").attr("href")+calEvent.id);
+			        $("a.btRemoverAgendamentoTodos").attr("href", $("a.btRemoverAgendamentoTodos").attr("href")+calEvent.id);
 			        showModal("#modalEditarAgendamento");
 			    },
 				function(event, delta, revertFunc){
@@ -260,6 +268,15 @@
 			    }
 			);
 		}
+		$("form#editarAgendamento .submit").click(function(){
+			if($(this).hasClass("positive")){
+				$("form#editarAgendamento input#agSalvarRepeticoes").val("false");
+			}else{
+				$("form#editarAgendamento input#agSalvarRepeticoes").val("true");
+			}
+			alert($("form#editarAgendamento input#agSalvarRepeticoes").val());
+			$("form#editarAgendamento").submit();
+		});
 	}
 </script>
 <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-62673588-1', 'auto');ga('send', 'pageview');</script></head>
@@ -1152,6 +1169,7 @@
 						</div>
 						<s:form id="formInserirAgendamentos" action="cadastrarAgendamento" method="post">
 							<input type="hidden" name="agendamento.cadastro.idCript" value="<s:property value="cadastro.idCript" />" />
+							<input type="hidden" name="agendamento.pai.idCript" value="<s:property value="pai.idCript" />" />
 							<s:hidden name="cadastro.idCript" />
 							<input type="hidden" name="aba" value="agendamentos" />
 							
@@ -1164,7 +1182,7 @@
 								<label>Anotações</label>
 								<s:textarea name="agendamento.nota" />
 							</div>
-							<div class="three fields">
+							<div class="four fields">
 								<div class="required field">
 									<label>Data</label>
 									<div class="ui icon input">
@@ -1179,6 +1197,10 @@
 								<div class="required field">
 									<label>Duração (minutos)</label>
 									<s:textfield name="agendamento.duracao" cssClass="inteiro" />
+								</div>
+								<div class="required field">
+									<label>Repetir</label>
+									<s:select list="allRepeticaoAgendamento" cssClass="ui dropdown" listKey="value" listValue="valor" name="agendamento.repeticao"/>
 								</div>
 							</div>
 							
@@ -1219,6 +1241,9 @@
 					<s:hidden name="cadastro.idCript" id="cadastroId" />
 					<input type="hidden" name="aba" value="agendamentos" />
 					<input type="hidden" id="agId" name="agendamento.idCript" />
+					<input type="hidden" id="agPai" name="agendamento.pai.idCript" />
+					<input type="hidden" id="agRepeticao" name="agendamento.repeticaoStr" />
+					<input type="hidden" id="agSalvarRepeticoes" name="repeticoes" />
 					<div class="required field">
 						<label>Título:</label>
 						<s:textfield name="agendamento.titulo" id="agTitulo" />
@@ -1248,12 +1273,15 @@
 					<div class="ui hidden divider"></div>
 					
 					<div class="ui actions buttons left floated">
-						<a href="removerAgendamento?aba=agendamentos&cadastro.idCript=<s:property value="cadastro.idCript" />&agendamento.idCript=" id="btRemoverAgendamento" class="ui left negative button">Excluir</a>
+						<a href="removerAgendamento?repeticoes=false&aba=agendamentos&cadastro.idCript=<s:property value="cadastro.idCript" />&agendamento.idCript=" class="ui left negative button btRemoverAgendamento">Excluir</a>
+						<div class="or repeticoes" data-text="ou"></div>
+						<a href="removerAgendamento?repeticoes=true&aba=agendamentos&cadastro.idCript=<s:property value="cadastro.idCript" />&agendamento.idCript=" class="ui left button repeticoes btRemoverAgendamentoTodos">Excluir todos</a>
 					</div>
+					
 					<div class="ui actions buttons right floated">
-						<div class="ui button">Cancelar</div>
-						<div class="or" data-text="ou"></div>
-						<s:submit cssClass="ui positive right submit button" value="Salvar" />
+						<input type="button" class="ui positive right submit button" value="Salvar" />
+						<div class="or repeticoes" data-text="ou"></div>
+						<input type="button" class="ui right submit button repeticoes" value="Salvar todos" />
 					</div>
 				</s:form>
 			</div>

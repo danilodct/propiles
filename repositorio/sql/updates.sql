@@ -340,3 +340,8 @@ CREATE TABLE IF NOT EXISTS `tour` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
 
 
+alter table tenant add column dataUltimoPagamento datetime;
+alter table tenant add column statusUltimaTransacao varchar(100);
+
+
+

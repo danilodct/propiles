@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html>
 <html lang="pt">
-<head>
+<head><link rel="icon" href="http://www.propiles.com.br/img/favicon.ico" type="image/x-icon" />
 	<s:if test="url != null && url != '' ">
 		<meta http-equiv="refresh" content="6;URL=<s:property value="url" />" /> 
 	</s:if>
@@ -20,7 +20,7 @@
 	<meta property="og:title" content="ProPilEs" />
 	<meta property="og:image" content="http://www.propiles.com.br/img/facebook-og-image.png" />
 	<meta property="og:url" content="http://www.propiles.com.br/" />
-	<meta property="og:description" content="Sistema de gerenciamento administrativo e financeiro para Studio de Pilates, Clínicas de Estética, Fisioterapia e afins" />
+	<meta property="og:description" content="Sistema para Clínicas de Estética, Fisioterapia, Studio de Pilates e afins - ProPilEs" />
 	<meta property="og:locale" content="pt_BR" />
 	<meta property="og:site_name" content="ProPilEs" />
 

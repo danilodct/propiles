@@ -1,2 +1,4 @@
-alter table tenant add column dataUltimoPagamento datetime;
-alter table tenant add column statusUltimaTransacao varchar(100);
+alter table agendamento add column repeticao varchar(50);
+update agendamento set repeticao = 'NAO_REPETIR';
+
+alter table agendamento add column pai_id int(11);

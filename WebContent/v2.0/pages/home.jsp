@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
+<head><link rel="icon" href="http://www.propiles.com.br/img/favicon.ico" type="image/x-icon" />
 	<s:if test="url != null && url != '' ">
 		<meta http-equiv="refresh" content="6;URL=<s:property value="url" />" /> 
 	</s:if>
@@ -21,13 +21,6 @@
 	<script type="text/javascript">
 	 	var linksLiberados = false;
 		$(document).ready(function(){
-			$(".menuCabecalho").find("a").each(function(){
-				$(this).click(function(evt){
-					if(!linksLiberados)
-						evt.preventDefault();
-				});
-			});
-			
 			var tour = {
 			  id: "tour",
 			  steps: [
