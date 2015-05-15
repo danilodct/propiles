@@ -105,6 +105,8 @@ public class AgendaControl extends ControllerBase {
 		agendamento.setCadastro(agendamentoBD.getCadastro());
 		agendamento.setContaReceber(agendamentoBD.getContaReceber());
 		agendamento.setTenant(tenant);
+		if (agendamento.getPai() != null && agendamento.getPai().getId() == null)
+			agendamento.setPai(null);
 		this.dao.editar(agendamento);
 	}
 
@@ -140,6 +142,7 @@ public class AgendaControl extends ControllerBase {
 				this.dao.remover(agendamento);
 			}
 		} else {
+			this.removerProximosAgendamentosByPai(agendamento, agendamento);
 			this.dao.remover(agendamento);
 		}
 	}

@@ -254,6 +254,11 @@
 			        }
 			        $("a.btRemoverAgendamento").attr("href", $("a.btRemoverAgendamento").attr("href")+calEvent.id);
 			        $("a.btRemoverAgendamentoTodos").attr("href", $("a.btRemoverAgendamentoTodos").attr("href")+calEvent.id);
+
+					$("div#modalEditarAgendamento .header").html("Agendamento");
+					$("div.areaPreBotoesAgendamento").show();
+					$("div#areaDadosAgendamento").hide();
+					
 			        showModal("#modalEditarAgendamento");
 			    },
 				function(event, delta, revertFunc){
@@ -268,13 +273,45 @@
 			    }
 			);
 		}
+		$("a#btMarcarFalta").click(function(evt){
+			evt.preventDefault();
+			$("div#modalEditarAgendamento .header").html("Marcar Falta");
+			$("div#modalEditarAgendamento form").attr("action", "marcarFaltaAgendamento");
+			$("div.areaPreBotoesAgendamento").hide();
+			$("div#areaDadosAgendamento").show();
+			$("div.areaBotoesFalta").show();
+			$("div.areaBotoesPresenca").hide();
+			$("div.areaBotoesEditar").hide();
+			$("div#modalEditarAgendamento").modal('refresh');
+		});
+		$("a#btMarcarPresenca").click(function(evt){
+			evt.preventDefault();
+			$("div#modalEditarAgendamento .header").html("Marcar Presença");
+			$("div#modalEditarAgendamento form").attr("action", "marcarPresencaAgendamento");
+			$("div.areaPreBotoesAgendamento").hide();
+			$("div#areaDadosAgendamento").show();
+			$("div.areaBotoesFalta").hide();
+			$("div.areaBotoesPresenca").show();
+			$("div.areaBotoesEditar").hide();
+			$("div#modalEditarAgendamento").modal('refresh');
+		});
+		$("input#btAlterarDados").click(function(evt){
+			evt.preventDefault();
+			$("div#modalEditarAgendamento .header").html("Editar Agendamento");
+			$("div#modalEditarAgendamento form").attr("action", "editarAgendamento");
+			$("div.areaPreBotoesAgendamento").hide();
+			$("div#areaDadosAgendamento").show();
+			$("div.areaBotoesFalta").hide();
+			$("div.areaBotoesPresenca").hide();
+			$("div.areaBotoesEditar").show();
+			$("div#modalEditarAgendamento").modal('refresh');
+		});
 		$("form#editarAgendamento .submit").click(function(){
 			if($(this).hasClass("positive")){
 				$("form#editarAgendamento input#agSalvarRepeticoes").val("false");
 			}else{
 				$("form#editarAgendamento input#agSalvarRepeticoes").val("true");
 			}
-			alert($("form#editarAgendamento input#agSalvarRepeticoes").val());
 			$("form#editarAgendamento").submit();
 		});
 	}
@@ -1234,56 +1271,77 @@
 		<!-- POPUP EDITAR AGENDAMENTO 88888888888888888888888888888888888888888888888888888888888888888888888888888 -->
 		<div class="ui small modal" id="modalEditarAgendamento">
 			<i class="close icon"></i>
-			<div class="header">Editar Agendamento</div>
+			<div class="header">Agendamento</div>
 			<div class="content">
-				<s:form action="editarAgendamento" cssClass="ui form" >
-					<input type="hidden" name="agendamento.cadastro.idCript" value="<s:property value="cadastro.idCript" />" />
-					<s:hidden name="cadastro.idCript" id="cadastroId" />
-					<input type="hidden" name="aba" value="agendamentos" />
-					<input type="hidden" id="agId" name="agendamento.idCript" />
-					<input type="hidden" id="agPai" name="agendamento.pai.idCript" />
-					<input type="hidden" id="agRepeticao" name="agendamento.repeticaoStr" />
-					<input type="hidden" id="agSalvarRepeticoes" name="repeticoes" />
-					<div class="required field">
-						<label>Título:</label>
-						<s:textfield name="agendamento.titulo" id="agTitulo" />
-					</div>
-					<div class="field">
-						<label>Anotações:</label>
-						<s:textarea name="agendamento.nota" id="agNota" />
-					</div>
-					<div class="three fields">
+						
+				<div class="ui actions buttons left floated areaPreBotoesAgendamento">
+					<a href="removerAgendamento?repeticoes=false&aba=agendamentos&cadastro.idCript=<s:property value="cadastro.idCript" />&agendamento.idCript=" class="ui left meuBotao negativo" id="btMarcarFalta" >Marcar falta</a>
+					<a href="removerAgendamento?repeticoes=true&aba=agendamentos&cadastro.idCript=<s:property value="cadastro.idCript" />&agendamento.idCript=" class="ui left positive meuBotao positivo" id="btMarcarPresenca" >Marcar presença</a>
+				</div>
+				
+				<div class="ui actions buttons right floated areaPreBotoesAgendamento">
+					<input type="button" class="ui right meuBotao" id="btAlterarDados" value="Editar/Remover" />
+				</div>
+				
+				<div id="areaDadosAgendamento" class="hide">
+					<s:form action="editarAgendamento" id="editarAgendamento" cssClass="ui form" >
+						<input type="hidden" name="agendamento.cadastro.idCript" value="<s:property value="cadastro.idCript" />" />
+						<s:hidden name="cadastro.idCript" id="cadastroId" />
+						<input type="hidden" name="aba" value="agendamentos" />
+						<input type="hidden" id="agId" name="agendamento.idCript" />
+						<input type="hidden" id="agPai" name="agendamento.pai.idCript" />
+						<input type="hidden" id="agRepeticao" name="agendamento.repeticaoStr" />
+						<input type="hidden" id="agSalvarRepeticoes" name="repeticoes" />
 						<div class="required field">
-							<label>Data inicial:</label>
-							<div class="ui icon input">
-								<i class="calendar icon"></i>
-								<s:textfield name="agendamento.dataInicioStr" cssClass="data" id="agDataInicio" />
+							<label>Título:</label>
+							<s:textfield name="agendamento.titulo" id="agTitulo" />
+						</div>
+						<div class="field">
+							<label>Anotações:</label>
+							<s:textarea name="agendamento.nota" id="agNota" />
+						</div>
+						<div class="three fields">
+							<div class="required field">
+								<label>Data inicial:</label>
+								<div class="ui icon input">
+									<i class="calendar icon"></i>
+									<s:textfield name="agendamento.dataInicioStr" cssClass="data" id="agDataInicio" />
+								</div>
+							</div>
+							<div class="required field">
+								<label>Hora:</label>
+								<s:textfield name="agendamento.horario" cssClass="hora" id="agHorario" />
+							</div>
+							<div class="required field">
+								<label>Duração:</label>
+								<s:textfield name="agendamento.duracao" cssClass="inteiro" id="agDuracao" />
 							</div>
 						</div>
-						<div class="required field">
-							<label>Hora:</label>
-							<s:textfield name="agendamento.horario" cssClass="hora" id="agHorario" />
+						
+						<div class="ui hidden divider"></div>
+						
+						<div class="areaBotoesEditar">
+							<div class="ui actions buttons left floated">
+								<a href="removerAgendamento?repeticoes=false&aba=agendamentos&cadastro.idCript=<s:property value="cadastro.idCript" />&agendamento.idCript=" class="ui left negative button btRemoverAgendamento">Excluir</a>
+								<div class="or repeticoes" data-text="ou"></div>
+								<a href="removerAgendamento?repeticoes=true&aba=agendamentos&cadastro.idCript=<s:property value="cadastro.idCript" />&agendamento.idCript=" class="ui left button repeticoes btRemoverAgendamentoTodos">Excluir próximos</a>
+							</div>
+							
+							<div class="ui actions buttons right floated">
+								<input type="button" class="ui positive right submit button" value="Salvar" />
+							</div>
 						</div>
-						<div class="required field">
-							<label>Duração:</label>
-							<s:textfield name="agendamento.duracao" cssClass="inteiro" id="agDuracao" />
+						
+						<div class="ui actions buttons right floated areaBotoesFalta">
+							<input type="button" class="ui right submit button negative" value="Marcar falta" />
 						</div>
-					</div>
-					
-					<div class="ui hidden divider"></div>
-					
-					<div class="ui actions buttons left floated">
-						<a href="removerAgendamento?repeticoes=false&aba=agendamentos&cadastro.idCript=<s:property value="cadastro.idCript" />&agendamento.idCript=" class="ui left negative button btRemoverAgendamento">Excluir</a>
-						<div class="or repeticoes" data-text="ou"></div>
-						<a href="removerAgendamento?repeticoes=true&aba=agendamentos&cadastro.idCript=<s:property value="cadastro.idCript" />&agendamento.idCript=" class="ui left button repeticoes btRemoverAgendamentoTodos">Excluir todos</a>
-					</div>
-					
-					<div class="ui actions buttons right floated">
-						<input type="button" class="ui positive right submit button" value="Salvar" />
-						<div class="or repeticoes" data-text="ou"></div>
-						<input type="button" class="ui right submit button repeticoes" value="Salvar todos" />
-					</div>
-				</s:form>
+						
+						<div class="ui actions buttons right floated areaBotoesPresenca">
+							<input type="button" class="ui right submit button positive" value="Marcar presença" />
+						</div>
+						
+					</s:form>
+				</div>
 			</div>
 		</div>	
 	
