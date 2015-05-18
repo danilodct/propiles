@@ -1,20 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<!DOCTYPE html>
-<html lang="pt">
-<head><link rel="icon" href="http://www.propiles.com.br/img/favicon.ico" type="image/x-icon" />
-	<s:if test="url != null && url != '' ">
-		<meta http-equiv="refresh" content="6;URL=<s:property value="url" />" /> 
-	</s:if>
-	
-    <title><s:text name="TITULO_SISTEMA" /></title>
-    
-    <meta charset="utf-8">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="pt" >
+<head profile="http://gmpg.org/xfn/11" >
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="robots" content="follow, all" />
+	<meta name="language" content="pt, en" />
+	<meta name="Author" content="ProPilEs" />
     <meta name="description" content="<s:text name="TITULO_SISTEMA" />" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="mobile-web-app-capable" content="yes" />
-	<meta name="keywords" content="Sistema,Software,Programa,Studio,Pilates,Clinica,Estetica,Fisioterapia,Nuvem,Cloud" />
-	<meta name="author" content="ProPilEs" />
+	<meta name="keywords" content="Sistema, Software, Programa, Studio, Pilates, Clinica, Estetica, Fisioterapia, Nuvem, Cloud" />
+	<s:if test="url != null && url != '' "><meta http-equiv="refresh" content="6;URL=<s:property value="url" />" /></s:if>
+	
+    <title><s:text name="TITULO_SISTEMA" /></title>
 
 	<!-- OPENGRAPH -->
 	<meta property="og:title" content="ProPilEs" />
@@ -24,6 +23,7 @@
 	<meta property="og:locale" content="pt_BR" />
 	<meta property="og:site_name" content="ProPilEs" />
 
+	<link rel="icon" href="http://www.propiles.com.br/img/favicon.ico" type="image/x-icon" />
 	<link rel="alternate" hreflang="pt-br" href="http://www.propiles.com.br" />
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300&subset=latin,latin-ext" />
 	<link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" /> 
@@ -116,7 +116,7 @@
 		<div class="header">Confirmação de cadastro</div>
 		<div class="content">
 			<h2>Seu cadastro foi confirmado com sucesso!</h2>
-			<p><img src="img/logo_pagseguro.png" style="float:right; padding-left:5px;" />Estamos te redirecionando agora para a página do PagSeguro onde seu pagamento será feito com toda segurança, confiabilidade e comodidade.</p>
+			<p><img src="img/logo_pagseguro.png" style="float:right; padding-left:5px;" alt="PagSeguro" />Estamos te redirecionando agora para a página do PagSeguro onde seu pagamento será feito com toda segurança, confiabilidade e comodidade.</p>
 			<br />
 			Por favor aguarde...<br /><br /><br />
 		</div>
@@ -177,7 +177,7 @@
 		var numeroSlide = Math.floor((Math.random() * qtdSlide) + 1);
 		$("div.frontendSlide").addClass("slide"+numeroSlide);
     </script>
-	<!-- ----------  HEADINGS -------------  -->
+	<!-- *****************  HEADINGS ***************** -->
 	
     <div class="ui page grid headings">
 	    <div class="ui hidden divider"></div>
@@ -189,14 +189,14 @@
   					<i class="circular teal users icon"></i>
   					<div class="content">Para quem?</div>
   				</div>
-                <p>O ProPilEs foi idealizado inicialmente com o foco de atender às necessidades de Studios de Pilates e de Clínicas de Estética. Porém o sistema foi implementado de tal forma que outros estabelecimentos (studio/salão de beleza, academia, etc.) podem fazer uso com total contentamento.</p>
+                <p>O ProPilEs é um Sistema para Studio de Pilates, Clínicas de Estética e Fisioterapia. Porém o sistema foi implementado de tal forma que outros estabelecimentos (studio/salão de beleza, academia, etc.) podem fazer uso com total contentamento.</p>
             </div>
             <div class="column">
                 <div class="ui header">
   					<i class="circular teal list icon"></i>
   					<div class="content">O que faz?</div>
   				</div>
-                <p>Gerencia as atividades diárias, o cadastro dos seus colaboradores e clientes, as contas a pagar e contas a receber, as anotações de cada atendimento (ficha de avaliação), gerando relatórios para o seu negócio e fazendo várias análises no módulo de Análise BI onde o gestor poderá tomar decisões referentes ao seu negócio.</p>
+                <p>É um sistema de gerenciamento das atividades diárias operacionais, do cadastro dos seus colaboradores e clientes, das contas a pagar e contas a receber, as anotações de cada atendimento (ficha de avaliação), gerando relatórios para o seu negócio e fazendo várias análises no módulo de Análise BI onde o gestor poderá tomar decisões referentes ao seu negócio.</p>
             </div>
             <div class="column">
                 <div class="ui header">
@@ -211,7 +211,7 @@
 	    <div class="ui hidden divider"></div>
     </div>
 
-	<!-- ----------  FAIXA 2 -------------  -->
+	<!-- *****************  FAIXA 2 *****************  -->
 	
     <div class="ui page grid faixa faixa2">
     	<div class="two column row">
@@ -226,12 +226,12 @@
 	  					<div class="sub header">Controle suas finanças</div>
   					</div>
   				</div>
-                <p>Com toda segurança e integridade dos dados, o ProPilEs oferece um módulo financeiro que permitirá acompanhar suas entradas e saídas, seu caixa, ter análises de resultados e muito mais. No final do mês gere relatórios para batimento de caixa com apenas um clique. Experimente a versão grátis e se surpreenda.</p>
+                <p>Com toda segurança e integridade dos dados, o nosso sistema oferece um módulo financeiro que permitirá acompanhar suas entradas e saídas, seu caixa, ter análises de resultados e muito mais. No final do mês gere relatórios para batimento de caixa com apenas um clique. Experimente a versão grátis e se surpreenda.</p>
             </div>
         </div>
     </div>
 
-	<!-- ----------  FAIXA 1 -------------  -->
+	<!-- *****************  FAIXA 1 *****************  -->
 	
     <div class="ui page grid faixa faixa1">
     	<div class="three column row">
@@ -248,7 +248,7 @@
         </div>
     </div>
 
-	<!-- ----------  FAIXA 3 -------------  -->
+	<!-- *****************  FAIXA 3 *****************  -->
 	
     <div class="ui page grid faixa faixa3">
     	<div class="two column row">
@@ -268,9 +268,9 @@
         </div>
     </div>
 
-	<!-- ----------  PLANOS -------------  -->
+	<!-- *****************  PLANOS *****************  -->
 	
-    <div class="ui page four column grid planos"><a name="planos"></a>
+    <div class="ui page four column grid planos"><a id="planos"></a>
 
 	    <div class="ui hidden divider"></div>
 
@@ -361,9 +361,9 @@
     <div class="ui hidden divider"></div>
        
 
-	<!-- ----------  CONTATO -------------  -->
+	<!-- *****************  CONTATO *****************  -->
 	
-    <div class="ui page grid faixa contato"><a name="contato"></a>
+    <div class="ui page grid faixa contato"><a id="contato"></a>
     	<div class="one column row">
             <div class="column"> 
             	<s:form cssClass="ui form" id="formContato" action="contato" method="post">
@@ -373,7 +373,7 @@
 				            <s:textfield name="nome" placeholder="Seu nome" />
 				        </div>
 					    <div class="field">
-					          <s:textfield  name="empresa" placeholder="Sua empresa" />
+					          <s:textfield name="empresa" placeholder="Sua empresa" />
 						</div>
 				    </div>
 					<div class="two fields">
@@ -385,7 +385,7 @@
 						</div>
 				    </div>
 				    <div class="required field">
-						<s:textarea name="mensagem" placeholder="Sua dúvida ou mensagem"></s:textarea>
+						<s:textarea name="mensagem" placeholder="Sua dúvida ou mensagem" rows="1" ></s:textarea>
 					</div>
  					<s:submit cssClass="ui submit button" value="Enviar" />
 				 </s:form>
@@ -394,7 +394,7 @@
        
     </div>
       
-	<!-- ----------  RODAPE  -------------  -->
+	<!-- *****************  RODAPE  *****************  -->
 	
     <div class="ui page grid rodape">
 		<div class="two column row">
@@ -409,7 +409,7 @@
         </div>
     </div>
       
-	<!-- ----------  MODAL CADASTRO PLANOS -------------  -->
+	<!-- *****************  MODAL CADASTRO PLANOS ***************** -->
 	
 	<div class="ui modal modalCadastro">
 		<div class="header headerModal">Escolha seu plano</div>
@@ -496,7 +496,7 @@
 		</div>
 	</div>
       
-	<!-- ----------  MODAL CADASTRO  -------------  -->
+	<!-- *****************  MODAL CADASTRO  *****************  -->
 	
 	<div class="ui modal modalCadastro2">
 		<div class="header headerModal">Informe seus dados</div>
@@ -537,7 +537,7 @@
 		</div>
 	</div>
       
-	<!-- ----------  MODAL ESQUECEU SENHA  -------------  -->
+	<!-- *****************  MODAL ESQUECEU SENHA  ***************** -->
 	
 	<div class="ui small modal modalEsqueceuSenha">
 		<div class="header">Esqueceu sua senha?</div>
