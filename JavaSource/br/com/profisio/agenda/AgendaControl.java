@@ -5,11 +5,8 @@ import java.util.Collection;
 import java.util.Date;
 
 import br.com.profisio.basics.Agendamento;
-import br.com.profisio.basics.Frequencia;
 import br.com.profisio.basics.enums.RepeticaoAgendamento;
 import br.com.profisio.basics.enums.StatusAgendamento;
-import br.com.profisio.basics.enums.StatusObjeto;
-import br.com.profisio.frequencia.FrequenciaControl;
 import br.com.profisio.util.ControllerBase;
 import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.ProfisioException;
@@ -123,15 +120,16 @@ public class AgendaControl extends ControllerBase {
 		if (agendamento.getStatus() == null)
 			agendamento.setStatus(agendamentoBD.getStatus());
 		if (agendamento.getStatus() == StatusAgendamento.COMPARECEU && agendamento.getCadastro() != null) {
-			Frequencia frequencia = new Frequencia();
-			frequencia.setCadastro(agendamento.getCadastro());
-			frequencia.setData(agendamento.getDataInicio());
-			frequencia.setDuracao(agendamento.getDuracao());
-			frequencia.setHorario(agendamento.getHorario());
-			frequencia.setNovo(true);
-			frequencia.setTenant(tenant);
-			frequencia.setStatusObjeto(StatusObjeto.ATIVO);
-			FrequenciaControl.getInstance().cadastrarFrequencia(tenant, frequencia);
+			//para cadastrar frequencia precisa informar atividade
+			//			Frequencia frequencia = new Frequencia();
+			//			frequencia.setCadastro(agendamento.getCadastro());
+			//			frequencia.setData(agendamento.getDataInicio());
+			//			frequencia.setDuracao(agendamento.getDuracao());
+			//			frequencia.setHorario(agendamento.getHorario());
+			//			frequencia.setNovo(true);
+			//			frequencia.setTenant(tenant);
+			//			frequencia.setStatusObjeto(StatusObjeto.ATIVO);
+			//			FrequenciaControl.getInstance().cadastrarFrequencia(tenant, frequencia);
 		}
 		this.dao.editar(agendamento);
 	}
