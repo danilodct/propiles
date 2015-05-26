@@ -3,6 +3,7 @@ package br.com.profisio.basics;
 import java.util.Date;
 
 import br.com.profisio.basics.enums.RepeticaoAgendamento;
+import br.com.profisio.basics.enums.StatusAgendamento;
 import br.com.profisio.util.SystemUtils;
 
 public class Agendamento extends ObjetoBasico {
@@ -15,6 +16,7 @@ public class Agendamento extends ObjetoBasico {
 	private ContaReceber contaReceber;
 	private Integer duracao;//em minutos
 	private RepeticaoAgendamento repeticao;
+	private StatusAgendamento status;
 	private Agendamento pai;
 
 	public Agendamento() {
@@ -156,6 +158,25 @@ public class Agendamento extends ObjetoBasico {
 		this.setStatusObjeto(agendamento.getStatusObjeto());
 		this.setTenant(agendamento.getTenant());
 		this.setTitulo(agendamento.getTitulo());
+	}
+
+	public StatusAgendamento getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusAgendamento status) {
+		this.status = status;
+	}
+
+	public String getStatusStr() {
+		String statusStr = "";
+		if (this.status != null)
+			statusStr = this.status.getValue();
+		return statusStr;
+	}
+
+	public void setStatusStr(String status) {
+		this.status = StatusAgendamento.createEnum(status);
 	}
 
 }

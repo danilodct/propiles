@@ -4,6 +4,7 @@ import java.util.Date;
 
 import br.com.profisio.basics.Agendamento;
 import br.com.profisio.basics.Cadastro;
+import br.com.profisio.basics.enums.RepeticaoAgendamento;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
 
@@ -87,6 +88,12 @@ public class AgendaView extends ProfisioActionSupport {
 			this.dealException(e);
 		}
 		return REDIRECT;
+	}
+
+	// 888888888888888888888888888888888888888888888888888888888888888888888888
+
+	public RepeticaoAgendamento[] getAllRepeticaoAgendamento() {
+		return RepeticaoAgendamento.values();
 	}
 
 	// 888888888888888888888888888888888888888888888888888888888888888888888888

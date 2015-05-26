@@ -365,6 +365,8 @@ public class FinanceiroControl extends ControllerBase {
 		Date caixaDataInicial = configuracao.getCaixaDataInicial();
 		if (caixaDataInicial != null)
 			caixaDataInicial = SystemUtils.setHoraData(caixaDataInicial, Calendar.PM, 23, 59, 59);
+		else
+			caixaDataInicial = SystemUtils.setHoraData(SystemUtils.getDataAtual(), Calendar.PM, 23, 59, 59);
 
 		// soma do saldo determiando nas configuracoes do caixa + todas as
 		// entradas, saidas e vendas da data determinada até a data inicial de

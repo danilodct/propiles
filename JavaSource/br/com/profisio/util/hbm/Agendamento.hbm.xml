@@ -14,6 +14,7 @@
 		<property name="nota" />
 		<property name="duracao" />
 		<property name="repeticao" type="br.com.profisio.basics.enums.RepeticaoAgendamentoEnumType"/>
+		<property name="status" type="br.com.profisio.basics.enums.StatusAgendamentoEnumType"/>
 		
 		<many-to-one name="pai" column="pai_id" lazy="false" />
 		<many-to-one name="cadastro" column="cadastro_id" lazy="false" />

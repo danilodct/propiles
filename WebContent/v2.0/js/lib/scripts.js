@@ -252,7 +252,7 @@ function createAgenda(area, agendamentos, functionClick, functionDrop){
 		editable: true,
 		eventLimit: true, // allow "more" link when too many events
 		axisFormat: 'HH:mm',
-		eventColor: '#00B5AD',
+		//eventColor: '#00B5AD',
 		events: agendamentos,
 		header: {
 			left: 'prev,next today',

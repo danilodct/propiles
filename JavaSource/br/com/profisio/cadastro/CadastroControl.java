@@ -12,6 +12,7 @@ import br.com.profisio.basics.Avaliacao;
 import br.com.profisio.basics.Cadastro;
 import br.com.profisio.basics.FormaConhecimento;
 import br.com.profisio.basics.Frequencia;
+import br.com.profisio.basics.enums.StatusAgendamento;
 import br.com.profisio.basics.enums.StatusObjeto;
 import br.com.profisio.util.ControllerBase;
 import br.com.profisio.util.ProfisioBundleUtil;
@@ -224,7 +225,13 @@ public class CadastroControl extends ControllerBase {
 				String repeticoes = "";
 				if (agendamento.getRepeticao() != null)
 					repeticoes = agendamento.getRepeticao().getValue();
-				retorno += ",{\"id\":\"" + agendamento.getIdCript() + "\", \"pai\":\"" + paiIdCript + "\", \"repeticao\":\"" + repeticoes + "\", \"cliente\":\"" + cliente + "\", \"nota\":\"" + nota + "\", \"horario\":\"" + agendamento.getHorario() + "\", \"title\":\"" + agendamento.getTitulo() + "\", \"duracao\":\"" + duracao + "\", \"dataInicial\":\"" + agendamento.getDataInicioStr() + "\",  \"start\":\"" + agendamento.getDataInicioStrEUA() + " " + agendamento.getHorario() + "\", \"dataFinal\":\"" + agendamento.getDataFimStr() + "\", \"end\":\"" + agendamento.getDataFimStrEUA() + " " + agendamento.getHorarioFinal() + "\" }";
+				String cor = "#00B5AD";
+				if (agendamento.getStatus() != null && agendamento.getStatus() == StatusAgendamento.FALTOU)
+					cor = "red";
+				if (agendamento.getStatus() != null && agendamento.getStatus() == StatusAgendamento.COMPARECEU)
+					cor = "#99C347";
+				String corTexto = "white";
+				retorno += ",{\"id\":\"" + agendamento.getIdCript() + "\", \"pai\":\"" + paiIdCript + "\", \"backgroundColor\":\"" + cor + "\", \"borderColor\":\"" + cor + "\", \"textColor\":\"" + corTexto + "\", \"repeticao\":\"" + repeticoes + "\", \"cliente\":\"" + cliente + "\", \"nota\":\"" + nota + "\", \"horario\":\"" + agendamento.getHorario() + "\", \"title\":\"" + agendamento.getTitulo() + "\", \"duracao\":\"" + duracao + "\", \"dataInicial\":\"" + agendamento.getDataInicioStr() + "\",  \"start\":\"" + agendamento.getDataInicioStrEUA() + " " + agendamento.getHorario() + "\", \"dataFinal\":\"" + agendamento.getDataFimStr() + "\", \"end\":\"" + agendamento.getDataFimStrEUA() + " " + agendamento.getHorarioFinal() + "\", \"status\":\"" + agendamento.getStatusStr() + "\" }";
 			}
 		}
 		if (agendamentos != null && agendamentos.size() > 0)

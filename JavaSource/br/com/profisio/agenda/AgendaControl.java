@@ -5,7 +5,11 @@ import java.util.Collection;
 import java.util.Date;
 
 import br.com.profisio.basics.Agendamento;
+import br.com.profisio.basics.Frequencia;
 import br.com.profisio.basics.enums.RepeticaoAgendamento;
+import br.com.profisio.basics.enums.StatusAgendamento;
+import br.com.profisio.basics.enums.StatusObjeto;
+import br.com.profisio.frequencia.FrequenciaControl;
 import br.com.profisio.util.ControllerBase;
 import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.ProfisioException;
@@ -39,6 +43,7 @@ public class AgendaControl extends ControllerBase {
 		agendamento.setTenant(tenant);
 		if (agendamento.getPai() != null && agendamento.getPai().getId() == null)
 			agendamento.setPai(null);
+		agendamento.setStatus(StatusAgendamento.INDEFINIDO);
 		this.dao.cadastrar(agendamento);
 
 		if (agendamento.getRepeticao() == RepeticaoAgendamento.SEMANALMENTE) {
@@ -89,7 +94,15 @@ public class AgendaControl extends ControllerBase {
 				String cliente = "";
 				if (agendamento.getCadastro() != null)
 					cliente = agendamento.getCadastro().getNome();
-				retorno += ",{\"id\":\"" + agendamento.getIdCript() + "\", \"cliente\":\"" + cliente + "\", \"nota\":\"" + nota + "\", \"horario\":\"" + agendamento.getHorario() + "\", \"title\":\"" + agendamento.getTitulo() + "\", \"duracao\":\"" + duracao + "\", \"dataInicial\":\"" + agendamento.getDataInicioStr() + "\",  \"start\":\"" + agendamento.getDataInicioStrEUA() + " " + agendamento.getHorario() + "\", \"dataFinal\":\"" + agendamento.getDataFimStr() + "\", \"end\":\"" + agendamento.getDataFimStrEUA() + " " + agendamento.getHorarioFinal() + "\" }";
+
+				String cor = "#00B5AD";
+				if (agendamento.getStatus() != null && agendamento.getStatus() == StatusAgendamento.FALTOU)
+					cor = "red";
+				if (agendamento.getStatus() != null && agendamento.getStatus() == StatusAgendamento.COMPARECEU)
+					cor = "#99C347";
+				String corTexto = "white";
+
+				retorno += ",{\"id\":\"" + agendamento.getIdCript() + "\", \"backgroundColor\":\"" + cor + "\", \"borderColor\":\"" + cor + "\", \"textColor\":\"" + corTexto + "\", \"cliente\":\"" + cliente + "\", \"nota\":\"" + nota + "\", \"horario\":\"" + agendamento.getHorario() + "\", \"title\":\"" + agendamento.getTitulo() + "\", \"duracao\":\"" + duracao + "\", \"dataInicial\":\"" + agendamento.getDataInicioStr() + "\",  \"start\":\"" + agendamento.getDataInicioStrEUA() + " " + agendamento.getHorario() + "\", \"dataFinal\":\"" + agendamento.getDataFimStr() + "\", \"end\":\"" + agendamento.getDataFimStrEUA() + " " + agendamento.getHorarioFinal() + "\" }";
 			}
 		}
 
@@ -107,6 +120,19 @@ public class AgendaControl extends ControllerBase {
 		agendamento.setTenant(tenant);
 		if (agendamento.getPai() != null && agendamento.getPai().getId() == null)
 			agendamento.setPai(null);
+		if (agendamento.getStatus() == null)
+			agendamento.setStatus(agendamentoBD.getStatus());
+		if (agendamento.getStatus() == StatusAgendamento.COMPARECEU && agendamento.getCadastro() != null) {
+			Frequencia frequencia = new Frequencia();
+			frequencia.setCadastro(agendamento.getCadastro());
+			frequencia.setData(agendamento.getDataInicio());
+			frequencia.setDuracao(agendamento.getDuracao());
+			frequencia.setHorario(agendamento.getHorario());
+			frequencia.setNovo(true);
+			frequencia.setTenant(tenant);
+			frequencia.setStatusObjeto(StatusObjeto.ATIVO);
+			FrequenciaControl.getInstance().cadastrarFrequencia(tenant, frequencia);
+		}
 		this.dao.editar(agendamento);
 	}
 

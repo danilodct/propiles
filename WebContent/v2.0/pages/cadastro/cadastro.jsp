@@ -20,6 +20,7 @@
  	tr.linhaFicha{display:table-row;}
  	.ui.menu, .ui.styled.accordion{box-shadow:none;}
  }
+ div#areaAgenda{width: 80%;}
 </style>
 <script type="text/javascript" src="v2.0/js/lib/moment.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
@@ -247,6 +248,7 @@
 			        $("input#agDuracao").val(calEvent.duracao);
 			        $("input#agPai").val(calEvent.pai);
 			        $("input#agRepeticao").val(calEvent.repeticao);
+			        $("input#agStatus").val(calEvent.status);
 			        if(calEvent.pai == "" && calEvent.repeticao == "NAO_REPETIR"){
 			        	$("form#editarAgendamento .repeticoes").hide();
 			        }else{
@@ -276,7 +278,7 @@
 		$("a#btMarcarFalta").click(function(evt){
 			evt.preventDefault();
 			$("div#modalEditarAgendamento .header").html("Marcar Falta");
-			$("div#modalEditarAgendamento form").attr("action", "marcarFaltaAgendamento");
+			$("input#agStatus").val("FALTOU");
 			$("div.areaPreBotoesAgendamento").hide();
 			$("div#areaDadosAgendamento").show();
 			$("div.areaBotoesFalta").show();
@@ -287,7 +289,7 @@
 		$("a#btMarcarPresenca").click(function(evt){
 			evt.preventDefault();
 			$("div#modalEditarAgendamento .header").html("Marcar Presença");
-			$("div#modalEditarAgendamento form").attr("action", "marcarPresencaAgendamento");
+			$("input#agStatus").val("COMPARECEU");
 			$("div.areaPreBotoesAgendamento").hide();
 			$("div#areaDadosAgendamento").show();
 			$("div.areaBotoesFalta").hide();
@@ -298,7 +300,6 @@
 		$("input#btAlterarDados").click(function(evt){
 			evt.preventDefault();
 			$("div#modalEditarAgendamento .header").html("Editar Agendamento");
-			$("div#modalEditarAgendamento form").attr("action", "editarAgendamento");
 			$("div.areaPreBotoesAgendamento").hide();
 			$("div#areaDadosAgendamento").show();
 			$("div.areaBotoesFalta").hide();
@@ -1187,7 +1188,18 @@
 		<div class="ui bottom attached tab segment <s:if test="aba != null && aba == 'agendamentos'" >active</s:if>"  data-tab="agendamentos"  >
 				
 			<div class="ui hidden divider"></div>
+			
+			<!-- LEGENDA  88888888888888888888888888888888888888888888888888888888888888888888888 -->
+			<div class="left floated column">
+				<div style="width: 18px;height: 18px;border: 1px solid #D4D4D5;background-color: #99C347;float: left;margin-right: 5px;"></div>
+				<div style="float:left; margin-right:10px;">= cliente compareceu</div>
+				<div style="width: 18px;height: 18px;border: 1px solid #D4D4D5;background-color: red;float: left;margin-right: 5px;"></div>
+				<div style="float:left; margin-right:10px;">= cliente faltou</div>
+			</div>
 
+			<div class="ui hidden divider"></div>
+			<div class="ui hidden divider"></div>
+			<div class="ui hidden divider"></div>
 	
 			<!-- BT ADD AGENDAMENTO 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 			<div class="column">
@@ -1246,6 +1258,7 @@
 			  					<div class="or" data-text="ou"></div>
 								<input type="submit" value="Cadastrar" class="ui <s:property value="#session.profisio_user.tenant.corFinal" /> submit  button" /> 
 							</div>	
+							
 						</s:form>
 						<div class="ui divider hidden"></div>
 					</div>
@@ -1292,6 +1305,7 @@
 						<input type="hidden" id="agPai" name="agendamento.pai.idCript" />
 						<input type="hidden" id="agRepeticao" name="agendamento.repeticaoStr" />
 						<input type="hidden" id="agSalvarRepeticoes" name="repeticoes" />
+						<input type="hidden" id="agStatus" name="agendamento.statusStr" />
 						<div class="required field">
 							<label>Título:</label>
 							<s:textfield name="agendamento.titulo" id="agTitulo" />
