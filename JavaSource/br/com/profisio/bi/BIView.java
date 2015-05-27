@@ -8,6 +8,7 @@ import br.com.profisio.basics.Servico;
 import br.com.profisio.basics.enums.TipoCusto;
 import br.com.profisio.cadastro.CadastroControl;
 import br.com.profisio.util.ProfisioActionSupport;
+import br.com.profisio.util.ProfisioLoggerUtil;
 import br.com.profisio.util.ProfisioSessionUtil;
 import br.com.profisio.util.SystemUtils;
 
@@ -26,8 +27,8 @@ public class BIView extends ProfisioActionSupport {
 	}
 
 	public String actionEntradas() {
+		ProfisioLoggerUtil.info("BIView.actionEntradas()");
 		try {
-
 			if (ProfisioSessionUtil.hasAccess(ProfisioSessionUtil.FUNC_BIS, getTenant())) {
 				this.dados1 = this.controller.getBIEvolutivoEntradas(getTenant(), dataInicial, dataFinal);
 			}
@@ -38,6 +39,7 @@ public class BIView extends ProfisioActionSupport {
 	}
 
 	public String actionEvolutivoDespesas() {
+		ProfisioLoggerUtil.info("BIView.actionEvolutivoDespesas()");
 		try {
 
 			if (ProfisioSessionUtil.hasAccess(ProfisioSessionUtil.FUNC_BIS, getTenant())) {
@@ -50,6 +52,7 @@ public class BIView extends ProfisioActionSupport {
 	}
 
 	public String actionCrescimentoServicos() {
+		ProfisioLoggerUtil.info("BIView.actionCrescimentoServicos()");
 		try {
 
 			if (ProfisioSessionUtil.hasAccess(ProfisioSessionUtil.FUNC_BIS, getTenant())) {
@@ -62,6 +65,7 @@ public class BIView extends ProfisioActionSupport {
 	}
 
 	public String actionDespesas() {
+		ProfisioLoggerUtil.info("BIView.actionDespesas()");
 		try {
 
 			if (ProfisioSessionUtil.hasAccess(ProfisioSessionUtil.FUNC_BIS, getTenant())) {
@@ -76,6 +80,7 @@ public class BIView extends ProfisioActionSupport {
 	}
 
 	public String actionVisaoGeralServicos() {
+		ProfisioLoggerUtil.info("BIView.actionVisaoGeralServicos()");
 		try {
 
 			if (ProfisioSessionUtil.hasAccess(ProfisioSessionUtil.FUNC_BIS, getTenant())) {
@@ -89,6 +94,7 @@ public class BIView extends ProfisioActionSupport {
 	}
 
 	public String actionEfetividade() {
+		ProfisioLoggerUtil.info("BIView.actionEfetividade()");
 		try {
 
 			if (ProfisioSessionUtil.hasAccess(ProfisioSessionUtil.FUNC_BIS, getTenant())) {
@@ -102,6 +108,7 @@ public class BIView extends ProfisioActionSupport {
 	}
 
 	public String actionPerfilClientes() {
+		ProfisioLoggerUtil.info("BIView.actionPerfilClientes()");
 		try {
 
 			if (ProfisioSessionUtil.hasAccess(ProfisioSessionUtil.FUNC_BIS, getTenant())) {
@@ -117,6 +124,7 @@ public class BIView extends ProfisioActionSupport {
 	}
 
 	public String actionCaptacao() {
+		ProfisioLoggerUtil.info("BIView.actionCaptacao()");
 		try {
 
 			if (ProfisioSessionUtil.hasAccess(ProfisioSessionUtil.FUNC_BIS, getTenant())) {

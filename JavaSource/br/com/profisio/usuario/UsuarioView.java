@@ -6,6 +6,7 @@ import br.com.profisio.basics.Usuario;
 import br.com.profisio.util.Plano;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
+import br.com.profisio.util.ProfisioLoggerUtil;
 import br.com.profisio.util.ProfisioSessionUtil;
 import br.com.profisio.util.SystemUtils;
 import br.com.profisio.util.Tenant;
@@ -31,6 +32,7 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public String actionTour() {
 		try {
+			ProfisioLoggerUtil.info("UsuarioView.actionTour()");
 			this.controller.tour();
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.PEDIDO_PERSONALIZADO_SUCESSO));
 		} catch (Exception e) {
@@ -41,6 +43,7 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public String actionPersonalizado() {
 		try {
+			ProfisioLoggerUtil.info("UsuarioView.actionPersonalizado()");
 			Tenant tenant = ProfisioSessionUtil.getTenantSession();
 			this.controller.personalizado(tenant);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.PEDIDO_PERSONALIZADO_SUCESSO));
@@ -52,6 +55,7 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public String actionUpgrade() {
 		try {
+			ProfisioLoggerUtil.info("UsuarioView.actionUpgrade()");
 			Tenant tenant = ProfisioSessionUtil.getTenantSession();
 			this.setUrl(this.controller.upgrade(tenant, this.plano));
 		} catch (Exception e) {
@@ -62,6 +66,7 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public String actionAtualizacaoPagamento() {
 		try {
+			ProfisioLoggerUtil.info("UsuarioView.actionAtualizacaoPagamento()");
 			this.controller.atualizacaoPagamento(transacaoId);
 		} catch (Exception e) {
 			this.dealException(e);
@@ -71,6 +76,7 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public String actionRetornoPagamento() {
 		try {
+			ProfisioLoggerUtil.info("UsuarioView.actionRetornoPagamento()");
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.RETORNO_PAGAMENTO_SUCESSO));
 		} catch (Exception e) {
 			this.dealException(e);
@@ -80,6 +86,7 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public String actionMudarDados() {
 		try {
+			ProfisioLoggerUtil.info("UsuarioView.actionMudarDados()");
 			Tenant tenantSessao = ProfisioSessionUtil.getTenantSession();
 			// empresa
 			String empresa = this.tenant.getNome();
@@ -99,6 +106,7 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public String actionDados() {
 		try {
+			ProfisioLoggerUtil.info("UsuarioView.actionDados()");
 			this.usuario = ProfisioSessionUtil.getUserSession();
 			this.tenant = ProfisioSessionUtil.getTenantSession();
 		} catch (Exception e) {
@@ -109,6 +117,7 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public String actionMudarAparencia() {
 		try {
+			ProfisioLoggerUtil.info("UsuarioView.actionMudarAparencia()");
 			Tenant tenantSessao = ProfisioSessionUtil.getTenantSession();
 			// cor
 			String cor = tenant.getCor();
@@ -131,6 +140,7 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public String actionAparencia() {
 		try {
+			ProfisioLoggerUtil.info("UsuarioView.actionAparencia()");
 			this.tenant = ProfisioSessionUtil.getTenantSession();
 		} catch (Exception e) {
 			this.dealException(e);
@@ -140,6 +150,7 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public String actionDuvidas() {
 		try {
+			ProfisioLoggerUtil.info("UsuarioView.actionDuvidas()");
 			controller.duvidas(mensagem);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.MENSAGEM_ENVIADA));
 		} catch (Exception e) {
@@ -151,6 +162,7 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public String actionContato() {
 		try {
+			ProfisioLoggerUtil.info("UsuarioView.actionContato()");
 			controller.contato(nome, empresa, fone, email, mensagem);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.MENSAGEM_ENVIADA));
 		} catch (Exception e) {
@@ -169,6 +181,7 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public String actionEsqueceuSenha() {
 		try {
+			ProfisioLoggerUtil.info("UsuarioView.actionEsqueceuSenha()");
 			controller.esqueceuSenha(usuario);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ESQUECEU_SENHA_ENVIADO));
 		} catch (Exception e) {
@@ -179,6 +192,7 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public String actionReenviarConfirmacao() {
 		try {
+			ProfisioLoggerUtil.info("UsuarioView.actionReenviarConfirmacao()");
 			usuario = controller.reenviarConfirmacao(usuario);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REENVIADO_EMAIL_CONFIRMACAO, usuario.getLogin()));
 		} catch (Exception e) {
@@ -190,6 +204,7 @@ public class UsuarioView extends ProfisioActionSupport {
 	public String actionConfirmar() {
 		String resposta = SUCCESS;
 		try {
+			ProfisioLoggerUtil.info("UsuarioView.actionConfirmar()");
 			this.setUrl(controller.confirmarCadastro(usuario));
 			if (this.getUrl() != null && !this.getUrl().trim().equals(""))
 				resposta = REDIRECT;
@@ -204,6 +219,7 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public String actionCadastrese() {
 		try {
+			ProfisioLoggerUtil.info("UsuarioView.actionCadastrese()");
 			if (usuario != null && tenant != null)
 				usuario.setTenant(tenant);
 			controller.cadastro(usuario);
@@ -216,6 +232,7 @@ public class UsuarioView extends ProfisioActionSupport {
 	}
 
 	public String actionLogin() {
+		ProfisioLoggerUtil.info("UsuarioView.actionLogin()");
 		String resposta = "";
 		try {
 			controller.login(usuario);
@@ -230,6 +247,7 @@ public class UsuarioView extends ProfisioActionSupport {
 
 	public String actionLogout() {
 		try {
+			ProfisioLoggerUtil.info("UsuarioView.actionLogout()");
 			controller.logout();
 		} catch (Exception e) {
 			this.dealException(e);

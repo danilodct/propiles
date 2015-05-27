@@ -13,6 +13,7 @@ import br.com.profisio.util.ItemGeralUI;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.ProfisioException;
+import br.com.profisio.util.ProfisioLoggerUtil;
 import br.com.profisio.util.SystemUtils;
 
 public class VendaView extends ProfisioActionSupport {
@@ -35,6 +36,7 @@ public class VendaView extends ProfisioActionSupport {
 	}
 
 	public String actionVendidos() {
+		ProfisioLoggerUtil.info("VendaView.actionVendidos()");
 		try {
 
 			if (getPagAtual() == null)
@@ -53,6 +55,7 @@ public class VendaView extends ProfisioActionSupport {
 	}
 
 	public String actionRemoverEstoque() {
+		ProfisioLoggerUtil.info("VendaView.actionRemoverEstoque()");
 		String resposta = REDIRECT;
 		try {
 			this.controller.removerEstoque(getTenant(), this.estoque);
@@ -68,6 +71,7 @@ public class VendaView extends ProfisioActionSupport {
 	}
 
 	public String actionVenderEstoque() {
+		ProfisioLoggerUtil.info("VendaView.actionVenderEstoque()");
 		try {
 
 			// informa o item do estoque, vendedor, o valor e a data
@@ -80,6 +84,7 @@ public class VendaView extends ProfisioActionSupport {
 	}
 
 	public String actionAddEstoque() {
+		ProfisioLoggerUtil.info("VendaView.actionAddEstoque()");
 		try {
 
 			if (qtdProdutos == null)
@@ -95,6 +100,7 @@ public class VendaView extends ProfisioActionSupport {
 	}
 
 	public String actionEstoque() {
+		ProfisioLoggerUtil.info("VendaView.actionEstoque()");
 		try {
 			this.estoques = this.controller.getEstoque(getTenant(), produto, vendedor, dataInicial, dataFinal, StatusEstoque.DISPONIVEL.getValue());
 			if (this.estoques != null && this.estoques.size() > 0)
@@ -106,6 +112,7 @@ public class VendaView extends ProfisioActionSupport {
 	}
 
 	public String actionCadastrarProduto() {
+		ProfisioLoggerUtil.info("VendaView.actionCadastrarProduto()");
 		try {
 
 			if (produto != null && produto.getCategoria() != null && produto.getCategoria().equals("-1"))
@@ -120,6 +127,7 @@ public class VendaView extends ProfisioActionSupport {
 	}
 
 	public String actionEditarProduto() {
+		ProfisioLoggerUtil.info("VendaView.actionEditarProduto()");
 		String resposta = null;
 		try {
 
@@ -137,6 +145,7 @@ public class VendaView extends ProfisioActionSupport {
 	}
 
 	public String actionViewProduto() {
+		ProfisioLoggerUtil.info("VendaView.actionViewProduto()");
 		String resposta = "";
 		try {
 			this.produto = controller.getProduto(getTenant(), produto);
@@ -149,6 +158,7 @@ public class VendaView extends ProfisioActionSupport {
 	}
 
 	public String actionRemoverProduto() {
+		ProfisioLoggerUtil.info("VendaView.actionRemoverProduto()");
 		try {
 
 			controller.removerProduto(getTenant(), produto);
@@ -160,6 +170,7 @@ public class VendaView extends ProfisioActionSupport {
 	}
 
 	public String actionProdutos() {
+		ProfisioLoggerUtil.info("VendaView.actionProdutos()");
 		try {
 			String categoria = null;
 			if (produto != null && produto.getCategoria() != null) {

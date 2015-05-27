@@ -30,6 +30,7 @@ import br.com.profisio.colaborador.ColaboradorControl;
 import br.com.profisio.servico.ServicoControl;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
+import br.com.profisio.util.ProfisioLoggerUtil;
 import br.com.profisio.util.SystemUtils;
 import br.com.profisio.venda.VendaControl;
 
@@ -71,6 +72,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	}
 
 	public String actionFolhaPagamento() {
+		ProfisioLoggerUtil.info("FinanceiroView.actionFolhaPagamento()");
 		try {
 
 			this.colaboradores = this.controller.getFolhaPagamento(getTenant(), this.colaborador, this.dataInicial);
@@ -96,6 +98,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	}
 
 	public String actionExportContasReceber() {
+		ProfisioLoggerUtil.info("FinanceiroView.actionExportContasReceber()");
 		try {
 
 			String path = SystemUtils.getPath() + "/report_conta_receber.csv";
@@ -111,6 +114,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	}
 
 	public String actionGetPagamentosCheiosByAtividade() {
+		ProfisioLoggerUtil.info("FinanceiroView.actionGetPagamentosCheiosByAtividade()");
 		String xml = XML_HEAD;
 		try {
 
@@ -130,6 +134,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	}
 
 	public String actionCaixa() {
+		ProfisioLoggerUtil.info("FinanceiroView.actionCaixa()");
 		try {
 
 			this.soma = this.controller.getSaldoAnteriorCaixa(getTenant(), dataInicial);
@@ -151,6 +156,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	}
 
 	public String actionContasReceber() {
+		ProfisioLoggerUtil.info("FinanceiroView.actionContasReceber()");
 		try {
 
 			this.contasReceber = this.controller.getContasReceber(getTenant(), dataInicial, dataFinal, formaPagamento, colaborador, servico, statusContaPagar);
@@ -183,6 +189,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	}
 
 	public String actionEditarContaReceber() {
+		ProfisioLoggerUtil.info("FinanceiroView.actionEditarContaReceber()");
 		String resposta = REDIRECT;
 		try {
 
@@ -198,6 +205,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	}
 
 	public String actionEditarContaPagar() {
+		ProfisioLoggerUtil.info("FinanceiroView.actionEditarContaPagar()");
 		String resposta = "";
 		try {
 
@@ -215,6 +223,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	}
 
 	public String actionContaReceber() {
+		ProfisioLoggerUtil.info("FinanceiroView.actionContaReceber()");
 		try {
 
 			this.contaReceber = this.controller.getContaReceber(getTenant(), contaReceber);
@@ -227,6 +236,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	}
 
 	public String actionContaPagar() {
+		ProfisioLoggerUtil.info("FinanceiroView.actionContaPagar()");
 		try {
 
 			this.contaPagar = this.controller.getContaPagar(getTenant(), contaPagar);
@@ -237,6 +247,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	}
 
 	public String actionContasPagar() {
+		ProfisioLoggerUtil.info("FinanceiroView.actionContasPagar()");
 		try {
 
 			TipoCusto tipo = null;
@@ -262,6 +273,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	}
 
 	public String actionCadastrarContaPagar() {
+		ProfisioLoggerUtil.info("FinanceiroView.actionCadastrarContaPagar()");
 		String resposta = REDIRECT;
 		try {
 
@@ -280,6 +292,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	}
 
 	public String actionRemoverContaPagar() {
+		ProfisioLoggerUtil.info("FinanceiroView.actionRemoverContaPagar()");
 		try {
 
 			controller.removerContaPagar(getTenant(), contaPagar);
@@ -291,6 +304,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	}
 
 	public String actionCadastrarContaReceber() {
+		ProfisioLoggerUtil.info("FinanceiroView.actionCadastrarContaReceber()");
 		String resposta = REDIRECT;
 		Boolean sucesso = true;
 
@@ -342,6 +356,7 @@ public class FinanceiroView extends ProfisioActionSupport {
 	}
 
 	public String actionRemoverContaReceber() {
+		ProfisioLoggerUtil.info("FinanceiroView.actionRemoverContaReceber()");
 		String resposta = REDIRECT;
 		try {
 

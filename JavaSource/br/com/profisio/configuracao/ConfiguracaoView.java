@@ -3,6 +3,7 @@ package br.com.profisio.configuracao;
 import br.com.profisio.basics.Configuracao;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
+import br.com.profisio.util.ProfisioLoggerUtil;
 
 public class ConfiguracaoView extends ProfisioActionSupport {
 
@@ -17,6 +18,7 @@ public class ConfiguracaoView extends ProfisioActionSupport {
 	}
 
 	public String actionGerenciarCaixa() {
+		ProfisioLoggerUtil.info("ConfiguracaoView.actionGerenciarCaixa()");
 		try {
 
 			if (this.configuracao == null)

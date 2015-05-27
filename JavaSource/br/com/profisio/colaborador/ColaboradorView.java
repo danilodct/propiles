@@ -10,6 +10,7 @@ import br.com.profisio.basics.enums.Sexo;
 import br.com.profisio.basics.enums.TipoUser;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
+import br.com.profisio.util.ProfisioLoggerUtil;
 import br.com.profisio.util.ProfisioSessionUtil;
 import br.com.profisio.util.SystemUtils;
 
@@ -31,9 +32,10 @@ public class ColaboradorView extends ProfisioActionSupport {
 	}
 
 	public String actionAlterarSenha() {
+		ProfisioLoggerUtil.info("ColaboradorView.actionAlterarSenha()");
 		String resposta = REDIRECT;
 		try {
-			
+
 			if (this.colaborador != null) {
 				Usuario userSession = ProfisioSessionUtil.getUserSession();
 				this.colaborador.setId(userSession.getId());
@@ -48,9 +50,10 @@ public class ColaboradorView extends ProfisioActionSupport {
 	}
 
 	public String actionGetContratosByServico() {
+		ProfisioLoggerUtil.info("ColaboradorView.actionGetContratosByServico()");
 		String xml = XML_HEAD;
 		try {
-			
+
 			this.contratos = this.controller.getContratosByServico(getTenant(), this.servico);
 			xml += "<contratos>";
 			if (this.contratos != null && this.contratos.size() > 0) {
@@ -72,8 +75,9 @@ public class ColaboradorView extends ProfisioActionSupport {
 	}
 
 	public String actionEditarContrato() {
+		ProfisioLoggerUtil.info("ColaboradorView.actionEditarContrato()");
 		try {
-			
+
 			this.controller.editarContrato(getTenant(), contrato);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 		} catch (Exception e) {
@@ -83,8 +87,9 @@ public class ColaboradorView extends ProfisioActionSupport {
 	}
 
 	public String actionCadastrarContrato() {
+		ProfisioLoggerUtil.info("ColaboradorView.actionCadastrarContrato()");
 		try {
-			
+
 			this.controller.cadastrarContrato(getTenant(), contrato);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.CADASTRO_SUCESSO));
 		} catch (Exception e) {
@@ -94,8 +99,9 @@ public class ColaboradorView extends ProfisioActionSupport {
 	}
 
 	public String actionRemoverContrato() {
+		ProfisioLoggerUtil.info("ColaboradorView.actionRemoverContrato()");
 		try {
-			
+
 			this.controller.removerContrato(getTenant(), contrato);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REMOCAO_SUCESSO));
 		} catch (Exception e) {
@@ -105,8 +111,9 @@ public class ColaboradorView extends ProfisioActionSupport {
 	}
 
 	public String actionRemoverColaborador() {
+		ProfisioLoggerUtil.info("ColaboradorView.actionRemoverColaborador()");
 		try {
-			
+
 			this.controller.removerColaborador(getTenant(), colaborador);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.REMOCAO_SUCESSO));
 		} catch (Exception e) {
@@ -116,8 +123,9 @@ public class ColaboradorView extends ProfisioActionSupport {
 	}
 
 	public String actionEditarColaborador() {
+		ProfisioLoggerUtil.info("ColaboradorView.actionEditarColaborador()");
 		try {
-			
+
 			this.controller.editarColaborador(getTenant(), colaborador);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
 		} catch (Exception e) {
@@ -127,9 +135,10 @@ public class ColaboradorView extends ProfisioActionSupport {
 	}
 
 	public String actionCadastrarColaborador() {
+		ProfisioLoggerUtil.info("ColaboradorView.actionCadastrarColaborador()");
 		String resposta = null;
 		try {
-			
+
 			this.controller.cadastrarColaborador(getTenant(), colaborador);
 			resposta = SUCCESS;
 		} catch (Exception e) {
@@ -140,12 +149,13 @@ public class ColaboradorView extends ProfisioActionSupport {
 	}
 
 	public String actionColaborador() {
+		ProfisioLoggerUtil.info("ColaboradorView.actionColaborador()");
 		String resposta = null;
 		try {
 			Integer id = null;
 			if (this.colaborador != null && this.colaborador.getId() != null)
 				id = this.colaborador.getId();
-			
+
 			this.colaborador = this.controller.getColaboradorById(getTenant(), id);
 			this.contratos = this.controller.getContratosByColaborador(getTenant(), this.colaborador);
 			resposta = SUCCESS;
@@ -157,8 +167,9 @@ public class ColaboradorView extends ProfisioActionSupport {
 	}
 
 	public String actionColaboradores() {
+		ProfisioLoggerUtil.info("ColaboradorView.actionColaboradores()");
 		try {
-			
+
 			this.colaboradores = this.controller.getColaboradores(getTenant(), nomeColaborador);
 		} catch (Exception e) {
 			this.dealException(e);

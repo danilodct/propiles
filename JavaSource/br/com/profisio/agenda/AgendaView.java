@@ -7,6 +7,7 @@ import br.com.profisio.basics.Cadastro;
 import br.com.profisio.basics.enums.RepeticaoAgendamento;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
+import br.com.profisio.util.ProfisioLoggerUtil;
 
 public class AgendaView extends ProfisioActionSupport {
 
@@ -23,6 +24,7 @@ public class AgendaView extends ProfisioActionSupport {
 	}
 
 	public String actionRemoverAgendamento() {
+		ProfisioLoggerUtil.info("AgendaView.actionRemoverAgendamento()");
 		String resposta = REDIRECT;
 		try {
 			if (this.repeticoes == null)
@@ -38,6 +40,7 @@ public class AgendaView extends ProfisioActionSupport {
 	}
 
 	public String actionAlterarDataAgendamento() {
+		ProfisioLoggerUtil.info("AgendaView.actionAlterarDataAgendamento()");
 		String resposta = REDIRECT;
 		try {
 			controller.alterarDataAgendamento(getTenant(), this.agendamento);
@@ -51,6 +54,7 @@ public class AgendaView extends ProfisioActionSupport {
 	}
 
 	public String actionEditarAgendamento() {
+		ProfisioLoggerUtil.info("AgendaView.actionEditarAgendamento()");
 		String resposta = REDIRECT;
 		try {
 			controller.editarAgendamento(getTenant(), this.agendamento);
@@ -64,6 +68,7 @@ public class AgendaView extends ProfisioActionSupport {
 	}
 
 	public String actionCadastrarAgendamento() {
+		ProfisioLoggerUtil.info("AgendaView.actionCadastrarAgendamento()");
 		String resposta = REDIRECT;
 		try {
 			controller.cadastrarAgendamento(getTenant(), this.agendamento);
@@ -77,6 +82,7 @@ public class AgendaView extends ProfisioActionSupport {
 	}
 
 	public String actionAgenda() {
+		ProfisioLoggerUtil.info("AgendaView.actionAgenda()");
 		try {
 
 			this.agendamentos = controller.getAgendamentosByMes(getTenant(), null);

@@ -22,6 +22,7 @@ import br.com.profisio.colaborador.ColaboradorControl;
 import br.com.profisio.financeiro.FinanceiroControl;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
+import br.com.profisio.util.ProfisioLoggerUtil;
 import br.com.profisio.util.SystemUtils;
 
 public class CadastroView extends ProfisioActionSupport {
@@ -51,6 +52,7 @@ public class CadastroView extends ProfisioActionSupport {
 	}
 
 	public String actionEditarAvaliacao() {
+		ProfisioLoggerUtil.info("CadastroView.actionEditarAvaliacao()");
 		try {
 			this.controller.editarAvaliacao(avaliacao);
 			addActionMessage(ProfisioBundleUtil.getMsg(ProfisioBundleUtil.ALTERACAO_SUCESSO));
@@ -61,6 +63,7 @@ public class CadastroView extends ProfisioActionSupport {
 	}
 
 	public String actionRemoverAtividade() {
+		ProfisioLoggerUtil.info("CadastroView.actionRemoverAtividade()");
 		try {
 
 			this.controller.removerAtividade(getTenant(), atividade);
@@ -72,6 +75,7 @@ public class CadastroView extends ProfisioActionSupport {
 	}
 
 	public String actionAtividade() {
+		ProfisioLoggerUtil.info("CadastroView.actionAtividade()");
 		String resposta = null;
 		try {
 
@@ -85,6 +89,7 @@ public class CadastroView extends ProfisioActionSupport {
 	}
 
 	public String actionCadastrarAtividade() {
+		ProfisioLoggerUtil.info("CadastroView.actionCadastrarAtividade()");
 		try {
 
 			this.controller.cadastrarAtividade(getTenant(), atividade);
@@ -96,6 +101,7 @@ public class CadastroView extends ProfisioActionSupport {
 	}
 
 	public String actionCadastro() {
+		ProfisioLoggerUtil.info("CadastroView.actionCadastro()");
 		try {
 
 			this.cadastro = this.controller.getCadastro(getTenant(), cadastro);
@@ -124,6 +130,7 @@ public class CadastroView extends ProfisioActionSupport {
 	}
 
 	public String actionCadastrarCadastro() {
+		ProfisioLoggerUtil.info("CadastroView.actionCadastrarCadastro()");
 		String resposta = null;
 		try {
 
@@ -141,6 +148,7 @@ public class CadastroView extends ProfisioActionSupport {
 	}
 
 	public String actionEditarCadastro() {
+		ProfisioLoggerUtil.info("CadastroView.actionEditarCadastro()");
 		try {
 
 			if (cadastro != null && cadastro.getConhecimentoStudio() != null && cadastro.getConhecimentoStudio().equals("Outro") && this.outraFormaConhecimento != null && !this.outraFormaConhecimento.equals("")) {
@@ -155,6 +163,7 @@ public class CadastroView extends ProfisioActionSupport {
 	}
 
 	public String actionRemoverCadastro() {
+		ProfisioLoggerUtil.info("CadastroView.actionRemoverCadastro()");
 		try {
 
 			this.controller.removerCadastro(getTenant(), cadastro);
@@ -166,6 +175,7 @@ public class CadastroView extends ProfisioActionSupport {
 	}
 
 	public String actionCadastros() {
+		ProfisioLoggerUtil.info("CadastroView.actionCadastros()");
 		try {
 
 			if (getPagAtual() == null)
@@ -180,6 +190,7 @@ public class CadastroView extends ProfisioActionSupport {
 	}
 
 	public String actionAniversariantes() {
+		ProfisioLoggerUtil.info("CadastroView.actionAniversariantes()");
 		try {
 
 			this.clientes = controller.getProximosAniversariantes(getTenant());

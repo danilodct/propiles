@@ -7,6 +7,7 @@ import br.com.profisio.basics.Cadastro;
 import br.com.profisio.basics.Frequencia;
 import br.com.profisio.util.ProfisioActionSupport;
 import br.com.profisio.util.ProfisioBundleUtil;
+import br.com.profisio.util.ProfisioLoggerUtil;
 import br.com.profisio.util.SystemUtils;
 
 public class FrequenciaView extends ProfisioActionSupport {
@@ -25,6 +26,7 @@ public class FrequenciaView extends ProfisioActionSupport {
 	}
 
 	public String actionCadastrarFrequencia() {
+		ProfisioLoggerUtil.info("FrequenciaView.actionCadastrarFrequencia()");
 		try {
 
 			controller.cadastrarFrequencia(getTenant(), frequencia);
@@ -36,6 +38,7 @@ public class FrequenciaView extends ProfisioActionSupport {
 	}
 
 	public String actionRemoverFrequencia() {
+		ProfisioLoggerUtil.info("FrequenciaView.actionRemoverFrequencia()");
 		String resposta = REDIRECT;
 		try {
 
@@ -50,6 +53,7 @@ public class FrequenciaView extends ProfisioActionSupport {
 	}
 
 	public String actionFrequencia() {
+		ProfisioLoggerUtil.info("FrequenciaView.actionFrequencia()");
 		try {
 
 			this.frequencias = controller.getFrequencias(getTenant(), dataInicial, dataFinal);
@@ -58,6 +62,8 @@ public class FrequenciaView extends ProfisioActionSupport {
 		}
 		return REDIRECT;
 	}
+
+	//888888888888888888888888888888888888888888888888
 
 	public Date getDataInicial() {
 		return dataInicial;

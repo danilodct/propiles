@@ -12,6 +12,7 @@ import br.com.profisio.basics.Colaborador;
 import br.com.profisio.basics.Servico;
 import br.com.profisio.colaborador.ColaboradorControl;
 import br.com.profisio.util.ProfisioActionSupport;
+import br.com.profisio.util.ProfisioLoggerUtil;
 import br.com.profisio.util.ProfisioSessionUtil;
 import br.com.profisio.util.SystemUtils;
 
@@ -36,6 +37,7 @@ public class RelatorioView extends ProfisioActionSupport {
 	}
 
 	public String actionExportAtividadesClientes() {
+		ProfisioLoggerUtil.info("RelatorioView.actionExportAtividadesClientes()");
 		try {
 
 			String path = SystemUtils.getPath() + "/report.csv";
@@ -51,6 +53,7 @@ public class RelatorioView extends ProfisioActionSupport {
 	}
 
 	public String actionDRE() {
+		ProfisioLoggerUtil.info("RelatorioView.actionDRE()");
 		try {
 
 			this.relatorio = this.controller.gerarDemonstrativoResultado(getTenant(), dataInicial, dataFinal);
@@ -61,6 +64,7 @@ public class RelatorioView extends ProfisioActionSupport {
 	}
 
 	public String actionEfetividade() {
+		ProfisioLoggerUtil.info("RelatorioView.actionEfetividade()");
 		try {
 			if (ProfisioSessionUtil.hasAccess(ProfisioSessionUtil.FUNC_RELATORIO_EFETIVIDADE, getTenant())) {
 				Integer somaCadastros = 0;
@@ -81,6 +85,7 @@ public class RelatorioView extends ProfisioActionSupport {
 	}
 
 	public String actionFrequentes() {
+		ProfisioLoggerUtil.info("RelatorioView.actionFrequentes()");
 		try {
 			if (ProfisioSessionUtil.hasAccess(ProfisioSessionUtil.FUNC_RELATORIO_FREQUENTES, getTenant()))
 				this.clientes = this.controller.getClientesFrequentes(getTenant(), dataInicial, dataFinal, colaborador, servico);
