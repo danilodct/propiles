@@ -49,7 +49,7 @@
 			atividade = :atividade
 			and 
 			parcelamentoPai = null
-			order by dataLancamento desc
+			order by dataLancamento desc, id desc
 			]]>
 	</query>
 	

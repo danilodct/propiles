@@ -66,6 +66,14 @@
 					$("div.areaBotoesPresenca").show();
 					$("div.areaBotoesEditar").show();
 		        }
+
+				if(calEvent.atividade != null && calEvent.atividade != ""){
+					$("h4#areaNomeAtividade").html("Atividade: " + calEvent.atividade);
+					$("h4#areaNomeAtividade").show();
+				}else{
+					$("h4#areaNomeAtividade").html("");
+					$("h4#areaNomeAtividade").hide();
+				}
 				
 		        showModal("#modalEditarAgendamento");
 		    },
@@ -237,6 +245,7 @@
 				<div id="areaDadosAgendamento" class="hide">
 					<s:form action="editarAgendamento" id="editarAgendamento" cssClass="ui form" >
 						<h4 id="areaNomeCliente" class="ui header <s:property value="#session.profisio_user.tenant.corFinal" /> hide"></h4>
+						<h4 id="areaNomeAtividade" class="ui header <s:property value="#session.profisio_user.tenant.corFinal" /> hide"></h4>
 						
 						<input type="hidden" id="agId" name="agendamento.idCript" />
 						<input type="hidden" id="agCadastro" name="agendamento.cadastro.idCadastroCript" />

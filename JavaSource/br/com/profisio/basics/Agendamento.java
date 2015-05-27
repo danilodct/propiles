@@ -13,11 +13,12 @@ public class Agendamento extends ObjetoBasico {
 	private String titulo, nota;
 	private Date dataInicio, dataFim;
 	private Cadastro cadastro;
-	private ContaReceber contaReceber;
 	private Integer duracao;//em minutos
 	private RepeticaoAgendamento repeticao;
 	private StatusAgendamento status;
 	private Agendamento pai;
+	private Atividade atividade;
+	private ContaReceber contaReceber;
 
 	public Agendamento() {
 	}
@@ -177,6 +178,14 @@ public class Agendamento extends ObjetoBasico {
 
 	public void setStatusStr(String status) {
 		this.status = StatusAgendamento.createEnum(status);
+	}
+
+	public Atividade getAtividade() {
+		return atividade;
+	}
+
+	public void setAtividade(Atividade atividade) {
+		this.atividade = atividade;
 	}
 
 }

@@ -168,6 +168,17 @@
 				removeOptions("div#areaPagamentos select");
 			}
 		});
+		$("select#atividadesAgendamentos").change(function(){
+			if($(this).val() != -1){
+				$("input#duracaoSessao").val($("select#atividadesAgendamentoSuporte option[value='"+$(this).val()+"']").html());
+				runAjax("getPagamentosCheiosByAtividade", "atividade.idCript="+$(this).val(), "xml", procGetPagamentosCheiosAgendamentosByAtividade);
+			}else{
+				$("div#areaPagamentosAgendamentos").hide();
+				$("div#areaPagamentosAgendamentos .menu").remove();
+				$("div#areaPagamentosAgendamentos select").dropdown("destroy");
+				removeOptions("div#areaPagamentosAgendamentos select");
+			}
+		});
 	}
 	function procGetPagamentosCheiosByAtividade(xml){
 		$("div#areaPagamentos .menu").remove();
@@ -193,6 +204,34 @@
 			$("div#areaPagamentos select").append(optionNenhum);
 			$("div#areaPagamentos select").dropdown("destroy");
 			$("div#areaPagamentos select").dropdown();
+		}else{
+			$("div#areaPagamentos").hide();
+		}
+	}
+	function procGetPagamentosCheiosAgendamentosByAtividade(xml){
+		$("div#areaPagamentosAgendamentos .menu").remove();
+		$("div#areaPagamentosAgendamentos select").dropdown("destroy");
+		removeOptions("div#areaPagamentosAgendamentos  select");
+		if($(xml).find("pagamento").length > 0){
+			$("div#areaPagamentosAgendamentos ").show();
+			$(xml).find("pagamento").each(function(){
+				var idPag = $(this).attr("id");
+				var data = $(this).attr("data");
+				var sessoes = $(this).attr("qtdSessoes");
+				var valor = $(this).attr("valor");
+				var sessaoStr = "sessões";
+				if(sessoes == 1)
+					sessaoStr = "sessão";
+				var txtQtdSessoes = "";
+				if(sessoes > 0)
+					txtQtdSessoes = " ["+sessoes+" "+sessaoStr+"]";
+				option = $("<option value='"+idPag+"'>"+data+" - R$ "+valor+ txtQtdSessoes +"</option>");
+				$("div#areaPagamentosAgendamentos  select").append(option);
+			});
+			var optionNenhum = $("<option value='-1'>NENHUM</option>");
+			$("div#areaPagamentosAgendamentos select").append(optionNenhum);
+			$("div#areaPagamentosAgendamentos select").dropdown("destroy");
+			$("div#areaPagamentosAgendamentos select").dropdown();
 		}else{
 			$("div#areaPagamentos").hide();
 		}
@@ -257,7 +296,16 @@
 			        $("a.btRemoverAgendamento").attr("href", $("a.btRemoverAgendamento").attr("href")+calEvent.id);
 			        $("a.btRemoverAgendamentoTodos").attr("href", $("a.btRemoverAgendamentoTodos").attr("href")+calEvent.id);
 
-					$("div#modalEditarAgendamento .header").html("Agendamento");
+					$("div#modalEditarAgendamento div.header").html("Agendamento");
+					
+					if(calEvent.atividade != null && calEvent.atividade != ""){
+						$("div#modalEditarAgendamento h4.header").html("Atividade: " + calEvent.atividade);
+						$("div#modalEditarAgendamento h4.header").show();
+					}else{
+						$("div#modalEditarAgendamento h4.header").html("");
+						$("div#modalEditarAgendamento h4.header").hide();
+					}
+					
 					$("div.areaPreBotoesAgendamento").show();
 					$("div#areaDadosAgendamento").hide();
 					
@@ -277,7 +325,7 @@
 		}
 		$("a#btMarcarFalta").click(function(evt){
 			evt.preventDefault();
-			$("div#modalEditarAgendamento .header").html("Marcar Falta");
+			$("div#modalEditarAgendamento div.header").html("Marcar Falta");
 			$("input#agStatus").val("FALTOU");
 			$("div.areaPreBotoesAgendamento").hide();
 			$("div#areaDadosAgendamento").show();
@@ -288,7 +336,7 @@
 		});
 		$("a#btMarcarPresenca").click(function(evt){
 			evt.preventDefault();
-			$("div#modalEditarAgendamento .header").html("Marcar Presença");
+			$("div#modalEditarAgendamento div.header").html("Marcar Presença");
 			$("input#agStatus").val("COMPARECEU");
 			$("div.areaPreBotoesAgendamento").hide();
 			$("div#areaDadosAgendamento").show();
@@ -299,7 +347,7 @@
 		});
 		$("input#btAlterarDados").click(function(evt){
 			evt.preventDefault();
-			$("div#modalEditarAgendamento .header").html("Editar Agendamento");
+			$("div#modalEditarAgendamento div.header").html("Editar Agendamento");
 			$("div.areaPreBotoesAgendamento").hide();
 			$("div#areaDadosAgendamento").show();
 			$("div.areaBotoesFalta").hide();
@@ -1149,7 +1197,7 @@
 			<table class="ui celled striped <s:property value="#session.profisio_user.tenant.corFinal" /> table">
 				<thead>
 					<tr>
-						<th>#</th>
+						<th># <i class="help circle icon hint" data-content="Ordem de acordo com o serviço" data-variation="inverted" ></i></th>
 						<th>Data</th>
 						<th>Serviço</th>
 						<th>Colaborador</th>
@@ -1223,6 +1271,18 @@
 							<input type="hidden" name="aba" value="agendamentos" />
 							
 							<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Dados principais</h4>
+							<div class="two fields">
+								<div class="field">
+									<label class="medio final left">Atividade</label>
+									<s:select id="atividadesAgendamentos" name="agendamento.atividade.idCript" cssClass="ui dropdown" headerKey="-1" headerValue="SELECIONE UMA ATIVIDADE" list="atividades" listKey="idCript" listValue="contrato.servico.nome + ' - ' + contrato.colaborador.nome" />
+								</div>
+								<div class="field hide" id="areaPagamentosAgendamentos">
+									<label class="medio final left">Referente ao pagamento:</label>
+									<select class="ui dropdown" name="agendamento.contaReceber.idCript" >
+									</select>
+								</div>
+							</div>
+							
 							<div class="required field">
 								<label>Título</label>
 								<s:textfield name="agendamento.titulo" />
@@ -1298,6 +1358,8 @@
 				
 				<div id="areaDadosAgendamento" class="hide">
 					<s:form action="editarAgendamento" id="editarAgendamento" cssClass="ui form" >
+						<h4 id="areaNomeAtividade" class="ui header <s:property value="#session.profisio_user.tenant.corFinal" /> hide"></h4>
+						
 						<input type="hidden" name="agendamento.cadastro.idCript" value="<s:property value="cadastro.idCript" />" />
 						<s:hidden name="cadastro.idCript" id="cadastroId" />
 						<input type="hidden" name="aba" value="agendamentos" />
@@ -1306,6 +1368,7 @@
 						<input type="hidden" id="agRepeticao" name="agendamento.repeticaoStr" />
 						<input type="hidden" id="agSalvarRepeticoes" name="repeticoes" />
 						<input type="hidden" id="agStatus" name="agendamento.statusStr" />
+						
 						<div class="required field">
 							<label>Título:</label>
 							<s:textfield name="agendamento.titulo" id="agTitulo" />

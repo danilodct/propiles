@@ -231,7 +231,12 @@ public class CadastroControl extends ControllerBase {
 				if (agendamento.getStatus() != null && agendamento.getStatus() == StatusAgendamento.COMPARECEU)
 					cor = "#99C347";
 				String corTexto = "white";
-				retorno += ",{\"id\":\"" + agendamento.getIdCript() + "\", \"pai\":\"" + paiIdCript + "\", \"backgroundColor\":\"" + cor + "\", \"borderColor\":\"" + cor + "\", \"textColor\":\"" + corTexto + "\", \"repeticao\":\"" + repeticoes + "\", \"cliente\":\"" + cliente + "\", \"nota\":\"" + nota + "\", \"horario\":\"" + agendamento.getHorario() + "\", \"title\":\"" + agendamento.getTitulo() + "\", \"duracao\":\"" + duracao + "\", \"dataInicial\":\"" + agendamento.getDataInicioStr() + "\",  \"start\":\"" + agendamento.getDataInicioStrEUA() + " " + agendamento.getHorario() + "\", \"dataFinal\":\"" + agendamento.getDataFimStr() + "\", \"end\":\"" + agendamento.getDataFimStrEUA() + " " + agendamento.getHorarioFinal() + "\", \"status\":\"" + agendamento.getStatusStr() + "\" }";
+
+				String atividade = "";
+				if (agendamento.getAtividade() != null && agendamento.getAtividade().getContrato() != null)
+					atividade = agendamento.getAtividade().getContrato().getServico().getNome() + " - " + agendamento.getAtividade().getContrato().getColaborador().getNome();
+
+				retorno += ",{\"id\":\"" + agendamento.getIdCript() + "\", \"pai\":\"" + paiIdCript + "\", \"atividade\":\"" + atividade + "\", \"backgroundColor\":\"" + cor + "\", \"borderColor\":\"" + cor + "\", \"textColor\":\"" + corTexto + "\", \"repeticao\":\"" + repeticoes + "\", \"cliente\":\"" + cliente + "\", \"nota\":\"" + nota + "\", \"horario\":\"" + agendamento.getHorario() + "\", \"title\":\"" + agendamento.getTitulo() + "\", \"duracao\":\"" + duracao + "\", \"dataInicial\":\"" + agendamento.getDataInicioStr() + "\",  \"start\":\"" + agendamento.getDataInicioStrEUA() + " " + agendamento.getHorario() + "\", \"dataFinal\":\"" + agendamento.getDataFimStr() + "\", \"end\":\"" + agendamento.getDataFimStrEUA() + " " + agendamento.getHorarioFinal() + "\", \"status\":\"" + agendamento.getStatusStr() + "\" }";
 			}
 		}
 		if (agendamentos != null && agendamentos.size() > 0)

@@ -18,6 +18,7 @@
 		
 		<many-to-one name="pai" column="pai_id" lazy="false" />
 		<many-to-one name="cadastro" column="cadastro_id" lazy="false" />
+		<many-to-one name="atividade" column="atividade_id" lazy="false" />
 		<many-to-one name="contaReceber" column="contaReceber_id" lazy="false" />
 		
 	</class>

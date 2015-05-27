@@ -5,8 +5,11 @@ import java.util.Collection;
 import java.util.Date;
 
 import br.com.profisio.basics.Agendamento;
+import br.com.profisio.basics.Frequencia;
 import br.com.profisio.basics.enums.RepeticaoAgendamento;
 import br.com.profisio.basics.enums.StatusAgendamento;
+import br.com.profisio.basics.enums.StatusObjeto;
+import br.com.profisio.frequencia.FrequenciaControl;
 import br.com.profisio.util.ControllerBase;
 import br.com.profisio.util.ProfisioBundleUtil;
 import br.com.profisio.util.ProfisioException;
@@ -111,7 +114,11 @@ public class AgendaControl extends ControllerBase {
 				if (agendamento.getCadastro() != null && agendamento.getCadastro().getId() != null)
 					cadastroIdCript = agendamento.getCadastro().getIdCript();
 
-				retorno += ",{\"id\":\"" + agendamento.getIdCript() + "\",  \"pai\":\"" + paiIdCript + "\",   \"cadastro\":\"" + cadastroIdCript + "\", \"backgroundColor\":\"" + cor + "\", \"borderColor\":\"" + cor + "\", \"textColor\":\"" + corTexto + "\", \"repeticao\":\"" + repeticoes + "\", \"cliente\":\"" + cliente + "\", \"nota\":\"" + nota + "\", \"horario\":\"" + agendamento.getHorario() + "\", \"title\":\"" + agendamento.getTitulo() + "\", \"duracao\":\"" + duracao + "\", \"dataInicial\":\"" + agendamento.getDataInicioStr() + "\",  \"start\":\"" + agendamento.getDataInicioStrEUA() + " " + agendamento.getHorario() + "\", \"dataFinal\":\"" + agendamento.getDataFimStr() + "\", \"end\":\"" + agendamento.getDataFimStrEUA() + " " + agendamento.getHorarioFinal() + "\", \"status\":\"" + agendamento.getStatusStr() + "\" }";
+				String atividade = "";
+				if (agendamento.getAtividade() != null && agendamento.getAtividade().getContrato() != null)
+					atividade = agendamento.getAtividade().getContrato().getServico().getNome() + " - " + agendamento.getAtividade().getContrato().getColaborador().getNome();
+
+				retorno += ",{\"id\":\"" + agendamento.getIdCript() + "\",  \"pai\":\"" + paiIdCript + "\", \"cadastro\":\"" + cadastroIdCript + "\", \"atividade\":\"" + atividade + "\", \"backgroundColor\":\"" + cor + "\", \"borderColor\":\"" + cor + "\", \"textColor\":\"" + corTexto + "\", \"repeticao\":\"" + repeticoes + "\", \"cliente\":\"" + cliente + "\", \"nota\":\"" + nota + "\", \"horario\":\"" + agendamento.getHorario() + "\", \"title\":\"" + agendamento.getTitulo() + "\", \"duracao\":\"" + duracao + "\", \"dataInicial\":\"" + agendamento.getDataInicioStr() + "\",  \"start\":\"" + agendamento.getDataInicioStrEUA() + " " + agendamento.getHorario() + "\", \"dataFinal\":\"" + agendamento.getDataFimStr() + "\", \"end\":\"" + agendamento.getDataFimStrEUA() + " " + agendamento.getHorarioFinal() + "\", \"status\":\"" + agendamento.getStatusStr() + "\" }";
 
 			}
 
@@ -127,23 +134,26 @@ public class AgendaControl extends ControllerBase {
 		SystemUtils.assertObjectIsNotNullHasId(agendamento);
 		Agendamento agendamentoBD = this.dao.getAgendamentosById(agendamento.getId());
 		agendamento.setCadastro(agendamentoBD.getCadastro());
+		agendamento.setAtividade(agendamentoBD.getAtividade());
 		agendamento.setContaReceber(agendamentoBD.getContaReceber());
 		agendamento.setTenant(tenant);
 		if (agendamento.getPai() != null && agendamento.getPai().getId() == null)
 			agendamento.setPai(null);
 		if (agendamento.getStatus() == null)
 			agendamento.setStatus(agendamentoBD.getStatus());
-		if (agendamento.getStatus() == StatusAgendamento.COMPARECEU && agendamento.getCadastro() != null) {
+		if (agendamento.getStatus() == StatusAgendamento.COMPARECEU && agendamento.getCadastro() != null && agendamento.getAtividade() != null) {
 			//para cadastrar frequencia precisa informar atividade
-			//			Frequencia frequencia = new Frequencia();
-			//			frequencia.setCadastro(agendamento.getCadastro());
-			//			frequencia.setData(agendamento.getDataInicio());
-			//			frequencia.setDuracao(agendamento.getDuracao());
-			//			frequencia.setHorario(agendamento.getHorario());
-			//			frequencia.setNovo(true);
-			//			frequencia.setTenant(tenant);
-			//			frequencia.setStatusObjeto(StatusObjeto.ATIVO);
-			//			FrequenciaControl.getInstance().cadastrarFrequencia(tenant, frequencia);
+			Frequencia frequencia = new Frequencia();
+			frequencia.setAtividade(agendamento.getAtividade());
+			frequencia.setCadastro(agendamento.getCadastro());
+			frequencia.setContaReceber(agendamento.getContaReceber());
+			frequencia.setData(agendamento.getDataInicio());
+			frequencia.setDuracao(agendamento.getDuracao());
+			frequencia.setHorario(agendamento.getHorario());
+			frequencia.setNovo(true);
+			frequencia.setTenant(tenant);
+			frequencia.setStatusObjeto(StatusObjeto.ATIVO);
+			FrequenciaControl.getInstance().cadastrarFrequencia(tenant, frequencia);
 		}
 		this.dao.editar(agendamento);
 	}
