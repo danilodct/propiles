@@ -99,8 +99,22 @@ public class AgendaControl extends ControllerBase {
 					cor = "#99C347";
 				String corTexto = "white";
 
-				retorno += ",{\"id\":\"" + agendamento.getIdCript() + "\", \"backgroundColor\":\"" + cor + "\", \"borderColor\":\"" + cor + "\", \"textColor\":\"" + corTexto + "\", \"cliente\":\"" + cliente + "\", \"nota\":\"" + nota + "\", \"horario\":\"" + agendamento.getHorario() + "\", \"title\":\"" + agendamento.getTitulo() + "\", \"duracao\":\"" + duracao + "\", \"dataInicial\":\"" + agendamento.getDataInicioStr() + "\",  \"start\":\"" + agendamento.getDataInicioStrEUA() + " " + agendamento.getHorario() + "\", \"dataFinal\":\"" + agendamento.getDataFimStr() + "\", \"end\":\"" + agendamento.getDataFimStrEUA() + " " + agendamento.getHorarioFinal() + "\" }";
+				String paiIdCript = "";
+				if (agendamento.getPai() != null)
+					paiIdCript = agendamento.getPai().getIdCript();
+
+				String repeticoes = "";
+				if (agendamento.getRepeticao() != null)
+					repeticoes = agendamento.getRepeticao().getValue();
+
+				String cadastroIdCript = "";
+				if (agendamento.getCadastro() != null && agendamento.getCadastro().getId() != null)
+					cadastroIdCript = agendamento.getCadastro().getIdCript();
+
+				retorno += ",{\"id\":\"" + agendamento.getIdCript() + "\",  \"pai\":\"" + paiIdCript + "\",   \"cadastro\":\"" + cadastroIdCript + "\", \"backgroundColor\":\"" + cor + "\", \"borderColor\":\"" + cor + "\", \"textColor\":\"" + corTexto + "\", \"repeticao\":\"" + repeticoes + "\", \"cliente\":\"" + cliente + "\", \"nota\":\"" + nota + "\", \"horario\":\"" + agendamento.getHorario() + "\", \"title\":\"" + agendamento.getTitulo() + "\", \"duracao\":\"" + duracao + "\", \"dataInicial\":\"" + agendamento.getDataInicioStr() + "\",  \"start\":\"" + agendamento.getDataInicioStrEUA() + " " + agendamento.getHorario() + "\", \"dataFinal\":\"" + agendamento.getDataFimStr() + "\", \"end\":\"" + agendamento.getDataFimStrEUA() + " " + agendamento.getHorarioFinal() + "\", \"status\":\"" + agendamento.getStatusStr() + "\" }";
+
 			}
+
 		}
 
 		if (agendamentos != null && agendamentos.size() > 0)

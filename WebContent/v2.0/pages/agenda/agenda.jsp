@@ -29,6 +29,7 @@
 		createAgenda("#calendar", agendamentos, 
 			function(calEvent, jsEvent, view) {
 		        $("input#agId").val(calEvent.id);
+		        $("input#agCadastro").val(calEvent.cadastro);
 		        $("input#agTitulo").val(calEvent.title);
 		        $("textarea#agNota").val(calEvent.nota);
 		        $("input#agDataInicio").val(calEvent.start.format("DD/MM/YYYY"));
@@ -50,9 +51,21 @@
 		        $("a.btRemoverAgendamento").attr("href", $("a.btRemoverAgendamento").attr("href")+calEvent.id);
 		        $("a.btRemoverAgendamentoTodos").attr("href", $("a.btRemoverAgendamentoTodos").attr("href")+calEvent.id);
 
-				$("div#modalEditarAgendamento .header").html("Agendamento");
-				$("div.areaPreBotoesAgendamento").show();
-				$("div#areaDadosAgendamento").hide();
+		        
+				$("div#modalEditarAgendamento div.header").html("Agendamento");
+		        if(calEvent.cadastro == null || calEvent.cadastro == ""){
+					$("div.areaPreBotoesAgendamento").hide();
+					$("div#areaDadosAgendamento").show();
+					$("div.areaBotoesFalta").hide();
+					$("div.areaBotoesPresenca").hide();
+					$("div.areaBotoesEditar").show();
+		        }else{
+					$("div.areaPreBotoesAgendamento").show();
+					$("div#areaDadosAgendamento").hide();
+					$("div.areaBotoesFalta").show();
+					$("div.areaBotoesPresenca").show();
+					$("div.areaBotoesEditar").show();
+		        }
 				
 		        showModal("#modalEditarAgendamento");
 		    },
@@ -70,7 +83,7 @@
 
 		$("a#btMarcarFalta").click(function(evt){
 			evt.preventDefault();
-			$("div#modalEditarAgendamento .header").html("Marcar Falta");
+			$("div#modalEditarAgendamento div.header").html("Marcar Falta");
 			$("input#agStatus").val("FALTOU");
 			$("div.areaPreBotoesAgendamento").hide();
 			$("div#areaDadosAgendamento").show();
@@ -81,7 +94,7 @@
 		});
 		$("a#btMarcarPresenca").click(function(evt){
 			evt.preventDefault();
-			$("div#modalEditarAgendamento .header").html("Marcar Presença");
+			$("div#modalEditarAgendamento div.header").html("Marcar Presença");
 			$("input#agStatus").val("COMPARECEU");
 			$("div.areaPreBotoesAgendamento").hide();
 			$("div#areaDadosAgendamento").show();
@@ -92,7 +105,7 @@
 		});
 		$("input#btAlterarDados").click(function(evt){
 			evt.preventDefault();
-			$("div#modalEditarAgendamento .header").html("Editar Agendamento");
+			$("div#modalEditarAgendamento div.header").html("Editar Agendamento");
 			$("div.areaPreBotoesAgendamento").hide();
 			$("div#areaDadosAgendamento").show();
 			$("div.areaBotoesFalta").hide();
@@ -226,6 +239,7 @@
 						<h4 id="areaNomeCliente" class="ui header <s:property value="#session.profisio_user.tenant.corFinal" /> hide"></h4>
 						
 						<input type="hidden" id="agId" name="agendamento.idCript" />
+						<input type="hidden" id="agCadastro" name="agendamento.cadastro.idCadastroCript" />
 						<input type="hidden" id="agPai" name="agendamento.pai.idCript" />
 						<input type="hidden" id="agRepeticao" name="agendamento.repeticaoStr" />
 						<input type="hidden" id="agSalvarRepeticoes" name="repeticoes" />
