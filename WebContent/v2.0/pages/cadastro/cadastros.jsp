@@ -222,9 +222,18 @@
 			</div>
 		</div>
 
+	
+		<!-- BOTOES PRINT EXCEL 88888888888888888888888888888888888888888888888888888888888888888888888 -->
+		<div class="ui column right floated">
+			<a href="exportCadastros?nomeCliente=<s:property value="nomeCliente" />" target="_blank" title="Exportar dados detalhados dos cadastros para Excel" >
+				<i class="file excel outline large teal icon"></i>
+			</a>
+		</div>
+		
+		<div class="clear"></div>
+		
 
 		<!-- ÁREA LISTAGEM 88888888888888888888888888888888888888888888888888888888888888888888888 -->
-		
 		<div class="left floated column">
 			Mostrando <s:property value="clientes.size" /> de <s:property value="qtdItens" /> cadastros
 		</div>

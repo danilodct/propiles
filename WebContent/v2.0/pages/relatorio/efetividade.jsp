@@ -112,6 +112,8 @@
 		<div class="ui hidden divider"></div>
 		<div class="ui hidden divider"></div>
 		
+		<div class="clear" ></div>
+		
 		<s:if test="clientes.size > 0">
 			<!-- INFO DE TOTAL 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 			<h2 class="ui horizontal header divider">
@@ -121,8 +123,11 @@
 			<div class="ui hidden divider"></div>
 			<div class="ui hidden divider"></div>
 
-		<!-- ICONE DE IMPRIMIR 88888888888888888888888888888888888888888888888888888888888888888888888 -->
+		<!-- ICONE DE EXCEL E IMPRIMIR 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 			<div class="ui column right floated">
+				<a href="exportEfetividade?dataInicialStr=<s:property value="dataInicialStr" />&dataFinalStr=<s:property value="dataFinalStr" />&tornouCliente=<s:property value="tornouCliente" />" target="_blank" title="Exportar relatório para Excel" >
+					<i class="file excel outline large teal icon"></i>
+				</a>
 				<a href="#" title="Imprimir relatório" class="btPrint ui"> 
 					<i class="print black large icon"></i>
 				</a>

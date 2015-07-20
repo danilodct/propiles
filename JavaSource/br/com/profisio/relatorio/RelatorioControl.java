@@ -230,4 +230,32 @@ public class RelatorioControl extends ControllerBase {
 		return csv;
 	}
 
+	public String getNovosCadastrosCSV(Date dataInicial, Date dataFinal) {
+		String csv = "CLIENTE;E-MAIL;TELEFONE;DATA CADASTRO;TORNOU-SE CLIENTE\n";
+		// se o usuário nao informou data inicio e fim, vai pegar paenas
+		if (dataInicial == null && dataFinal == null) {
+			dataInicial = SystemUtils.getPrimeiroDiaMesAtual(null);
+			dataFinal = SystemUtils.getUltimoDiaMesAtual(null);
+		} else {
+			dataInicial = SystemUtils.setHoraData(dataInicial, Calendar.AM, 0, 0, 0);
+			dataFinal = SystemUtils.setHoraData(dataFinal, Calendar.PM, 11, 59, 59);
+		}
+		Collection<Cadastro> novosCadastros = this.dao.getNovosCadastros(dataInicial, dataFinal);
+		if (novosCadastros != null && novosCadastros.size() > 0) {
+			for (Cadastro cli : novosCadastros) {
+				Collection<Frequencia> frequencias = this.dao.getFrequenciasByCadastro(cli, dataInicial, dataFinal);
+				if (frequencias != null && frequencias.size() > 0)
+					cli.setVirouNovoCliente(true);
+				else
+					cli.setVirouNovoCliente(false);
+			}
+		}
+
+		if (novosCadastros != null && novosCadastros.size() > 0) {
+			for (Cadastro cadastro : novosCadastros) {
+				csv += cadastro.getNome() + ";" + cadastro.getEmail() + ";" + cadastro.getFoneFixo() + " " + cadastro.getFoneCelular() + ";" + cadastro.getDataCadastroStr() + ";" + SystemUtils.parseBooleanToSimNao(cadastro.isVirouNovoCliente()) + "\n";
+			}
+		}
+		return csv;
+	}
 }

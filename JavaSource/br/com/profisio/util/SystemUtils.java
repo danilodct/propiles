@@ -504,4 +504,14 @@ public class SystemUtils {
 		return start + pagSize;
 	}
 
+	public static String parseBooleanToSimNao(Boolean virouNovoCliente) {
+		String resposta = "";
+		if (virouNovoCliente != null) {
+			if (virouNovoCliente)
+				resposta = "Sim";
+			else
+				resposta = "Não";
+		}
+		return resposta;
+	}
 }

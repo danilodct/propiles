@@ -45,3 +45,5 @@
 .ui.header>.icon.hint{display:inline-block !important;font-size:1rem !important;margin-left: 10px;margin-bottom: 10px;}
 .ui.header .popup .content {line-height: 15px;}
 
+
+.clear{clear:both;}

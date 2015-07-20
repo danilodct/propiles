@@ -75,6 +75,20 @@ public class RelatorioView extends ProfisioActionSupport {
 		return REDIRECT;
 	}
 
+	public String actionExportEfetividade() {
+		try {
+			String path = SystemUtils.getPath() + "/report_efetividade.csv";
+			DataOutputStream doStream = new DataOutputStream(new FileOutputStream(path));
+			doStream.writeBytes(this.controller.getNovosCadastrosCSV(dataInicial, dataFinal));
+			doStream.flush();
+			doStream.close();
+			fileInputStream = new FileInputStream(path);
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		return REDIRECT;
+	}
+
 	public String actionFrequentes() {
 		try {
 			this.clientes = this.controller.getClientesFrequentes(dataInicial, dataFinal, colaborador, servico);
