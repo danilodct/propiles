@@ -15,6 +15,7 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.struts2.ServletActionContext;
 
 import br.com.profisio.basics.Servico;
+import br.com.profisio.basics.Usuario;
 import br.com.profisio.servico.ServicoControl;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -126,7 +127,11 @@ public class ProfisioActionSupport extends ActionSupport {
 			e.printStackTrace();
 			message = ProfisioException.EXCEPTION_MSG;
 			Mailer mailer = new Mailer();
-			mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs Vanity] Error", "Usuário: " + ProfisioSessionUtil.getUserSession().getId() + " \n" + ExceptionUtils.getStackTrace(e));
+			Usuario usuario = ProfisioSessionUtil.getUserSession();
+			String idUser = "não logado";
+			if (usuario != null)
+				idUser = usuario.getId() + "";
+			mailer.sendMail("danilo.dct@gmail.com", "[ProPilEs Vanity] Error", "Usuário: " + idUser + " \n" + ExceptionUtils.getStackTrace(e));
 			System.out.println("mandou gerar o email...");
 		}
 		addActionError(message);
