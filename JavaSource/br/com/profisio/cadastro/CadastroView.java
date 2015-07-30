@@ -1,5 +1,8 @@
 package br.com.profisio.cadastro;
 
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -47,8 +50,24 @@ public class CadastroView extends ProfisioActionSupport {
 
 	private Frequencia frequencia;
 
+	private FileInputStream fileInputStream;
+
 	public CadastroView() {
 		controller = CadastroControl.getInstance();
+	}
+
+	public String actionExportCadastros() {
+		try {
+			String path = SystemUtils.getPath() + "/report_cadastros.csv";
+			DataOutputStream doStream = new DataOutputStream(new FileOutputStream(path));
+			doStream.writeBytes(this.controller.getCadastrosCSV(getTenant(), nomeCliente));
+			doStream.flush();
+			doStream.close();
+			fileInputStream = new FileInputStream(path);
+		} catch (Exception e) {
+			this.dealException(e);
+		}
+		return REDIRECT;
 	}
 
 	public String actionEditarAvaliacao() {
@@ -417,6 +436,14 @@ public class CadastroView extends ProfisioActionSupport {
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+
+	public FileInputStream getFileInputStream() {
+		return fileInputStream;
+	}
+
+	public void setFileInputStream(FileInputStream fileInputStream) {
+		this.fileInputStream = fileInputStream;
 	}
 
 }

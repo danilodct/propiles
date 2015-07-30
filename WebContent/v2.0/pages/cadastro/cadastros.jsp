@@ -167,7 +167,7 @@
 							</div>
 						</div>
 					
-						<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Como o cliente tomou conhecimento deste estabelecimento? (ex.: Outdoor, Facebook, Visinhos, etc.)</h4>
+						<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Como o cliente tomou conhecimento deste estabelecimento? (ex.: Outdoor, Facebook, Vizinhos, etc.)</h4>
  						<div class="grouped fields">
  							<s:iterator value="allFormasConhecimento" >
  								<div class="field">
@@ -224,8 +224,17 @@
 		</div>
 
 
-		<!-- ÁREA LISTAGEM 88888888888888888888888888888888888888888888888888888888888888888888888 -->
+	
+		<!-- BOTOES PRINT EXCEL 88888888888888888888888888888888888888888888888888888888888888888888888 -->
+		<div class="ui column right floated">
+			<a href="exportCadastros?nomeCliente=<s:property value="nomeCliente" />" target="_blank" title="Exportar dados detalhados dos cadastros para Excel" >
+				<i class="file excel outline large teal icon"></i>
+			</a>
+		</div>
 		
+		<div class="clear"></div>
+		
+		<!-- ÁREA LISTAGEM 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		<div class="left floated column">
 			Mostrando <s:property value="clientes.size" /> de <s:property value="qtdItens" /> cadastros
 		</div>

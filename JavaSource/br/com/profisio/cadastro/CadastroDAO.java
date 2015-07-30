@@ -61,7 +61,9 @@ public class CadastroDAO extends DAOBase {
 			params.put("cpf", cpf + "%");
 		Collection<Cadastro> retorno = null;
 		if (start != null) {
-			retorno = imp.createNamedQuery("getCadastros", params).list().subList(start, end);
+			params.put("start", start);
+			params.put("end", end);
+			retorno = imp.createNamedQuery("getCadastrosLimitado", params).list().subList(start, end);
 		} else
 			retorno = imp.createNamedQuery("getCadastros", params).list();
 		return retorno;

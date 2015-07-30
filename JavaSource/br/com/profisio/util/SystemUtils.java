@@ -556,4 +556,15 @@ public class SystemUtils {
 		}
 		return senha;
 	}
+
+	public static String parseBooleanToSimNao(Boolean virouNovoCliente) {
+		String resposta = "";
+		if (virouNovoCliente != null) {
+			if (virouNovoCliente)
+				resposta = "Sim";
+			else
+				resposta = "Não";
+		}
+		return resposta;
+	}
 }

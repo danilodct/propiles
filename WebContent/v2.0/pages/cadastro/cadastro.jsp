@@ -518,7 +518,7 @@
 							</div>
 						</div>
 					
-						<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Como o cliente tomou conhecimento deste estabelecimento? (ex.: Outdoor, Facebook, Visinhos, etc.)</h4>
+						<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Como o cliente tomou conhecimento deste estabelecimento? (ex.: Outdoor, Facebook, Vizinhos, etc.)</h4>
  						<div class="grouped fields">
  							<s:iterator value="allFormasConhecimento" >
  								<div class="field">

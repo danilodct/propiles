@@ -66,6 +66,20 @@
 			]]>
 	</query>
 	
+	<sql-query name="getCadastrosLimitado">
+		<return alias="cli" class="br.com.profisio.basics.Cadastro"/>
+		<![CDATA[
+			select cli.*
+			from cadastro as cli
+			where tenant = :tenant
+			and (:nomeCliente is null or cli.nome like :nomeCliente)
+			and (:cpf is null or cli.cpf like :cpf)
+			and cli.statusObjeto = 'ATIVO'
+			order by cli.nome asc
+			limit :start , :end
+		]]>
+	</sql-query>
+	
 	<query name="getCadastros">
 			<![CDATA[
 			from Cadastro as cli

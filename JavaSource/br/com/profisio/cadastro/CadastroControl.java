@@ -245,4 +245,14 @@ public class CadastroControl extends ControllerBase {
 		return retorno;
 	}
 
+	public String getCadastrosCSV(Tenant tenant, String nomeCliente) {
+		String csv = "CLIENTE;E-MAIL;DATA NASCIMENTO;BAIRRO;SEXO\n";
+		Collection<Cadastro> cadastros = this.dao.getCadastros(tenant, nomeCliente, null, null, null);
+		if (cadastros != null && cadastros.size() > 0) {
+			for (Cadastro cadastro : cadastros) {
+				csv += cadastro.getNome() + ";" + cadastro.getEmail() + ";" + cadastro.getDataNascimentoStr() + ";" + cadastro.getEndereco().getBairro() + ";" + cadastro.getSexoStr() + "\n";
+			}
+		}
+		return csv;
+	}
 }

@@ -311,6 +311,24 @@
 			</result>
 		</action>
 		
+		<action name="exportCadastros" class="br.com.profisio.cadastro.CadastroView" method="actionExportCadastros">
+			<result name="redirect" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="cadastros.csv"</param>
+				<!-- <param name="bufferSize">1024</param> -->
+			</result>
+		</action>
+		
+		<action name="exportEfetividade" class="br.com.profisio.relatorio.RelatorioView" method="actionExportEfetividade">
+			<result name="redirect" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="efetividade.csv"</param>
+				<!-- <param name="bufferSize">1024</param> -->
+			</result>
+		</action>
+		
 		<!-- =========   FREQUENCIA ================ -->
 		
 		<action name="frequencia" class="br.com.profisio.frequencia.FrequenciaView" method="actionFrequencia">
