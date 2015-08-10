@@ -112,4 +112,12 @@ public class Agendamento extends ObjetoBasico {
 		this.dataFim = SystemUtils.aumentarMinutosData(this.dataInicio, String.valueOf(duracao));
 	}
 
+	public String getTituloTratado() {
+		String title = this.titulo;
+		if (title != null) {
+			title = title.replaceAll("\"", "\'");
+		}
+		return title;
+	}
+
 }
