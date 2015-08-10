@@ -88,6 +88,10 @@ public class AgendaControl extends ControllerBase {
 				String nota = agendamento.getNota();
 				if (nota == null)
 					nota = "";
+				nota = nota.replaceAll("\n", "");
+				nota = nota.replaceAll("\r", "");
+				nota = nota.replaceAll("\t", "");
+				nota = nota.replaceAll("\"", "\'");
 				String duracao = String.valueOf(agendamento.getDuracao());
 				if (duracao == null || duracao.equals("null"))
 					duracao = "";
@@ -118,7 +122,7 @@ public class AgendaControl extends ControllerBase {
 				if (agendamento.getAtividade() != null && agendamento.getAtividade().getContrato() != null)
 					atividade = agendamento.getAtividade().getContrato().getServico().getNome() + " - " + agendamento.getAtividade().getContrato().getColaborador().getNome();
 
-				retorno += ",{\"id\":\"" + agendamento.getIdCript() + "\",  \"pai\":\"" + paiIdCript + "\", \"cadastro\":\"" + cadastroIdCript + "\", \"atividade\":\"" + atividade + "\", \"backgroundColor\":\"" + cor + "\", \"borderColor\":\"" + cor + "\", \"textColor\":\"" + corTexto + "\", \"repeticao\":\"" + repeticoes + "\", \"cliente\":\"" + cliente + "\", \"nota\":\"" + nota + "\", \"horario\":\"" + agendamento.getHorario() + "\", \"title\":\"" + agendamento.getTitulo() + "\", \"duracao\":\"" + duracao + "\", \"dataInicial\":\"" + agendamento.getDataInicioStr() + "\",  \"start\":\"" + agendamento.getDataInicioStrEUA() + " " + agendamento.getHorario() + "\", \"dataFinal\":\"" + agendamento.getDataFimStr() + "\", \"end\":\"" + agendamento.getDataFimStrEUA() + " " + agendamento.getHorarioFinal() + "\", \"status\":\"" + agendamento.getStatusStr() + "\" }";
+				retorno += ",{\"id\":\"" + agendamento.getIdCript() + "\",  \"pai\":\"" + paiIdCript + "\", \"cadastro\":\"" + cadastroIdCript + "\", \"atividade\":\"" + atividade + "\", \"backgroundColor\":\"" + cor + "\", \"borderColor\":\"" + cor + "\", \"textColor\":\"" + corTexto + "\", \"repeticao\":\"" + repeticoes + "\", \"cliente\":\"" + cliente + "\", \"nota\":\"" + nota + "\", \"horario\":\"" + agendamento.getHorario() + "\", \"title\":\"" + agendamento.getTituloTratado() + "\", \"duracao\":\"" + duracao + "\", \"dataInicial\":\"" + agendamento.getDataInicioStr() + "\",  \"start\":\"" + agendamento.getDataInicioStrEUA() + " " + agendamento.getHorario() + "\", \"dataFinal\":\"" + agendamento.getDataFimStr() + "\", \"end\":\"" + agendamento.getDataFimStrEUA() + " " + agendamento.getHorarioFinal() + "\", \"status\":\"" + agendamento.getStatusStr() + "\" }";
 
 			}
 

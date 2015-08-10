@@ -188,4 +188,12 @@ public class Agendamento extends ObjetoBasico {
 		this.atividade = atividade;
 	}
 
+	public String getTituloTratado() {
+		String title = this.titulo;
+		if (title != null) {
+			title = title.replaceAll("\"", "\'");
+		}
+		return title;
+	}
+
 }
