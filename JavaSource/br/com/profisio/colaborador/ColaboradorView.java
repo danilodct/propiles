@@ -54,15 +54,19 @@ public class ColaboradorView extends ProfisioActionSupport {
 		String xml = XML_HEAD;
 		try {
 
-			this.contratos = this.controller.getContratosByServico(getTenant(), this.servico);
+			this.contratos = null;
+
 			xml += "<contratos>";
-			if (this.contratos != null && this.contratos.size() > 0) {
-				for (Contrato contrato : this.contratos) {
-					xml += "<contrato id=\"" + contrato.getIdCript() + "\"  >";
-					xml += "<colaborador>";
-					xml += contrato.getColaborador().getNome();
-					xml += "</colaborador>";
-					xml += "</contrato>";
+			if (this.servico != null) {
+				this.contratos = this.controller.getContratosByServico(getTenant(), this.servico);
+				if (this.contratos != null && this.contratos.size() > 0) {
+					for (Contrato contrato : this.contratos) {
+						xml += "<contrato id=\"" + contrato.getIdCript() + "\"  >";
+						xml += "<colaborador>";
+						xml += contrato.getColaborador().getNome();
+						xml += "</colaborador>";
+						xml += "</contrato>";
+					}
 				}
 			}
 			xml += "</contratos>";
