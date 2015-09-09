@@ -201,8 +201,7 @@ public class VendaView extends ProfisioActionSupport {
 			for (String str : categoriasProduto)
 				retorno.add(new ItemGeralUI(str, str));
 		}
-		if (retorno != null && retorno.size() > 0)
-			retorno.add(new ItemGeralUI("-1", "Outro"));
+		retorno.add(new ItemGeralUI("-1", "Outro"));
 		return retorno;
 	}
 
