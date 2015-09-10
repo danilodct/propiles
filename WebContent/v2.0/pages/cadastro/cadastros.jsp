@@ -79,19 +79,25 @@
 					
 					<s:form action="cadastrarCadastro" method="post">
 						<h4 class="ui dividing <s:property value="#session.profisio_user.tenant.corFinal" /> header">Dados Principais</h4>
-						<div class="required field">
-							<label>Nome:</label>
-							<s:textfield id="nome" name="cadastro.nome" />
+						<div class="two fields">
+							<div class="required field">
+								<label>Nome:</label>
+								<s:textfield id="nome" name="cadastro.nome" />
+							</div>
+							<div class="field">
+								<div class="two fields">
+									<div class="field">
+										<label>Sexo:</label>
+										<s:select name="cadastro.sexoStr" cssClass="ui dropdown" list="allSexos" listKey="value" listValue="valor" />
+									</div>
+									<div class="field">
+										<label>CPF:</label>
+										<s:textfield cssClass="cpf" name="cadastro.cpf" />
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="four fields">
-							<div class="field">
-								<label>Sexo:</label>
-								<s:select name="cadastro.sexoStr" cssClass="ui dropdown" list="allSexos" listKey="value" listValue="valor" />
-							</div>
-							<div class="field">
-								<label>CPF:</label>
-								<s:textfield cssClass="cpf" name="cadastro.cpf" />
-							</div>
 							<div class="field">
 								<label>Data de Nascimento:</label>
 								<div class="ui icon input">
@@ -103,8 +109,6 @@
 								<label>E-mail:</label>
 								<s:textfield name="cadastro.email" />
 							</div>
-						</div>
-						<div class="four fields">
 							<div class="field">
 								<label>Estado Civil:</label>
 								<s:select name="cadastro.estadoCivilStr" cssClass="ui dropdown" list="allEstadosCivil" listKey="value" listValue="valor" />
@@ -116,16 +120,26 @@
 									<i class="call icon"></i>
 								</div>
 							</div>
+						</div>
+						<div class="two fields">
 							<div class="field">
-								<label>Fone Celular:</label>
-								<div class="ui icon input">
-									<s:textfield cssClass="fone" name="cadastro.foneCelular" />
-									<i class="call icon"></i>
+								<div class="two fields">
+									<div class="field">
+										<label>Fone Celular:</label>
+										<div class="ui icon input">
+											<s:textfield cssClass="fone" name="cadastro.foneCelular" />
+											<i class="call icon"></i>
+										</div>
+									</div>
+									<div class="field">
+										<label>Profissão:</label>
+										<s:textfield name="cadastro.profissao" />
+									</div>
 								</div>
 							</div>
 							<div class="field">
-								<label>Profissão:</label>
-								<s:textfield name="cadastro.profissao" />
+								<label>Como deseja ser contactado (celular, whatsapp, etc):</label>
+								<s:textfield name="cadastro.preferenciaContato" />
 							</div>
 						</div>
 						

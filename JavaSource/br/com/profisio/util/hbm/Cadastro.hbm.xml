@@ -18,6 +18,7 @@
 		<property name="profissao" />
 		<property name="niver" />
 		<property name="conhecimentoStudio" />
+		<property name="preferenciaContato" />
 		<property name="sexo" type="br.com.profisio.basics.enums.SexoEnumType" />
 		<property name="estadoCivil" type="br.com.profisio.basics.enums.EstadoCivilEnumType" />
 		<property name="statusObjeto" type="br.com.profisio.basics.enums.StatusObjetoEnumType" />

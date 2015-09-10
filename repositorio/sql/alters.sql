@@ -1,1 +1,1 @@
-alter table agendamento add column atividade_id int(11);
+alter table cadastro add column preferenciaContato varchar(255); 
