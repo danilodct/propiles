@@ -304,23 +304,29 @@
 				<s:form id="formEditarCadastro" action="editarCadastro" method="post">
 					<s:hidden name="cadastro.id" />
 					<h4 class="ui dividing teal header">Dados Principais</h4>
-						<div class="required field">
-							<label>Nome:</label>
-							<div class="ui transparent input">
-								<s:textfield id="nome" name="cadastro.nome" />
+						<div class="two fields">
+							<div class="required field">
+								<label>Nome:</label>
+								<div class="ui transparent input">
+									<s:textfield id="nome" name="cadastro.nome" />
+								</div>
+							</div>
+							<div class="field">
+								<div class="two fields">
+									<div class="field">
+										<label>Sexo:</label>
+										<s:select name="cadastro.sexoStr" cssClass="ui disabled dropdown" list="allSexos" listKey="value" listValue="valor" />
+									</div>
+									<div class="field">
+										<label>CPF:</label>
+										<div class="ui transparent input">
+											<s:textfield cssClass="cpf" name="cadastro.cpf" />
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div class="four fields">
-							<div class="field">
-								<label>Sexo:</label>
-								<s:select name="cadastro.sexoStr" cssClass="ui disabled dropdown" list="allSexos" listKey="value" listValue="valor" />
-							</div>
-							<div class="field">
-								<label>CPF:</label>
-								<div class="ui transparent input">
-									<s:textfield cssClass="cpf" name="cadastro.cpf" />
-								</div>
-							</div>
 							<div class="field">
 								<label>Data de Nascimento:</label>
 								<div class="ui icon transparent input">
@@ -334,8 +340,6 @@
 									<s:textfield name="cadastro.email" />
 								</div>
 							</div>
-						</div>
-						<div class="four fields">
 							<div class="field">
 								<label>Estado Civil:</label>
 								<s:select name="cadastro.estadoCivilStr" cssClass="ui disabled dropdown" list="allEstadosCivil" listKey="value" listValue="valor" />
@@ -347,17 +351,29 @@
 									<i class="call icon"></i>
 								</div>
 							</div>
+						</div>
+						<div class="two fields">
 							<div class="field">
-								<label>Fone Celular:</label>
-								<div class="ui transparent icon input">
-									<s:textfield cssClass="fone" name="cadastro.foneCelular" />
-									<i class="call icon"></i>
+								<div class="two fields">
+									<div class="field">
+										<label>Fone Celular:</label>
+										<div class="ui transparent icon input">
+											<s:textfield cssClass="fone" name="cadastro.foneCelular" />
+											<i class="call icon"></i>
+										</div>
+									</div>
+									<div class="field">
+										<label>Profissão:</label>
+										<div class="ui transparent input">
+											<s:textfield name="cadastro.profissao" />
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="field">
-								<label>Profissão:</label>
+								<label>Como deseja ser contactado (celular, whatsapp, etc):</label>
 								<div class="ui transparent input">
-									<s:textfield name="cadastro.profissao" />
+									<s:textfield name="cadastro.preferenciaContato" />
 								</div>
 							</div>
 						</div>

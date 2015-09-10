@@ -7,6 +7,7 @@ import br.com.profisio.util.SystemUtils;
 
 public class Cadastro extends Pessoa {
 
+	private String preferenciaContato;
 	private String profissao;
 	private String conhecimentoStudio;
 	private Collection<Atividade> cadastros;
@@ -64,6 +65,14 @@ public class Cadastro extends Pessoa {
 
 	public void setVirouNovoCliente(boolean virouNovoCliente) {
 		this.virouNovoCliente = virouNovoCliente;
+	}
+
+	public String getPreferenciaContato() {
+		return preferenciaContato;
+	}
+
+	public void setPreferenciaContato(String preferenciaContato) {
+		this.preferenciaContato = preferenciaContato;
 	}
 
 }

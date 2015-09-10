@@ -1,3 +1,5 @@
+alter table cadastro add column preferenciaContato varchar(255);
+
 alter table servico add column statusObjeto varchar(20);
 update servico set statusObjeto = "ATIVO";
 
@@ -17,3 +19,4 @@ SELECT 'insert into tipocontapagar_novo (nome) values (\"', nome, '\");' FROM ti
 
 UPDATE contapagar cnta SET cnta.tipo = (SELECT tpn.id FROM tipocontapagar_novo tpn WHERE tpn.nome = cnta.tipo);
 ALTER TABLE contapagar CHANGE tipo tipo INT(11);
+
