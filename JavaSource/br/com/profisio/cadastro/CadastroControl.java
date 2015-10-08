@@ -57,8 +57,10 @@ public class CadastroControl extends ControllerBase {
 		return this.dao.getAllFormasConhecimento(tenant);
 	}
 
-	public Collection<Cadastro> getCadastros(Tenant tenant, String nomeCliente, String cpf, Integer pagAtual) {
-		Double qtdPag = this.getQtdPaginas(tenant, nomeCliente, cpf);
+	public Collection<Cadastro> getCadastros(Tenant tenant, String nomeCliente, String cpf, Boolean inativo, Integer pagAtual) {
+		if (inativo == null)
+			inativo = false;
+		Double qtdPag = this.getQtdPaginas(tenant, nomeCliente, cpf, inativo);
 		if (qtdPag == null || qtdPag <= 1)
 			pagAtual = null;
 		Integer start = null;
@@ -67,15 +69,17 @@ public class CadastroControl extends ControllerBase {
 			start = SystemUtils.getStartPaginacao(pagAtual, TAMANHO_PAGINACAO_CADASTRO);
 			end = SystemUtils.getEndPaginacao(pagAtual, qtdPag, TAMANHO_PAGINACAO_CADASTRO);
 		}
-		return this.dao.getCadastros(tenant, nomeCliente, cpf, start, end);
+		return this.dao.getCadastros(tenant, nomeCliente, cpf, inativo, start, end);
 	}
 
-	public Integer getQtdCadastros(Tenant tenant, String nomeCliente, String cpf) {
-		return this.dao.getQtdCadastros(tenant, nomeCliente, cpf);
+	public Integer getQtdCadastros(Tenant tenant, String nomeCliente, String cpf, Boolean inativo) {
+		if (inativo == null)
+			inativo = false;
+		return this.dao.getQtdCadastros(tenant, nomeCliente, cpf, inativo);
 	}
 
-	public Double getQtdPaginas(Tenant tenant, String nomeCliente, String cpf) {
-		Integer qtdTotal = this.getQtdCadastros(tenant, nomeCliente, cpf);
+	public Double getQtdPaginas(Tenant tenant, String nomeCliente, String cpf, Boolean inativo) {
+		Integer qtdTotal = this.getQtdCadastros(tenant, nomeCliente, cpf, inativo);
 		return qtdTotal / new Double(TAMANHO_PAGINACAO_CADASTRO);
 	}
 
@@ -245,14 +249,21 @@ public class CadastroControl extends ControllerBase {
 		return retorno;
 	}
 
-	public String getCadastrosCSV(Tenant tenant, String nomeCliente) {
+	public String getCadastrosCSV(Tenant tenant, String nomeCliente, Boolean inativo) {
 		String csv = "CLIENTE;E-MAIL;DATA NASCIMENTO;BAIRRO;SEXO\n";
-		Collection<Cadastro> cadastros = this.dao.getCadastros(tenant, nomeCliente, null, null, null);
+		if (inativo == null)
+			inativo = false;
+		Collection<Cadastro> cadastros = this.dao.getCadastros(tenant, nomeCliente, null, inativo, null, null);
 		if (cadastros != null && cadastros.size() > 0) {
 			for (Cadastro cadastro : cadastros) {
 				csv += cadastro.getNome() + ";" + cadastro.getEmail() + ";" + cadastro.getDataNascimentoStr() + ";" + cadastro.getEndereco().getBairro() + ";" + cadastro.getSexoStr() + "\n";
 			}
 		}
 		return csv;
+	}
+
+	public void atualizarCadastrosInativos() {
+		this.dao.atualizarCadastrosInativos();
+		this.dao.atualizarCadastrosAtivos();
 	}
 }

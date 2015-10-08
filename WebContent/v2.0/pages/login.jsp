@@ -7,6 +7,7 @@
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
+<link rel="stylesheet" type="text/css" href="v2.0/css/lib/styles-extras.css" />
 <script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/scripts.js" ></script>

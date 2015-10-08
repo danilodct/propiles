@@ -42,7 +42,7 @@
 				</div>
 			</div>
 		</div>
-	    <a class="item" href="cadastros" id="menuCadastros">Cadastros</a>
+	    <a class="item" href="cadastros" id="menuCadastros">Clientes</a>
 	<s:if test="#session.profisio_user.tipo.value != 'PROFESSOR'">
 		<div class="ui dropdown item" id="subMenuVendas">
 			<i class="dropdown icon"></i> 

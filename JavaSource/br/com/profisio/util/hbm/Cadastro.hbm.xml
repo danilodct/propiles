@@ -19,6 +19,7 @@
 		<property name="niver" />
 		<property name="conhecimentoStudio" />
 		<property name="preferenciaContato" />
+		<property name="inativo"><column name="inativo" sql-type="tinyint(1)" /></property>
 		<property name="sexo" type="br.com.profisio.basics.enums.SexoEnumType" />
 		<property name="estadoCivil" type="br.com.profisio.basics.enums.EstadoCivilEnumType" />
 		<property name="statusObjeto" type="br.com.profisio.basics.enums.StatusObjetoEnumType" />
@@ -75,6 +76,7 @@
 			where tenant = :tenant
 			and (:nomeCliente is null or cli.nome like :nomeCliente)
 			and (:cpf is null or cli.cpf like :cpf)
+			and cli.inativo = :inativo
 			and cli.statusObjeto = 'ATIVO'
 			order by cli.nome asc
 			limit :start , :end
@@ -87,6 +89,7 @@
 			where tenant = :tenant
 			and (:nomeCliente is null or cli.nome like :nomeCliente)
 			and (:cpf is null or cli.cpf like :cpf)
+			and cli.inativo = :inativo
 			and cli.statusObjeto = 'ATIVO'
 			order by cli.nome asc
 			]]>
@@ -100,6 +103,7 @@
 			cli.tenant = :tenant
 			and (:nomeCliente is null or cli.nome like :nomeCliente)
 			and (:cpf is null or cli.cpf like :cpf)
+			and (cli.inativo = :inativo)
 			and cli.statusObjeto = 'ATIVO'
 			]]>
 	</query>
@@ -243,6 +247,28 @@
 			freq.tenant_id = :tenant
 			AND freq.data >= :dataInicial AND freq.data <= :dataFinal
 			AND cad.statusObjeto = 'ATIVO'
+		]]>
+	</sql-query>
+	
+	<sql-query name="atualizarCadastrosInativos">
+		<![CDATA[
+		update cadastro set inativo = 1 where id not in
+		(
+			select freq.cliente_id
+			from frequencia as freq
+			where freq.data >= DATE_SUB(NOW(), INTERVAL 90 DAY)
+		)
+		]]>
+	</sql-query>
+	
+	<sql-query name="atualizarCadastrosAtivos">
+		<![CDATA[
+		update cadastro set inativo = 0 where id in
+		(
+			select freq.cliente_id
+			from frequencia as freq
+			where freq.data >= DATE_SUB(NOW(), INTERVAL 90 DAY)
+		)
 		]]>
 	</sql-query>
 	

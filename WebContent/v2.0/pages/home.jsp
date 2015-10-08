@@ -10,6 +10,7 @@
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
+<link rel="stylesheet" type="text/css" href="v2.0/css/lib/styles-extras.css" />
 
 <script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
@@ -184,6 +185,7 @@
 
 	<!-- DASHBOARD 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 	<div class="ui two column grid" style="width: 99%; padding-left: 3rem;" >
+	<!-- 
 		<div class="ui column grid" >
 			<div class="ui column " >
 				<h2 class="ui small header"><i class="<s:property value="#session.profisio_user.tenant.corFinal" /> feed icon"></i> Novidades do sistema</h2>
@@ -192,7 +194,9 @@
 					  	<div class="item">
 						    <div class="content">
 						      <div class="header">Últimas Atualizações</div>
-						      <!-- 20/03/2015 às 13:00 -->
+	-->
+						      <!-- 20/03/2015 às 13:00-->
+	<!--
 						      <div class="list">
 						        <div class="item">
 						          <i class="right triangle top aligned icon"></i>
@@ -208,6 +212,7 @@
 				</div>
 			</div>
 		</div>
+	 -->
 		<div class="ui column grid" style="padding-top:0 !important">
 			<div class="ui column " >
 				<h2 class="ui small header"><i class="<s:property value="#session.profisio_user.tenant.corFinal" /> wizard icon"></i> Dicas para utilização do sistema</h2>

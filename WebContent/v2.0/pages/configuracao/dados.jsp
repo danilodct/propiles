@@ -10,6 +10,7 @@
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
+<link rel="stylesheet" type="text/css" href="v2.0/css/lib/styles-extras.css" />
 <style type="text/css">
 .button.actived{border:5px solid red;}
 </style>

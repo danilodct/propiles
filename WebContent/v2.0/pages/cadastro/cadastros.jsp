@@ -10,6 +10,7 @@
 <title><s:text name="TITULO_SISTEMA" /></title>
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/jquery.ui.css" />
 <link rel="stylesheet" type="text/css" href="v2.0/css/lib/semantic.css" />
+<link rel="stylesheet" type="text/css" href="v2.0/css/lib/styles-extras.css" />
 
 <script type="text/javascript" src="v2.0/js/lib/jquery.semantic.js" ></script>
 <script type="text/javascript" src="v2.0/js/lib/jquery.ui.mask.js" ></script>
@@ -50,7 +51,7 @@
 		<div class="ui dividing  header">
 			<i class="users <s:property value="#session.profisio_user.tenant.corFinal" /> circular inverted icon"></i>
 			<div class="content">
-				Cadastros
+				Clientes
 				<div class="sub header">Todos os cadastros já feitos de visitantes ou clientes</div>
 			</div>
 		</div>
@@ -74,7 +75,7 @@
 				<div class="ui form segment">
 					<div class="ui block <s:property value="#session.profisio_user.tenant.corFinal" /> header">
 						<i class="add <s:property value="#session.profisio_user.tenant.corFinal" /> icon"></i>
-						<div class="content"> Inserir novo Cadastro</div>
+						<div class="content"> Inserir novo Cliente</div>
 					</div>
 					
 					<s:form action="cadastrarCadastro" method="post">
@@ -219,7 +220,7 @@
 		<div class="ui areaSearch centered grid" >
 			<div class="eleven wide column">
 				<s:form action="cadastros" cssClass="ui form fluid" id="formPesquisa">
-					<div class="three fields">
+					<div class="four fields">
 						<div class="field">
 							<label>Nome do cliente</label>
 							<s:textfield name="nomeCliente" /> 	
@@ -227,6 +228,13 @@
 						<div class="field">
 							<label>CPF</label>
 							<s:textfield name="cpf" cssClass="cpf" /> 	
+						</div>
+						<div class="field">
+							<label>Situação <i class="help circle icon hint" data-content="Clientes com frequência nos últimos 90 dias são considerados ativos." data-variation="inverted" ></i></label>
+							<select class="ui dropdown" name="statusCadastro" >
+								<option value="0" <s:if test="statusCadastro == 0">selected="selected"</s:if> >Ativo</option>
+								<option value="1" <s:if test="statusCadastro == 1">selected="selected"</s:if> >Inativo</option>
+							</select> 	
 						</div>
 						<div class="field">
 							<label class="visibilityHidden">Botão</label>
@@ -241,7 +249,7 @@
 	
 		<!-- BOTOES PRINT EXCEL 88888888888888888888888888888888888888888888888888888888888888888888888 -->
 		<div class="ui column right floated">
-			<a href="exportCadastros?nomeCliente=<s:property value="nomeCliente" />" target="_blank" title="Exportar dados detalhados dos cadastros para Excel" >
+			<a href="exportCadastros?nomeCliente=<s:property value="nomeCliente" />&statusCadastro=<s:property value="statusCadastro" />" target="_blank" title="Exportar dados detalhados dos clientes para Excel" >
 				<i class="file excel outline large teal icon"></i>
 			</a>
 		</div>
