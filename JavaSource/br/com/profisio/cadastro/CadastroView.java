@@ -448,14 +448,18 @@ public class CadastroView extends ProfisioActionSupport {
 	}
 
 	public Integer getStatusCadastro() {
-		Integer statusCadastroInt = 0;
+		Integer statusCadastroInt = -1;
 		if (this.statusCadastro != null && this.statusCadastro)
 			statusCadastroInt = 1;
+		else if (this.statusCadastro != null && !this.statusCadastro)
+			statusCadastroInt = 0;
 		return statusCadastroInt;
 	}
 
 	public void setStatusCadastro(Integer statusCadastro) {
-		if (statusCadastro == null || statusCadastro == 0)
+		if (statusCadastro == null || statusCadastro == -1)
+			this.statusCadastro = null;
+		else if (statusCadastro == 0)
 			this.statusCadastro = false;
 		else
 			this.statusCadastro = true;

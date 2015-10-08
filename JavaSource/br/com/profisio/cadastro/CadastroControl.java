@@ -58,8 +58,6 @@ public class CadastroControl extends ControllerBase {
 	}
 
 	public Collection<Cadastro> getCadastros(Tenant tenant, String nomeCliente, String cpf, Boolean inativo, Integer pagAtual) {
-		if (inativo == null)
-			inativo = false;
 		Double qtdPag = this.getQtdPaginas(tenant, nomeCliente, cpf, inativo);
 		if (qtdPag == null || qtdPag <= 1)
 			pagAtual = null;
@@ -73,8 +71,6 @@ public class CadastroControl extends ControllerBase {
 	}
 
 	public Integer getQtdCadastros(Tenant tenant, String nomeCliente, String cpf, Boolean inativo) {
-		if (inativo == null)
-			inativo = false;
 		return this.dao.getQtdCadastros(tenant, nomeCliente, cpf, inativo);
 	}
 
@@ -107,6 +103,7 @@ public class CadastroControl extends ControllerBase {
 		cadastro.setDataCadastro(cadastroBD.getDataCadastro());
 		cadastro.setStatusObjeto(StatusObjeto.ATIVO);
 		cadastro.setTenant(tenant);
+		cadastro.setInativo(cadastroBD.getInativo());
 		this.dao.editar(cadastro);
 	}
 
@@ -121,6 +118,7 @@ public class CadastroControl extends ControllerBase {
 
 		cadastro.setDataCadastro(new Date());
 		cadastro.setStatusObjeto(StatusObjeto.ATIVO);
+		cadastro.setInativo(true);
 		SystemUtils.gerarNiver(cadastro);
 		cadastro.setTenant(tenant);
 		this.dao.cadastrar(cadastro);
@@ -251,8 +249,6 @@ public class CadastroControl extends ControllerBase {
 
 	public String getCadastrosCSV(Tenant tenant, String nomeCliente, Boolean inativo) {
 		String csv = "CLIENTE;E-MAIL;DATA NASCIMENTO;BAIRRO;SEXO\n";
-		if (inativo == null)
-			inativo = false;
 		Collection<Cadastro> cadastros = this.dao.getCadastros(tenant, nomeCliente, null, inativo, null, null);
 		if (cadastros != null && cadastros.size() > 0) {
 			for (Cadastro cadastro : cadastros) {
@@ -265,5 +261,10 @@ public class CadastroControl extends ControllerBase {
 	public void atualizarCadastrosInativos() {
 		this.dao.atualizarCadastrosInativos();
 		this.dao.atualizarCadastrosAtivos();
+	}
+
+	public void setCadastroAtivoByFrequencia(Frequencia frequencia) {
+		SystemUtils.assertObjectIsNotNullHasId(frequencia);
+		this.dao.setCadastroAtivoByFrequencia(frequencia);
 	}
 }

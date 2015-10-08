@@ -232,6 +232,7 @@
 						<div class="field">
 							<label>Situação <i class="help circle icon hint" data-content="Clientes com frequência nos últimos 90 dias são considerados ativos." data-variation="inverted" ></i></label>
 							<select class="ui dropdown" name="statusCadastro" >
+								<option value="-1" <s:if test="statusCadastro == -1">selected="selected"</s:if> >Todos</option>
 								<option value="0" <s:if test="statusCadastro == 0">selected="selected"</s:if> >Ativo</option>
 								<option value="1" <s:if test="statusCadastro == 1">selected="selected"</s:if> >Inativo</option>
 							</select> 	

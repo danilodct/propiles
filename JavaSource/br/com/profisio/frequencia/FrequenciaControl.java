@@ -9,6 +9,7 @@ import java.util.GregorianCalendar;
 import br.com.profisio.basics.Colaborador;
 import br.com.profisio.basics.ContaReceber;
 import br.com.profisio.basics.Frequencia;
+import br.com.profisio.cadastro.CadastroControl;
 import br.com.profisio.financeiro.FinanceiroControl;
 import br.com.profisio.util.ControllerBase;
 import br.com.profisio.util.ProfisioBundleUtil;
@@ -91,11 +92,12 @@ public class FrequenciaControl extends ControllerBase {
 		frequencia.setNovo(true);
 		frequencia.setTenant(tenant);
 		this.dao.cadastar(frequencia);
+		CadastroControl.getInstance().setCadastroAtivoByFrequencia(frequencia);
 	}
 
 	public Integer getQtdFrequenciasByPagamento(Tenant tenant, ContaReceber conta) {
 		SystemUtils.assertObjectIsNotNullHasId(conta);
-		//já faz a checagem de posse do tenant
+		// já faz a checagem de posse do tenant
 		conta = FinanceiroControl.getInstance().getContaReceber(tenant, conta);
 		return this.dao.getQtdFrequenciasByPagamento(conta);
 	}
