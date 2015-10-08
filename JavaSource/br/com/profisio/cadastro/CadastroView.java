@@ -45,6 +45,7 @@ public class CadastroView extends ProfisioActionSupport {
 	private Avaliacao avaliacao;
 	private String nomeCliente, outraFormaConhecimento, aba, avaliacaoId;
 	private double totalValorContasReceber;
+	private Boolean statusCadastro;
 
 	private Frequencia frequencia;
 
@@ -58,7 +59,7 @@ public class CadastroView extends ProfisioActionSupport {
 		try {
 			String path = SystemUtils.getPath() + "/report_cadastros.csv";
 			DataOutputStream doStream = new DataOutputStream(new FileOutputStream(path));
-			doStream.writeBytes(this.controller.getCadastrosCSV(nomeCliente));
+			doStream.writeBytes(this.controller.getCadastrosCSV(nomeCliente, statusCadastro));
 			doStream.flush();
 			doStream.close();
 			fileInputStream = new FileInputStream(path);
@@ -213,9 +214,9 @@ public class CadastroView extends ProfisioActionSupport {
 		try {
 			if (getPagAtual() == null)
 				setPagAtual(1);
-			this.setQtdItens(this.controller.getQtdCadastros(null, null));
-			this.setQtdPaginas(this.controller.getQtdPaginas(nomeCliente, cpf));
-			this.clientes = this.controller.getCadastros(nomeCliente, cpf, getPagAtual());
+			this.setQtdItens(this.controller.getQtdCadastros(null, null, statusCadastro));
+			this.setQtdPaginas(this.controller.getQtdPaginas(nomeCliente, cpf, statusCadastro));
+			this.clientes = this.controller.getCadastros(nomeCliente, cpf, statusCadastro, getPagAtual());
 		} catch (Exception e) {
 			this.dealException(e);
 		}
@@ -417,4 +418,17 @@ public class CadastroView extends ProfisioActionSupport {
 		this.fileInputStream = fileInputStream;
 	}
 
+	public Integer getStatusCadastro() {
+		Integer statusCadastroInt = 0;
+		if (this.statusCadastro != null && this.statusCadastro)
+			statusCadastroInt = 1;
+		return statusCadastroInt;
+	}
+
+	public void setStatusCadastro(Integer statusCadastro) {
+		if (statusCadastro == null || statusCadastro == 0)
+			this.statusCadastro = false;
+		else
+			this.statusCadastro = true;
+	}
 }

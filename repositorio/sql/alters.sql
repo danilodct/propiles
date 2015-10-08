@@ -20,3 +20,5 @@ SELECT 'insert into tipocontapagar_novo (nome) values (\"', nome, '\");' FROM ti
 UPDATE contapagar cnta SET cnta.tipo = (SELECT tpn.id FROM tipocontapagar_novo tpn WHERE tpn.nome = cnta.tipo);
 ALTER TABLE contapagar CHANGE tipo tipo INT(11);
 
+alter table cadastro add column inativo tinyint(1) default 0;
+update cadastro set inativo = 0;

@@ -46,8 +46,9 @@ public class CadastroDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Cadastro> getCadastros(String nomeCliente, String cpf, Integer start, Integer end) {
+	public Collection<Cadastro> getCadastros(String nomeCliente, String cpf, Boolean inativo, Integer start, Integer end) {
 		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("inativo", inativo);
 		params.put("nomeCliente", nomeCliente);
 		if (nomeCliente != null)
 			params.put("nomeCliente", nomeCliente + "%");
@@ -65,8 +66,9 @@ public class CadastroDAO extends DAOBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Integer getQtdCadastros(String nomeCliente, String cpf) {
+	public Integer getQtdCadastros(String nomeCliente, String cpf, Boolean inativo) {
 		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("inativo", inativo);
 		params.put("nomeCliente", nomeCliente);
 		if (nomeCliente != null)
 			params.put("nomeCliente", nomeCliente + "%");
@@ -149,4 +151,11 @@ public class CadastroDAO extends DAOBase {
 		return this.imp.createNamedQuery("getAgendamentosByCadastro", params).list();
 	}
 
+	public void atualizarCadastrosInativos() {
+		this.imp.execute("atualizarCadastrosInativos");
+	}
+
+	public void atualizarCadastrosAtivos() {
+		this.imp.execute("atualizarCadastrosAtivos");
+	}
 }

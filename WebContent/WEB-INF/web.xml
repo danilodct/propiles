@@ -15,4 +15,11 @@
   <session-config>
     <session-timeout>1440</session-timeout>
   </session-config>
+  
+	<servlet>
+		<display-name>Scheduler Servlet</display-name>
+		<servlet-name>SchedulerServlet</servlet-name>
+		<servlet-class>br.com.profisio.util.MaquinaTimer</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 </web-app>

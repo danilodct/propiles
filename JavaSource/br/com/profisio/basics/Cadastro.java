@@ -8,6 +8,7 @@ import br.com.profisio.util.SystemUtils;
 public class Cadastro extends Pessoa {
 
 	private String preferenciaContato;
+	private Boolean inativo;
 	private String profissao;
 	private String conhecimentoStudio;
 	private Collection<Atividade> cadastros;
@@ -73,6 +74,14 @@ public class Cadastro extends Pessoa {
 
 	public void setPreferenciaContato(String preferenciaContato) {
 		this.preferenciaContato = preferenciaContato;
+	}
+
+	public Boolean getInativo() {
+		return inativo;
+	}
+
+	public void setInativo(Boolean inativo) {
+		this.inativo = inativo;
 	}
 
 }
