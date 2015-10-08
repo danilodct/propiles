@@ -158,4 +158,11 @@ public class CadastroDAO extends DAOBase {
 	public void atualizarCadastrosAtivos() {
 		this.imp.execute("atualizarCadastrosAtivos");
 	}
+
+	@SuppressWarnings("unchecked")
+	public void setCadastroAtivoByFrequencia(Frequencia frequencia) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("frequencia", frequencia);
+		this.imp.execute("setCadastroAtivoByFrequencia", params);
+	}
 }

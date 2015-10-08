@@ -72,7 +72,7 @@
 			where 
 				(:nomeCliente is null or cli.nome like :nomeCliente)
 			and (:cpf is null or cli.cpf like :cpf)
-			and cli.inativo = :inativo
+			and (:inativo is null or cli.inativo = :inativo)
 			and cli.statusObjeto = 'ATIVO'
 			order by cli.nome asc
 			limit :start , :end
@@ -86,7 +86,7 @@
 			(:nomeCliente is null or cli.nome like :nomeCliente)
 			and
 			(:cpf is null or cli.cpf like :cpf)
-			and cli.inativo = :inativo
+			and (:inativo is null or cli.inativo = :inativo)
 			and cli.statusObjeto = 'ATIVO'
 			order by cli.nome asc
 			]]>
@@ -100,7 +100,7 @@
 			(:nomeCliente is null or cli.nome like :nomeCliente)
 			and
 			(:cpf is null or cli.cpf like :cpf)
-			and (cli.inativo = :inativo)
+			and (:inativo is null or cli.inativo = :inativo)
 			and cli.statusObjeto = 'ATIVO'
 			]]>
 	</query>
@@ -255,6 +255,12 @@
 			from frequencia as freq
 			where freq.data >= DATE_SUB(NOW(), INTERVAL 90 DAY)
 		)
+		]]>
+	</sql-query>
+	
+	<sql-query name="setCadastroAtivoByFrequencia">
+		<![CDATA[
+		update cadastro set inativo = 0 where id in (select cliente_id from frequencia where id = :frequencia)
 		]]>
 	</sql-query>
 	
