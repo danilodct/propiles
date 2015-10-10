@@ -14,6 +14,11 @@ public class Cadastro extends Pessoa {
 	private Collection<Atividade> cadastros;
 	private Date dataCadastro;
 
+	@Override
+	public String toString() {
+		return this.getNome();
+	}
+
 	// não persistido
 	private boolean virouNovoCliente;
 

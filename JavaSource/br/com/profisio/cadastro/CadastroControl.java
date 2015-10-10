@@ -56,6 +56,8 @@ public class CadastroControl extends ControllerBase {
 	}
 
 	public Collection<Cadastro> getCadastros(String nomeCliente, String cpf, Boolean inativo, Integer pagAtual) {
+		if (nomeCliente != null && nomeCliente.equals(""))
+			nomeCliente = null;
 		Double qtdPag = this.getQtdPaginas(nomeCliente, cpf, inativo);
 		if (qtdPag == null || qtdPag <= 1)
 			pagAtual = null;
@@ -63,7 +65,9 @@ public class CadastroControl extends ControllerBase {
 		Integer end = null;
 		if (pagAtual != null) {
 			start = SystemUtils.getStartPaginacao(pagAtual, TAMANHO_PAGINACAO_CADASTRO);
-			end = SystemUtils.getEndPaginacao(pagAtual, qtdPag, TAMANHO_PAGINACAO_CADASTRO);
+			end = TAMANHO_PAGINACAO_CADASTRO;// SystemUtils.getEndPaginacao(pagAtual,
+												// qtdPag,
+												// TAMANHO_PAGINACAO_CADASTRO);
 		}
 		return this.dao.getCadastros(nomeCliente, cpf, inativo, start, end);
 	}
