@@ -65,7 +65,9 @@ public class CadastroControl extends ControllerBase {
 		Integer end = null;
 		if (pagAtual != null) {
 			start = SystemUtils.getStartPaginacao(pagAtual, TAMANHO_PAGINACAO_CADASTRO);
-			end = SystemUtils.getEndPaginacao(pagAtual, qtdPag, TAMANHO_PAGINACAO_CADASTRO);
+			end = TAMANHO_PAGINACAO_CADASTRO;// SystemUtils.getEndPaginacao(pagAtual,
+												// qtdPag,
+												// TAMANHO_PAGINACAO_CADASTRO);
 		}
 		return this.dao.getCadastros(tenant, nomeCliente, cpf, inativo, start, end);
 	}
