@@ -190,7 +190,7 @@
   					<i class="circular teal users icon"></i>
   					<div class="content">Para quem?</div>
   				</div>
-                <p>O ProPilEs é um Sistema para Studio de Pilates, Clínicas de Estética e Fisioterapia. Porém o sistema foi implementado de tal forma que outros estabelecimentos (studio/salão de beleza, academia, etc.) podem fazer uso com total contentamento.</p>
+                <div class="content">O ProPilEs é um <h1>Sistema para Studio de Pilates, Clínicas de Estética e Fisioterapia</h1>. Porém o sistema foi implementado de tal forma que outros estabelecimentos (studio/salão de beleza, academia, etc.) podem fazer uso com total contentamento.</div>
             </div>
             <div class="column">
                 <div class="ui header">
