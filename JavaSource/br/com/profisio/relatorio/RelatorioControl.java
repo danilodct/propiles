@@ -212,7 +212,7 @@ public class RelatorioControl extends ControllerBase {
 	}
 
 	public String getAtividadesClientesCSV(Date dataInicial, Date dataFinal) {
-		String csv = "CLIENTE;E-MAIL;DATA NASCIMENTO;BAIRRO;SEXO;SERVIÇO;DATA FREQUENCIA\n";
+		String csv = "CLIENTE;CPF;E-MAIL;DATA NASCIMENTO;BAIRRO;SEXO;SERVIÇO;DATA FREQUENCIA\n";
 		// se o usuário nao informou data inicio e fim, vai pegar paenas
 		if (dataInicial == null && dataFinal == null) {
 			dataInicial = SystemUtils.getPrimeiroDiaMesAtual(null);
@@ -224,7 +224,7 @@ public class RelatorioControl extends ControllerBase {
 		Collection<Frequencia> frequencias = FrequenciaControl.getInstance().getFrequencias(dataInicial, dataFinal);
 		if (frequencias != null && frequencias.size() > 0) {
 			for (Frequencia frequencia : frequencias) {
-				csv += frequencia.getCadastro().getNome() + ";" + frequencia.getCadastro().getEmail() + ";" + frequencia.getCadastro().getDataNascimentoStr() + ";" + frequencia.getCadastro().getEndereco().getBairro() + ";" + frequencia.getCadastro().getSexoStr() + ";" + frequencia.getServicoCerto().getNome() + ";" + SystemUtils.parseDataToString(frequencia.getData()) + "\n";
+				csv += frequencia.getCadastro().getNome() + ";" +frequencia.getCadastro().getCpf() + ";" + frequencia.getCadastro().getEmail() + ";" + frequencia.getCadastro().getDataNascimentoStr() + ";" + frequencia.getCadastro().getEndereco().getBairro() + ";" + frequencia.getCadastro().getSexoStr() + ";" + frequencia.getServicoCerto().getNome() + ";" + SystemUtils.parseDataToString(frequencia.getData()) + "\n";
 			}
 		}
 		return csv;
