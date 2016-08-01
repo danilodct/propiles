@@ -73,7 +73,7 @@
 		<![CDATA[
 			select cli.*
 			from cadastro as cli
-			where tenant = :tenant
+			where tenant_id = :tenant
 			and (:nomeCliente is null or cli.nome like :nomeCliente)
 			and (:cpf is null or cli.cpf like :cpf)
 			and (:inativo is null or cli.inativo = :inativo)
